@@ -1022,3 +1022,15 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 @media (prefers-reduced-motion:reduce){
   #mapsvg path[data-from],#mapsvg text[data-from]{transition:none}
 }
+
+/* Company marks on the value-chain chips. Logos sit on a light plate so marks
+   drawn in dark ink stay legible on the dark theme, where many would otherwise
+   disappear into the chip. */
+.co-logo{width:15px; height:15px; flex:none; object-fit:contain;
+  background:#fff; border-radius:3px; padding:1px; box-shadow:0 0 0 1px rgba(23,32,42,.07)}
+.chain-node.has-logo{display:inline-flex; align-items:center; gap:6px}
+a.chain-node.is-link.has-logo{gap:6px}
+:root[data-theme="dark"] .co-logo{box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .co-logo{box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+}
