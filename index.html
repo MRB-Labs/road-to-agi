@@ -56,10 +56,11 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
         </div>
         <p class="d-sub">Energy and materials are the base pair, both drawn directly from the physical world. Everything above them is a claim on something dug up, refined and powered. The physical world itself is not a layer — it is the ground the whole structure stands on, and the place embodied machines eventually do their work.</p>
         <div class="map-shell">
-        <svg id="mapsvg" viewBox="0 -52 1220 1012" role="group" aria-labelledby="d1t d1d">
+        <svg id="mapsvg" viewBox="0 -92 1220 1052" role="group" aria-labelledby="d1t d1d">
           <title id="d1t">The AGI infrastructure map</title>
           <desc id="d1d">The physical world sits above the stack, its title and description centred over the globe, with two symmetric dashed paths running down the outside edges into energy and materials, the base pair. A central column runs from embodied hardware down through data centres, compute silicon and AI models, with software beside it and semiconductors to the right. Energy runs to the fleet, the halls, the silicon and the fabs. Materials run into the grid and up into semiconductors, compute silicon, data centres and embodiment. Semiconductors run into compute silicon, data centres and embodiment. Every numbered layer carries a small line-drawn mark at the right of its box and is a link to its full treatment.</desc>
           <defs>
+            <clipPath id="globeClip"><circle cx="610" cy="88" r="62"/></clipPath>
             <clipPath id="waferClip"><circle cx="22" cy="22" r="13.6"/></clipPath>
             <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
               <path d="M1.5 1.2 L8 5 L1.5 8.8" fill="none" class="mk" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
@@ -84,31 +85,37 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
 
           <!-- The physical world: the ground, not a layer. Title and description
                sit above the globe so the two dashed paths can leave it symmetrically. -->
-          <text class="bt" x="610" y="-30" text-anchor="middle">The physical world</text>
-          <text class="bs" x="610" y="-8" text-anchor="middle">where energy is captured, where materials are extracted,</text>
-          <text class="bs" x="610" y="12" text-anchor="middle">and where embodied machines eventually do the work.</text>
-          <g class="worldnode" data-layer="0">
-            <rect x="556" y="46" width="108" height="108" fill="transparent"/>
-          <circle class="sea" cx="610" cy="100" r="46" stroke-width="1.5"/>
-          <path class="leaf" d="M578 82 C588 66 604 60 612 65 C619 70 613 78 622 81 C631 85 641 80 647 89 C653 98 645 104 638 108 C629 114 634 124 624 132 C612 141 599 135 597 125 C596 117 585 117 580 109 C575 101 571 92 578 82Z" opacity=".92"/>
-          <path class="leaf" d="M630 60 C639 65 647 73 653 83 C645 79 638 75 631 75 C624 74 623 67 630 60Z" opacity=".72"/>
-          <path class="leaf" d="M589 129 C581 122 574 113 570 102 C576 107 583 110 589 113 C595 117 595 125 589 129Z" opacity=".72"/>
-          </g>
+          <text class="bt" x="610" y="-66" text-anchor="middle">The physical world</text>
+          <text class="bs" x="610" y="-44" text-anchor="middle">where energy is captured, where materials are extracted,</text>
+          <text class="bs" x="610" y="-24" text-anchor="middle">and where embodied machines eventually do the work.</text>
+          <a class="worldnode" data-layer="0" href="stack.html#layer-0" aria-label="The physical world — open it in full">
+            <rect x="536" y="14" width="148" height="148" fill="transparent"/>
+            <circle class="sea" cx="610" cy="88" r="62" stroke-width="1.8"/>
+            <g clip-path="url(#globeClip)">
+              <path class="leaf" d="M597 60 C607 55 621 57 630 64 C637 70 634 80 630 89 C627 97 628 106 623 115 C619 126 612 137 606 143 C599 149 592 145 591 136 C590 125 585 114 581 105 C577 95 580 81 585 70 C588 64 593 62 597 60Z" opacity=".95"/>
+              <path class="leaf" d="M586 42 C594 37 605 37 613 41 C619 44 620 50 615 53 C609 57 599 55 592 58 C586 60 580 51 586 42Z" opacity=".88"/>
+              <path class="leaf" d="M604 26 C610 22 619 24 621 30 C623 36 617 40 611 38 C605 36 600 30 604 26Z" opacity=".8"/>
+              <path class="leaf" d="M633 52 C645 49 660 54 667 63 C672 70 664 75 656 72 C646 68 635 63 633 52Z" opacity=".82"/>
+              <path class="leaf" d="M639 118 C644 115 648 120 646 127 C645 134 640 135 637 130 C634 125 635 120 639 118Z" opacity=".8"/>
+            </g>
+            <path class="globe-grid" d="M548 88 H672"/>
+            <path class="globe-grid" d="M610 26 C588 46 588 130 610 150 C632 130 632 46 610 26Z"/>
+          </a>
 
-          <path class="wl" data-from="0" d="M564 100 H26 V856 H52" marker-end="url(#ahP)"/>
+          <path class="wl" data-from="0" d="M548 88 H26 V856 H52" marker-end="url(#ahP)"/>
           <text class="lb-p" data-from="0" x="16" y="500" text-anchor="middle" transform="rotate(-90 16 500)">energy is captured and transformed</text>
-          <path class="wl2" data-from="0" d="M656 100 H1194 V856 H1148" marker-end="url(#ahM)"/>
+          <path class="wl2" data-from="0" d="M672 88 H1194 V856 H1148" marker-end="url(#ahM)"/>
           <text class="lb-m" data-from="0" x="1204" y="500" text-anchor="middle" transform="rotate(-90 1204 500)">materials are extracted and refined</text>
 
-          <path class="ln-a" data-from="8" d="M576 196 V150" marker-end="url(#ahA)"/>
+          <path class="ln-a" data-from="8" d="M576 196 V154" marker-end="url(#ahA)"/>
           <text class="lb-a" data-from="8" x="568" y="186" text-anchor="end">actuators</text>
-          <path class="ln" data-from="0" d="M644 150 V194" marker-end="url(#ah)"/>
-          <text class="lb" data-from="0" x="652" y="186">sensors</text>
+          <path class="ln" data-from="8" d="M644 154 V194" marker-end="url(#ah)"/>
+          <text class="lb" data-from="8" x="652" y="186">sensors</text>
 
-          <a class="node" href="stack.html#layer-8" aria-label="Layer 8, Embodiment — open this layer">
+          <a class="node" href="stack.html#layer-8" aria-label="Layer 8, AI Embodiment — open this layer">
             <rect class="bx b8" x="440" y="200" width="360" height="66" rx="9"/>
             <circle cx="472" cy="233" r="12" class="d8"/><text class="bn" x="472" y="237" text-anchor="middle">8</text>
-            <text class="bt" x="502" y="227" text-anchor="start">Embodiment</text>
+            <text class="bt" x="502" y="227" text-anchor="start">AI Embodiment</text>
             <text class="bs" x="502" y="246" text-anchor="start">Robots, vehicles, drones, smart devices</text>
                         <g class="lic" data-icon="8" style="stroke:var(--l8)" transform="translate(750.6 214.3) scale(0.85)" aria-hidden="true"></g>
           </a>
