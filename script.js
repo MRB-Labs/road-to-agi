@@ -2667,9 +2667,9 @@ const MOATWHY={
 
   el.innerHTML=`<h4>Chokepoint and moat, layer by layer</h4>`+
     `<p class="cq">The correlation is the most useful heuristic in the analysis.</p>`+
-    `<div class="mx-shell">`+
-      `<div class="mx-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the eight layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+`</div>`+
-      `<aside class="mx-info" id="mx-info" aria-live="polite">${REST}</aside>`+
+    `<div class="dia-shell">`+
+      `<div class="dia-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the eight layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+`</div>`+
+      `<aside class="dia-info" id="mx-info" aria-live="polite">${REST}</aside>`+
     `</div>`+
     `<figcaption class="cnote">Positions are the author’s assessment on both axes, not measured values. They encode the argument made in each layer rather than a dataset, and should be read as a ranking, not a measurement.</figcaption>`;
 
@@ -2853,4 +2853,58 @@ fillAll();
   host.innerHTML=LAYERS.map(L=>`<details class="src-layer"${L.n===1?' open':''}>
     <summary>${layerIcon(L.n,'src-icon')}<span>Layer ${L.n} &middot; ${_esc(L.t)}</span></summary>
     <div class="src-layer-body">${sourcePane(L.n)}</div></details>`).join('');
+})();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   THE LOOP — each stage explains itself
+   The four boxes are the argument the whole report rests on, so each one says
+   what it actually means for an embodied system and what has to be true for
+   the turn to complete.
+   ══════════════════════════════════════════════════════════════════════════ */
+const LOOPWHY={
+observe:{t:'Observe',l:'Layer 8 · sensors',
+  w:'Cameras, lidar, radar, force-torque sensors at the joints, encoders reporting where each limb actually is, and microphones. For an embodied system this is not data collection in the web sense — it is measurement of a physical state that nobody wrote down.',
+  h:'A robot samples its own sensors on a control loop running in milliseconds, and almost all of that is discarded on board. What gets kept is what surprised the system: a grasp that slipped, a surface that was not where the model said it was, an intervention by a human operator. Selecting on board which data is worth transmitting is itself a hard problem, because bandwidth off a fleet is finite.',
+  k:'The output is an error signal reality generated, not a description of reality someone wrote.'},
+learn:{t:'Learn',l:'Layers 5 and 6 · data and models',
+  w:'The captured experience is cleaned, labelled, aggregated across a fleet and turned into weights. This is where a data centre earns its place in a robotics thesis: the training run is the step that converts observation into capability.',
+  h:'Raw sensor logs are time-aligned with the actions taken and the outcome, which is what makes them supervised data without anyone labelling them by hand. Vision-language-action models are then trained to map an observation and an instruction onto a motor command. The run is one long synchronous computation across tens of thousands of accelerators, so the fabric and the power behind it sit in the critical path.',
+  k:'Fleet-scale experience cannot be bought, scraped or licensed — which is why it is the one genuinely non-replicable data asset in this report.'},
+act:{t:'Act',l:'Layers 7 and 8 · agents and actuators',
+  w:'The trained model is deployed back onto the machine and drives actuators — motors through precision reducers, grippers, wheels — or, in software, takes actions in a system of record. This is the step that touches something.',
+  h:'Inference has to close the control loop faster than the world moves, which for manipulation means milliseconds. That forces the model on board rather than in a data centre, which constrains how large it can be and how much power it can draw. Torque comes from a motor and a harmonic or cycloidal reducer, which is why the binding constraint on this step is mechanical rather than computational.',
+  k:'Reliability compounds against you: a task with many sequential steps needs per-step reliability close to one to work end to end.'},
+change:{t:'Change',l:'The physical world',
+  w:'The world is now in a state it would not otherwise have been in, and that new state is observable. This is the step that makes the loop a flywheel rather than a pipeline.',
+  h:'Every action produces consequences the previous model had not seen — including its own mistakes, which are the most informative observations available. A fleet that has acted a billion times has generated a billion states no competitor can reconstruct, because they were caused by that fleet’s particular actions at that particular time.',
+  k:'Each turn generates data that could not have existed before that turn. That is the whole compounding argument.'},
+};
+
+(function(){
+  const svg=document.getElementById('loopsvg'), info=document.getElementById('loopinfo');
+  if(!svg||!info) return;
+  const REST='<p class="mx-eyebrow">The compounding loop</p>'+
+    '<h5>Four steps, and the third one is why this is not just software</h5>'+
+    '<p class="mx-lede">Read as a chain, the stack is a value chain. Close it &mdash; actuators change the world, '+
+    'sensors observe the change &mdash; and it becomes a flywheel. Each turn produces training data that could not '+
+    'have existed before that turn, which is what makes the thesis compound rather than merely grow.</p>'+
+    '<p class="mx-hint">Point at any step to read what it means and how it works.</p>';
+  const card=k=>{const d=LOOPWHY[k]; if(!d) return REST;
+    return `<p class="mx-eyebrow">${d.l}</p><h5>${d.t}</h5>`+
+      `<p class="mx-why"><b>What it means.</b> ${d.w}</p>`+
+      `<p class="mx-why"><b>How it works.</b> ${d.h}</p>`+
+      `<p class="mx-watch">${d.k}</p>`;};
+  let pinned=null;
+  const show=k=>{info.innerHTML=card(k); svg.classList.add('mx-hl');
+    svg.querySelectorAll('.loop-node').forEach(n=>n.classList.toggle('on',n.dataset.stage===k));};
+  const clear=()=>{if(pinned)return; info.innerHTML=REST; svg.classList.remove('mx-hl');
+    svg.querySelectorAll('.loop-node').forEach(n=>n.classList.remove('on'));};
+  svg.querySelectorAll('.loop-node').forEach(n=>{
+    const k=n.dataset.stage;
+    n.addEventListener('mouseenter',()=>show(k));
+    n.addEventListener('mouseleave',clear);
+    n.addEventListener('focusin',()=>{pinned=k;show(k);});
+    n.addEventListener('focusout',()=>{pinned=null;clear();});
+  });
+  info.innerHTML=REST;
 })();

@@ -979,8 +979,7 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
    layer lights its outgoing arrows, reveals just those labels, and fills the
    panel beside the map.
    ────────────────────────────────────────────────────────────────────────── */
-.map-shell{display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,310px);
-  gap:20px; align-items:start}
+/* superseded by .dia-shell */
 #mapsvg{width:100%; height:auto; min-height:0}
 
 #mapsvg path[data-from]{opacity:.72; transition:opacity .16s var(--ease), stroke-width .16s var(--ease)}
@@ -993,7 +992,7 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 
 /* The reading panel */
 .map-info{border:1px solid var(--line); border-radius:12px; padding:17px 18px 18px;
-  background:var(--surface); position:sticky; top:0; min-height:230px}
+  background:var(--surface); min-height:230px}
 .map-info .mi-eyebrow{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
   color:var(--muted); margin:0 0 5px}
 .map-info h4{font-size:17.5px; letter-spacing:-.018em; margin:0 0 9px; line-height:1.25}
@@ -1016,7 +1015,6 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 .layer-head-main{display:flex; align-items:center; gap:14px; min-width:0}
 
 @media (max-width:1080px){
-  .map-shell{grid-template-columns:1fr}
   .map-info{position:static; min-height:0}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1346,9 +1344,7 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
    CHOKEPOINT AND MOAT — the scatter explains itself on hover
    ────────────────────────────────────────────────────────────────────────── */
 #overview #cx-matrix{grid-column:1 / -1}
-.mx-shell{display:grid; grid-template-columns:minmax(260px,340px) minmax(0,1fr);
-  gap:24px; align-items:start; margin-top:6px}
-.mx-chart svg{width:100%; height:auto; display:block}
+/* superseded by .dia-shell */
 .mx-pt{cursor:pointer}
 .mx-pt .mx-dot{transition:r .16s var(--ease), opacity .16s var(--ease)}
 svg.mx-hl .mx-pt:not(.on) .mx-dot{opacity:.24}
@@ -1356,8 +1352,6 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .mx-pt.on .mx-dot{r:16}
 .mx-pt:focus{outline:none}
 .mx-pt:focus-visible .mx-dot{stroke:var(--accent); stroke-width:2.5}
-.mx-info{border:1px solid var(--line); border-radius:12px; background:var(--surface);
-  padding:16px 18px 17px; min-height:270px}
 .mx-eyebrow{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
   color:var(--muted); margin:0 0 5px; font-weight:600}
 .mx-info h5{font-size:16.5px; font-weight:600; letter-spacing:-.018em; margin:0 0 10px;
@@ -1374,5 +1368,46 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .mx-why b{color:var(--ink)}
 .mx-watch{font-size:12px; line-height:1.55; color:var(--ink2); margin:11px 0 0;
   padding:8px 0 8px 12px; border-left:3px solid var(--accent)}
-@media (max-width:900px){ .mx-shell{grid-template-columns:1fr} .mx-info{min-height:0} }
 @media (prefers-reduced-motion:reduce){ .mx-pt .mx-dot{transition:none} }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   OVERVIEW FIGURES — one shell for all three
+   The map, the loop and the moat scatter now share a layout: the drawing on
+   the left at about half the width, its reading panel on the right. Pointing
+   at anything in the drawing fills the panel.
+   ────────────────────────────────────────────────────────────────────────── */
+#overview .dia-grid{grid-template-columns:1fr}
+#overview .dia-grid>*{grid-column:1 / -1}
+.dia-shell{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:26px; align-items:start; margin-top:6px}
+.dia-chart{min-width:0}
+.dia-chart svg{width:100%; height:auto; display:block}
+.dia-info{border:1px solid var(--line); border-radius:12px; background:var(--surface);
+  padding:17px 19px 18px; min-height:250px; align-self:stretch}
+.dia-info .mx-eyebrow{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 5px; font-weight:600}
+.dia-info h5{font-size:17px; font-weight:600; letter-spacing:-.018em; margin:0 0 10px;
+  color:var(--ink); line-height:1.28}
+.dia-info .mi-eyebrow{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 5px; font-weight:600}
+.dia-info h4{font-size:17px; font-weight:600; letter-spacing:-.018em; margin:0 0 9px; color:var(--ink)}
+
+/* The loop: same highlight grammar as the moat scatter */
+#loopsvg .loop-node{cursor:pointer}
+#loopsvg .loop-node rect,#loopsvg .loop-node text{transition:opacity .16s var(--ease)}
+#loopsvg.mx-hl .loop-node:not(.on) rect,#loopsvg.mx-hl .loop-node:not(.on) text{opacity:.3}
+#loopsvg .loop-node.on rect{stroke-width:2.4}
+#loopsvg .loop-node:focus{outline:none}
+#loopsvg .loop-node:focus-visible rect{stroke:var(--accent); stroke-width:2.6}
+
+/* Hover labels on the map punch through whatever they cross */
+#mapsvg text[data-from]{paint-order:stroke; stroke:var(--bg); stroke-width:3.6px;
+  stroke-linejoin:round}
+
+@media (max-width:1000px){
+  .dia-shell{grid-template-columns:1fr}
+  .dia-info{min-height:0}
+}
+@media (prefers-reduced-motion:reduce){
+  #loopsvg .loop-node rect,#loopsvg .loop-node text{transition:none}
+}
