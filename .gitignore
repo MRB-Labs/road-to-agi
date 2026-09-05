@@ -2,3 +2,6 @@
 # 186MB of element photographs; the site ships only the 19 downscaled crops
 # it actually uses, in assets/elements/.
 Periodic_Elements/
+
+# macOS Finder metadata
+.DS_Store
