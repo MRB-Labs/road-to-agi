@@ -1034,3 +1034,71 @@ a.chain-node.is-link.has-logo{gap:6px}
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]) .co-logo{box-shadow:0 0 0 1px rgba(255,255,255,.12)}
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   THE VALUE CHAIN
+   The most-read pane in the layer view, so it gets the room. Stage cards are
+   wide enough to carry a sentence on what the stage does, and every supplier
+   chip leads with the company's mark — scanning logos is faster than reading
+   a list of names.
+   ────────────────────────────────────────────────────────────────────────── */
+.vc-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:0;
+  border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:0 0 18px;
+  background:var(--surface)}
+.vc-stats>div{padding:14px 16px; border-right:1px solid var(--line)}
+.vc-stats>div:last-child{border-right:0}
+.vc-stats b.num{display:block; font-size:26px; letter-spacing:-.028em; line-height:1.05}
+.vc-stats span{display:block; font-size:11.5px; color:var(--muted); margin-top:5px; line-height:1.4}
+
+.chain-flow{gap:30px; padding:2px 0 10px}
+.chain-stage{flex:0 0 358px; min-width:358px; padding:16px 17px 15px; border-radius:12px;
+  display:flex; flex-direction:column}
+.chain-stage:not(:last-child)::after{right:-22px; top:52px}
+.cs-head{display:flex; align-items:flex-start; gap:11px; margin-bottom:10px}
+.cs-num{flex:none; width:26px; height:26px; border-radius:7px; display:grid; place-items:center;
+  font:600 12.5px var(--f-mono); background:var(--stage,var(--accent)); color:#fff}
+.chain-stage.is-choke .cs-num{background:var(--amber); color:#1b1408}
+.cs-title{min-width:0}
+.cs-title .chain-step{display:block}
+.chain-stage h5{font-size:15.5px; margin:2px 0 0; letter-spacing:-.016em; line-height:1.25}
+.cs-what{font-size:12.5px; line-height:1.55; color:var(--ink2); margin:0 0 13px}
+.cs-nodes-head{font:500 9.5px var(--f-mono); letter-spacing:.08em; text-transform:uppercase;
+  color:var(--muted); padding-bottom:6px; margin-bottom:9px; border-bottom:1px solid var(--line)}
+.chain-nodes{display:grid; grid-template-columns:1fr 1fr; gap:6px; align-content:start}
+.chain-node{font-size:11px; padding:6px 8px; border-radius:7px; min-width:0;
+  display:flex; align-items:flex-start; gap:7px; line-height:1.25}
+.cn-text{min-width:0; display:flex; flex-direction:column; gap:1px}
+.cn-name{display:block; font-weight:500; color:var(--ink); font-size:11.5px;
+  line-height:1.3; overflow-wrap:anywhere}
+a.chain-node.is-link .cn-name{color:var(--ink)}
+a.chain-node.is-link:hover .cn-name{color:var(--accent)}
+.chain-node .chip-tick{font-size:8.5px; border:0; padding:0; background:none}
+.chip-tick.is-priv{font-style:italic}
+.chain-node .co-logo{width:20px; height:20px; margin-top:1px}
+.co-logo.is-blank{background:var(--surface2); box-shadow:inset 0 0 0 1px var(--line)}
+a.chain-node.is-link>svg{margin-left:auto; opacity:.35}
+.chain-note{font-size:11px; margin-top:auto; padding-top:11px}
+.chain-stage .chain-nodes{margin-bottom:11px}
+
+/* The process strip — a chain inside a stage */
+.vc-proc{margin:30px 0 4px; padding-top:4px}
+.proc-flow{list-style:none; margin:0 0 14px; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:12px}
+.proc-step{display:flex; gap:11px; background:var(--surface); border:1px solid var(--line);
+  border-radius:10px; padding:14px 15px; position:relative}
+.ps-num{flex:none; width:23px; height:23px; border-radius:6px; display:grid; place-items:center;
+  font:600 11.5px var(--f-mono); background:var(--surface2); color:var(--ink2);
+  box-shadow:inset 0 0 0 1px var(--line)}
+.ps-body{min-width:0}
+.ps-body h6{font-size:13.5px; margin:0 0 6px; letter-spacing:-.012em}
+.ps-who{display:flex; align-items:center; gap:6px; margin-bottom:7px}
+.ps-who span{font:500 11px var(--f); color:var(--accent)}
+.ps-body p{font-size:11.5px; line-height:1.5; color:var(--ink2); margin:0}
+.proc-note{margin-top:0; padding-top:0; border:0}
+
+@media (max-width:760px){
+  .chain-stage{flex-basis:270px; min-width:270px}
+  .chain-nodes{grid-template-columns:1fr}
+  .vc-stats>div{border-right:0; border-bottom:1px solid var(--line)}
+  .vc-stats>div:last-child{border-bottom:0}
+}

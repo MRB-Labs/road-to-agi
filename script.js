@@ -86,69 +86,71 @@ const COMETA={
  '8|Scale AI, Surge, Mercor (private)':['United States','Private — no reliable share disclosed']};
 
 /* Who depends on whom, stage by stage. Chokepoint stages are flagged. */
+const PROC={"3": {"t": "Inside wafer fabrication", "lead": "One layer of a chip is built by this sequence, and the sequence is then repeated — dozens of times for a leading-edge part. Early layers carry the smallest features and need the most capable machines; later layers do not. Almost every step has a different owner, which is why no single company can supply a fab.", "steps": [["Deposition", "Applied Materials", "Material is laid down across the wafer, a film at a time."], ["Coat and develop", "Tokyo Electron", "The wafer is coated in light-sensitive photoresist, then developed after exposure. A near monopoly in coaters."], ["Lithography", "ASML", "The pattern is projected through a reticle onto the resist. The only source of EUV machines in the world."], ["Etch", "Lam Research", "Exposed material is removed to leave the pattern behind. The step that matters most as devices go vertical."], ["Ion implantation", "Applied Materials", "Ions are driven into the wafer to set its electrical properties."], ["Clean and polish", "Applied Materials", "Contaminants are washed off and the surface is polished flat enough to take the next layer."], ["Metrology and inspection", "KLA", "Wafers are measured and checked for defects throughout, and the results fed back to raise yield. Over half the market."]], "note": "Once the last layer is complete the wafer is cut into die and packaged — and for accelerators it is that packaging step, not any of the ones above, that is currently rationing supply.", "src": "Sequence and vendor positions per Generative Value, “A Primer on Semiconductor Capital Equipment” and “An Overview of the Semiconductor Industry”."}, "5": {"t": "What a hall is actually made of", "lead": "Roughly half to sixty per cent of a data centre’s cost is the IT it holds; the rest is the building that keeps it powered and cool. Power management is the largest line in that second half, which is why an electrical supply chain sits underneath a compute thesis.", "steps": [["Compute", "NVIDIA", "Accelerators and the CPUs beside them. The single largest line in the budget, and the one that depreciates fastest."], ["Networking", "Arista", "Switches, network cards and the fabric between racks. Ethernet has been taking share from InfiniBand."], ["Storage", "Dell", "Flash and disk for the training corpus and checkpoints. Small next to compute, but it gates utilisation."], ["Servers", "Supermicro", "Integration of silicon, memory, networking and cooling into a rack. ODMs increasingly sell direct to hyperscalers, bypassing the brands."], ["Power management", "Schneider Electric", "Distribution, generators and uninterruptible supply — the biggest facility cost of the lot."], ["Cooling", "Vertiv", "Chillers, air handlers and, increasingly, direct liquid to the chip."], ["Operator", "Equinix", "Whoever builds, hosts and manages the hall. Colocation lets a tenant rent space rather than build it."]], "note": "The split matters for who captures the spend: the IT half is concentrated in a handful of silicon vendors, while the facility half is spread across industrial companies with far longer order books and far less pricing power over their customers.", "src": "Cost split, segment structure and vendor positions per Generative Value, “A Primer on Data Centers”."}};
+
 const CHAIN={
 1:{lead:'Fuel and metal at one end, a powered rack at the other. The two stages that stop the project are both metallurgical.',
  stages:[
-  {t:'Fuel and critical metal',n:['Cameco','Kazatomprom','Cleveland-Cliffs','Freeport-McMoRan','Howmet','Carpenter Technology'],c:1,note:'Grain-oriented electrical steel and single-crystal turbine castings'},
-  {t:'Generation',n:['GE Vernova','Siemens Energy','Mitsubishi Heavy','Constellation','Vistra','NextEra'],c:1,note:'Turbine slots sold to 2031'},
-  {t:'Transmission and interconnect',n:['Hitachi Energy','Prysmian','Quanta Services','MYR Group'],note:'Five to seven year queues'},
-  {t:'On-site electrical plant',n:['Schneider Electric','Eaton','ABB','Vertiv','Siemens'],c:1,note:'Large power transformers at 128 weeks'},
-  {t:'Thermal and the rack',n:['Vertiv','Motivair (Schneider)','Boyd','Alfa Laval','LiquidStack'],note:'Fragmented — top seven vendors hold ~35%'}]},
+  {t:'Fuel and critical metal',w:'Uranium, gas, and the two metallurgical inputs a turbine hall cannot be built without: grain-oriented electrical steel for transformer cores, single-crystal superalloy castings for hot-section blades.',n:['Cameco','Kazatomprom','Cleveland-Cliffs','Freeport-McMoRan','Howmet','Carpenter Technology'],c:1,note:'Grain-oriented electrical steel and single-crystal turbine castings'},
+  {t:'Generation',w:'Turbines, reactors and the merchant fleets that own them. Firm new capacity is sold years forward, so a project buys a delivery slot rather than a machine.',n:['GE Vernova','Siemens Energy','Mitsubishi Heavy','Constellation','Vistra','NextEra'],c:1,note:'Turbine slots sold to 2031'},
+  {t:'Transmission and interconnect',w:'Moving the electricity from where it is made to where the racks sit: high-voltage cable, substations, and the contractors who build and energise them.',n:['Hitachi Energy','Prysmian','Quanta Services','MYR Group'],note:'Five to seven year queues'},
+  {t:'On-site electrical plant',w:'Everything between the substation fence and the rack — transformers, switchgear, busway, uninterruptible supply. The longest single lead time in the build.',n:['Schneider Electric','Eaton','ABB','Vertiv','Siemens'],c:1,note:'Large power transformers at 128 weeks'},
+  {t:'Thermal and the rack',w:'Rejecting the heat the accelerators make: chillers, coolant distribution units, cold plates and the rack itself.',n:['Vertiv','Motivair (Schneider)','Boyd','Alfa Laval','LiquidStack'],note:'Fragmented — top seven vendors hold ~35%'}]},
 2:{lead:'Ore at one end, a qualified process material at the other. Mining is the diversified step and almost never the constraint; every stage after it narrows.',
  stages:[
-  {t:'Extraction',n:['Freeport-McMoRan','BHP','Rio Tinto','Lynas','MP Materials','Cameco','Sibelco','The Quartz Corp'],note:'The least concentrated stage in the whole report'},
-  {t:'Refining and separation',n:['China separation capacity','Aurubis','Boliden','Lynas Malaysia','Solvay','Neo Performance','JL MAG'],c:1,note:'China holds 86–90% of rare earth separation'},
-  {t:'Purification to electronic grade',n:['Wacker Chemie','Hemlock','Tokuyama','OCI','Shin-Etsu','SUMCO','Linde','Air Liquide'],c:1,note:'Four producers of eleven-nines polysilicon'},
-  {t:'Transformation',n:['Cleveland-Cliffs','Nippon Steel','POSCO','Howmet','Carpenter Technology','Precision Castparts','JL MAG'],c:1,note:'Annealing, single-crystal casting, magnet sintering'},
-  {t:'Qualified into the infrastructure stack',n:['Transformer makers','Turbine OEMs','Wafer makers','Magnet motor makers'],note:'Requalification takes years, which is the real switching cost'}]},
+  {t:'Extraction',w:'Digging up ore, pumping brine and recovering by-products. Geographically diverse, and on its own no chokepoint at all.',n:['Freeport-McMoRan','BHP','Rio Tinto','Lynas','MP Materials','Cameco','Sibelco','The Quartz Corp'],note:'The least concentrated stage in the whole report'},
+  {t:'Refining and separation',w:'Turning ore into a purified metal or oxide. Separating the individual rare earth elements is the step that concentrates.',n:['China separation capacity','Aurubis','Boliden','Lynas Malaysia','Solvay','Neo Performance','JL MAG'],c:1,note:'China holds 86–90% of rare earth separation'},
+  {t:'Purification to electronic grade',w:'Driving impurities down to parts per billion. Electronic-grade polysilicon and high-purity quartz are made by a handful of firms and nobody else.',n:['Wacker Chemie','Hemlock','Tokuyama','OCI','Shin-Etsu','SUMCO','Linde','Air Liquide'],c:1,note:'Four producers of eleven-nines polysilicon'},
+  {t:'Transformation',w:'Converting purified material into the form the stack consumes: sintered magnets, single-crystal castings, annealed strip, drawn wire.',n:['Cleveland-Cliffs','Nippon Steel','POSCO','Howmet','Carpenter Technology','Precision Castparts','JL MAG'],c:1,note:'Annealing, single-crystal casting, magnet sintering'},
+  {t:'Qualified into the infrastructure stack',w:'Certification into a customer\'s process. Requalifying a wafer line or a transformer core takes years, and that is where the switching cost actually sits.',n:['Transformer makers','Turbine OEMs','Wafer makers','Magnet motor makers'],note:'Requalification takes years, which is the real switching cost'}]},
 3:{lead:'The most concentrated chain in the report. Almost every stage has fewer than five credible suppliers, and two have exactly one.',
  stages:[
-  {t:'Materials and gases',n:['Sibelco','The Quartz Corp','Shin-Etsu','SUMCO','Linde','Air Liquide','JSR','Ajinomoto'],c:1,note:'Two mines in one North Carolina district'},
-  {t:'Design tools and IP',n:['Cadence','Synopsys','Arm','Siemens EDA'],note:'Effective duopoly in EDA'},
-  {t:'Equipment',n:['ASML','Zeiss SMT','Applied Materials','Lam Research','KLA','Tokyo Electron'],c:1,note:'Zeiss is a monopoly upstream of ASML\u2019s monopoly'},
-  {t:'Wafer fabrication',n:['TSMC','Samsung Foundry','Intel Foundry','GlobalFoundries'],c:1,note:'>90% of leading-edge logic in one company'},
-  {t:'Advanced packaging and test',n:['TSMC CoWoS','Ibiden','Shinko','Unimicron','AT&S','ASE','Amkor'],c:1,note:'The binding constraint on accelerator supply'}]},
+  {t:'Materials and gases',w:'Blank wafers, photoresists, specialty gases, and the ultra-high-purity quartz the crucibles themselves are made from.',n:['Sibelco','The Quartz Corp','Shin-Etsu','SUMCO','Linde','Air Liquide','JSR','Ajinomoto'],c:1,note:'Two mines in one North Carolina district'},
+  {t:'Design tools and IP',w:'The software a chip is designed in and the processor architectures it is designed around. Nothing reaches a fab without passing through here.',n:['Cadence','Synopsys','Arm','Siemens EDA'],note:'Effective duopoly in EDA'},
+  {t:'Equipment',w:'The wafer fab equipment that deposits, patterns, etches and inspects every layer. Each vendor owns a different step, and almost none of them compete.',n:['ASML','Zeiss SMT','Applied Materials','Lam Research','KLA','Tokyo Electron'],c:1,note:'Zeiss is a monopoly upstream of ASML\u2019s monopoly'},
+  {t:'Wafer fabrication',w:'Running the process: hundreds of steps, repeated layer by layer, that turn a blank wafer into finished die.',n:['TSMC','Samsung Foundry','Intel Foundry','GlobalFoundries'],c:1,note:'>90% of leading-edge logic in one company'},
+  {t:'Advanced packaging and test',w:'Cutting, stacking and bonding die onto a substrate, then testing them. Packaging, not lithography, is what currently rations accelerators.',n:['TSMC CoWoS','Ibiden','Shinko','Unimicron','AT&S','ASE','Amkor'],c:1,note:'The binding constraint on accelerator supply'}]},
 4:{lead:'Design sits in the middle and captures most of the margin, but it depends on a foundry it does not own and a memory oligopoly it cannot expand.',
  stages:[
-  {t:'Foundry and memory',n:['TSMC','SK hynix','Micron','Samsung'],c:1,note:'HBM sold out across all three suppliers'},
-  {t:'Accelerator design',n:['NVIDIA','AMD','Broadcom','Marvell','Google TPU','AWS Trainium'],note:'Where the margin pools'},
-  {t:'Interconnect and networking',n:['NVIDIA NVLink','Broadcom','Arista','Astera Labs','Credo'],note:'Scale-up versus scale-out is the live standards fight'},
-  {t:'Optics and cabling',n:['Coherent','Lumentum','Fabrinet','InnoLight','Amphenol','Corning'],note:'Volume rises faster than accelerator count'},
-  {t:'System integration',n:['Foxconn','Quanta','Wistron','Supermicro','Dell','HPE'],note:'Thin margin, high volume'},
-  {t:'Buyer',n:['Hyperscalers','Neoclouds','Sovereign programmes'],note:'Concentrated demand, few buyers'}]},
+  {t:'Foundry and memory',w:'The two manufactured inputs an accelerator cannot exist without: leading-edge logic wafers and high-bandwidth memory stacks.',n:['TSMC','SK hynix','Micron','Samsung'],c:1,note:'HBM sold out across all three suppliers'},
+  {t:'Accelerator design',w:'Designing the processors themselves, merchant and custom, together with the software stack that keeps customers on them.',n:['NVIDIA','AMD','Broadcom','Marvell','Google TPU','AWS Trainium'],note:'Where the margin pools'},
+  {t:'Interconnect and networking',w:'Moving data between accelerators and between racks — switch silicon, network cards, and the scale-up fabric inside a rack.',n:['NVIDIA NVLink','Broadcom','Arista','Astera Labs','Credo'],note:'Scale-up versus scale-out is the live standards fight'},
+  {t:'Optics and cabling',w:'The physical links between racks. Transceiver volume rises faster than accelerator count as clusters get larger.',n:['Coherent','Lumentum','Fabrinet','InnoLight','Amphenol','Corning'],note:'Volume rises faster than accelerator count'},
+  {t:'System integration',w:'Assembling silicon, memory, networking and cooling into a rack that can be shipped, installed and powered.',n:['Foxconn','Quanta','Wistron','Supermicro','Dell','HPE'],note:'Thin margin, high volume'},
+  {t:'Buyer',w:'Demand sits with a handful of hyperscalers and model labs, which is what makes the order book simultaneously enormous and fragile.',n:['Hyperscalers','Neoclouds','Sovereign programmes'],note:'Concentrated demand, few buyers'}]},
 5:{lead:'The operator sits at the end of the chain and pays everyone in it. That is the arithmetic case for owning suppliers rather than owners.',
  stages:[
-  {t:'Power and land',n:['Constellation','Vistra','NextEra','Talen','Utilities'],c:1,note:'0.9% of budget, 100% of schedule risk'},
-  {t:'Design and construction',n:['Turner','DPR','Mortenson','Clayco','Rosendin','Quanta Services'],note:'Electricians are the binding trade'},
-  {t:'Critical equipment',n:['Vertiv','Schneider','Eaton','Cummins','Caterpillar'],note:'Ordered before the land is bought'},
-  {t:'Compute fit-out',n:['NVIDIA','Broadcom','SK hynix','Supermicro','Dell'],note:'56% of the capital'},
-  {t:'Operator',n:['AWS','Azure','Google Cloud','Meta','Oracle','CoreWeave','Equinix','Digital Realty'],note:'Where the leverage and the depreciation sit'},
-  {t:'Tenant',n:['Model labs','Enterprises','Governments'],note:'Contract tenor is shorter than the debt'}]},
+  {t:'Power and land',w:'Securing a site that can actually be energised. A rounding error in the budget and effectively all of the schedule risk.',n:['Constellation','Vistra','NextEra','Talen','Utilities'],c:1,note:'0.9% of budget, 100% of schedule risk'},
+  {t:'Design and construction',w:'Engineering and building the shell and the electrical rooms. Skilled electricians, not concrete, are the binding trade.',n:['Turner','DPR','Mortenson','Clayco','Rosendin','Quanta Services'],note:'Electricians are the binding trade'},
+  {t:'Critical equipment',w:'Long-lead plant ordered before the ground is broken: transformers, generators, switchgear, chillers.',n:['Vertiv','Schneider','Eaton','Cummins','Caterpillar'],note:'Ordered before the land is bought'},
+  {t:'Compute fit-out',w:'The racks themselves. Compute, networking and storage account for roughly half to sixty per cent of total project cost.',n:['NVIDIA','Broadcom','SK hynix','Supermicro','Dell'],note:'56% of the capital'},
+  {t:'Operator',w:'Whoever owns, leases or runs the finished hall — and therefore carries the depreciation and the debt.',n:['AWS','Azure','Google Cloud','Meta','Oracle','CoreWeave','Equinix','Digital Realty'],note:'Where the leverage and the depreciation sit'},
+  {t:'Tenant',w:'The party actually renting the capacity. Contract tenor is consistently shorter than the debt that financed the building.',n:['Model labs','Enterprises','Governments'],note:'Contract tenor is shorter than the debt'}]},
 6:{lead:'No material chokepoint anywhere in this chain. Every stage is rented, and the only durable asset is distribution at the end.',
  stages:[
-  {t:'Compute',n:['NVIDIA','Google TPU','AWS Trainium','AMD'],c:1,note:'The only genuinely scarce input'},
-  {t:'Data',n:['Scale AI','Surge','Mercor','Licensed corpora','Synthetic generation'],note:'Increasingly synthetic'},
-  {t:'Training',n:['OpenAI','Anthropic','Google DeepMind','Meta','xAI','Mistral','DeepSeek','Alibaba Qwen'],note:'Capability leads last months, not years'},
-  {t:'Serving and inference',n:['Azure','AWS','Google Cloud','Together','Fireworks','Baseten'],note:'Commoditising fast'},
-  {t:'Distribution',n:['ChatGPT','Gemini','Copilot','Claude','Enterprise APIs'],note:'The only stage with a real moat'}]},
+  {t:'Compute',w:'Access to accelerators, owned or rented. The only genuinely scarce input to a frontier training run.',n:['NVIDIA','Google TPU','AWS Trainium','AMD'],c:1,note:'The only genuinely scarce input'},
+  {t:'Data',w:'Corpora, licensed content, and increasingly data the labs generate themselves rather than collect.',n:['Scale AI','Surge','Mercor','Licensed corpora','Synthetic generation'],note:'Increasingly synthetic'},
+  {t:'Training',w:'The frontier runs and the labs that do them. Capability leads are now measured in months, not years.',n:['OpenAI','Anthropic','Google DeepMind','Meta','xAI','Mistral','DeepSeek','Alibaba Qwen'],note:'Capability leads last months, not years'},
+  {t:'Serving and inference',w:'Running a trained model for customers. Price per token has fallen faster than almost any underlying input cost.',n:['Azure','AWS','Google Cloud','Together','Fireworks','Baseten'],note:'Commoditising fast'},
+  {t:'Distribution',w:'The surfaces a model reaches users through. The only stage in this layer holding a durable moat.',n:['ChatGPT','Gemini','Copilot','Claude','Enterprise APIs'],note:'The only stage with a real moat'}]},
 7:{lead:'The layer where the thesis inverts: the same capability that creates these businesses can also compress the seat-based pricing several of them depend on.',
  stages:[
-  {t:'Model access',n:['OpenAI','Anthropic','Google','Open weights'],note:'A purchased input, not an asset'},
-  {t:'Data platform',n:['Snowflake','Databricks','MongoDB','Confluent'],note:'Where enterprise context lives'},
-  {t:'Orchestration and agents',n:['Microsoft','ServiceNow','LangChain','Temporal'],note:'Standards still unsettled'},
-  {t:'Applications',n:['Salesforce','ServiceNow','Adobe','Intuit','SAP'],c:1,note:'Seat-based pricing is the exposed model'},
-  {t:'Security and identity',n:['CrowdStrike','Palo Alto Networks','Okta','Microsoft Entra','Zscaler'],note:'Machine identity becomes the growth vector'},
-  {t:'Observability',n:['Datadog','Dynatrace','Splunk (Cisco)','Grafana'],note:'Consumption pricing tracks agent volume'}]},
+  {t:'Model access',w:'Models bought as an input through an API. A cost line on the income statement, not an asset on the balance sheet.',n:['OpenAI','Anthropic','Google','Open weights'],note:'A purchased input, not an asset'},
+  {t:'Data platform',w:'Where enterprise context is stored and retrieved from, which is what separates a useful agent from a demo.',n:['Snowflake','Databricks','MongoDB','Confluent'],note:'Where enterprise context lives'},
+  {t:'Orchestration and agents',w:'Frameworks that chain model calls into completed work. The standards here are still unsettled.',n:['Microsoft','ServiceNow','LangChain','Temporal'],note:'Standards still unsettled'},
+  {t:'Applications',w:'The software people actually buy. Seat-based pricing is precisely what capable agents put at risk.',n:['Salesforce','ServiceNow','Adobe','Intuit','SAP'],c:1,note:'Seat-based pricing is the exposed model'},
+  {t:'Security and identity',w:'Authenticating and authorising people and, increasingly, the machine identities acting on their behalf.',n:['CrowdStrike','Palo Alto Networks','Okta','Microsoft Entra','Zscaler'],note:'Machine identity becomes the growth vector'},
+  {t:'Observability',w:'Watching what these systems actually did. Consumption pricing tracks agent volume rather than headcount.',n:['Datadog','Dynatrace','Splunk (Cisco)','Grafana'],note:'Consumption pricing tracks agent volume'}]},
 8:{lead:'The chain runs the opposite way geographically to layers 3 and 4. Adding it does not diversify geopolitical risk; it adds a second one.',
  stages:[
-  {t:'Rare earth and magnets',n:['China separation capacity','JL MAG','Lynas','MP Materials','Neo Performance','Solvay'],c:1,note:'Separation technology export itself is banned'},
-  {t:'Precision components',n:['Harmonic Drive Systems','Nabtesco','THK','NSK','Hiwin','Green Harmonic','Leader Drive'],c:1,note:'~50× expansion needed; Japanese pricing under attack'},
-  {t:'Actuators and modules',n:['Sanhua','Tuopu','Nidec','Hyundai Mobis','Regal Rexnord'],note:'~50% of the bill of materials'},
-  {t:'Sensing and edge compute',n:['Sony','ATI Industrial','Renishaw','Bosch','NVIDIA Jetson','Qualcomm'],note:'Tactile sensing is the capability gap'},
-  {t:'Platform',n:['Tesla','Figure','Agility','Apptronik','Unitree','UBTech','Boston Dynamics','AgiBot'],note:'Volume without profit is the observed pattern'},
-  {t:'Deployment',n:['BMW','Amazon','Logistics operators','Maintenance depots'],note:'A maintenance trade that does not yet exist'},
-  {t:'Data curation',n:['Scale AI','Surge','Mercor','On-robot selection'],note:'200 Tbps forces curation on board'},
-  {t:'Back into training',n:['Frontier labs','Layer 6'],note:'The loop closes here, or the thesis does not compound'}
+  {t:'Rare earth and magnets',w:'The sintered magnets every actuator needs. China restricts export of the separation and magnet-making technology itself, not merely the metal.',n:['China separation capacity','JL MAG','Lynas','MP Materials','Neo Performance','Solvay'],c:1,note:'Separation technology export itself is banned'},
+  {t:'Precision components',w:'Harmonic and cycloidal reducers, bearings and ball screws — the parts that set what a joint can actually do.',n:['Harmonic Drive Systems','Nabtesco','THK','NSK','Hiwin','Green Harmonic','Leader Drive'],c:1,note:'~50× expansion needed; Japanese pricing under attack'},
+  {t:'Actuators and modules',w:'Motors, reducers, encoders and drives packaged into a joint. Around half the bill of materials.',n:['Sanhua','Tuopu','Nidec','Hyundai Mobis','Regal Rexnord'],note:'~50% of the bill of materials'},
+  {t:'Sensing and edge compute',w:'Cameras, tactile skin, inertial units, and the on-board silicon that runs the policy in real time.',n:['Sony','ATI Industrial','Renishaw','Bosch','NVIDIA Jetson','Qualcomm'],note:'Tactile sensing is the capability gap'},
+  {t:'Platform',w:'The firms building whole machines. Volume has so far arrived without profit.',n:['Tesla','Figure','Agility','Apptronik','Unitree','UBTech','Boston Dynamics','AgiBot'],note:'Volume without profit is the observed pattern'},
+  {t:'Deployment',w:'Putting fleets into real work and keeping them running — a maintenance trade that barely exists yet.',n:['BMW','Amazon','Logistics operators','Maintenance depots'],note:'A maintenance trade that does not yet exist'},
+  {t:'Data curation',w:'Choosing which part of the fleet\'s sensor stream is worth keeping. Bandwidth forces that choice to be made on board.',n:['Scale AI','Surge','Mercor','On-robot selection'],note:'200 Tbps forces curation on board'},
+  {t:'Back into training',w:'Returning curated interaction data to the training layer. This is where the loop closes, or the thesis stops compounding.',n:['Frontier labs','Layer 6'],note:'The loop closes here, or the thesis does not compound'}
  ]},};
 
 /* Value chain view — who depends on whom, stage by stage.
@@ -763,8 +765,11 @@ const logoMark=name=>{const s=LOGO[name];return s?`<img class="co-logo" src="ass
 
 function chainChip(name){
   const c=(typeof CT!=='undefined')&&CT[name], mark=logoMark(name);
-  if(c&&c[1]) return `<a class="chain-node is-link${mark?' has-logo':''}" href="${SA}${c[1]}/" target="_blank" rel="noopener noreferrer" title="${_esc(name)} — ${_esc(c[0])} on Stock Analysis">${mark}${_esc(name)}<span class="chip-tick">${_esc(c[0])}</span>${_arrow}</a>`;
-  return `<span class="chain-node${mark?' has-logo':''}">${mark}${_esc(name)}</span>`;
+  const plate=mark||'<span class="co-logo is-blank" aria-hidden="true"></span>';
+  const body=`${plate}<span class="cn-text"><span class="cn-name">${_esc(name)}</span>`+
+    (c&&c[0]?`<span class="chip-tick">${_esc(c[0])}</span>`:'<span class="chip-tick is-priv">private</span>')+`</span>`;
+  if(c&&c[1]) return `<a class="chain-node is-link" href="${SA}${c[1]}/" target="_blank" rel="noopener noreferrer" title="${_esc(name)} — ${_esc(c[0])} on Stock Analysis">${body}${_arrow}</a>`;
+  return `<span class="chain-node">${body}</span>`;
 }
 
 /* Two derived diagrams: how deep each stage is, and where the chain sits. */
@@ -817,21 +822,59 @@ function chainTable(d){
 function chainPane(n,col){
   const d=(typeof CHAIN!=='undefined')&&CHAIN[n];
   if(!d) return '<p class="sub">Data unavailable from accessible sources.</p>';
+  const chokes=d.stages.filter(st=>st.c).length;
+  const names=[...new Set(d.stages.flatMap(st=>st.n))];
+  const listed=names.filter(x=>(typeof CT!=='undefined')&&CT[x]&&CT[x][1]).length;
+  const thinnest=d.stages.reduce((a,b)=>b.n.length<a.n.length?b:a);
+
   const stages=d.stages.map((st,i)=>`
     <li class="chain-stage${st.c?' is-choke':''}" style="--stage:${col}">
-      <div class="chain-step">Stage ${i+1}${st.c?' · chokepoint':''}</div>
-      <h5>${_esc(st.t)}</h5>
+      <div class="cs-head">
+        <span class="cs-num">${i+1}</span>
+        <div class="cs-title">
+          <span class="chain-step">Stage ${i+1}${st.c?' · chokepoint':''}</span>
+          <h5>${_esc(st.t)}</h5>
+        </div>
+      </div>
+      ${st.w?`<p class="cs-what">${_esc(st.w)}</p>`:''}
+      <div class="cs-nodes-head"><span>${st.n.length} named ${st.n.length===1?'supplier':'suppliers'}</span></div>
       <div class="chain-nodes">${st.n.map(chainChip).join('')}</div>
       ${st.note?`<p class="chain-note">${_esc(st.note)}</p>`:''}
     </li>`).join('');
+
+  const p=(typeof PROC!=='undefined')&&PROC[n];
+  const proc = p ? `
+    <section class="vc-proc">
+      <h4 class="blockhead">${_esc(p.t)}</h4>
+      <p class="blocksub">${_esc(p.lead)}</p>
+      <ol class="proc-flow">${p.steps.map((x,i)=>`
+        <li class="proc-step">
+          <span class="ps-num">${i+1}</span>
+          <div class="ps-body">
+            <h6>${_esc(x[0])}</h6>
+            <div class="ps-who">${logoMark(x[1])||''}<span>${_esc(x[1])}</span></div>
+            <p>${_esc(x[2])}</p>
+          </div>
+        </li>`).join('')}</ol>
+      <p class="chain-note proc-note">${_esc(p.note)}</p>
+      <p class="tnote">${_esc(p.src)}</p>
+    </section>` : '';
+
   return `<p class="chain-lead">${d.lead}</p>
-    <p class="chain-hint">Upstream on the left, downstream on the right — scroll sideways to follow the chain. Entity names with a ticker open that company on Stock Analysis in a new tab.</p>
-    <div class="chain-wrap"><ol class="chain-flow" aria-label="Value chain for this layer, upstream on the left">${stages}</ol></div>
-    <div class="chain-key">
-      <span><i class="k-choke"></i>Chokepoint stage — few credible suppliers, long time to relieve</span>
-      <span><i class="k-flow"></i>Each stage buys from the one on its left</span>
-      <span><i class="k-link"></i>Listed — opens on Stock Analysis</span>
+    <div class="vc-stats">
+      <div><b class="num">${d.stages.length}</b><span>stages, upstream to downstream</span></div>
+      <div><b class="num">${chokes}</b><span>${chokes===1?'stage is':'stages are'} a chokepoint</span></div>
+      <div><b class="num">${names.length}</b><span>entities named, ${listed} of them listed</span></div>
+      <div><b class="num">${thinnest.n.length}</b><span>suppliers at the thinnest stage &mdash; ${_esc(thinnest.t.toLowerCase())}</span></div>
     </div>
+    <div class="chain-key">
+      <span><i class="k-choke"></i>Chokepoint stage &mdash; few credible suppliers, long time to relieve</span>
+      <span><i class="k-flow"></i>Each stage buys from the one on its left</span>
+      <span><i class="k-link"></i>Listed &mdash; opens on Stock Analysis</span>
+    </div>
+    <p class="chain-hint">Upstream on the left, downstream on the right &mdash; scroll sideways to follow the chain.</p>
+    <div class="chain-wrap"><ol class="chain-flow" aria-label="Value chain for this layer, upstream on the left">${stages}</ol></div>
+    ${proc}
     ${chainDiagrams(d,col)}
     ${chainTable(d)}
     <p class="tnote">Companies are named for structural completeness of the chain, not as recommendations, and several are private, Chinese-listed or embedded inside much larger groups. Position within a stage does not imply ranking. A company can appear in more than one stage or more than one layer. Product and platform names resolve to the parent listing, so Google TPU opens Alphabet and NVIDIA Jetson opens NVIDIA. Entities without a ticker are private, state-held, generic categories, or not separately listed.</p>`;
