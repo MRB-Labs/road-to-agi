@@ -672,9 +672,9 @@ table.co{min-width:1320px}
   .chain-stage:not(:last-child)::after{right:auto; left:24px; top:auto; bottom:-16px; transform:rotate(135deg)}
 }
 @media print{ .chain-flow{flex-wrap:wrap; overflow:visible} .chain-stage{page-break-inside:avoid} }
-.sc2{stroke:var(--l2); stroke-width:1.5; fill:none}
+.sc2{stroke:var(--l3); stroke-width:1.5; fill:none}
 .pw2{stroke:var(--l1); stroke-width:1.6; fill:none}
-.lb-s{fill:var(--l2); font:500 11px var(--f)}
+.lb-s{fill:var(--l3); font:500 11px var(--f)}
 
 /* Eight columns need real room; fix the widths so the argument columns keep theirs */
 table.co{min-width:1560px; table-layout:fixed}
@@ -955,3 +955,14 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 .landing-rail .lede{font-size:16px; color:var(--ink2); line-height:1.62; margin:0; max-width:78ch}
 .landing-rail .rail-head{font-size:11px; letter-spacing:.09em; text-transform:uppercase;
   color:var(--muted); margin:8px 0 0}
+
+/* Clickable layer nodes in the overview map — each box links to its layer on
+   the infrastructure page. */
+.dia a.node{cursor:pointer}
+.dia a.node .bx{transition:filter .18s ease, stroke-width .18s ease}
+.dia a.node:hover .bx{filter:brightness(1.05) saturate(1.1); stroke-width:2.2}
+.dia a.node:hover .bt{text-decoration:underline; text-underline-offset:2px}
+.dia a.node:focus{outline:none}
+.dia a.node:focus-visible .bx{stroke:var(--accent); stroke-width:2.6}
+:root[data-theme="dark"] .dia a.node:hover .bx{filter:brightness(1.35)}
+@media (prefers-reduced-motion:reduce){.dia a.node .bx{transition:none}}

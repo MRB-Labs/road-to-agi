@@ -1712,6 +1712,29 @@ function fill(){
 window.addEventListener('scroll',fill,{passive:true});
 window.addEventListener('resize',fill); fill();
 
+// Deep links into a single layer. The overview map links here as
+// stack.html#layer-4, and selecting a layer writes the hash back so the tab is
+// shareable and survives a reload. Layer n sits at index n-1 in LAYERS.
+(function(){
+  const tabs=[...document.querySelectorAll('#rail .tab')];
+  if(!tabs.length) return;
+  const indexFromHash=()=>{
+    const m=/^#layer-(\d+)$/.exec(location.hash);
+    return m ? LAYERS.findIndex(L=>L.n===+m[1]) : -1;
+  };
+  const apply=()=>{
+    const i=indexFromHash();
+    if(i<0) return;
+    sel(i);
+    tabs[i].scrollIntoView({block:'nearest',inline:'nearest'});
+  };
+  tabs.forEach((tab,i)=>tab.addEventListener('click',()=>{
+    history.replaceState(null,'','#layer-'+LAYERS[i].n);
+  }));
+  window.addEventListener('hashchange',apply);
+  apply();
+})();
+
 // Multi-page navigation. Each view now lives on its own page, so the nav is a
 // set of plain links and the former in-page view switcher is no longer needed.
 // The per-page section is rendered by the markup itself; `fill()` still runs so

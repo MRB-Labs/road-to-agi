@@ -63,9 +63,9 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
           
         </div>
         <p class="d-sub">Energy and materials are the base pair, both drawn directly from the physical world. Everything above them is a claim on something dug up, refined and powered. The physical world itself is not a layer — it is the ground the whole structure stands on, and the place embodied machines eventually do their work.</p>
-        <svg viewBox="0 0 1220 960" role="img" aria-labelledby="d1t d1d">
+        <svg viewBox="0 -52 1220 1012" role="group" aria-labelledby="d1t d1d">
           <title id="d1t">The AGI infrastructure map</title>
-          <desc id="d1d">The physical world sits outside the stack at the top. Two dashed paths run from it down the outside edges into energy and materials, the base pair. Above them a central column runs from embodied hardware down through data centres, compute silicon and AI models, with software beside it and semiconductors to the right. Energy runs to the fleet, the halls, the silicon and the fabs; materials run to the fabs, the grid and the fleet.</desc>
+          <desc id="d1d">The physical world sits above the stack, its title and description centred over the globe, with two symmetric dashed paths running down the outside edges into energy and materials, the base pair. A central column runs from embodied hardware down through data centres, compute silicon and AI models, with software beside it and semiconductors to the right. Energy runs to the fleet, the halls, the silicon and the fabs. Materials run into the grid and up into semiconductors, compute silicon, data centres and embodiment. Semiconductors run into compute silicon, data centres and embodiment. Every numbered layer is a link to its full treatment.</desc>
           <defs>
             <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
               <path d="M1.5 1.2 L8 5 L1.5 8.8" fill="none" class="mk" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
@@ -79,80 +79,102 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
               <path d="M1.5 1.2 L8 5 L1.5 8.8" fill="none" stroke="var(--l3)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
           </defs>
 
-          <!-- The physical world: the ground, not a layer -->
+          <!-- The physical world: the ground, not a layer. Title and description
+               sit above the globe so the two dashed paths can leave it symmetrically. -->
+          <text class="bt" x="610" y="-30" text-anchor="middle">The physical world</text>
+          <text class="bs" x="610" y="-8" text-anchor="middle">Not a layer. It is the ground the stack is drawn from — where energy is captured,</text>
+          <text class="bs" x="610" y="12" text-anchor="middle">where materials are extracted, and where embodied machines eventually do the work.</text>
           <circle class="sea" cx="610" cy="100" r="46" stroke-width="1.5"/>
           <path class="leaf" d="M578 82 C588 66 604 60 612 65 C619 70 613 78 622 81 C631 85 641 80 647 89 C653 98 645 104 638 108 C629 114 634 124 624 132 C612 141 599 135 597 125 C596 117 585 117 580 109 C575 101 571 92 578 82Z" opacity=".92"/>
           <path class="leaf" d="M630 60 C639 65 647 73 653 83 C645 79 638 75 631 75 C624 74 623 67 630 60Z" opacity=".72"/>
           <path class="leaf" d="M589 129 C581 122 574 113 570 102 C576 107 583 110 589 113 C595 117 595 125 589 129Z" opacity=".72"/>
-          <text class="bt" x="674" y="84" text-anchor="start">The physical world</text>
-          <text class="bs" x="674" y="103" text-anchor="start">Not a layer. It is the ground the stack is drawn from — where energy is captured,</text>
-          <text class="bs" x="674" y="121" text-anchor="start">where materials are extracted, and where embodied machines eventually do the work.</text>
 
-          <path class="wl" d="M564 100 H26 V850 H50" marker-end="url(#ahP)"/>
+          <path class="wl" d="M564 100 H26 V856 H52" marker-end="url(#ahP)"/>
           <text class="lb-p" x="16" y="500" text-anchor="middle" transform="rotate(-90 16 500)">energy is captured and transformed</text>
-          <path class="wl2" d="M646 132 V160 H1196 V850 H1150" marker-end="url(#ahM)"/>
-          <text class="lb-m" x="1208" y="500" text-anchor="middle" transform="rotate(-90 1208 500)">materials are extracted and refined</text>
+          <path class="wl2" d="M656 100 H1194 V856 H1148" marker-end="url(#ahM)"/>
+          <text class="lb-m" x="1204" y="500" text-anchor="middle" transform="rotate(-90 1204 500)">materials are extracted and refined</text>
 
           <path class="ln-a" d="M576 196 V150" marker-end="url(#ahA)"/>
           <text class="lb-a" x="568" y="186" text-anchor="end">actuators</text>
           <path class="ln" d="M644 150 V194" marker-end="url(#ah)"/>
           <text class="lb" x="652" y="186">sensors</text>
 
-          <rect class="bx b8" x="440" y="200" width="360" height="66" rx="9"/>
-          <circle cx="472" cy="233" r="12" class="d8"/><text class="bn" x="472" y="237" text-anchor="middle">8</text>
-          <text class="bt" x="502" y="227" text-anchor="start">Embodiment</text>
-          <text class="bs" x="502" y="246" text-anchor="start">Robots, vehicles, drones, smart devices</text>
+          <a class="node" href="stack.html#layer-8" aria-label="Layer 8, Embodiment — open this layer">
+            <rect class="bx b8" x="440" y="200" width="360" height="66" rx="9"/>
+            <circle cx="472" cy="233" r="12" class="d8"/><text class="bn" x="472" y="237" text-anchor="middle">8</text>
+            <text class="bt" x="502" y="227" text-anchor="start">Embodiment</text>
+            <text class="bs" x="502" y="246" text-anchor="start">Robots, vehicles, drones, smart devices</text>
+          </a>
 
-          <rect class="bx b7" x="70" y="200" width="310" height="66" rx="9"/>
-          <circle cx="102" cy="233" r="12" class="d7"/><text class="bn" x="102" y="237" text-anchor="middle">7</text>
-          <text class="bt" x="132" y="227" text-anchor="start">Software and agents</text>
-          <text class="bs" x="132" y="246" text-anchor="start">Frameworks, tooling, applications</text>
+          <a class="node" href="stack.html#layer-7" aria-label="Layer 7, Software and agents — open this layer">
+            <rect class="bx b7" x="70" y="200" width="310" height="66" rx="9"/>
+            <circle cx="102" cy="233" r="12" class="d7"/><text class="bn" x="102" y="237" text-anchor="middle">7</text>
+            <text class="bt" x="132" y="227" text-anchor="start">Software and agents</text>
+            <text class="bs" x="132" y="246" text-anchor="start">Frameworks, tooling, applications</text>
+          </a>
           <path class="ln" d="M380 233 H434" marker-end="url(#ah)"/>
 
           <path class="ln" d="M610 268 V314" marker-end="url(#ah)"/>
           <text class="lb" x="622" y="296">sensor data</text>
 
-          <rect class="bx b5" x="440" y="320" width="360" height="66" rx="9"/>
-          <circle cx="472" cy="353" r="12" class="d5"/><text class="bn" x="472" y="357" text-anchor="middle">5</text>
-          <text class="bt" x="502" y="347" text-anchor="start">Data centres and cloud</text>
-          <text class="bs" x="502" y="366" text-anchor="start">Storage, cleaning, security, cloud serving</text>
+          <a class="node" href="stack.html#layer-5" aria-label="Layer 5, Data centres and cloud — open this layer">
+            <rect class="bx b5" x="440" y="320" width="360" height="66" rx="9"/>
+            <circle cx="472" cy="353" r="12" class="d5"/><text class="bn" x="472" y="357" text-anchor="middle">5</text>
+            <text class="bt" x="502" y="347" text-anchor="start">Data centres and cloud</text>
+            <text class="bs" x="502" y="366" text-anchor="start">Storage, cleaning, security, cloud serving</text>
+          </a>
           <path class="ln" d="M610 388 V424" marker-end="url(#ah)"/>
           <text class="lb" x="622" y="410">training data</text>
 
-          <rect class="bx b4" x="440" y="430" width="360" height="66" rx="9"/>
-          <circle cx="472" cy="463" r="12" class="d4"/><text class="bn" x="472" y="467" text-anchor="middle">4</text>
-          <text class="bt" x="502" y="457" text-anchor="start">Compute silicon</text>
-          <text class="bs" x="502" y="476" text-anchor="start">Accelerators, memory, networking fabric</text>
+          <a class="node" href="stack.html#layer-4" aria-label="Layer 4, Compute silicon — open this layer">
+            <rect class="bx b4" x="440" y="430" width="360" height="66" rx="9"/>
+            <circle cx="472" cy="463" r="12" class="d4"/><text class="bn" x="472" y="467" text-anchor="middle">4</text>
+            <text class="bt" x="502" y="457" text-anchor="start">Compute silicon</text>
+            <text class="bs" x="502" y="476" text-anchor="start">Accelerators, memory, networking fabric</text>
+          </a>
           <path class="ln" d="M610 498 V534" marker-end="url(#ah)"/>
           <text class="lb" x="622" y="520">training runs</text>
 
-          <rect class="bx b6" x="440" y="540" width="360" height="66" rx="9"/>
-          <circle cx="472" cy="573" r="12" class="d6"/><text class="bn" x="472" y="577" text-anchor="middle">6</text>
-          <text class="bt" x="502" y="567" text-anchor="start">AI models</text>
-          <text class="bs" x="502" y="586" text-anchor="start">Frontier training, inference, agents</text>
+          <a class="node" href="stack.html#layer-6" aria-label="Layer 6, AI models — open this layer">
+            <rect class="bx b6" x="440" y="540" width="360" height="66" rx="9"/>
+            <circle cx="472" cy="573" r="12" class="d6"/><text class="bn" x="472" y="577" text-anchor="middle">6</text>
+            <text class="bt" x="502" y="567" text-anchor="start">AI models</text>
+            <text class="bs" x="502" y="586" text-anchor="start">Frontier training, inference, agents</text>
+          </a>
 
           <path class="ln-a" d="M440 573 H230 V272" stroke-linejoin="round" marker-end="url(#ahA)"/>
           <text class="lb-a" x="220" y="420" text-anchor="middle" transform="rotate(-90 220 420)">served as software, deployed into hardware</text>
 
-          <rect class="bx b3" x="860" y="430" width="250" height="66" rx="9"/>
-          <circle cx="892" cy="463" r="12" class="d3"/><text class="bn" x="892" y="467" text-anchor="middle">3</text>
-          <text class="bt" x="922" y="457" text-anchor="start">Semiconductors</text>
-          <text class="bs" x="922" y="476" text-anchor="start">EDA, equipment, foundry</text>
+          <a class="node" href="stack.html#layer-3" aria-label="Layer 3, Semiconductors — open this layer">
+            <rect class="bx b3" x="860" y="430" width="250" height="66" rx="9"/>
+            <circle cx="892" cy="463" r="12" class="d3"/><text class="bn" x="892" y="467" text-anchor="middle">3</text>
+            <text class="bt" x="922" y="457" text-anchor="start">Semiconductors</text>
+            <text class="bs" x="922" y="476" text-anchor="start">EDA, equipment, foundry</text>
+          </a>
+
+          <!-- Semiconductors feed the silicon, the halls and the fleet -->
           <path class="sc2" d="M860 463 H806" marker-end="url(#ahS)"/>
+          <path class="sc2" d="M860 448 H830 V222 H806" stroke-linejoin="round" marker-end="url(#ahS)"/>
+          <path class="sc2" d="M830 340 H806" marker-end="url(#ahS)"/>
+          <text class="lb-s" x="1104" y="422" text-anchor="end">into the silicon, the halls and the fleet</text>
 
-          <rect class="bx b1" x="60" y="800" width="540" height="112" rx="9"/>
-          <circle cx="92" cy="856" r="12" class="d1"/><text class="bn" x="92" y="860" text-anchor="middle">1</text>
-          <text class="bt" x="122" y="830" text-anchor="start">Energy and power</text>
-          <text class="bs" x="122" y="849" text-anchor="start">Nuclear · gas · grid · solar and storage · hydro</text>
-          <text class="bs" x="122" y="867" text-anchor="start">Turbines, transformers, switchgear, UPS, cooling</text>
-          <text class="bs" x="122" y="885" text-anchor="start">Charging and docking infrastructure for the fleet</text>
+          <a class="node" href="stack.html#layer-1" aria-label="Layer 1, Energy and power — open this layer">
+            <rect class="bx b1" x="60" y="800" width="540" height="112" rx="9"/>
+            <circle cx="92" cy="856" r="12" class="d1"/><text class="bn" x="92" y="860" text-anchor="middle">1</text>
+            <text class="bt" x="122" y="830" text-anchor="start">Energy and power</text>
+            <text class="bs" x="122" y="849" text-anchor="start">Nuclear · gas · grid · solar and storage · hydro</text>
+            <text class="bs" x="122" y="867" text-anchor="start">Turbines, transformers, switchgear, UPS, cooling</text>
+            <text class="bs" x="122" y="885" text-anchor="start">Charging and docking infrastructure for the fleet</text>
+          </a>
 
-          <rect class="bx b2" x="640" y="800" width="500" height="112" rx="9"/>
-          <circle cx="672" cy="856" r="12" class="d2"/><text class="bn" x="672" y="860" text-anchor="middle">2</text>
-          <text class="bt" x="702" y="830" text-anchor="start">Materials</text>
-          <text class="bs" x="702" y="849" text-anchor="start">Ore, brine, by-products · refining and separation</text>
-          <text class="bs" x="702" y="867" text-anchor="start">Rare earths · copper · quartz · polysilicon · steel</text>
-          <text class="bs" x="702" y="885" text-anchor="start">Refining capacity, not reserves, is the chokepoint</text>
+          <a class="node" href="stack.html#layer-2" aria-label="Layer 2, Materials — open this layer">
+            <rect class="bx b2" x="640" y="800" width="500" height="112" rx="9"/>
+            <circle cx="672" cy="856" r="12" class="d2"/><text class="bn" x="672" y="860" text-anchor="middle">2</text>
+            <text class="bt" x="702" y="830" text-anchor="start">Materials</text>
+            <text class="bs" x="702" y="849" text-anchor="start">Ore, brine, by-products · refining and separation</text>
+            <text class="bs" x="702" y="867" text-anchor="start">Rare earths · copper · quartz · polysilicon · steel</text>
+            <text class="bs" x="702" y="885" text-anchor="start">Refining capacity, not reserves, is the chokepoint</text>
+          </a>
 
           <path class="pw2" d="M415 800 V214 H434" marker-end="url(#ahP)"/>
           <path class="pw2" d="M415 334 H434" marker-end="url(#ahP)"/>
@@ -161,9 +183,12 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
           <path class="pw2" d="M560 800 V762 H990 V502" marker-end="url(#ahP)"/>
           <text class="lb-p" x="980" y="754" text-anchor="end">power to the fabs</text>
 
-          <path class="mt2" d="M1132 800 V248 H806" marker-end="url(#ahM)"/>
-          <path class="mt2" d="M1132 480 H1116" marker-end="url(#ahM)"/>
-          <text class="lb-m" x="1120" y="650" text-anchor="middle" transform="rotate(-90 1120 650)">materials into the fabs and the fleet</text>
+          <!-- Materials feed the fabs, the grid, and the stack above them -->
+          <path class="mt2" d="M1120 800 V770 H1160 V248 H806" stroke-linejoin="round" marker-end="url(#ahM)"/>
+          <path class="mt2" d="M1160 366 H806" marker-end="url(#ahM)"/>
+          <path class="mt2" d="M1160 400 H820 V450 H806" stroke-linejoin="round" marker-end="url(#ahM)"/>
+          <path class="mt2" d="M1160 470 H1116" marker-end="url(#ahM)"/>
+          <text class="lb-m" x="1152" y="300" text-anchor="end">materials into the fabs, the halls and the fleet</text>
           <path class="mt2" d="M640 856 H606" marker-end="url(#ahM)"/>
           <text class="lb-m" x="623" y="790" text-anchor="middle">into the grid</text>
         </svg>
