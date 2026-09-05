@@ -1250,3 +1250,85 @@ td.co-geo{white-space:nowrap}
 
 td.co-geo{white-space:normal}
 td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   VALUE CHAIN — stage index
+   The sub-layer breakdown that used to sit in the thesis pane now heads the
+   value chain, where it doubles as a jump index into the stages below it.
+   ────────────────────────────────────────────────────────────────────────── */
+.vc-index{border:1px solid var(--line); border-radius:12px; background:var(--surface2);
+  padding:18px 20px 16px; margin:0 0 22px}
+.vc-index-h{font-size:15.5px; font-weight:600; letter-spacing:-.014em; margin:0; color:var(--ink)}
+.vc-index-s{font-size:12.5px; color:var(--muted); margin:4px 0 14px}
+.vc-jump{list-style:none; margin:0; padding:0; display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:8px}
+.vc-jump a{display:grid; grid-template-columns:26px minmax(0,1fr); gap:11px; align-items:start;
+  text-decoration:none; background:var(--surface); border:1px solid var(--line);
+  border-radius:9px; padding:11px 13px; transition:border-color .16s var(--ease), transform .16s var(--ease)}
+.vc-jump a:hover{border-color:var(--accent); transform:translateY(-1px)}
+.vc-jump a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.vj-n{width:24px; height:24px; border-radius:50%; background:var(--accent-soft); color:var(--accent);
+  font:600 11.5px var(--f-mono); display:flex; align-items:center; justify-content:center}
+.vj-t b{display:block; font-size:13.5px; color:var(--ink); letter-spacing:-.01em}
+.vj-t span{display:block; font-size:11.5px; color:var(--ink2); margin-top:2px; line-height:1.45}
+.vj-c{grid-column:2; font-size:11px; color:var(--muted); margin-top:6px; padding-top:6px;
+  border-top:1px solid var(--line); line-height:1.45}
+.vc-top-wrap{margin:18px 0 0; text-align:right}
+.vc-top{font-size:12.5px; font-weight:500; color:var(--accent); text-decoration:none}
+.vc-top:hover{text-decoration:underline}
+.chain-stage{scroll-margin-top:20px}
+.layer-diagnostic.single{grid-template-columns:1fr}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   LAYER DESCRIPTION
+   ────────────────────────────────────────────────────────────────────────── */
+.how-lede{margin:0 0 18px}
+.how-lede .lede{max-width:86ch}
+.how-stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:0;
+  border:1px solid var(--line); border-radius:11px; overflow:hidden; margin:0 0 26px}
+.how-stats>div{padding:14px 16px; border-right:1px solid var(--line)}
+.how-stats>div:last-child{border-right:0}
+.how-stats b{display:block; font-size:21px; letter-spacing:-.024em; color:var(--ink)}
+.how-stats span{display:block; font-size:11.5px; color:var(--muted); margin-top:3px; line-height:1.45}
+.how-list{list-style:none; margin:0 0 24px; padding:0; display:flex; flex-direction:column; gap:2px}
+.how-list li{display:grid; grid-template-columns:34px minmax(0,1fr); gap:14px; align-items:start;
+  padding:16px 0; border-top:1px solid var(--line)}
+.how-n{width:28px; height:28px; border-radius:8px; background:var(--stage,var(--accent)); color:#fff;
+  font:600 12px var(--f-mono); display:flex; align-items:center; justify-content:center; opacity:.92}
+.how-list h5{font-size:15px; font-weight:600; letter-spacing:-.014em; margin:2px 0 6px; color:var(--ink)}
+.how-list p{font-size:14px; line-height:1.65; color:var(--ink2); margin:0; max-width:88ch}
+.how-money{border-left:3px solid var(--accent); background:var(--surface2);
+  border-radius:0 10px 10px 0; padding:16px 20px; margin:0 0 6px}
+.how-money h5{font-size:14px; font-weight:600; margin:0 0 6px; color:var(--ink)}
+.how-money p{font-size:14px; line-height:1.65; color:var(--ink2); margin:0; max-width:88ch}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ELEMENT PHOTOGRAPHS
+   ────────────────────────────────────────────────────────────────────────── */
+.el-shots{display:flex; gap:7px; flex:none}
+.el-shot{margin:0; width:52px; text-align:center}
+.el-shot img{width:52px; height:52px; object-fit:cover; border-radius:9px;
+  border:1px solid var(--line); background:#F3F4F4; display:block}
+.el-shot figcaption{margin-top:4px; line-height:1.2}
+.el-shot figcaption b{display:block; font:600 11px var(--f-mono); color:var(--ink)}
+.el-shot figcaption span{display:block; font-size:9.5px; color:var(--muted)}
+.material-card .mat-top{display:flex; gap:13px; align-items:flex-start}
+.material-card .mat-top>div:last-child{min-width:0}
+.mats-inline{margin-top:8px}
+
+/* Source register on the Method page */
+.src-layer{border:1px solid var(--line); border-radius:11px; margin-bottom:9px; background:var(--surface)}
+.src-layer summary{display:flex; align-items:center; gap:11px; cursor:pointer; padding:13px 16px;
+  font-size:14.5px; font-weight:600; letter-spacing:-.012em; color:var(--ink); list-style:none}
+.src-layer summary::-webkit-details-marker{display:none}
+.src-layer summary::after{content:"+"; margin-left:auto; color:var(--muted); font:400 17px var(--f-mono)}
+.src-layer[open] summary::after{content:"\2212"}
+.src-icon{width:22px; height:22px}
+.src-layer-body{padding:0 16px 16px; border-top:1px solid var(--line)}
+.src-doc a{display:inline-block; margin-top:6px; font-size:14px; font-weight:500;
+  color:var(--accent); text-decoration:none}
+.src-doc a:hover{text-decoration:underline}
+@media (max-width:700px){
+  .el-shot,.el-shot img{width:44px} .el-shot img{height:44px}
+  .vc-jump{grid-template-columns:1fr}
+}

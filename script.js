@@ -895,7 +895,7 @@ function chainTable(d){
     `</tbody></table></div>`;
 }
 
-function chainPane(n,col){
+function chainPane(n,col,sub){
   const d=(typeof CHAIN!=='undefined')&&CHAIN[n];
   if(!d) return '<p class="sub">Data unavailable from accessible sources.</p>';
   const chokes=d.stages.filter(st=>st.c).length;
@@ -904,7 +904,7 @@ function chainPane(n,col){
   const thinnest=d.stages.reduce((a,b)=>b.n.length<a.n.length?b:a);
 
   const stages=d.stages.map((st,i)=>`
-    <li class="chain-stage${st.c?' is-choke':''}" style="--stage:${col}">
+    <li id="vc-${n}-${i}" class="chain-stage${st.c?' is-choke':''}" style="--stage:${col}">
       <div class="cs-head">
         <span class="cs-num">${i+1}</span>
         <div class="cs-title">
@@ -937,12 +937,13 @@ function chainPane(n,col){
     </section>` : '';
 
   return `<p class="chain-lead">${d.lead}</p>
-    <div class="vc-stats">
-      <div><b class="num">${d.stages.length}</b><span>stages, upstream to downstream</span></div>
-      <div><b class="num">${chokes}</b><span>${chokes===1?'stage is':'stages are'} a chokepoint</span></div>
-      <div><b class="num">${names.length}</b><span>entities named, ${listed} of them listed</span></div>
-      <div><b class="num">${thinnest.n.length}</b><span>suppliers at the thinnest stage &mdash; ${_esc(thinnest.t.toLowerCase())}</span></div>
-    </div>
+    ${sub?`<section class="vc-index" id="vc-index-${n}" role="navigation" aria-label="Stages in this layer">
+      <p class="vc-index-h">How the layer breaks down</p>
+      <p class="vc-index-s">${_esc(sub.h[2]||'Where the chokepoint sits')} &mdash; jump to any stage.</p>
+      <ol class="vc-jump">${sub.r.map((r,i)=>`<li><a href="#vc-${n}-${i}"><span class="vj-n">${i+1}</span>`+
+        `<span class="vj-t"><b>${r[0]}</b><span>${r[1]}</span></span>`+
+        `<span class="vj-c">${r[2]}</span></a></li>`).join('')}</ol>
+    </section>`:''}
     <div class="chain-key">
       <span><i class="k-choke"></i>Chokepoint stage &mdash; few credible suppliers, long time to relieve</span>
       <span><i class="k-flow"></i>Each stage buys from the one on its left</span>
@@ -950,10 +951,134 @@ function chainPane(n,col){
     </div>
     <p class="chain-hint">Upstream at the top, downstream at the bottom &mdash; scroll down to follow the chain. Each row is what that company supplies at that stage; the right-hand column is its position where a figure can be stated.</p>
     <div class="chain-wrap"><ol class="chain-flow" aria-label="Value chain for this layer, upstream first">${stages}</ol></div>
+    <p class="vc-top-wrap"><a class="vc-top" href="#vc-index-${n}">Back to the stage index &uarr;</a></p>
     ${proc}
     ${chainDiagrams(d,col)}
     ${chainTable(d)}
     <p class="tnote">Companies are named for structural completeness of the chain, not as recommendations, and several are private, Chinese-listed or embedded inside much larger groups. Position within a stage does not imply ranking. A company can appear in more than one stage or more than one layer. Product and platform names resolve to the parent listing, so Google TPU opens Alphabet and NVIDIA Jetson opens NVIDIA. Entities without a ticker are private, state-held, generic categories, or not separately listed.</p>`;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LAYER DESCRIPTION
+   What the layer physically is, the engineering that governs it, and the
+   economics that follow from that engineering. Written to be read before the
+   thesis: the thesis argues, this explains. Figures repeated here are the
+   same ones sourced elsewhere in the layer; the physics is textbook and is
+   stated without citation.
+   ══════════════════════════════════════════════════════════════════════════ */
+const HOWTO={
+1:{what:'A data centre does not consume computation, it consumes electricity and emits heat. This layer is the machinery that turns a fuel or a natural flow into firm, conditioned, always-on power delivered at the rack, and then removes the heat that power becomes.',
+ physics:[
+  ['Energy is conserved, so all of it becomes heat','Essentially every watt delivered to a rack leaves as heat. A 1 GW campus is a 1 GW heater. This is why the cooling plant scales with the compute and cannot be optimised away — it is thermodynamics, not engineering slack.'],
+  ['Thermal capacity of air runs out around 30 kW a rack','Air has a volumetric heat capacity roughly 3,500 times lower than water. Past about 30 kW per rack the airflow required becomes impractical, which is why accelerator racks at 100 kW and above force direct-to-chip or immersion liquid cooling. The transition is a physical threshold, not a preference.'],
+  ['Transmission loss scales with the square of current','Power is moved at high voltage and low current because resistive loss goes as I²R. Every step between the generator and the chip needs a transformer, and each transformer needs a core of grain-oriented electrical steel whose magnetic domains are aligned by a days-long annealing process.'],
+  ['Firmness, not energy, is the scarce product','A model training run cannot pause at dusk. What the layer sells is availability — power at three in the morning — which is why nuclear and gas command a premium over solar with the same nameplate rating, and why a 4× overbuild plus storage is the honest comparison.'],
+ ],
+ econ:[['~60%','of a data centre’s lifetime non-IT cost is electricity and the plant to deliver it'],
+  ['128 wk','quoted lead time for large power transformers'],
+  ['5–7 yr','typical grid interconnection queue in constrained US markets'],
+  ['2031','forward sold-out date for heavy-duty gas turbine slots']],
+ money:'The economics are those of a regulated-ish utility bolted to a manufacturing bottleneck. Returns do not come from generating electrons, which are close to a commodity, but from owning the equipment that conditions and moves them — turbines, transformers, switchgear, UPS and cooling — where order books are years deep and pricing has been re-rated. The binding scarcity is calendar time, not capital.'},
+
+2:{what:'Everything above this layer is rearranged rock. This layer covers the step between a natural deposit and an input a fab, a foundry or a turbine hall will accept — mining, smelting, refining, separation and qualification.',
+ physics:[
+  ['Separation cost rises as concentration falls','Pulling a dilute element out of a mixed ore is governed by the entropy of mixing: the more dilute the target, the more energy and the more stages are needed. This is why refining, not mining, is the concentrated step almost everywhere in this report.'],
+  ['Rare earths are chemically almost identical','The lanthanides differ mainly in the filling of an inner 4f shell, which barely changes their outer chemistry. Separating neodymium from praseodymium therefore needs hundreds of sequential solvent-extraction stages, each with a separation factor barely above one. The difficulty is intrinsic, not political.'],
+  ['Purity requirements are logarithmic','Electronic-grade polysilicon is specified at eleven nines — one impurity atom in 10¹¹. Each additional nine costs disproportionately more energy and process control, which is why a handful of plants worldwide can hit the top grades.'],
+  ['Crystal structure is the product','Grain-oriented electrical steel, single-crystal turbine blades and semiconductor wafers are all sold on the arrangement of their atoms rather than their composition. That arrangement is produced by heat treatment schedules that are process knowledge, and process knowledge does not transfer with a licence.'],
+ ],
+ econ:[['86–90%','China share of rare earth refining'],['~48%','China share of copper smelting'],
+  ['1','US producer of grain-oriented electrical steel'],['3–8 yr','to replicate a refinery, versus decades for a fab']],
+ money:'Margins sit at the refining and qualification steps, not at the mine. A mine sells a commodity into a liquid market; a separation plant sells a qualified input into a supply chain that cannot switch without requalifying a whole product line. That switching cost, not the ore body, is the moat — and it is why an export ban on separation technology is far more consequential than a tariff on the metal.'},
+
+3:{what:'The step that turns sand and gas into a working logic or memory die. It has three separable businesses: the software a chip is designed in, the machines a chip is built with, and the fabs that run those machines.',
+ physics:[
+  ['Resolution is set by wavelength and aperture','Printable feature size follows the Rayleigh criterion, CD = k₁·λ/NA. Getting smaller means shorter wavelength or a larger numerical aperture. The move from 193 nm deep ultraviolet to 13.5 nm extreme ultraviolet is the reason a single company sells the machine that defines the leading edge.'],
+  ['EUV is absorbed by everything, including air','At 13.5 nm there is no transmissive lens material and no atmosphere to print through. The whole optical path is mirrors — multilayer molybdenum-silicon stacks — in vacuum, with the light generated by vaporising tin droplets with a laser. Every element of that is a separate near-monopoly.'],
+  ['Chips are built one layer at a time','Deposit, coat with photoresist, expose, etch, implant, clean and polish, then repeat. A leading-edge die runs this cycle upwards of eighty times. The early layers are the critical ones, needing the most advanced machines; later layers do not, which is why mature-node equipment is a different market.'],
+  ['Yield falls exponentially with defect density','Die yield goes roughly as e^(−D·A) with defect density D and die area A. Since accelerators are very large dies, tiny changes in particle contamination move economics sharply — which is why process control and metrology is its own multi-billion dollar segment.'],
+  ['The bottleneck has moved to packaging','Now that a single die cannot get bigger, performance comes from bonding a logic die to stacks of memory on a silicon interposer. Advanced packaging, not lithography, is the current binding constraint on accelerator supply.'],
+ ],
+ econ:[['100%','ASML share of EUV lithography'],['>90%','TSMC share of leading-edge logic'],
+  ['~$400m','list price of a High-NA EUV scanner'],['~80+','mask layers on a leading-edge die']],
+ money:'Every segment here is a duopoly or a monopoly, and each one sells a tool or a service that its customer cannot design around inside a decade. Equipment vendors earn on installed base and service as much as on new tools, which smooths the cycle. The fab itself is the most capital-hungry business in the stack and the one with the least pricing freedom relative to its supplier — which is exactly why its suppliers are the better businesses.',
+ src:'Process sequence and equipment positions follow Generative Value, “A Primer on Semiconductor Capital Equipment” and “An Overview of the Semiconductor Industry”.'},
+
+4:{what:'The finished silicon a data centre actually buys: accelerators, the high-bandwidth memory beside them, and the networking fabric that makes many of them behave as one machine.',
+ physics:[
+  ['Compute is now limited by data movement, not arithmetic','Moving a number from memory costs orders of magnitude more energy than the multiply it feeds. Modern accelerator design is therefore mostly memory and interconnect design; the arithmetic units are the easy part.'],
+  ['That is what high-bandwidth memory is for','HBM stacks DRAM dies vertically and connects them to the logic die through a very wide, very short bus on a silicon interposer. Width substitutes for clock speed, which is what keeps the power per bit tolerable.'],
+  ['Training does not fit on one chip','A frontier run is split across tens of thousands of accelerators, so the fabric between them sits in the critical path. This is why scale-up links inside a rack and scale-out switching between racks are part of the compute purchase rather than an afterthought.'],
+  ['Power density drives the physical design','Accelerator racks now draw an order of magnitude more than a traditional server rack, which is what pulls liquid cooling, busway and on-site electrical plant into the same buying decision.'],
+ ],
+ econ:[['85–90%','accelerator share held by the leading vendor'],['~50–60%','HBM share held by the leading supplier'],
+  ['3','credible suppliers of high-bandwidth memory'],['~$3–4bn','cost of the silicon in a gigawatt-class build']],
+ money:'The highest growth in the stack and the shortest moat half-life. The defensible asset is the software ecosystem rather than the transistor, because a buyer switching vendor rewrites its kernels. Memory is a genuine oligopoly with real pricing power while HBM is tight, but it is still a cyclical commodity business underneath. Custom silicon is the structural threat: every hyperscaler large enough to amortise a design team has started one.',
+ src:'Market structure follows Generative Value, “A Primer on Data Centers”.'},
+
+5:{what:'The building, the power and cooling plant inside it, and the operating business that rents the result. This layer converts capital and electricity into an hour of available compute.',
+ physics:[
+  ['A hall is a heat exchanger with a roof','The design problem is getting cold fluid to a few hundred thousand hot points and the heat back out. Everything else — floor loading, aisle layout, redundancy topology — follows from that.'],
+  ['Water and power trade against each other','Evaporative cooling is efficient but consumes water; closed-loop and air-cooled designs save water and spend electricity. Siting is largely the negotiation of that trade against local constraints.'],
+  ['Utilisation is the whole economic story','The asset is fixed cost. The difference between a good and a bad operator is how much of the installed capacity is sold and running, which is why lease structure and pre-leasing matter more than construction cost per megawatt.'],
+  ['Latency sets geography, but training does not care','Inference wants to be near users; training only wants power and land. That split is why the map of new capacity looks nothing like the map of existing colocation.'],
+ ],
+ econ:[['~$30–35m','all-in capital cost per MW of critical IT load'],['~60%','of lifetime cost that is power-related'],
+  ['1.1–1.3','achievable PUE for a modern liquid-cooled hall'],['5–7 yr','from land to energised at grid-constrained sites']],
+ money:'Weak moats, heavy capital, and returns that depend on the contract rather than the technology. What is genuinely scarce is not the building but the interconnection agreement and the power contract behind it — a signed grid connection in a constrained market is the real asset. The operators earning best are those who secured power years before the demand arrived.',
+ src:'Cost composition follows Generative Value, “A Primer on Data Centers”.'},
+
+6:{what:'The models themselves: the training runs that produce weights, and the inference systems that serve them. This layer buys almost everything below it and sells to almost everything above it.',
+ physics:[
+  ['Capability scales as a power law in compute','Loss falls roughly as a power of compute, data and parameters. Power laws are brutal: each increment of capability costs multiplicatively more, which is what turns model training into an infrastructure problem rather than a software one.'],
+  ['A training run is one long synchronous computation','Weights must stay consistent across the whole cluster, so the slowest link and the least reliable node set the pace. At tens of thousands of accelerators, hardware failure is a routine event that the training system has to survive.'],
+  ['Inference economics are the inverse of training','Training is a large fixed cost paid once; inference is a marginal cost paid per token, forever. As usage grows, serving efficiency — quantisation, batching, caching, distillation — matters more to margin than the training run did.'],
+  ['Open weights put a floor under price','Once a competent model can be downloaded, the price of an equivalent API call cannot stay far above the cost of serving it. This is the single most important economic fact about the layer.'],
+ ],
+ econ:[['power law','capability versus compute — each step costs multiplicatively more'],
+  ['~0','marginal cost of copying a trained weight file'],
+  ['months','useful commercial life of a frontier lead'],['open','the pricing floor, and it is falling']],
+ money:'The weakest durable moat in the stack relative to the capital consumed. Weights depreciate fast, switching cost for a buyer is a prompt rewrite, and the open-weight floor keeps compressing price. What is defensible is distribution, proprietary data and the integration into a workflow — none of which is the model itself. This layer is where the most money is spent and the least of it is likely to be kept.'},
+
+7:{what:'The frameworks, tooling and applications that turn a model into something a business uses. It owns the customer relationship and almost none of the physical stack.',
+ physics:[
+  ['There is no physics here, and that is the point','This is the one layer with no material constraint, no lead time and no capital intensity. Its economics are therefore pure competition: nothing physical protects an incumbent.'],
+  ['Context is the scarce input','A model is a commodity; the enterprise data, permissions and process knowledge fed to it are not. Value accrues to whoever owns the context, which is usually the existing system of record rather than the newcomer.'],
+  ['Agents break seat-based pricing','If software does the work rather than helping a person do it, charging per person stops tracking value delivered. Every incumbent priced per seat is exposed to a repricing it does not control.'],
+  ['Consumption pricing tracks the machine, not the headcount','Vendors already billing on usage — observability, data platforms, security — benefit mechanically as agent volume rises, without changing anything about how they sell.'],
+ ],
+ econ:[['0','material inputs and lead times in this layer'],['seats → usage','the repricing that decides who wins'],
+  ['high','gross margin, and correspondingly low barrier to entry'],['the data','not the model, is the defensible asset']],
+ money:'The layer where AI most plausibly destroys incumbent value rather than creating it. The bull case is that owning workflow and data makes an incumbent the natural agent vendor; the bear case is that agents collapse the seat count that the incumbent’s revenue is calculated from. Both can be true for different companies in the same category, which is why this layer resists a single directional view.'},
+
+8:{what:'Machines that sense and act in the physical world — robots, vehicles, drones. It is where the stack stops being information and starts being mechanical, and where a Western portfolio’s geographic assumptions invert.',
+ physics:[
+  ['Actuation is a torque density problem','A useful humanoid joint needs high torque at low speed in a small mass. That means a motor plus a precision reducer — harmonic or cycloidal — and those reducers are ground to micron tolerances by a small number of mostly Japanese firms. This is the binding constraint, and it is mechanical.'],
+  ['Permanent magnets set the performance ceiling','Torque density in a compact motor comes from neodymium-iron-boron magnets, with dysprosium or terbium added for heat resistance. That places the most Western-facing robotics thesis directly downstream of Chinese rare earth separation.'],
+  ['Sensing returns an error signal reality actually generated','Text teaches a model what people have written about physics; sensors return what physics did. That data cannot be scraped or licensed, which is why fleet-scale operating history is the one genuinely non-replicable data asset in the report.'],
+  ['Control must close the loop faster than the world moves','Manipulation needs latency budgets in milliseconds, which forces inference on board rather than in a data centre. That constrains the achievable model size, and pulls edge silicon and power budget into the design.'],
+  ['Reliability compounds against you','A task with many sequential steps needs per-step reliability close to one to work end to end. This is why demonstrations generalise poorly to deployment, and why pilot-to-fleet timelines keep slipping.'],
+ ],
+ econ:[['~2–3','credible suppliers of precision reducers at volume'],['China','where the magnet supply chain terminates'],
+  ['ms','the control latency budget that forces on-board inference'],['fleet-years','the data asset that cannot be bought']],
+ money:'Structurally the most interesting and the least investable from a Western listing. The chokepoints are real — reducers, magnets, sensors — but they sit with Japanese component makers and Chinese material processors rather than with the humanoid developers attracting the capital. Treat this layer as a diagnostic for where the physical constraints bind, not as an allocation.'},
+};
+
+function howPane(L,col){
+  const d=HOWTO[L.n];
+  if(!d) return '<p class="sub">Description unavailable.</p>';
+  return `<div class="how-lede"><p class="lede">${d.what}</p></div>
+    <div class="how-stats">${d.econ.map(x=>`<div><b class="num">${_esc(x[0])}</b><span>${_esc(x[1])}</span></div>`).join('')}</div>
+    <h4 class="mini-h">The engineering that governs the layer</h4>
+    <p class="sub">Each of these is a physical constraint, not a market condition. They are why the layer has the shape it has.</p>
+    <ol class="how-list">${d.physics.map((p,i)=>`<li style="--stage:${col}">
+      <span class="how-n">${i+1}</span>
+      <div><h5>${_esc(p[0])}</h5><p>${_esc(p[1])}</p></div></li>`).join('')}</ol>
+    <div class="how-money" style="border-left-color:${col}">
+      <h5>What that means for the money</h5><p>${_esc(d.money)}</p></div>
+    ${d.src?`<p class="tnote">${_esc(d.src)}</p>`:''}
+    <p class="tnote">Physical relationships stated here are standard engineering and are given without citation. Every figure repeated in this tab is sourced where it first appears elsewhere in the report; see Method for the register.</p>`;
 }
 
 /* ── Project sources ─────────────────────────────────────────────────────── */
@@ -1776,20 +1901,53 @@ function cotbl(rows,layer){
 }
 const factgrid=f=>f.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span></div>`).join('');
 
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ELEMENT PHOTOGRAPHS
+   Specimen photographs of the elements a material entry actually depends on.
+   Sourced from the Chemical Elements virtual museum via images-of-elements.com,
+   CC BY 3.0, retouched onto a neutral ground and downscaled for the web. A
+   photograph shows one specimen, not a canonical appearance: allotrope, oxide
+   film and lighting all change it. Entries with no single governing element,
+   and fluorine, which has no usable specimen photograph, render without one.
+   ══════════════════════════════════════════════════════════════════════════ */
+const ELMAP={"Copper": ["Cu"], "Copper smelting": ["Cu"], "Copper + underfill": ["Cu"], "ABF resin + copper foil": ["Cu"], "Grain-oriented electrical steel": ["Fe"], "Bearing + gear steels": ["Fe"], "Steel + concrete": ["Fe"], "Rhenium superalloys": ["Re"], "High-purity quartz": ["Si"], "Electronic-grade polysilicon": ["Si"], "Silicon interposers": ["Si"], "InGaAs + silicon": ["In", "Si"], "SiC + GaN": ["Si", "Ga"], "HALEU + zirconium": ["U", "Zr"], "Gallium + germanium": ["Ga", "Ge"], "Fibre + germanium dopant": ["Ge"], "Neon + helium": ["Ne", "He"], "NdFeB + Dy/Tb": ["Nd", "Dy"], "Rare earth separation": ["Nd", "Dy"], "Lithium + graphite": ["Li", "C"], "LFP cells + graphite": ["Li", "C"], "Aluminium + carbon fibre": ["Al", "C"], "Aluminium + silver": ["Al", "Ag"], "Indium + ruthenium": ["In", "Ru"], "Indium foil + diamond composites": ["In", "C"], "Tin + ruthenium + Mo/Si": ["Sn", "Ru"], "Photoresists + HF": ["F"]};
+const ELEMENTS={"Ag": {"name": "Silver", "z": 47}, "Al": {"name": "Aluminium", "z": 13}, "C": {"name": "Carbon", "z": 6}, "Cu": {"name": "Copper", "z": 29}, "Dy": {"name": "Dysprosium", "z": 66}, "Fe": {"name": "Iron", "z": 26}, "Ga": {"name": "Gallium", "z": 31}, "Ge": {"name": "Germanium", "z": 32}, "He": {"name": "Helium", "z": 2}, "In": {"name": "Indium", "z": 49}, "Li": {"name": "Lithium", "z": 3}, "Nd": {"name": "Neodymium", "z": 60}, "Ne": {"name": "Neon", "z": 10}, "Re": {"name": "Rhenium", "z": 75}, "Ru": {"name": "Ruthenium", "z": 44}, "Si": {"name": "Silicon", "z": 14}, "Sn": {"name": "Tin", "z": 50}, "U": {"name": "Uranium", "z": 92}, "Zr": {"name": "Zirconium", "z": 40}};
+function elementShots(materialName){
+  const syms=ELMAP[materialName]; if(!syms) return '';
+  const shots=syms.filter(x=>ELEMENTS[x]).map(x=>{
+    const e=ELEMENTS[x];
+    return `<figure class="el-shot"><img src="assets/elements/${x}.png" alt="Specimen of ${e.name}" `+
+      `loading="lazy" decoding="async"><figcaption><b>${x}</b><span>${e.name}</span></figcaption></figure>`;
+  }).join('');
+  return shots?`<div class="el-shots">${shots}</div>`:'';
+}
+
 function materialPane(m,col){
+  const isL2 = m.__n===2;
+  const crossStack = isL2 && typeof MATTBL!=='undefined' ? `
+    <h4 class="mini-h">Where each material enters the infrastructure stack</h4>
+    <p class="sub">The five gating materials, read across the whole stack rather than one layer at a time.</p>
+    <div class="mats mats-inline">${(typeof MATS!=='undefined'?MATS:[]).map(x=>
+      `<article class="mat"><h4>${x.t}</h4><div class="big" style="color:${x.c}">${x.big}</div>`+
+      `<p>${x.d}</p><p class="src">${x.s}</p></article>`).join('')}</div>
+    <div class="tw"><table class="dat">${tbl(MATTBL)}</table></div>
+    <p class="tnote">Material chokepoints behave differently from manufacturing ones. A refinery can be replicated in three to eight years; ASML\u2019s accumulated engineering cannot. Material constraints shape the near-term timing of bottlenecks but should not, on their own, underwrite a decade-long thesis. The exception is China\u2019s export ban on rare earth separation <em>technology</em> \u2014 licensing the metal is a tariff, banning the know-how is a moat.</p>` : '';
+
   return `<div class="material-hero" style="border-left:4px solid ${col}">
     <div><h4>Material foundation</h4><p>${m.summary}</p></div>
     <div class="severity-badge"><span>Constraint severity</span><b style="color:${col}">${m.severity}</b></div>
   </div>
   <div class="material-stats">${m.stats.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
   <div class="supply-flow">${m.flow.map((x,j)=>`<div class="flow-node"><small>${['Origin','Refine','Transform','Enters stack'][j]}</small><b>${x}</b></div>`).join('')}</div>
-  <div class="material-cards">${m.items.map(x=>`<article class="material-card">
-    <div><h5>${x.n}</h5><div class="mat-role">${x.role}</div></div>
+  <div class="material-cards">${m.items.map(x=>`<article class="material-card${elementShots(x.n)?' has-shot':''}">
+    <div class="mat-top">${elementShots(x.n)}<div><h5>${x.n}</h5><div class="mat-role">${x.role}</div></div></div>
     <div><div class="mat-choke">${x.choke}</div><div class="mat-meta"><span class="micro-chip">${x.geo}</span><span class="micro-chip">Relief: ${x.time}</span></div></div>
   </article>`).join('')}</div>
   <div class="conc-wrap" data-conc="${m.__n}"></div>
   ${(m.__n===3||m.__n===7)?`<div class="policy-rail" data-policy="${m.__n}"></div>`:''}
-  <div class="material-note"><b>Investment reading.</b> ${m.note}</div>`;
+  <div class="material-note"><b>Investment reading.</b> ${m.note}</div>
+  <p class="tnote">Element photographs: Chemical Elements &mdash; A Virtual Museum (images-of-elements.com), <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a>, retouched onto a neutral ground. Each shows one specimen rather than a canonical appearance &mdash; allotrope, oxide film, container and lighting all change how an element looks.</p>`+crossStack;
 }
 function riskPane(r,L){
   return `<div class="risk-layout">
@@ -1854,27 +2012,26 @@ LAYERS.forEach((L,i0)=>{
     </div>
     <div class="layer-modes" role="tablist" aria-label="${L.t} views">
       <button class="layer-mode" data-mode="thesis" aria-selected="true">Layer thesis</button>
+      <button class="layer-mode" data-mode="how" aria-selected="false">Layer description</button>
       <button class="layer-mode" data-mode="chain" aria-selected="false">Value chain</button>
       <button class="layer-mode" data-mode="materials" aria-selected="false">Materials</button>
       <button class="layer-mode" data-mode="risks" aria-selected="false">Risks + signals</button>
       <button class="layer-mode" data-mode="companies" aria-selected="false">Companies</button>
-      <button class="layer-mode" data-mode="sources" aria-selected="false">Sources</button>
     </div>
     <div class="layer-body">
       <div class="layer-pane on" data-mode-pane="thesis">
         <div class="overview-lede"><div><p class="lede">${L.lede}</p><p class="why">${L.why}</p></div><div class="choke-card" style="border-left-color:${col}"><b>Binding constraint.</b> ${L.choke}</div></div>
         <div class="facts">${factgrid(L.facts)}</div>
-        <div class="layer-diagnostic">
-          <div><p class="sub">How the layer breaks down</p><div class="tw"><table class="dat">${tbl(L.sub)}</table></div></div>
+        <div class="layer-diagnostic single">
           <div class="chartbox">${bars(ch)}</div>
         </div>
         <div class="essay-list">${L.detail.map((d,j)=>`<details class="essay" ${j===0?'open':''}><summary>${d[0]}</summary><p>${d[1]}</p></details>`).join('')}</div>
       </div>
-      <div class="layer-pane" data-mode-pane="chain">${chainPane(L.n,col)}</div>
+      <div class="layer-pane" data-mode-pane="how">${howPane(L,col)}</div>
+      <div class="layer-pane" data-mode-pane="chain">${chainPane(L.n,col,L.sub)}</div>
       <div class="layer-pane" data-mode-pane="materials">${materialPane(mat,col)}</div>
       <div class="layer-pane" data-mode-pane="risks">${riskPane(risk,L)}</div>
       <div class="layer-pane" data-mode-pane="companies"><p class="sub">Companies with material presence in this layer</p><div class="tw"><table class="co">${cotbl(L.co,L.n)}</table></div><p class="tnote"><b>On the share column.</b> Each figure is the company\u2019s approximate share of the specific niche named beside it, not of the layer and not of any single market. Bases, definitions and measurement dates differ from row to row, so the column indicates order of magnitude and competitive position rather than a like-for-like ranking; <em>n/d</em> means no figure is stated here because none is reliable. Country is domicile of listing, which frequently differs from where the production risk actually sits. Inclusion maps exposure to the layer; it is not a buy recommendation. Read the bull and bear columns together.</p></div>
-      <div class="layer-pane" data-mode-pane="sources">${sourcePane(L.n)}</div>
     </div>
   </div>`;
   panels.appendChild(p);
@@ -2590,4 +2747,14 @@ fillAll();
     el.addEventListener('focusout',()=>{pinned=null; clear();});
   });
   info.innerHTML=REST;
+})();
+
+/* All layer source registers, rendered onto the Method page now that the
+   per-layer Sources tab is gone. */
+(function(){
+  const host=document.getElementById('allsources');
+  if(!host||typeof SOURCES==='undefined'||typeof LAYERS==='undefined') return;
+  host.innerHTML=LAYERS.map(L=>`<details class="src-layer"${L.n===1?' open':''}>
+    <summary>${layerIcon(L.n,'src-icon')}<span>Layer ${L.n} &middot; ${_esc(L.t)}</span></summary>
+    <div class="src-layer-body">${sourcePane(L.n)}</div></details>`).join('');
 })();
