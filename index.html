@@ -9,7 +9,7 @@
 <script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
 if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
 document.documentElement.setAttribute("data-theme",t);})();</script>
-<link rel="stylesheet" href="style.css?v=52e49046">
+<link rel="stylesheet" href="style.css?v=25c078b5">
 </head>
 <body>
 
@@ -54,7 +54,7 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
           
         </div>
         <p class="d-sub">Energy and materials are the base pair, both drawn directly from the physical world. Everything above them is a claim on something dug up, refined and powered. The physical world itself is not a layer — it is the ground the whole structure stands on, and the place embodied machines eventually do their work.</p>
-        <div class="dia-shell">
+        <div class="dia-shell is-map">
         <div class="dia-chart">
         <svg id="mapsvg" viewBox="0 -52 1220 1012" role="group" aria-labelledby="d1t d1d">
           <title id="d1t">The AGI infrastructure map</title>
@@ -220,35 +220,35 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
       <figure class="dia" style="margin:0">
         <h3>The loop</h3>
         <p class="d-sub">Read as a chain, the infrastructure stack is a value chain. Close it — actuators change the world, sensors observe the change — and it becomes a flywheel. That is the road to AGI, and it is what makes the thesis compound rather than merely grow.</p>
-        <div class="dia-shell">
+        <div class="dia-shell is-loop">
         <div class="dia-chart">
         <svg id="loopsvg" viewBox="0 0 440 300" role="group" aria-labelledby="d2t d2d">
           <title id="d2t">The compounding loop</title>
           <desc id="d2d">A four-stage cycle: observe, learn, act, change, returning to observe.</desc>
           <g class="loop-node" data-stage="observe" tabindex="0" role="button" aria-label="Observe">
-          <rect x="20" y="20" width="180" height="76" rx="9" class="bx b8"/>
+          <rect x="30" y="26" width="160" height="62" rx="8" class="bx b8"/>
           <text class="bt" x="110" y="52" text-anchor="middle">Observe</text>
-          <text class="bs" x="110" y="72" text-anchor="middle">Sensors capture reality</text>
+          <text class="bs" x="110" y="70" text-anchor="middle">Sensors capture reality</text>
           </g>
           <g class="loop-node" data-stage="learn" tabindex="0" role="button" aria-label="Learn">
-          <rect x="240" y="20" width="180" height="76" rx="9" class="bx b3"/>
+          <rect x="250" y="26" width="160" height="62" rx="8" class="bx b3"/>
           <text class="bt" x="330" y="52" text-anchor="middle">Learn</text>
-          <text class="bs" x="330" y="72" text-anchor="middle">Data becomes models</text>
+          <text class="bs" x="330" y="70" text-anchor="middle">Data becomes models</text>
           </g>
           <g class="loop-node" data-stage="act" tabindex="0" role="button" aria-label="Act">
-          <rect x="240" y="204" width="180" height="76" rx="9" class="bx b7"/>
-          <text class="bt" x="330" y="236" text-anchor="middle">Act</text>
+          <rect x="250" y="212" width="160" height="62" rx="8" class="bx b7"/>
+          <text class="bt" x="330" y="238" text-anchor="middle">Act</text>
           <text class="bs" x="330" y="256" text-anchor="middle">Robots and agents work</text>
           </g>
           <g class="loop-node" data-stage="change" tabindex="0" role="button" aria-label="Change">
-          <rect x="20" y="204" width="180" height="76" rx="9" class="bx b8"/>
-          <text class="bt" x="110" y="236" text-anchor="middle">Change</text>
+          <rect x="30" y="212" width="160" height="62" rx="8" class="bx b8"/>
+          <text class="bt" x="110" y="238" text-anchor="middle">Change</text>
           <text class="bs" x="110" y="256" text-anchor="middle">New state, new data</text>
           </g>
-          <path class="ln-a" d="M202 58 H232" marker-end="url(#ahA)"/>
-          <path class="ln-a" d="M330 98 V198" marker-end="url(#ahA)"/>
-          <path class="ln-a" d="M238 242 H208" marker-end="url(#ahA)"/>
-          <path class="ln-a" d="M110 202 V102" marker-end="url(#ahA)"/>
+          <path class="ln-a" d="M190 57 H244" marker-end="url(#ahA)"/>
+          <path class="ln-a" d="M330 88 V206" marker-end="url(#ahA)"/>
+          <path class="ln-a" d="M250 243 H196" marker-end="url(#ahA)"/>
+          <path class="ln-a" d="M110 212 V94" marker-end="url(#ahA)"/>
         </svg>
         </div>
         <aside class="dia-info" id="loopinfo" aria-live="polite"></aside>

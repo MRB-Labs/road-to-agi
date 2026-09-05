@@ -1411,3 +1411,18 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 @media (prefers-reduced-motion:reduce){
   #loopsvg .loop-node rect,#loopsvg .loop-node text{transition:none}
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   PER-FIGURE PROPORTIONS
+   Shared format, not shared size. The map is detailed and needs the width;
+   the loop is four boxes and does not, so it renders near its natural size
+   rather than stretching to fill half the figure.
+   ────────────────────────────────────────────────────────────────────────── */
+.dia-shell.is-map{grid-template-columns:minmax(0,1fr) minmax(250px,320px)}
+.dia-shell.is-loop{grid-template-columns:430px minmax(0,1fr)}
+#loopsvg .bt{font-size:13.5px}
+#loopsvg .bs{font-size:10.5px}
+@media (max-width:1000px){
+  .dia-shell.is-map{grid-template-columns:1fr}
+  .dia-shell.is-loop{grid-template-columns:1fr}
+}
