@@ -967,8 +967,58 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 :root[data-theme="dark"] .dia a.node:hover .bx{filter:brightness(1.35)}
 @media (prefers-reduced-motion:reduce){.dia a.node .bx{transition:none}}
 
-/* Layer marks on the overview map. Drawn at 0.64 scale, so the stroke is set to
-   2.5 to land near the 1.6 the map's other lines use. */
-.dia .lic{fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; opacity:.82}
+/* Layer marks on the overview map, drawn at 0.85 scale. */
+.dia .lic{fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; opacity:.85}
 .dia a.node .lic{transition:opacity .18s ease}
 .dia a.node:hover .lic{opacity:1}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   THE OVERVIEW MAP, READ BY POINTING
+   Arrow labels are hidden at rest — the diagram carries thirteen of them and
+   showing them all at once is most of what made it hard to read. Pointing at a
+   layer lights its outgoing arrows, reveals just those labels, and fills the
+   panel beside the map.
+   ────────────────────────────────────────────────────────────────────────── */
+.map-shell{display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,310px);
+  gap:20px; align-items:start}
+#mapsvg{width:100%; height:auto; min-height:0}
+
+#mapsvg path[data-from]{opacity:.72; transition:opacity .16s var(--ease), stroke-width .16s var(--ease)}
+#mapsvg text[data-from]{opacity:0; transition:opacity .16s var(--ease)}
+#mapsvg.hl path[data-from]:not(.on){opacity:.11}
+#mapsvg path[data-from].on{opacity:1; stroke:var(--hlc); stroke-width:2.3}
+#mapsvg text[data-from].on{opacity:1; fill:var(--hlc)}
+#mapsvg .worldnode{cursor:default}
+#mapsvg.hl .bx{transition:opacity .16s var(--ease)}
+
+/* The reading panel */
+.map-info{border:1px solid var(--line); border-radius:12px; padding:17px 18px 18px;
+  background:var(--surface); position:sticky; top:0; min-height:230px}
+.map-info .mi-eyebrow{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 5px}
+.map-info h4{font-size:17.5px; letter-spacing:-.018em; margin:0 0 9px; line-height:1.25}
+.map-info .chip{display:inline-block; margin:0 0 11px}
+.map-info .mi-lede{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:0}
+.map-info .mi-choke{font-size:12.5px; line-height:1.55; color:var(--ink2); margin:12px 0 0;
+  padding-top:11px; border-top:1px solid var(--line)}
+.map-info .mi-choke b{color:var(--ink)}
+.map-info .mi-hint{font-size:12px; line-height:1.5; color:var(--muted); margin:13px 0 0;
+  padding-top:11px; border-top:1px solid var(--line)}
+.map-info .mi-more{display:inline-block; margin-top:13px; font-size:12.5px; font-weight:500;
+  color:var(--accent); text-decoration:none}
+.map-info .mi-more:hover{text-decoration:underline}
+
+/* Layer marks in the rail and the layer head on the infrastructure page */
+.licon{fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; flex:none}
+.rail-icon{width:23px; height:23px}
+#rail .tab{display:flex; align-items:center; gap:9px}
+.head-icon{width:40px; height:40px}
+.layer-head-main{display:flex; align-items:center; gap:14px; min-width:0}
+
+@media (max-width:1080px){
+  .map-shell{grid-template-columns:1fr}
+  .map-info{position:static; min-height:0}
+}
+@media (prefers-reduced-motion:reduce){
+  #mapsvg path[data-from],#mapsvg text[data-from]{transition:none}
+}

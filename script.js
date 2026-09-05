@@ -764,6 +764,31 @@ function worldPane(){
   <p class="tnote">This section is context rather than analysis: it carries no company list, no valuation and no rating, and it deliberately has no sub-views. The material chains summarised here are treated in full in layer 2, the energy conversions in layer 1, and the sensing and manipulation constraints in layer 8.</p>`;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   Layer marks. One line-drawn icon per layer on a 44x44 artboard, in the same
+   grammar as the globe on the overview map: round caps and joins, no fill, the
+   stroke inherited so each mark takes its own layer colour in both themes.
+   Used in three places — the overview map, the layer rail, and the layer head.
+   ══════════════════════════════════════════════════════════════════════════ */
+const LAYER_ICONS={
+ 1:'<rect x="8" y="8" width="28" height="28" rx="7"/><path d="M24.5 13.5 L17.5 23 H22.5 L19.5 30.5 L26.5 21 H21.5 Z"/>',
+ 2:'<path d="M6.5 36 L11 25.5 L22 24.5 L26 36 Z"/><path d="M26.5 36 L29 26 L37.5 27.5 L37 36 Z"/><path d="M13 24 L18 13.5 L27.5 16 L25.5 24.5"/>',
+ 3:'<circle cx="22" cy="22" r="15"/><g clip-path="url(#waferClip)"><path d="M6 15 H38"/><path d="M6 22 H38"/><path d="M6 29 H38"/><path d="M15 6 V38"/><path d="M22 6 V38"/><path d="M29 6 V38"/></g><path d="M19.4 7.5 L22 12.2 L24.6 7.5"/>',
+ 4:'<rect x="12" y="12" width="20" height="20" rx="3"/><rect x="18" y="18" width="8" height="8" rx="1.5"/><path d="M17 12 V6"/><path d="M22 12 V6"/><path d="M27 12 V6"/><path d="M17 32 V38"/><path d="M22 32 V38"/><path d="M27 32 V38"/><path d="M12 17 H6"/><path d="M12 22 H6"/><path d="M12 27 H6"/><path d="M32 17 H38"/><path d="M32 22 H38"/><path d="M32 27 H38"/>',
+ 5:'<rect x="6" y="8" width="32" height="7.5" rx="2.2"/><rect x="6" y="18.3" width="32" height="7.5" rx="2.2"/><rect x="6" y="28.6" width="32" height="7.5" rx="2.2"/><circle cx="11" cy="11.75" r="1.4"/><circle cx="11" cy="22.05" r="1.4"/><circle cx="11" cy="32.35" r="1.4"/><path d="M30 11.75 H34"/><path d="M30 22.05 H34"/><path d="M30 32.35 H34"/>',
+ 6:'<path d="M14.6 12.8 L29.4 16.2"/><path d="M14.1 14.1 L29.9 24.9"/><path d="M14.6 21.2 L29.4 17.8"/><path d="M14.6 22.8 L29.4 26.2"/><path d="M14.1 29.9 L29.9 19.1"/><path d="M14.6 31.2 L29.4 27.8"/><circle cx="11" cy="12" r="2.9"/><circle cx="11" cy="22" r="2.9"/><circle cx="11" cy="32" r="2.9"/><circle cx="33" cy="17" r="2.9"/><circle cx="33" cy="27" r="2.9"/>',
+ 7:'<rect x="6" y="10" width="32" height="24" rx="3.2"/><path d="M6 17 H38"/><circle cx="10.6" cy="13.5" r="1.3"/><circle cx="14.8" cy="13.5" r="1.3"/><path d="M12 22.5 L16.5 26.5 L12 30.5"/><path d="M20 30.5 H30"/>',
+ 8:'<rect x="16" y="4.5" width="12" height="9.5" rx="3.2"/><circle cx="19.6" cy="9.3" r="1.3"/><circle cx="24.4" cy="9.3" r="1.3"/><path d="M22 14 V16.5"/><rect x="14" y="16.5" width="16" height="12" rx="3.2"/><path d="M14 19.5 H9.5 V26.5"/><path d="M30 19.5 H34.5 V26.5"/><path d="M18.5 28.5 V30.7"/><circle cx="18.5" cy="32.2" r="1.5"/><path d="M18.5 33.7 V36.5"/><path d="M16.2 36.5 H20.8"/><path d="M25.5 28.5 V30.7"/><circle cx="25.5" cy="32.2" r="1.5"/><path d="M25.5 33.7 V36.5"/><path d="M23.2 36.5 H27.8"/>'
+};
+/* A standalone mark. `wafer` is why each copy needs its own clip id. */
+let __icn=0;
+function layerIcon(n,cls){
+  const id='wc'+(++__icn);
+  const body=LAYER_ICONS[n].replace('url(#waferClip)','url(#'+id+')');
+  return `<svg class="licon ${cls||''}" viewBox="0 0 44 44" aria-hidden="true" style="stroke:var(--l${n})">`+
+    `<defs><clipPath id="${id}"><circle cx="22" cy="22" r="13.6"/></clipPath></defs>${body}</svg>`;
+}
+
 const C=Object.fromEntries([1,2,3,4,5,6,7,8].map(n=>[n,`var(--l${n})`]));
 
 const LAYERS=[
@@ -1518,7 +1543,7 @@ LAYERS.forEach((L,i)=>{
   b.className='tab'; b.setAttribute('role','tab'); b.id='tb'+i;
   b.setAttribute('aria-controls','pn'+i); b.setAttribute('aria-selected', i===0?'true':'false');
   b.style.borderLeftColor=i===0?col:'transparent';
-  b.innerHTML=`<span class="dot" style="background:${col}"></span><span class="t">${L.n}. ${L.t}</span>`;
+  b.innerHTML=`${layerIcon(L.n,'rail-icon')}<span class="t">${L.n}. ${L.t}</span>`;
   b.onclick=()=>sel(i);
   b.onkeydown=e=>{
     if(['ArrowDown','ArrowRight'].includes(e.key)){e.preventDefault();sel((i+1)%LAYERS.length,1)}
@@ -1530,7 +1555,7 @@ LAYERS.forEach((L,i)=>{
   const ch=Object.assign({},L.chart,{c:col});
   p.innerHTML=`<div class="card" style="border-top-color:${col}">
     <div class="layer-head">
-      <div><div class="layer-index">Layer ${L.n} · dependency map</div><div class="layer-headline"><h3>${L.t}</h3><span class="chip ${L.mk}">${L.moat}</span></div></div>
+      <div class="layer-head-main">${layerIcon(L.n,'head-icon')}<div><div class="layer-index">Layer ${L.n} · dependency map</div><div class="layer-headline"><h3>${L.t}</h3><span class="chip ${L.mk}">${L.moat}</span></div></div></div>
       <div class="layer-score"><i style="background:${col}"></i><div><span>Material constraint</span><b>${mat.severity}</b></div></div>
     </div>
     <div class="layer-modes" role="tablist" aria-label="${L.t} views">
@@ -2226,3 +2251,69 @@ document.querySelectorAll('[data-conc]').forEach(n=>{
 put('gw-src',projectSourcePane('gw'));
 put('hu-src',projectSourcePane('hu'));
 fillAll();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   The overview map, read by pointing at it. Hovering a layer lights that
+   layer's outgoing arrows, reveals their labels — hidden otherwise, which is
+   what keeps the diagram legible — and fills the panel beside the map with
+   the layer's own thesis. Everything works on keyboard focus too.
+   ══════════════════════════════════════════════════════════════════════════ */
+/* Fill the map's mark slots from the shared set, so the icons have one source. */
+(function(){
+  document.querySelectorAll('#mapsvg .lic[data-icon]').forEach(g=>{
+    g.innerHTML=LAYER_ICONS[+g.dataset.icon]||'';
+  });
+})();
+
+(function(){
+  const svg=document.getElementById('mapsvg'), info=document.getElementById('mapinfo');
+  if(!svg||!info||!svg.querySelector('[data-from]')) return;
+
+  const WORLD_TEXT='Not a layer, but the ground the stack is drawn from: where energy is '+
+    'captured, where materials are extracted, and where embodied machines eventually do the work. '+
+    'It feeds the base pair and takes the fleet’s work back.';
+  const REST='<p class="mi-eyebrow">The map</p><h4>Eight layers, bottom to top</h4>'+
+    '<p class="mi-lede">Each layer depends on the one beneath it. Energy and materials are the base '+
+    'pair, drawn straight from the physical world; everything above is a claim on something dug up, '+
+    'refined and powered.</p><p class="mi-hint">Point at any layer to read it here and light up the '+
+    'arrows leaving it. Click to open the layer in full.</p>';
+
+  function card(n){
+    if(n===0) return '<p class="mi-eyebrow">Outside the stack</p><h4>The physical world</h4>'+
+      `<p class="mi-lede">${WORLD_TEXT}</p>`;
+    const L=LAYERS.find(x=>x.n===n); if(!L) return REST;
+    return `<p class="mi-eyebrow">Layer ${L.n}</p><h4>${L.t}</h4>`+
+      `<span class="chip ${L.mk}">${L.moat}</span>`+
+      `<p class="mi-lede">${L.lede}</p>`+
+      `<p class="mi-choke"><b>Binding constraint.</b> ${L.choke}</p>`+
+      `<a class="mi-more" href="stack.html#layer-${L.n}">Open layer ${L.n} in full</a>`;
+  }
+
+  function highlight(n){
+    svg.classList.toggle('hl', n!==null);
+    if(n!==null) svg.style.setProperty('--hlc', n===0?'var(--accent)':`var(--l${n})`);
+    svg.querySelectorAll('[data-from]').forEach(el=>{
+      const on = n!==null && +el.dataset.from===n;
+      el.classList.toggle('on', on);
+      if(el.tagName.toLowerCase()!=='path') return;
+      if(el.dataset.mk===undefined) el.dataset.mk=el.getAttribute('marker-end')||'';
+      if(on) el.setAttribute('marker-end',`url(#ahL${n})`);
+      else if(el.dataset.mk) el.setAttribute('marker-end',el.dataset.mk);
+    });
+  }
+
+  let pinned=null;
+  const show=n=>{ info.innerHTML=card(n); highlight(n); };
+  const clear=()=>{ if(pinned!==null) return; info.innerHTML=REST; highlight(null); };
+
+  const nodes=[...svg.querySelectorAll('a.node')].map(a=>[a,+a.getAttribute('href').slice(-1)]);
+  const world=svg.querySelector('.worldnode');
+  if(world) nodes.push([world,0]);
+  nodes.forEach(([el,n])=>{
+    el.addEventListener('mouseenter',()=>show(n));
+    el.addEventListener('mouseleave',clear);
+    el.addEventListener('focusin',()=>{pinned=n; show(n);});
+    el.addEventListener('focusout',()=>{pinned=null; clear();});
+  });
+  info.innerHTML=REST;
+})();
