@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Road to AGI</title>
+<meta name="description" content="An eight-layer map of the physical infrastructure behind artificial intelligence, two fully costed build projects, and an honest account of where the thesis breaks. Revision 9, September 2026.">
+<meta name="theme-color" content="#F6F7F9">
+<script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
+if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
+document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#projects">Skip to the report</a>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="index.html" style="text-decoration:none;color:inherit"><i></i>Road to AGI<span style="color:var(--muted);font-weight:400"> · infrastructure thesis · v9</span></a>
+    <div class="navlinks" id="navlinks" aria-label="Report sections">
+      <a href="index.html">Overview</a>
+      <a href="stack.html">The infrastructure</a>
+      <a href="materials.html">Materials</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="risks.html">Risks</a>
+      <a href="method.html">Method</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-context">Research canvas · rev 9 · Sep 2026</div>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+        <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.4A8.4 8.4 0 1 1 9.6 4a6.6 6.6 0 0 0 10.4 10.4Z"/></svg>
+        <span class="tt-label">Light</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section id="projects" class="main-view on" role="tabpanel" aria-label="Projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Projects</h2>
+      <p>Abstractions become quantities when you build the thing on paper. Each project below is modelled bottom-up — quantities, materials, processes, labour, capital and returns — and each produced a bottleneck ranking that contradicts the consensus one.</p>
+    </div>
+    <div class="ptabs" role="tablist" aria-label="Projects">
+      <button class="ptab" role="tab" id="pt-gw" aria-controls="pj-gw" aria-selected="true">One gigawatt data centre</button>
+      <button class="ptab" role="tab" id="pt-hu" aria-controls="pj-hu" aria-selected="false">Ten million humanoids</button>
+    </div>
+
+    <div class="ppanel on" id="pj-gw" role="tabpanel" aria-labelledby="pt-gw">
+    <div class="sec-head" style="margin-bottom:26px">
+      <h3 style="font-size:26px">A gigawatt data centre</h3>
+      <p style="font-size:15.5px">Modelled bottom-up from the Epoch AI cost study: 1 GW of IT capacity, PUE 1.14, roughly 500,000 Blackwell-class accelerators, 71% utilisation.</p>
+    </div>
+    <div class="facts" id="gw-facts"></div>
+    <div class="project-visual-grid">
+      <figure class="figwrap" id="cx-sankey" style="margin:0"></figure>
+      <aside class="cost-lenses">
+        <h4>Two valid cost lenses</h4>
+        <p>The source plan and the supplied benchmark use different hardware, site and scope assumptions. Read the range as a scenario envelope, not a contradiction.</p>
+        <div class="cost-lens">
+          <header><b>Project Gigawatt plan</b><strong class="num">$38bn</strong></header>
+          <div class="lens-bar"><i style="width:56%;background:var(--l4)"></i><i style="width:30%;background:var(--l1)"></i><i style="width:14%;background:var(--l5)"></i></div>
+          <small>Servers $21.2bn · facility $11.4bn · network $4.9bn, rounded</small>
+        </div>
+        <div class="cost-lens">
+          <header><b>Gas-powered benchmark</b><strong class="num">$60bn</strong></header>
+          <div class="lens-bar"><i style="width:68%;background:var(--l4)"></i><i style="width:32%;background:var(--l6)"></i></div>
+          <small>IT hardware $41bn · infrastructure $19bn. GPU alone: $30bn.</small>
+        </div>
+        <p style="margin:11px 0 0"><b style="color:var(--ink2)">Shared conclusion:</b> compute owns the capital bill; power equipment owns the schedule.</p>
+      </aside>
+    </div>
+
+    <h3 class="blockhead">Where the $38 billion goes</h3>
+    <p class="blocksub">Servers are 56% of upfront capital and 60% of lifetime cost. Anyone analysing this as a real estate project is analysing the wrong asset — it is a compute purchase wearing a construction project's clothing.</p>
+    <div class="cx-host" id="cx-tco"></div>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="gw-capex"></div></div>
+      <div class="block">
+        <h4>Facility capex decomposition</h4>
+        <div class="tw"><table class="dat" id="gw-fac"></table></div>
+        <p class="cap">Electrical infrastructure is the largest single category in the building — larger than cooling and shell combined. The building itself is only 10–15%.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">The critical path is procurement, not construction</h3>
+    <p class="blocksub">A heavy-duty gas turbine ordered today delivers in 2031. Large power transformers run 128 weeks. The shell takes 18–36 months. <b>The equipment takes longer than the building</b>, which means orders must be placed before the land is bought.</p>
+    <div class="cx-host" id="cx-lead-gantt"></div>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="gw-lead"></div></div>
+      <div class="block">
+        <h4>Programme schedule, conventional procurement</h4>
+        <div class="phase" id="gw-phase"></div>
+        <p class="cap">Accelerated paths reach 30–40 months using behind-the-meter generation to bypass the interconnection queue, pre-reserved turbine slots, modular electrical skids and phased energisation in 100 MW blocks.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">Bill of materials</h3>
+    <div class="split">
+      <div class="block"><h4>Compute and electrical plant</h4><div class="tw"><table class="dat" id="gw-bom1"></table></div></div>
+      <div class="block"><h4>Raw materials and land</h4><div class="tw"><table class="dat" id="gw-bom2"></table></div>
+        <p class="cap">One facility consumes roughly 4% of the world's annual high-bandwidth memory output and 0.2% of global copper mine production.</p></div>
+    </div>
+
+    <h3 class="blockhead">Three ways to power it</h3>
+    <p class="blocksub">Serving 1 GW of IT at PUE 1.14 requires roughly 1.15 GW of firm, continuous supply and about 7.1 TWh a year. Firmness is the requirement that eliminates most options immediately.</p>
+    <div class="tw"><table class="dat" id="gw-energy" style="min-width:760px"></table></div>
+    <div class="cx-host" id="cx-energy-scatter"></div>
+    <div class="split" style="margin-top:28px">
+      <div class="block"><div class="chartbox" id="gw-land"></div></div>
+      <div class="block">
+        <h4>The strategic conclusion</h4>
+        <p style="font-size:14.5px; color:var(--ink2); margin-top:0">Energy source changes annual cost by a few hundred million dollars on an $8.5bn annual total. It changes the schedule by <b>years</b> — and schedule determines whether the asset exists at all. Choose for speed to power, not for levelised cost.</p>
+        <p style="font-size:14.5px; color:var(--ink2)">Solar sized for genuine round-the-clock firmness needs roughly fourfold overbuild plus overnight storage, occupying on the order of 100 km² — about ninety times the campus it serves. Its realistic role is a fuel-cost supplement, not a sole source.</p>
+        <p class="cap">Most real projects land on a hybrid: grid where available, behind-the-meter gas for firmness and speed, solar for fuel cost, and a long-dated nuclear PPA for the 2030s. Pure-play strategies are for press releases.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">Does it pay?</h3>
+    <p class="blocksub">Break-even price per GPU-hour at a 12% hurdle, across four energy scenarios and three depreciation assumptions. Read down, not across.</p>
+    <div class="split">
+      <div class="block">
+        <h4>Break-even price per GPU-hour</h4>
+        <div class="tw"><table class="dat" id="gw-be"></table></div>
+        <p class="cap">The depreciation axis spans $1.66; the energy axis spans $0.19. <b>Depreciation swings the answer 8.7 times harder</b> than the choice between gas, solar and nuclear.</p>
+      </div>
+      <div class="block">
+        <h4>Break-even by utilisation rate</h4>
+        <div class="tw"><table class="dat" id="gw-util"></table></div>
+        <p class="cap">At 50% utilisation even the seven-year case needs $3.75, above the contract floor. Utilisation is the second most powerful variable, and the one that breaks first if demand softens.</p>
+      </div>
+    </div>
+    <div class="cx-host" id="cx-tornado"></div>
+    <div class="cx-host" id="cx-util-lines"></div>
+    <div class="split">
+      <div class="block"><h4>Market reference, 1 September 2026</h4><div class="tw"><table class="dat" id="gw-mkt"></table></div></div>
+      <div class="block">
+        <h4>The verdict on each case</h4>
+        <div class="tw"><table class="dat" id="gw-verdict"></table></div>
+        <p class="cap">Base case at grid power, five-year life and $4.00 per GPU-hour: NPV $13.1bn, project IRR 20.2%, payback in year five, $124bn of ten-year revenue against $64bn of capital deployed including one server replacement cycle.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">Labour, capital structure and who is actually building</h3>
+    <div class="split">
+      <div class="block"><h4>Workforce</h4><div class="tw"><table class="dat" id="gw-lab"></table></div>
+        <p class="cap"><b>$38 billion of capital creates roughly 300 permanent jobs.</b> Derived from the $40m annual labour line. Meta's Hyperion reports 7,500 peak construction jobs and about 1,000 permanent for 5 GW — the same ratio.</p></div>
+      <div class="block"><h4>Capital structure, typical 2026 shapes</h4><div class="tw"><table class="dat" id="gw-cap"></table></div>
+        <p class="cap">A representative neocloud carries five-year loans against three-year customer contracts and fifteen-year leases. Borrowing long against depreciating collateral with short revenue is the oldest failure mode in project finance.</p></div>
+    </div>
+    <div class="cx-host" id="cx-capstack"></div>
+    <h4 style="margin:30px 0 14px; font-size:15px">Gigawatt-scale projects under construction or operational</h4>
+    <div class="tw"><table class="dat" id="gw-proj" style="min-width:820px"></table></div>
+    <p class="tnote">Nineteen of eighty-four tracked facilities carry 1 GW or more, together 27.9 GW — roughly 65% of tracked capacity in under a quarter of the sites. Texas alone hosts 15 facilities and 14.8 GW. Announced capacity is not delivered capacity: only about a third of announced 2026 US capacity was under active construction.</p>
+
+    <h3 class="blockhead">Risk register and decision gates</h3>
+    <div class="split">
+      <div class="block"><h4>Risk register</h4><div class="tw"><table class="dat" id="gw-risk" style="min-width:620px"></table></div></div>
+      <div class="block"><h4>Go / no-go gates</h4><div class="tw"><table class="dat" id="gw-gate" style="min-width:560px"></table></div>
+        <p class="cap">Gates one and two must clear <b>before land is purchased.</b> The conventional sequence — buy land, design, then procure — is how projects end up as powered shells with no power. In this market, procurement leads development.</p></div>
+    </div>
+    <h3 class="blockhead">What this exercise reveals about the thesis</h3>
+    <div class="deep" id="gw-deep"></div>
+    <h3 class="blockhead">Sources</h3>
+    <div id="gw-src"></div>
+    </div>
+
+    <div class="ppanel" id="pj-hu" role="tabpanel" aria-labelledby="pt-hu">
+    <div class="sec-head" style="margin-bottom:26px">
+      <h3 style="font-size:26px">Ten million humanoids</h3>
+      <p style="font-size:15.5px">A fundamentally different engineering problem. Modelled bottom-up from a mid-range commercial humanoid: 45 actuators, 2.0 kWh battery, 350 W average draw, 16 hours a day.</p>
+    </div>
+    <div class="facts" id="hu-facts"></div>
+    <div class="humanoid-blueprint" aria-label="Five-layer infrastructure required for ten million humanoids">
+      <div class="blueprint-node" style="border-top-color:#4F7A46"><small>Layer 1</small><b>Robot hardware</b><span>450m actuators<br>250m precision reducers</span></div>
+      <div class="blueprint-node" style="border-top-color:#3D6A8F"><small>Layer 3</small><b>Edge intelligence</b><span>10–30 Hz action loop<br>~1.3 GW distributed compute</span></div>
+      <div class="blueprint-node" style="border-top-color:#2F7A73"><small>Layer 4</small><b>Fleet data</b><span>200 Tbps raw ceiling<br>selective upload required</span></div>
+      <div class="blueprint-node" style="border-top-color:#8E4F5B"><small>Layer 5</small><b>Training + simulation</b><span>3–5 GW central compute<br>synthetic + real data</span></div>
+      <div class="blueprint-node" style="border-top-color:#C07A2C"><small>Layer 6</small><b>Deployment</b><span>3–5m docks<br>~5 GW peak charging</span></div>
+    </div>
+
+    <h3 class="blockhead">The five layers a working fleet requires</h3>
+    <div class="tw" style="margin-bottom:28px"><table class="dat" id="hu-layers" style="min-width:700px"></table></div>
+
+    <h3 class="blockhead">The bottleneck is mechanical, not computational</h3>
+    <p class="blocksub">Fleet demand measured against today's entire world output. One number dominates: <b>the precision reducer industry must grow roughly fiftyfold.</b> Batteries, sensors and copper — the inputs people worry about — are rounding errors at fleet scale.</p>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="hu-cap"></div></div>
+      <div class="block">
+        <h4>Component demand for 10 million units</h4>
+        <div class="tw"><table class="dat" id="hu-comp"></table></div>
+        <p class="cap">A strain-wave reducer uses a thin-walled steel cup that deforms elastically millions of cycles without fatigue failure. The constraint is metallurgy, heat treatment and grinding capacity — none of which can be bought quickly.</p>
+      </div>
+    </div>
+
+    <div class="cx-host" id="cx-bottleneck"></div>
+    <div class="cx-host" id="cx-policy"></div>
+
+    <h3 class="blockhead">Where the cost sits</h3>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="hu-bom"></div></div>
+      <div class="block">
+        <h4>Bill of materials by platform</h4>
+        <div class="tw"><table class="dat" id="hu-cost"></table></div>
+        <p class="cap">A twentyfold spread tells you these are not competing in the same market. Chinese supply-chain BOM was around $46,000 in 2025, projected to fall at roughly 11% CAGR to about $16,000 at one million units a year around 2034.</p>
+      </div>
+    </div>
+
+    <div class="cx-host" id="cx-bom-donut"></div>
+
+    <h3 class="blockhead">The battery is the worst constraint and the least important one</h3>
+    <p class="blocksub">No commercial humanoid runs a full eight-hour shift. Cells sit at 280–300 Wh/kg, close to the practical lithium-ion ceiling. Yet fleet demand is 20 GWh — 1.1% of world output. <b>Severe per robot, negligible per fleet.</b></p>
+    <div class="split">
+      <div class="block"><h4>Platform battery specifications</h4><div class="tw"><table class="dat" id="hu-batt"></table></div>
+        <p class="cap">The physics trap: adding a kilowatt-hour adds mass, which raises hip and knee torque demand, which eats the runtime the extra capacity was meant to buy. Duty cycles also demand 5C–15C discharge for grasping and stumble recovery, in a package with almost no airflow.</p></div>
+      <div class="block"><h4>Edge inference, measured</h4><div class="tw"><table class="dat" id="hu-edge"></table></div>
+        <p class="cap">The central technical tension: the models good enough to be commercially useful do not yet run fast enough on hardware small enough to carry. Jetson Thor falls below the frame rate of most cameras. Every deployment today is a compromise between capability and latency.</p></div>
+    </div>
+
+    <h3 class="blockhead">The data problem solves itself at scale</h3>
+    <p class="blocksub">Today there are roughly 500,000 hours of high-quality robot interaction data in existence, against an estimated 1–10 billion needed. A ten-million-robot fleet generates 58.4 billion hours a year — <b>reproducing the entire existing global corpus every 4.5 minutes.</b></p>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="hu-data"></div></div>
+      <div class="block">
+        <h4>What this implies strategically</h4>
+        <p style="font-size:14.5px; color:var(--ink2); margin-top:0">The data gap is real today and effectively disappears above roughly one million deployed units. That creates severe winner-take-most dynamics: whoever reaches fleet scale first acquires an asset a later entrant cannot replicate with capital. It explains behaviour that otherwise looks irrational — deploying at negative margin to get past the threshold.</p>
+        <p style="font-size:14.5px; color:var(--ink2)">The counter-argument is serious. Carnegie Mellon and Stanford independently found in 2026 that policies trained on 40% synthetic data matched policies trained on 100% real demonstrations. <b>If that holds, real data is a threshold asset, not a scaling asset</b> — you need enough to seed the simulator, and the race has a finish line closer than the raw hour counts imply.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">Energy, capital and the timeline</h3>
+    <div class="split">
+      <div class="block"><h4>Fleet energy and communications</h4><div class="tw"><table class="dat" id="hu-eng"></table></div>
+        <p class="cap">Ten million humanoids consume less electricity than three AI data centres. But 200 Tbps of continuous uplink is not buildable — which forces robots to curate their own data on board and upload only novel, failed or corrected episodes.</p></div>
+      <div class="block"><h4>Capital and economic output</h4><div class="tw"><table class="dat" id="hu-econ"></table></div>
+        <p class="cap">At $10/hour the fleet pays back its hardware in about a year. The arithmetic is compelling; the productivity assumption behind it is a hypothesis. Unitree ships more humanoids than anyone and its Q1 2026 net profit fell 52%.</p></div>
+    </div>
+
+    <div class="cx-host" id="cx-energy-cmp"></div>
+
+    <h3 class="blockhead">Why this is 2034, not the near future</h3>
+    <p class="blocksub">Reaching 10 million cumulative units requires doubling production every year for nine consecutive years from a 2026 base of roughly 20,000. No hardware industry has ever sustained that — and none faced a component whose supply chain must grow fiftyfold.</p>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="hu-ramp"></div></div>
+      <div class="block"><h4>Bottleneck ranking</h4><div class="tw"><table class="dat" id="hu-rank"></table></div></div>
+    </div>
+
+    <div class="cx-host" id="cx-ramp"></div>
+
+    <h3 class="blockhead">Deployment infrastructure — the layer everyone omits</h3>
+    <p class="blocksub">A robot that works is not a robot that is deployed. Every reducer, actuator and bearing in the fleet is a wear component with a finite duty life.</p>
+    <div class="split">
+      <div class="block"><div class="tw"><table class="dat" id="hu-deploy"></table></div></div>
+      <div class="block">
+        <p style="font-size:14.5px; color:var(--ink2); margin-top:0">Ten million robots with 45 actuators each implies a maintenance economy that does not currently exist and for which no training pipeline has been built. <b>The humanoid industry will create far more maintenance jobs than platform-manufacturing jobs</b> — a point almost entirely absent from a public debate focused on displacement.</p>
+        <p style="font-size:14.5px; color:var(--ink2)">The security dimension carries unusual force here. An agent with credentials that can only write to a database is a data breach risk. <b>An agent with credentials that can lift 25 kg is a physical safety risk.</b> Machine identity, per-action authorisation and delegation-chain tracking move from a compliance concern to a life-safety one — and regulation should be expected here before it arrives for software agents.</p>
+      </div>
+    </div>
+
+    <h4 style="margin:30px 0 14px; font-size:15px">Companies positioned in the humanoid supply chain</h4>
+    <div class="tw"><table class="co" id="hu-co"></table></div>
+    <p class="tnote">The volume thesis on actuator components is the strongest picks-and-shovels case in the AI complex. The margin thesis is under direct attack: Green Harmonic prices 30–50% below the Japanese incumbents, is already inside Tesla's supply chain, and targets 60% share. <b>You can be completely right that 250 million reducers get built and still lose money owning the incumbent.</b></p>
+
+    <h3 class="blockhead">What would make this analysis wrong</h3>
+    <div class="deep" id="hu-deep"></div>
+    <h3 class="blockhead">Sources</h3>
+    <div id="hu-src"></div>
+    </div>
+  </div>
+</section>
+
+
+<script src="script.js"></script>
+</body>
+</html>
