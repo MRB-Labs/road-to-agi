@@ -1,0 +1,9 @@
+Tool: built-in image editor, one edit per source photograph.
+
+Edit this scientific specimen photo: replace only the background with consistent flat light neutral gray #F3F4F4. Keep precisely the same specimen and all containers, wires, color, surface textures, shape and perspective. Do not invent any detail or change the substance. If gas discharge preserve original glow color and vial. Center the subject with 12% margins on a square canvas. Subtle contact shadow, no text. This is a documentary photo retouch, not a new specimen illustration.
+
+For historical or microscopic images: preserve the entire scientific subject, containers and scale markings; do not enhance, recolor or fabricate specimen details; replace only the unrelated outer background.
+
+For labeled vials: preserve existing markings and labels; add no labels.
+
+Requested background color is a visual target; AI output is not guaranteed to match its exact RGB value. The original photographs are included for comparison. The thorium derivative is distributed under CC BY-SA 3.0, matching its source license.
