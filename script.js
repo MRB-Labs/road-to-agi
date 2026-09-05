@@ -1065,6 +1065,33 @@ const HOWTO={
  money:'Structurally the most interesting and the least investable from a Western listing. The chokepoints are real — reducers, magnets, sensors — but they sit with Japanese component makers and Chinese material processors rather than with the humanoid developers attracting the capital. Treat this layer as a diagnostic for where the physical constraints bind, not as an allocation.'},
 };
 
+
+/* ══════════════════════════════════════════════════════════════════════════
+   TAB INTROS
+   Each pane opens with the same device the Materials pane already used: a
+   short title and one line saying what is about to be shown, keyed to the
+   layer's own colour. The wording is per-tab, not per-layer, because the
+   question each tab answers is the same in every layer.
+   ══════════════════════════════════════════════════════════════════════════ */
+const TABINTRO={
+ how:['What this layer is',
+   'The physical job the layer does, the engineering constraints that govern it, and the economics those constraints produce. Read this before the thesis.'],
+ chain:['Who supplies whom',
+   'The chain from raw input to finished output, stage by stage. Each row is one company and what it actually supplies at that stage, with its market capitalisation and position.'],
+ materials:['Material foundation',null],
+ thesis:['The investment argument',
+   'What the layer is worth owning for, where the binding constraint sits, and the case set out in full. This is the opinionated tab — it argues rather than describes.'],
+ companies:['Top companies in this layer',
+   'Every company with material exposure to this layer, with its niche share, fundamentals, and the strongest case each side of the trade would make.'],
+ risks:['What breaks the thesis',
+   'The failure modes specific to this layer, what each would look like early, and the signals worth monitoring before they show up in a price.'],
+};
+function tabIntro(mode,col,layerTitle){
+  const t=TABINTRO[mode]; if(!t||!t[1]) return '';
+  return `<div class="tab-intro" style="--tint:${col}">
+    <h4>${_esc(t[0])}</h4><p>${_esc(t[1])}</p></div>`;
+}
+
 function howPane(L,col){
   const d=HOWTO[L.n];
   if(!d) return '<p class="sub">Description unavailable.</p>';
@@ -2011,15 +2038,15 @@ LAYERS.forEach((L,i0)=>{
       <div class="layer-score"><i style="background:${col}"></i><div><span>Material constraint</span><b>${mat.severity}</b></div></div>
     </div>
     <div class="layer-modes" role="tablist" aria-label="${L.t} views">
-      <button class="layer-mode" data-mode="thesis" aria-selected="true">Layer thesis</button>
-      <button class="layer-mode" data-mode="how" aria-selected="false">Layer description</button>
+      <button class="layer-mode" data-mode="how" aria-selected="true">Layer description</button>
       <button class="layer-mode" data-mode="chain" aria-selected="false">Value chain</button>
-      <button class="layer-mode" data-mode="materials" aria-selected="false">Materials</button>
+      <button class="layer-mode" data-mode="materials" aria-selected="false">Layer materials</button>
+      <button class="layer-mode" data-mode="thesis" aria-selected="false">Layer thesis</button>
+      <button class="layer-mode" data-mode="companies" aria-selected="false">Top companies</button>
       <button class="layer-mode" data-mode="risks" aria-selected="false">Risks + signals</button>
-      <button class="layer-mode" data-mode="companies" aria-selected="false">Companies</button>
     </div>
     <div class="layer-body">
-      <div class="layer-pane on" data-mode-pane="thesis">
+      <div class="layer-pane" data-mode-pane="thesis">${tabIntro('thesis',col)}
         <div class="overview-lede"><div><p class="lede">${L.lede}</p><p class="why">${L.why}</p></div><div class="choke-card" style="border-left-color:${col}"><b>Binding constraint.</b> ${L.choke}</div></div>
         <div class="facts">${factgrid(L.facts)}</div>
         <div class="layer-diagnostic single">
@@ -2027,11 +2054,11 @@ LAYERS.forEach((L,i0)=>{
         </div>
         <div class="essay-list">${L.detail.map((d,j)=>`<details class="essay" ${j===0?'open':''}><summary>${d[0]}</summary><p>${d[1]}</p></details>`).join('')}</div>
       </div>
-      <div class="layer-pane" data-mode-pane="how">${howPane(L,col)}</div>
-      <div class="layer-pane" data-mode-pane="chain">${chainPane(L.n,col,L.sub)}</div>
+      <div class="layer-pane on" data-mode-pane="how">${tabIntro('how',col)}${howPane(L,col)}</div>
+      <div class="layer-pane" data-mode-pane="chain">${tabIntro('chain',col)}${chainPane(L.n,col,L.sub)}</div>
       <div class="layer-pane" data-mode-pane="materials">${materialPane(mat,col)}</div>
-      <div class="layer-pane" data-mode-pane="risks">${riskPane(risk,L)}</div>
-      <div class="layer-pane" data-mode-pane="companies"><p class="sub">Companies with material presence in this layer</p><div class="tw"><table class="co">${cotbl(L.co,L.n)}</table></div><p class="tnote"><b>On the share column.</b> Each figure is the company\u2019s approximate share of the specific niche named beside it, not of the layer and not of any single market. Bases, definitions and measurement dates differ from row to row, so the column indicates order of magnitude and competitive position rather than a like-for-like ranking; <em>n/d</em> means no figure is stated here because none is reliable. Country is domicile of listing, which frequently differs from where the production risk actually sits. Inclusion maps exposure to the layer; it is not a buy recommendation. Read the bull and bear columns together.</p></div>
+      <div class="layer-pane" data-mode-pane="risks">${tabIntro('risks',col)}${riskPane(risk,L)}</div>
+      <div class="layer-pane" data-mode-pane="companies">${tabIntro('companies',col)}<div class="tw"><table class="co">${cotbl(L.co,L.n)}</table></div><p class="tnote"><b>On the share column.</b> Each figure is the company\u2019s approximate share of the specific niche named beside it, not of the layer and not of any single market. Bases, definitions and measurement dates differ from row to row, so the column indicates order of magnitude and competitive position rather than a like-for-like ranking; <em>n/d</em> means no figure is stated here because none is reliable. Country is domicile of listing, which frequently differs from where the production risk actually sits. Inclusion maps exposure to the layer; it is not a buy recommendation. Read the bull and bear columns together.</p></div>
     </div>
   </div>`;
   panels.appendChild(p);
@@ -2180,7 +2207,7 @@ window.addEventListener('resize',fill); fill();
   };
   const apply=()=>{
     const i=indexFromHash();
-    if(i<0) return;
+    if(i<0){ sel(0); return; }   // no hash: open on the physical world, never on nothing
     sel(i);
     tabs[i].scrollIntoView({block:'nearest',inline:'nearest'});
   };
@@ -2572,7 +2599,45 @@ window.addEventListener('hashchange',()=>setTimeout(fillAll,60));
     `<figcaption class="cnote">Servers are 56% of the cheque. Inside the building, electrical infrastructure is larger than cooling and shell combined — and the shell itself, the thing most commentary pictures, is 10–15% of the facility line and under 5% of the project. Facility sub-categories are midpoints of the disclosed ranges. Source: Epoch AI, May 2026.</figcaption>`;
 })();
 
-/* Moat durability against material chokepoint strength */
+/* Moat durability against material chokepoint strength.
+   The scatter is the report's central heuristic, so each point explains itself
+   on hover: why that moat score, why that chokepoint score, and what would
+   move it. Positions are the author's assessment, not measured values. */
+const MOATWHY={
+1:{t:'Energy and power',moat:'Strong',cp:'High',
+  m:'The moat is not in generating electricity, which is close to a commodity, but in the equipment that conditions and moves it. Turbine slots are sold to 2031 and large power transformers quote at 128 weeks, and neither queue can be jumped with capital. A buyer cannot switch supplier, because there is no third supplier to switch to.',
+  c:'Grain-oriented electrical steel has one domestic US producer and needs a days-long grain-orientation anneal that is process knowledge rather than equipment. Turbine hot sections need single-crystal castings with rhenium recovered only as a copper by-product. Copper constrains volume; those two can stop a project outright.',
+  w:'Moat falls if transformer and turbine capacity is genuinely built out — it is being added, but the additions are years behind the order book.'},
+2:{t:'Materials',moat:'Strong',cp:'Extreme',
+  m:'Lower than semiconductors, and deliberately so. A separation plant sells a qualified input into a chain that cannot requalify quickly, which is real switching cost. But the moat is replicable on a three-to-eight-year horizon, because the barrier is capital, permitting and process tuning rather than accumulated physics.',
+  c:'The most concentrated point in the report. China refines 86–90% of rare earths and smelts roughly 48% of copper, and the April 2025 licensing on seven heavy rare earths was never suspended. Separation is intrinsically hard — the lanthanides differ only in an inner shell — so the concentration reflects physics as much as policy.',
+  w:'The export ban on separation <em>technology</em>, not the metal, is what turns a tariff into a moat. Watch the November 2026 expiry.'},
+3:{t:'Semiconductors',moat:'Very strong',cp:'Extreme',
+  m:'The strongest position in the analysis, and the only layer with no substitute and no workaround. One company sells EUV lithography; two sell the software a chip can be designed in; one manufactures the overwhelming majority of leading-edge logic. Each sells something the customer cannot design around inside a decade, and equipment vendors earn on installed base and service as well as new tools.',
+  c:'Every input is a near-monopoly of its own: high-purity quartz from essentially two producers, electronic-grade polysilicon at eleven nines from four, photoresists from a handful of qualified Japanese suppliers, and the multilayer molybdenum-silicon optics inside every EUV scanner from a single firm.',
+  w:'Nothing on a five-year view. The realistic threat is political — a Taiwan disruption — not competitive.'},
+4:{t:'Compute silicon',moat:'Moderate, eroding',cp:'High',
+  m:'The highest growth in the stack and the shortest moat half-life. What defends the incumbent is the software ecosystem, not the transistor: switching vendor means rewriting kernels. That is a real cost but a falling one, and every hyperscaler large enough to amortise a design team has started its own accelerator programme.',
+  c:'Real but not absolute. High-bandwidth memory has three credible suppliers, and advanced packaging — CoWoS specifically — is the current binding constraint on accelerator supply. Both are capacity problems being solved with capital, which is why this scores below the layers beneath it.',
+  w:'Custom silicon taking share is the erosion to watch; HBM supply loosening is what would drop the chokepoint score.'},
+5:{t:'Data centres and cloud',moat:'Weak, capital-driven',cp:'Moderate',
+  m:'Heavy capital, weak differentiation. Anyone with land, a balance sheet and a contractor can build a hall. What is genuinely scarce is not the building but the signed grid connection and power contract behind it — and that is an asset the operator secured years earlier, not a durable capability.',
+  c:'Steel, concrete, copper and cooling plant are ordinary industrial inputs. The constraint is the interconnection queue and the transformer lead time, which belong to layer 1 rather than here.',
+  w:'A moat exists only where power was locked in early. Where it was not, this is a commodity landlord business.'},
+6:{t:'AI models',moat:'Weak',cp:'None',
+  m:'The weakest durable moat relative to the capital consumed. Weights depreciate in months, switching cost for a buyer is a prompt rewrite, and open weights put a hard floor under what an equivalent API call can be priced at. What is defensible — distribution, proprietary data, workflow integration — is not the model.',
+  c:'None. The layer consumes compute and electricity, both bought from below, and has no material input of its own. This is why it sits at the origin on the chokepoint axis.',
+  w:'This layer spends the most and is likeliest to keep the least. Watch the gap between open-weight and frontier capability.'},
+7:{t:'Software and agents',moat:'Contested',cp:'None',
+  m:'Higher than models despite no physical constraint, because incumbency in enterprise software is sticky: the data, permissions and process knowledge live in the system of record. But agents attack the pricing model directly — if software does the work rather than helping a person do it, per-seat pricing stops tracking value.',
+  c:'None whatsoever. No material input, no lead time, no capital intensity. The layer is pure competition, which is exactly why nothing physical protects an incumbent.',
+  w:'The layer where AI most plausibly destroys incumbent value rather than creating it. Vendors already billing on consumption benefit mechanically; those billing per seat do not.'},
+8:{t:'AI embodiment',moat:'Moderate',cp:'High',
+  m:'The chokepoints are real but they sit with the component makers, not the humanoid developers attracting the capital. Precision reducers come from two or three Japanese firms at volume; the developers assembling them have little that is hard to copy. The one non-replicable asset is fleet-scale operating data, and almost nobody has it yet.',
+  c:'Neodymium-iron-boron magnets with dysprosium or terbium for heat resistance, which places the most Western-facing robotics thesis directly downstream of Chinese separation capacity. Add precision reducers ground to micron tolerances and image sensors from a single dominant supplier.',
+  w:'This layer is a diagnostic for where physical constraints bind, not an allocation. The geography inverts against a Western portfolio.'},
+};
+
 (function(){
   const el=document.getElementById('cx-matrix'); if(!el) return;
   const W=320,H=330,L=34,R=12,T=24,B=42, pw=W-L-R, ph=H-T-B;
@@ -2584,18 +2649,49 @@ window.addEventListener('hashchange',()=>setTimeout(fillAll,60));
      `<line class="gr" x1="${L}" y1="${T+ph/2}" x2="${L+pw}" y2="${T+ph/2}"/>`;
   P.forEach(([n,x,y,lab,dy])=>{
     const an=x<.15?'start':(x>.85?'end':'middle'), lx=x<.15?-13:(x>.85?13:0);
-    g+=`<circle cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="13" fill="var(--l${n})"/>`+
-       `<text x="${px(x).toFixed(1)}" y="${(py(y)+4).toFixed(1)}" text-anchor="middle" style="fill:var(--on-layer);font:600 11px var(--f)">${n}</text>`+
-       `<text class="cs" x="${(px(x)+lx).toFixed(1)}" y="${(py(y)+27+(dy||0)).toFixed(1)}" text-anchor="${an}">${lab}</text>`;
+    g+=`<g class="mx-pt" data-layer="${n}" tabindex="0" role="button" aria-label="Layer ${n}, ${lab}">`+
+       `<circle class="mx-hit" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="19" fill="transparent"/>`+
+       `<circle class="mx-dot" cx="${px(x).toFixed(1)}" cy="${py(y).toFixed(1)}" r="13" fill="var(--l${n})"/>`+
+       `<text x="${px(x).toFixed(1)}" y="${(py(y)+4).toFixed(1)}" text-anchor="middle" style="fill:var(--on-layer);font:600 11px var(--f);pointer-events:none">${n}</text>`+
+       `<text class="cs" x="${(px(x)+lx).toFixed(1)}" y="${(py(y)+27+(dy||0)).toFixed(1)}" text-anchor="${an}" style="pointer-events:none">${lab}</text></g>`;
   });
   g+=`<text class="cs" x="${L}" y="${H-24}">no chokepoint</text>`+
      `<text class="cs" x="${L+pw}" y="${H-24}" text-anchor="end">extreme</text>`+
      `<text class="cs" x="${L+pw/2}" y="${H-8}" text-anchor="middle">material chokepoint →</text>`+
      `<text class="cs" x="${-(T+ph/2)}" y="12" transform="rotate(-90)" text-anchor="middle">moat durability →</text>`;
+
+  const REST=`<p class="mx-eyebrow">The heuristic</p><h5>Where a physical chokepoint exists, a moat tends to exist above it</h5>`+
+    `<p class="mx-lede">Layers 6 and 7 have no material chokepoint and the weakest moats. Layers 1, 2 and 3 have the strongest of both. `+
+    `Materials sits high on chokepoint but below semiconductors on moat, because a refining monopoly can be rebuilt in three to eight years while accumulated engineering cannot.</p>`+
+    `<p class="mx-hint">Point at any layer to read why it sits where it does.</p>`;
+
   el.innerHTML=`<h4>Chokepoint and moat, layer by layer</h4>`+
     `<p class="cq">The correlation is the most useful heuristic in the analysis.</p>`+
-    CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the seven investable layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+
-    `<figcaption class="cnote">Layers 6 and 7 have no material chokepoint and the weakest moats; layers 1, 2 and 3 have the strongest of both. Materials sits high on chokepoint but lower on moat durability than semiconductors, because a refining monopoly can be rebuilt in three to eight years while accumulated engineering cannot. Positions are the author\u2019s assessment, not measured values.</figcaption>`;
+    `<div class="mx-shell">`+
+      `<div class="mx-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the eight layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+`</div>`+
+      `<aside class="mx-info" id="mx-info" aria-live="polite">${REST}</aside>`+
+    `</div>`+
+    `<figcaption class="cnote">Positions are the author’s assessment on both axes, not measured values. They encode the argument made in each layer rather than a dataset, and should be read as a ranking, not a measurement.</figcaption>`;
+
+  const info=el.querySelector('#mx-info'), svg=el.querySelector('svg');
+  const card=n=>{const d=MOATWHY[n]; if(!d) return REST;
+    return `<p class="mx-eyebrow" style="color:var(--l${n})">Layer ${n}</p><h5>${d.t}</h5>`+
+      `<div class="mx-scores"><span><b>Moat</b>${d.moat}</span><span><b>Chokepoint</b>${d.cp}</span></div>`+
+      `<p class="mx-why"><b>Why the moat sits there.</b> ${d.m}</p>`+
+      `<p class="mx-why"><b>Why the chokepoint sits there.</b> ${d.c}</p>`+
+      `<p class="mx-watch" style="border-left-color:var(--l${n})">${d.w}</p>`;};
+  let pinned=null;
+  const show=n=>{info.innerHTML=card(n); svg.classList.add('mx-hl'); svg.style.setProperty('--mxc',`var(--l${n})`);
+    svg.querySelectorAll('.mx-pt').forEach(p=>p.classList.toggle('on',+p.dataset.layer===n));};
+  const clear=()=>{if(pinned!==null)return; info.innerHTML=REST; svg.classList.remove('mx-hl');
+    svg.querySelectorAll('.mx-pt').forEach(p=>p.classList.remove('on'));};
+  svg.querySelectorAll('.mx-pt').forEach(p=>{
+    const n=+p.dataset.layer;
+    p.addEventListener('mouseenter',()=>show(n));
+    p.addEventListener('mouseleave',clear);
+    p.addEventListener('focusin',()=>{pinned=n;show(n);});
+    p.addEventListener('focusout',()=>{pinned=null;clear();});
+  });
 })();
 
 /* Export control chronology */

@@ -1332,3 +1332,47 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
   .el-shot,.el-shot img{width:44px} .el-shot img{height:44px}
   .vc-jump{grid-template-columns:1fr}
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   TAB INTROS — a title and one line saying what each pane shows, tinted with
+   the layer's own colour so the tab you are in is legible at a glance.
+   ────────────────────────────────────────────────────────────────────────── */
+.tab-intro{border-left:4px solid var(--tint,var(--accent)); background:var(--surface2);
+  border-radius:0 10px 10px 0; padding:14px 18px 15px; margin:0 0 20px}
+.tab-intro h4{font-size:16px; font-weight:600; letter-spacing:-.016em; margin:0 0 5px; color:var(--ink)}
+.tab-intro p{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:0; max-width:92ch}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   CHOKEPOINT AND MOAT — the scatter explains itself on hover
+   ────────────────────────────────────────────────────────────────────────── */
+#overview #cx-matrix{grid-column:1 / -1}
+.mx-shell{display:grid; grid-template-columns:minmax(260px,340px) minmax(0,1fr);
+  gap:24px; align-items:start; margin-top:6px}
+.mx-chart svg{width:100%; height:auto; display:block}
+.mx-pt{cursor:pointer}
+.mx-pt .mx-dot{transition:r .16s var(--ease), opacity .16s var(--ease)}
+svg.mx-hl .mx-pt:not(.on) .mx-dot{opacity:.24}
+svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
+.mx-pt.on .mx-dot{r:16}
+.mx-pt:focus{outline:none}
+.mx-pt:focus-visible .mx-dot{stroke:var(--accent); stroke-width:2.5}
+.mx-info{border:1px solid var(--line); border-radius:12px; background:var(--surface);
+  padding:16px 18px 17px; min-height:270px}
+.mx-eyebrow{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 5px; font-weight:600}
+.mx-info h5{font-size:16.5px; font-weight:600; letter-spacing:-.018em; margin:0 0 10px;
+  color:var(--ink); line-height:1.28}
+.mx-lede{font-size:13px; line-height:1.6; color:var(--ink2); margin:0}
+.mx-hint{font-size:12px; color:var(--muted); margin:12px 0 0; padding-top:11px;
+  border-top:1px solid var(--line)}
+.mx-scores{display:flex; gap:9px; margin:0 0 11px; flex-wrap:wrap}
+.mx-scores span{font-size:11.5px; color:var(--ink2); background:var(--surface2);
+  border:1px solid var(--line); border-radius:7px; padding:5px 10px}
+.mx-scores b{display:block; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--muted); font-weight:600; margin-bottom:1px}
+.mx-why{font-size:12.5px; line-height:1.6; color:var(--ink2); margin:0 0 9px}
+.mx-why b{color:var(--ink)}
+.mx-watch{font-size:12px; line-height:1.55; color:var(--ink2); margin:11px 0 0;
+  padding:8px 0 8px 12px; border-left:3px solid var(--accent)}
+@media (max-width:900px){ .mx-shell{grid-template-columns:1fr} .mx-info{min-height:0} }
+@media (prefers-reduced-motion:reduce){ .mx-pt .mx-dot{transition:none} }
