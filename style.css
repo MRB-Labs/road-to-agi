@@ -1489,3 +1489,69 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .eld-credit a{color:var(--accent); text-decoration:none}
 .eld-credit a:hover{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.el-shot img{transition:none}}
+
+/* The photograph note sits under the credit, at caption size. */
+.eld-shows{font-size:11px; line-height:1.5; color:var(--muted); margin:7px 0 0}
+.eld-shows b{color:var(--ink2); font-weight:600}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   COMPANY LOGO BUTTONS
+   ────────────────────────────────────────────────────────────────────────── */
+.co-logo-btn{appearance:none; border:0; background:none; padding:0; margin:0; cursor:pointer;
+  display:inline-flex; line-height:0; border-radius:4px}
+.co-logo-btn img{transition:transform .16s var(--ease), box-shadow .16s var(--ease)}
+.co-logo-btn:hover img{transform:scale(1.08); box-shadow:0 0 0 2px var(--accent)}
+.co-logo-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   COMPANY DIALOG
+   ────────────────────────────────────────────────────────────────────────── */
+.co-dialog{border:1px solid var(--line); border-radius:16px; background:var(--surface);
+  color:var(--ink); padding:0; max-width:760px; width:calc(100% - 32px);
+  max-height:calc(100vh - 48px); box-shadow:var(--shadow-lg); overflow:hidden}
+.co-dialog::backdrop{background:rgba(10,14,20,.6); backdrop-filter:blur(3px)}
+.cod-body{padding:20px 22px 18px; position:relative; overflow-y:auto;
+  max-height:calc(100vh - 48px)}
+.cod-close{position:absolute; top:13px; right:14px; appearance:none; border:0; background:none;
+  font:400 24px/1 var(--f); color:var(--muted); cursor:pointer; padding:4px 7px; border-radius:7px;
+  z-index:2}
+.cod-close:hover{color:var(--ink); background:var(--surface2)}
+.cod-head{padding-right:34px}
+.cod-id{display:flex; align-items:center; gap:13px; margin-bottom:4px}
+.cod-logo{width:40px; height:40px; object-fit:contain; background:#fff; border-radius:8px;
+  padding:3px; box-shadow:0 0 0 1px rgba(23,32,42,.08); flex:none}
+:root[data-theme="dark"] .cod-logo{box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.co-dialog h4{font-size:21px; font-weight:600; letter-spacing:-.022em; margin:0}
+.cod-tick{font:500 12px var(--f-mono); color:var(--muted); margin:3px 0 0; letter-spacing:.02em}
+.cod-exch{display:inline-block; background:var(--surface2); border:1px solid var(--line);
+  border-radius:5px; padding:1px 6px; margin-right:7px; color:var(--ink2)}
+.cod-quote{min-height:96px; margin:2px 0 10px; border:1px solid var(--line);
+  border-radius:10px; overflow:hidden}
+
+.cod-fund{margin-top:14px; min-height:420px; border:1px solid var(--line);
+  border-radius:10px; overflow:hidden}
+.cod-foot{font-size:11px; line-height:1.55; color:var(--muted); margin:14px 0 0;
+  padding-top:11px; border-top:1px solid var(--line)}
+.cod-foot a{color:var(--accent); text-decoration:none}
+.cod-foot a:hover{text-decoration:underline}
+.tradingview-widget-container,.tradingview-widget-container__widget{width:100%}
+/* autosize charts need a height all the way down the container chain */
+.cod-chart,.cod-chart .tradingview-widget-container,
+.cod-chart .tradingview-widget-container__widget,.cod-chart iframe{height:100%}
+.cod-chart{height:360px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+@media (max-width:640px){
+  .cod-body{padding:16px 15px 14px}
+  .cod-chart{height:240px}
+  .co-dialog h4{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .co-logo-btn img,}
+
+/* Widget loading state, replaced when the TradingView iframe paints. */
+.cod-loading{position:absolute; inset:0; z-index:0; display:flex; align-items:center;
+  justify-content:center; margin:0; font-size:12px; color:var(--muted); pointer-events:none}
+/* the widget stacks above the placeholder and hides it once it paints */
+.cod-quote .tradingview-widget-container,.cod-chart .tradingview-widget-container,
+.cod-fund .tradingview-widget-container{position:relative; z-index:1}
+.cod-quote,.cod-chart,.cod-fund{position:relative}
+.cod-quote{min-height:150px}

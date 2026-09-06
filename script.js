@@ -773,7 +773,23 @@ const LOGO={
  'Zscaler':'zscaler',
  'ams OSRAM':'ams-ag'
 };
-const logoMark=(name,cls)=>{const s=LOGO[name];return s?`<img class="${cls||'co-logo'}" src="assets/logos/${s}.png" alt="" loading="lazy" decoding="async">`:'';};
+/* Exchange-qualified TradingView symbols. US exchanges resolved from listing
+   pages; the rest mapped from the report's own exchange prefixes to
+   TradingView's codes (ETR->XETR, TYO->TSE, TPE->TWSE, EPA/EBR->EURONEXT,
+   STO->OMXSTO, SWX->SIX, BIT->MIL). Entities absent here are private or
+   not separately listed, and their logos stay non-interactive. */
+const TVSYM={"ABB": "SIX:ABBN","AMD": "NASDAQ:AMD","ASE": "NYSE:ASX","ASML": "NASDAQ:ASML","AWS": "NASDAQ:AMZN","AWS Trainium": "NASDAQ:AMZN","Adobe": "NASDAQ:ADBE","Air Liquide": "EURONEXT:AI","Ajinomoto": "TSE:2802","Alfa Laval": "OMXSTO:ALFA","Alibaba Qwen": "NYSE:BABA","Amazon": "NASDAQ:AMZN","Ambarella": "NASDAQ:AMBA","Amkor": "NASDAQ:AMKR","Amphenol": "NYSE:APH","Applied Materials": "NASDAQ:AMAT","Arista": "NYSE:ANET","Arm": "NASDAQ:ARM","Astera Labs": "NASDAQ:ALAB","Aurubis": "XETR:NDA","Azure": "NASDAQ:MSFT","BHP": "NYSE:BHP","BMW": "XETR:BMW","Boliden": "OMXSTO:BOL","Boston Dynamics": "KRX:005380","Broadcom": "NASDAQ:AVGO","Cadence": "NASDAQ:CDNS","Cameco": "NYSE:CCJ","Carpenter Technology": "NYSE:CRS","Caterpillar": "NYSE:CAT","Cleveland-Cliffs": "NYSE:CLF","Coherent": "NYSE:COHR","Confluent": "NASDAQ:CFLT","Constellation": "NASDAQ:CEG","Copilot": "NASDAQ:MSFT","CoreWeave": "NASDAQ:CRWV","Corning": "NYSE:GLW","Credo": "NASDAQ:CRDO","CrowdStrike": "NASDAQ:CRWD","Cummins": "NYSE:CMI","Datadog": "NASDAQ:DDOG","Deere": "NYSE:DE","Dell": "NYSE:DELL","Digital Realty": "NYSE:DLR","Dynatrace": "NYSE:DT","Eaton": "NYSE:ETN","Equinix": "NASDAQ:EQIX","Fabrinet": "NYSE:FN","Foxconn": "TWSE:2317","Freeport-McMoRan": "NYSE:FCX","GE Vernova": "NYSE:GEV","Gemini": "NASDAQ:GOOGL","GlobalFoundries": "NASDAQ:GFS","Google": "NASDAQ:GOOGL","Google Cloud": "NASDAQ:GOOGL","Google DeepMind": "NASDAQ:GOOGL","Google TPU": "NASDAQ:GOOGL","HPE": "NYSE:HPE","Harmonic Drive Systems": "TSE:6324","Hitachi Energy": "TSE:6501","Hiwin": "TWSE:2049","Howmet": "NYSE:HWM","Hyundai Mobis": "KRX:012330","Ibiden": "TSE:4062","Intel Foundry": "NASDAQ:INTC","Intuit": "NASDAQ:INTU","KLA": "NASDAQ:KLAC","Kazatomprom": "LSE:KAP","Keyence": "TSE:6861","Lam Research": "NASDAQ:LRCX","Linde": "NASDAQ:LIN","Lumentum": "NASDAQ:LITE","Lynas": "ASX:LYC","Lynas Malaysia": "ASX:LYC","MP Materials": "NYSE:MP","MYR Group": "NASDAQ:MYRG","Marvell": "NASDAQ:MRVL","Meta": "NASDAQ:META","Meta MTIA": "NASDAQ:META","Micron": "NASDAQ:MU","Microsoft": "NASDAQ:MSFT","Microsoft Entra": "NASDAQ:MSFT","Microsoft Maia": "NASDAQ:MSFT","Mitsubishi Heavy": "TSE:7011","MongoDB": "NASDAQ:MDB","Motivair (Schneider)": "EURONEXT:SU","NSK": "TSE:6471","NVIDIA": "NASDAQ:NVDA","NVIDIA Jetson": "NASDAQ:NVDA","NVIDIA NVLink": "NASDAQ:NVDA","Nabtesco": "TSE:6268","NextEra": "NYSE:NEE","Nidec": "TSE:6594","Nippon Steel": "TSE:5401","Okta": "NASDAQ:OKTA","Oracle": "NYSE:ORCL","POSCO": "NYSE:PKX","Palo Alto Networks": "NASDAQ:PANW","Prysmian": "MIL:PRY","Qualcomm": "NASDAQ:QCOM","Quanta": "TWSE:2382","Quanta Services": "NYSE:PWR","Regal Rexnord": "NYSE:RRX","Renishaw": "LSE:RSW","Rio Tinto": "NYSE:RIO","SAP": "NYSE:SAP","SK hynix": "KRX:000660","STMicroelectronics": "NYSE:STM","SUMCO": "TSE:3436","Salesforce": "NYSE:CRM","Samsung": "KRX:005930","Samsung Foundry": "KRX:005930","Schneider": "EURONEXT:SU","Schneider Electric": "EURONEXT:SU","ServiceNow": "NYSE:NOW","Shin-Etsu": "TSE:4063","Shinko": "TSE:6967","Siemens": "XETR:SIE","Siemens EDA": "XETR:SIE","Siemens Energy": "XETR:ENR","Snowflake": "NYSE:SNOW","Solvay": "EURONEXT:SOLB","Sony": "NYSE:SONY","Splunk (Cisco)": "NASDAQ:CSCO","Supermicro": "NASDAQ:SMCI","Symbotic": "NASDAQ:SYM","Synopsys": "NASDAQ:SNPS","THK": "TSE:6481","TSMC": "NYSE:TSM","TSMC CoWoS": "NYSE:TSM","Talen": "NASDAQ:TLN","Tesla": "NASDAQ:TSLA","Tesla AI5": "NASDAQ:TSLA","Tesla FSD silicon": "NASDAQ:TSLA","Tokuyama": "TSE:4043","Tokyo Electron": "TSE:8035","Unimicron": "TWSE:3037","Vertiv": "NYSE:VRT","Vistra": "NYSE:VST","Wacker Chemie": "XETR:WCH","Waymo": "NASDAQ:GOOGL","Wistron": "TWSE:3231","Zscaler": "NASDAQ:ZS","ams OSRAM": "SIX:AMS"};
+
+/* A logo is a button when we hold an exchange-qualified ticker for it, and a
+   plain image otherwise, so unlisted entities never look interactive. */
+const logoMark=(name,cls)=>{
+  const f=LOGO[name]; if(!f) return '';
+  const img=`<img class="${cls||'co-logo'}" src="assets/logos/${f}.png" alt="" loading="lazy" decoding="async">`;
+  if(typeof TVSYM==='undefined'||!TVSYM[name]) return img;
+  return `<button type="button" class="co-logo-btn" data-co="${_escAttr(name)}" `+
+         `title="${_escAttr(name)} — market information" aria-label="${_escAttr(name)} — market information">${img}</button>`;
+};
+const _escAttr=x=>String(x).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 
 function chainChip(name){
   const c=(typeof CT!=='undefined')&&CT[name], mark=logoMark(name);
@@ -2993,14 +3009,13 @@ change:{t:'Change',l:'The physical world',
           `<div class="eld-chips"><span>${e.cat}</span><span>${e.phase} at room temperature</span></div>`+
         `</div>`+
       `</div>`+
-      `<p class="eld-lede"><b>What the photograph shows.</b> ${e.note}</p>`+
       (e.kind&&!/^Specimen photograph$/.test(e.kind)?`<p class="eld-warn">${e.kind}.</p>`:'')+
       (uses.length?`<div class="eld-uses"><p class="eld-h">Where it enters this report</p>`+
         `<ul>${uses.map(u=>`<li>${u}</li>`).join('')}</ul></div>`:'')+
       `<p class="eld-credit">${e.attr} &middot; `+
         `<a href="${e.licurl||e.src}" target="_blank" rel="noopener noreferrer">${e.lic}</a>`+
-        `${e.src?` &middot; <a href="${e.src}" target="_blank" rel="noopener noreferrer">source</a>`:''}`+
-        `<br>Retouched onto a neutral ground for presentation; consult the source for the documentary record.</p>`;
+        `${e.src?` &middot; <a href="${e.src}" target="_blank" rel="noopener noreferrer">source</a>`:''}</p>`+
+      `<p class="eld-shows"><b>What the photograph shows.</b> ${e.note}</p>`;
     dlg.setAttribute('aria-label', e.name+' — element details');
   }
 
@@ -3022,3 +3037,129 @@ change:{t:'Change',l:'The physical world',
   const t=setInterval(()=>{ if(ELDATA){ label(); clearInterval(t); } },120);
   setTimeout(()=>clearInterval(t),8000);
 })();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   COMPANY DIALOG
+   Every logo on the site opens the same modal: one component, driven by the
+   exchange-qualified ticker in TVSYM. Quote, chart and fundamentals are
+   TradingView's own embeddable widgets, which need no API key — the site is
+   static on GitHub Pages, so there is nowhere to keep a secret. See the note
+   in Method on what a fundamentals API would require.
+
+   Widgets are created per open and torn down on close, because TradingView
+   scripts write into their container on load and do not survive being moved.
+   ══════════════════════════════════════════════════════════════════════════ */
+/* TradingView's own range tabs, in the order the brief asked for. Each entry
+   is label|resolution. */
+const TV_RANGES=['1d|1','5d|15','1m|30','6m|120','ytd|1D','12m|1D','60m|1W','all|1M'];
+
+function tvTheme(){
+  const t=document.documentElement.getAttribute('data-theme');
+  if(t) return t==='dark'?'dark':'light';
+  return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+
+(function(){
+  let dlg=null, current=null;
+
+  function build(){
+    dlg=document.createElement('dialog');
+    dlg.className='co-dialog';
+    dlg.innerHTML=`<div class="cod-body">
+      <button type="button" class="cod-close" aria-label="Close">&times;</button>
+      <div class="cod-head"></div>
+      <div class="cod-chart"></div>
+      <div class="cod-fund"></div>
+      <p class="cod-foot"></p>
+    </div>`;
+    document.body.appendChild(dlg);
+    dlg.addEventListener('click',e=>{ if(e.target===dlg) close(); });
+    dlg.addEventListener('close',teardown);
+    dlg.querySelector('.cod-close').addEventListener('click',close);
+  }
+
+  const widget=(host,src,cfg,h)=>{
+    /* TradingView iframes can take ten seconds or more; say so rather than
+       leaving an empty box. The iframe paints over this once it arrives. */
+    host.innerHTML='<p class="cod-loading">Loading market data\u2026</p>';
+    const wrap=document.createElement('div');
+    wrap.className='tradingview-widget-container';
+    const inner=document.createElement('div');
+    inner.className='tradingview-widget-container__widget';
+    if(h) inner.style.height=h;
+    wrap.appendChild(inner);
+    const sc=document.createElement('script');
+    sc.type='text/javascript'; sc.async=true; sc.src=src;
+    sc.text=JSON.stringify(cfg);
+    wrap.appendChild(sc);
+    host.appendChild(wrap);
+  };
+
+  function renderChart(){
+    widget(dlg.querySelector('.cod-chart'),
+      'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js',
+      {symbols:[[current.name, current.sym+'|12M']], chartOnly:false,
+       width:'100%', height:'100%', locale:'en', colorTheme:tvTheme(),
+       autosize:true, showVolume:false, hideDateRanges:false, hideMarketStatus:false,
+       hideSymbolLogo:false, scalePosition:'right', scaleMode:'Normal',
+       chartType:'area', dateRanges:TV_RANGES, isTransparent:false});
+  }
+
+  function open(name){
+    const sym=TVSYM[name]; if(!sym) return;
+    if(!dlg) build();
+    current={name,sym};
+    const logo=logoFor(name,'cod-logo')||'';
+    const [exch,tick]=sym.split(':');
+    const ct=(typeof CT!=='undefined'&&CT[name])||null;
+    dlg.querySelector('.cod-head').innerHTML=
+      `<div class="cod-id">${logo}<div>
+         <h4>${_esc(name)}</h4>
+         <p class="cod-tick"><span class="cod-exch">${_esc(exch)}</span>${_esc(tick)}${ct&&ct[2]?` &middot; ${_esc(ct[2])}`:''}</p>
+       </div></div>
+       <div class="cod-quote"></div>`;
+    widget(dlg.querySelector('.cod-quote'),
+      'https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js',
+      {symbol:sym, width:'100%', locale:'en', colorTheme:tvTheme(), isTransparent:false});
+    renderChart();
+    widget(dlg.querySelector('.cod-fund'),
+      'https://s3.tradingview.com/external-embedding/embed-widget-financials.js',
+      {symbol:sym, colorTheme:tvTheme(), displayMode:'compact', isTransparent:false,
+       largeChartUrl:'', locale:'en', width:'100%', height:'420'},'420px');
+    dlg.querySelector('.cod-foot').innerHTML=
+      `Quote, chart and financials by <a href="https://www.tradingview.com/symbols/${_esc(sym.replace(':','-'))}/" target="_blank" rel="noopener noreferrer">TradingView</a>`+
+      `${ct&&ct[1]?` &middot; <a href="${SA}${ct[1]}/" target="_blank" rel="noopener noreferrer">full profile on Stock Analysis</a>`:''}`+
+      `<br>Market data is delayed and shown for reference. Nothing here is a recommendation.`;
+    dlg.setAttribute('aria-label', name+' — market information');
+    dlg.showModal();
+  }
+
+  function close(){ if(dlg&&dlg.open){ dlg.close(); } teardown(); }
+  function teardown(){
+    /* only ever empties a closed dialog: tearing down a visible one leaves
+       three blank boxes with no way back */
+    if(!dlg||dlg.open) return;
+    ['.cod-quote','.cod-chart','.cod-fund'].forEach(s=>{
+      const el=dlg.querySelector(s); if(el) el.innerHTML='';
+    });
+  }
+
+  /* Any logo anywhere opens it — chain chips, company tables, chain rows. */
+  document.addEventListener('click',e=>{
+    const trigger=e.target.closest('[data-co]');
+    if(!trigger) return;
+    e.preventDefault();
+    open(trigger.dataset.co);
+  });
+
+  /* Repaint the widgets when the theme changes underneath an open dialog. */
+  const obs=new MutationObserver(()=>{ if(dlg&&dlg.open&&current) open(current.name); });
+  obs.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+})();
+
+/* Escape closes whichever dialog is open. Native <dialog> does this itself only
+   when it holds focus, which is not reliable in every embedding. */
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape') return;
+  document.querySelectorAll('dialog[open]').forEach(d=>d.close());
+});
