@@ -1314,12 +1314,17 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
    ELEMENT PHOTOGRAPHS
    ────────────────────────────────────────────────────────────────────────── */
 .el-shots{display:flex; gap:7px; flex:none}
-.el-shot{margin:0; width:52px; text-align:center}
+.el-shot{appearance:none; border:0; background:none; padding:0; margin:0; width:52px;
+  cursor:pointer; display:block; text-align:center; font:inherit}
 .el-shot img{width:52px; height:52px; object-fit:cover; border-radius:9px;
-  border:1px solid var(--line); background:#F3F4F4; display:block}
-.el-shot figcaption{margin-top:4px; line-height:1.2}
-.el-shot figcaption b{display:block; font:600 11px var(--f-mono); color:var(--ink)}
-.el-shot figcaption span{display:block; font-size:9.5px; color:var(--muted)}
+  border:1px solid var(--line); background:#F3F4F4; display:block;
+  transition:border-color .16s var(--ease), transform .16s var(--ease)}
+.el-shot:hover img{border-color:var(--accent); transform:translateY(-1px)}
+.el-shot:focus-visible img{outline:2px solid var(--accent); outline-offset:2px}
+.el-cap{display:block; margin-top:4px; line-height:1.2}
+.el-cap b{display:block; font:600 11px var(--f-mono); color:var(--ink)}
+.el-cap span{display:block; font-size:9.5px; color:var(--muted); overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap}
 .material-card .mat-top{display:flex; gap:13px; align-items:flex-start}
 .material-card .mat-top>div:last-child{min-width:0}
 .mats-inline{margin-top:8px}
@@ -1448,3 +1453,39 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 
 /* The drawn globe is the fallback; it steps aside once the photograph loads. */
 #mapsvg.has-earth .sea,#mapsvg.has-earth .leaf{display:none}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ELEMENT DETAIL DIALOG
+   ────────────────────────────────────────────────────────────────────────── */
+.el-dialog{border:1px solid var(--line); border-radius:14px; background:var(--surface);
+  color:var(--ink); padding:0; max-width:460px; width:calc(100% - 32px);
+  box-shadow:var(--shadow-lg)}
+.el-dialog::backdrop{background:rgba(10,14,20,.55); backdrop-filter:blur(2px)}
+.eld-body{padding:20px 22px 18px; position:relative}
+.eld-close{position:absolute; top:12px; right:13px; appearance:none; border:0; background:none;
+  font:400 22px/1 var(--f); color:var(--muted); cursor:pointer; padding:4px 6px; border-radius:6px}
+.eld-close:hover{color:var(--ink); background:var(--surface2)}
+.eld-head{display:flex; gap:16px; align-items:center; margin-bottom:15px; padding-right:26px}
+.eld-shot{width:96px; height:96px; object-fit:cover; border-radius:11px;
+  border:1px solid var(--line); background:#F3F4F4; flex:none}
+.eld-z{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  margin:0 0 3px; font-weight:600}
+.el-dialog h4{font-size:20px; font-weight:600; letter-spacing:-.02em; margin:0 0 8px}
+.eld-sym{font:600 13px var(--f-mono); color:var(--muted); vertical-align:middle;
+  border:1px solid var(--line); border-radius:5px; padding:2px 6px; margin-left:5px}
+.eld-chips{display:flex; gap:6px; flex-wrap:wrap}
+.eld-chips span{font-size:11px; color:var(--ink2); background:var(--surface2);
+  border:1px solid var(--line); border-radius:6px; padding:3px 8px}
+.eld-lede{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:0 0 10px}
+.eld-lede b{color:var(--ink)}
+.eld-warn{font-size:12.5px; line-height:1.55; color:var(--warn-ink); margin:0 0 10px;
+  padding:8px 11px; background:var(--flag-soft); border-radius:8px}
+.eld-uses{margin:0 0 12px; padding-top:11px; border-top:1px solid var(--line)}
+.eld-h{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  margin:0 0 6px; font-weight:600}
+.eld-uses ul{margin:0; padding-left:17px; font-size:13px; color:var(--ink2); line-height:1.55}
+.eld-credit{font-size:11px; line-height:1.5; color:var(--muted); margin:0;
+  padding-top:11px; border-top:1px solid var(--line)}
+.eld-credit a{color:var(--accent); text-decoration:none}
+.eld-credit a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.el-shot img{transition:none}}

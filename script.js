@@ -1929,22 +1929,32 @@ const factgrid=f=>f.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span><
 
 /* ══════════════════════════════════════════════════════════════════════════
    ELEMENT PHOTOGRAPHS
-   Specimen photographs of the elements a material entry actually depends on.
-   Sourced from the Chemical Elements virtual museum via images-of-elements.com,
-   CC BY 3.0, retouched onto a neutral ground and downscaled for the web. A
-   photograph shows one specimen, not a canonical appearance: allotrope, oxide
-   film and lighting all change it. Entries with no single governing element,
-   and fluorine, which has no usable specimen photograph, render without one.
+   Specimen photographs for every element the collection carries — 90 of the
+   118, from the Chemical Elements virtual museum via images-of-elements.com.
+   Protactinium and curium are excluded: their source states no image-specific
+   Creative Commons licence, so they are not ours to redistribute.
+
+   A photograph shows one specimen, not a canonical appearance: allotrope,
+   oxide film, container and lighting all change it, and several are gas
+   discharge tubes whose glow is electrically excited. Each element's own entry
+   says which it is, and the panel repeats that where it matters.
+
+   ELMAP ties a material entry in the report to the element or elements that
+   actually govern it. Entries with no single governing element, and fluorine,
+   which has no usable specimen photograph, render without one.
    ══════════════════════════════════════════════════════════════════════════ */
+const EL_HAVE=new Set(["Ac","Ag","Al","Am","Ar","As","Au","B","Ba","Be","Bi","Bk","Br","C","Ca","Cd","Ce","Cf","Cl","Co","Cr","Cs","Cu","Dy","Er","Es","Eu","Fe","Ga","Gd","Ge","H","He","Hf","Hg","Ho","I","In","Ir","K","Kr","La","Li","Lu","Mg","Mn","Mo","N","Na","Nb","Nd","Ne","Ni","Np","O","Os","P","Pb","Pd","Pr","Pt","Pu","Rb","Re","Rh","Ru","S","Sb","Sc","Se","Si","Sm","Sn","Sr","Ta","Tb","Tc","Te","Th","Ti","Tl","Tm","U","V","W","Xe","Y","Yb","Zn","Zr"]);
 const ELMAP={"Copper": ["Cu"], "Copper smelting": ["Cu"], "Copper + underfill": ["Cu"], "ABF resin + copper foil": ["Cu"], "Grain-oriented electrical steel": ["Fe"], "Bearing + gear steels": ["Fe"], "Steel + concrete": ["Fe"], "Rhenium superalloys": ["Re"], "High-purity quartz": ["Si"], "Electronic-grade polysilicon": ["Si"], "Silicon interposers": ["Si"], "InGaAs + silicon": ["In", "Si"], "SiC + GaN": ["Si", "Ga"], "HALEU + zirconium": ["U", "Zr"], "Gallium + germanium": ["Ga", "Ge"], "Fibre + germanium dopant": ["Ge"], "Neon + helium": ["Ne", "He"], "NdFeB + Dy/Tb": ["Nd", "Dy"], "Rare earth separation": ["Nd", "Dy"], "Lithium + graphite": ["Li", "C"], "LFP cells + graphite": ["Li", "C"], "Aluminium + carbon fibre": ["Al", "C"], "Aluminium + silver": ["Al", "Ag"], "Indium + ruthenium": ["In", "Ru"], "Indium foil + diamond composites": ["In", "C"], "Tin + ruthenium + Mo/Si": ["Sn", "Ru"], "Photoresists + HF": ["F"]};
-const ELEMENTS={"Ag": {"name": "Silver", "z": 47}, "Al": {"name": "Aluminium", "z": 13}, "C": {"name": "Carbon", "z": 6}, "Cu": {"name": "Copper", "z": 29}, "Dy": {"name": "Dysprosium", "z": 66}, "Fe": {"name": "Iron", "z": 26}, "Ga": {"name": "Gallium", "z": 31}, "Ge": {"name": "Germanium", "z": 32}, "He": {"name": "Helium", "z": 2}, "In": {"name": "Indium", "z": 49}, "Li": {"name": "Lithium", "z": 3}, "Nd": {"name": "Neodymium", "z": 60}, "Ne": {"name": "Neon", "z": 10}, "Re": {"name": "Rhenium", "z": 75}, "Ru": {"name": "Ruthenium", "z": 44}, "Si": {"name": "Silicon", "z": 14}, "Sn": {"name": "Tin", "z": 50}, "U": {"name": "Uranium", "z": 92}, "Zr": {"name": "Zirconium", "z": 40}};
+let ELDATA=null;
+fetch('assets/elements/elements.json').then(r=>r.ok?r.json():null).then(d=>{ELDATA=d;}).catch(()=>{});
+
 function elementShots(materialName){
-  const syms=ELMAP[materialName]; if(!syms) return '';
-  const shots=syms.filter(x=>ELEMENTS[x]).map(x=>{
-    const e=ELEMENTS[x];
-    return `<figure class="el-shot"><img src="assets/elements/${x}.png" alt="Specimen of ${e.name}" `+
-      `loading="lazy" decoding="async"><figcaption><b>${x}</b><span>${e.name}</span></figcaption></figure>`;
-  }).join('');
+  const syms=(ELMAP[materialName]||[]).filter(x=>EL_HAVE.has(x));
+  if(!syms.length) return '';
+  const shots=syms.map(x=>
+    `<button type="button" class="el-shot" data-el="${x}" title="${x} — open element details">`+
+    `<img src="assets/elements/${x}.jpg" alt="Specimen of element ${x}" loading="lazy" decoding="async" onerror="this.closest('.el-shot').remove()">`+
+    `<span class="el-cap"><b>${x}</b><span data-elname="${x}">&nbsp;</span></span></button>`).join('');
   return shots?`<div class="el-shots">${shots}</div>`:'';
 }
 
@@ -2945,4 +2955,70 @@ change:{t:'Change',l:'The physical world',
   const probe=new Image();
   probe.onload=()=>svg.classList.add('has-earth');
   probe.src=img.getAttribute('href');
+})();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ELEMENT DETAIL DIALOG
+   Selecting a specimen photograph opens what the collection records about that
+   element, plus where it enters this report. Uses a native <dialog>, so Escape
+   and the backdrop close it and focus is restored on its own.
+   ══════════════════════════════════════════════════════════════════════════ */
+(function(){
+  if(!document.querySelector('.el-shot')) return;
+
+  const dlg=document.createElement('dialog');
+  dlg.className='el-dialog';
+  dlg.innerHTML='<div class="eld-body"></div>';
+  document.body.appendChild(dlg);
+  const body=dlg.querySelector('.eld-body');
+
+  /* Which material entries in this report rest on a given element. */
+  function usedIn(sym){
+    const out=[];
+    for(const [mat,syms] of Object.entries(ELMAP)) if(syms.includes(sym)) out.push(mat);
+    return [...new Set(out)];
+  }
+
+  function render(sym){
+    const e=ELDATA&&ELDATA[sym];
+    if(!e){ body.innerHTML='<p class="eld-lede">Details for this element are still loading.</p>'; return; }
+    const uses=usedIn(sym);
+    body.innerHTML=
+      `<button type="button" class="eld-close" aria-label="Close">&times;</button>`+
+      `<div class="eld-head">`+
+        `<img class="eld-shot" src="assets/elements/${sym}.jpg" alt="Specimen of ${e.name}">`+
+        `<div>`+
+          `<p class="eld-z">Element ${e.z}</p>`+
+          `<h4 id="eld-title">${e.name} <span class="eld-sym">${sym}</span></h4>`+
+          `<div class="eld-chips"><span>${e.cat}</span><span>${e.phase} at room temperature</span></div>`+
+        `</div>`+
+      `</div>`+
+      `<p class="eld-lede"><b>What the photograph shows.</b> ${e.note}</p>`+
+      (e.kind&&!/^Specimen photograph$/.test(e.kind)?`<p class="eld-warn">${e.kind}.</p>`:'')+
+      (uses.length?`<div class="eld-uses"><p class="eld-h">Where it enters this report</p>`+
+        `<ul>${uses.map(u=>`<li>${u}</li>`).join('')}</ul></div>`:'')+
+      `<p class="eld-credit">${e.attr} &middot; `+
+        `<a href="${e.licurl||e.src}" target="_blank" rel="noopener noreferrer">${e.lic}</a>`+
+        `${e.src?` &middot; <a href="${e.src}" target="_blank" rel="noopener noreferrer">source</a>`:''}`+
+        `<br>Retouched onto a neutral ground for presentation; consult the source for the documentary record.</p>`;
+    dlg.setAttribute('aria-label', e.name+' — element details');
+  }
+
+  document.addEventListener('click',e=>{
+    const shot=e.target.closest('.el-shot');
+    if(shot){ render(shot.dataset.el); dlg.showModal(); return; }
+    if(e.target.closest('.eld-close')) dlg.close();
+  });
+  /* clicking the backdrop closes it */
+  dlg.addEventListener('click',e=>{ if(e.target===dlg) dlg.close(); });
+
+  /* fill the caption names once the index lands */
+  const label=()=>{
+    if(!ELDATA) return;
+    document.querySelectorAll('[data-elname]').forEach(n=>{
+      const e=ELDATA[n.dataset.elname]; if(e) n.textContent=e.name;
+    });
+  };
+  const t=setInterval(()=>{ if(ELDATA){ label(); clearInterval(t); } },120);
+  setTimeout(()=>clearInterval(t),8000);
 })();
