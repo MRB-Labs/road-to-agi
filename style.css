@@ -1554,7 +1554,7 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .cod-quote .tradingview-widget-container,.cod-chart .tradingview-widget-container,
 .cod-fund .tradingview-widget-container{position:relative; z-index:1}
 .cod-quote,.cod-chart,.cod-fund{position:relative}
-.cod-quote{min-height:150px}
+
 
 /* Fundamentals from the scheduled refresh, above the TradingView financials. */
 .cod-stats{margin-top:14px}
@@ -1568,3 +1568,16 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .cod-grid>div b{font-size:14px; font-weight:600; letter-spacing:-.012em;
   font-variant-numeric:tabular-nums}
 .cod-stamp{font-size:10.5px; color:var(--muted); margin:8px 0 0}
+
+/* One box size across the dialog, so quote, chart and financials read as a set
+   rather than three panels of different heights. */
+.cod-desc{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:10px 0 14px;
+  padding-bottom:13px; border-bottom:1px solid var(--line)}
+.cod-quote,.cod-chart,.cod-fund{height:300px; min-height:300px;
+  border:1px solid var(--line); border-radius:10px; overflow:hidden; position:relative}
+.cod-quote{margin:0 0 12px}
+.cod-chart{margin:0 0 12px}
+.cod-fund{margin:0}
+.cod-quote iframe,.cod-fund iframe{height:100%!important}
+.cod-quote .tradingview-widget-container,.cod-quote .tradingview-widget-container__widget,
+.cod-fund .tradingview-widget-container,.cod-fund .tradingview-widget-container__widget{height:100%}

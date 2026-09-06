@@ -625,7 +625,8 @@ hu:{title:'Sources — ten million humanoids',
 const _esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const _arrow='<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2h6v6M10 2 3 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-/* Company marks. Logos resolved from CompaniesLogo.com and vendored into
+/* Company marks. Listed companies from CompaniesLogo.com; private and
+   unlisted ones from their own sites' icons. Both vendored into
    assets/logos/ rather than hotlinked, because their URLs carry a content
    hash that rotates whenever a logo is updated. Maps a value-chain entity to
    its logo file; product and platform names point at the parent company's
@@ -772,6 +773,54 @@ const LOGO={
  'Wistron':'wistron-corporation',
  'Zscaler':'zscaler',
  'ams OSRAM':'ams-ag'
+,
+ 'AT&S':'ats',
+ 'AgiBot':'agibot',
+ 'Agility':'agilityrobotics',
+ 'Anthropic':'anthropic',
+ 'Apptronik':'apptronik',
+ 'Baseten':'baseten',
+ 'Bosch':'bosch',
+ 'Boston Dynamics':'bostondynamics',
+ 'Boyd':'boydcorp',
+ 'ChatGPT':'openai',
+ 'Claude':'anthropic',
+ 'DPR':'dpr',
+ 'Databricks':'databricks',
+ 'DeepSeek':'deepseek',
+ 'Figure':'figure',
+ 'Fireworks':'fireworks',
+ 'Grafana':'grafana',
+ 'Green Harmonic':'chinaharmonicdrive',
+ 'Hemlock':'hscpoly',
+ 'Hiwin':'hiwin',
+ 'InnoLight':'innolight',
+ 'JL MAG':'jlmag',
+ 'JSR':'jsr',
+ 'LangChain':'langchain',
+ 'Leader Drive':'leaderdrive',
+ 'LiquidStack':'liquidstack',
+ 'Mercor':'mercor',
+ 'Mistral':'mistral',
+ 'Mortenson':'mortenson',
+ 'Neo Performance':'neomaterials',
+ 'OCI':'oracle',
+ 'OpenAI':'openai',
+ 'Precision Castparts':'precast',
+ 'Rosendin':'rosendin',
+ 'Sanhua':'sanhuaeurope',
+ 'Scale AI':'scale',
+ 'ServiceNow':'servicenow',
+ 'Shinko':'shinko-el',
+ 'Sibelco':'sibelco',
+ 'Surge':'surgehq',
+ 'Temporal':'temporal',
+ 'Together':'together',
+ 'Turner':'turnerconstruction',
+ 'UBTech':'ubtrobot',
+ 'Unitree':'unitree',
+ 'Zeiss SMT':'zeiss',
+ 'xAI':'x'
 };
 /* Exchange-qualified TradingView symbols. US exchanges resolved from listing
    pages; the rest mapped from the report's own exchange prefixes to
@@ -3118,15 +3167,16 @@ function tvTheme(){
          <h4>${_esc(name)}</h4>
          <p class="cod-tick"><span class="cod-exch">${_esc(exch)}</span>${_esc(tick)}${ct&&ct[2]?` &middot; ${_esc(ct[2])}`:''}</p>
        </div></div>
+       ${CDESC[name]?`<p class="cod-desc">${_esc(CDESC[name])}</p>`:''}
        <div class="cod-quote"></div>`;
     widget(dlg.querySelector('.cod-quote'),
       'https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js',
-      {symbol:sym, width:'100%', locale:'en', colorTheme:tvTheme(), isTransparent:false});
+      {symbol:sym, width:'100%', locale:'en', colorTheme:tvTheme(), isTransparent:false}, '300px');
     renderChart();
     widget(dlg.querySelector('.cod-fund'),
       'https://s3.tradingview.com/external-embedding/embed-widget-financials.js',
       {symbol:sym, colorTheme:tvTheme(), displayMode:'compact', isTransparent:false,
-       largeChartUrl:'', locale:'en', width:'100%', height:'420'},'420px');
+       largeChartUrl:'', locale:'en', width:'100%', height:'300'},'300px');
     const fb=fundamentalsBlock(name);
     dlg.querySelector('.cod-stats').innerHTML=fb;
     dlg.querySelector('.cod-stats').hidden=!fb;
