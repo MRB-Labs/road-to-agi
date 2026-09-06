@@ -159,30 +159,6 @@ const CHAIN={
   {t:'Back into training',w:'Returning curated interaction data to the training layer. This is where the loop closes, or the thesis stops compounding.',n:['Frontier labs','Layer 6'],note:'The loop closes here, or the thesis does not compound'}
  ]},};
 
-/* Value chain view — who depends on whom, stage by stage.
-   Rendered as HTML rather than SVG so it reflows on narrow screens and the
-   company names stay selectable text. */
-function chainPane(n,col){
-  const d=(typeof CHAIN!=='undefined')&&CHAIN[n];
-  if(!d) return '<p class="sub">Data unavailable from accessible sources.</p>';
-  const esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  const stages=d.stages.map((st,i)=>`
-    <li class="chain-stage${st.c?' is-choke':''}" style="--stage:${col}">
-      <div class="chain-step">Stage ${i+1}${st.c?' · chokepoint':''}</div>
-      <h5>${esc(st.t)}</h5>
-      <div class="chain-nodes">${st.n.map(x=>`<span class="chain-node">${esc(x)}</span>`).join('')}</div>
-      ${st.note?`<p class="chain-note">${esc(st.note)}</p>`:''}
-    </li>`).join('');
-  return `<p class="chain-lead">${d.lead}</p>
-    <p class="chain-hint">Upstream on the left, downstream on the right — scroll sideways to follow the chain.</p>
-    <div class="chain-wrap"><ol class="chain-flow" aria-label="Value chain for this layer, upstream first">${stages}</ol></div>
-    <div class="chain-key">
-      <span><i class="k-choke"></i>Chokepoint stage — few credible suppliers, long time to relieve</span>
-      <span><i class="k-flow"></i>Each stage buys from the one on its left</span>
-    </div>
-    <p class="tnote">Market capitalisation is converted to US dollars at a single FX snapshot taken ${_esc(MCAP_ASOF)}, so the column is comparable across exchanges but is a point-in-time figure and will drift. Entity descriptions identify what a company supplies at that stage; they are not sourced share claims. Companies are named for structural completeness of the chain, not as recommendations, and several are private, Chinese-listed or embedded inside much larger groups. Position within a stage does not imply ranking. The chain is drawn at the level that matters for dependency, so a company can appear in more than one stage or more than one layer.</p>`;
-}
-
 /* ══════════════════════════════════════════════════════════════════════════
    V6 — ticker links and per-layer source registers
    ══════════════════════════════════════════════════════════════════════════ */
@@ -979,23 +955,6 @@ function chainDiagrams(d,col){
     </div>
     <p class="cap">DERIVED &mdash; a headcount, not a value-weighted measure. One monopolist counts the same as one of five competitors, so read it for where the chain touches ground, not for how much value sits in each country.</p>
   </section>`;
-}
-
-/* Every listed entity in the chain, with its stage and where to look it up. */
-function chainTable(d){
-  const rows=[];
-  d.stages.forEach(st=>st.n.forEach(n=>{
-    const c=(typeof CT!=='undefined')&&CT[n];
-    if(c&&c[1]) rows.push([n,st.t,c[0],c[1],c[2]]);
-  }));
-  const seen=new Set(), uniq=rows.filter(r=>{const k=r[0]; if(seen.has(k))return false; seen.add(k); return true;});
-  if(!uniq.length) return '';
-  return `<h4 class="mini-h">Listed entities in this chain</h4>
-  <div class="tw"><table class="dat chain-tbl"><thead><tr><th>Entity</th><th>Stage</th><th>Country</th><th>Listing</th></tr></thead><tbody>`+
-    uniq.map(r=>`<tr><td class="co-n"><a class="co-link" href="${SA}${r[3]}/" target="_blank" rel="noopener noreferrer">${_esc(r[0])}</a></td>`+
-      `<td class="sm">${_esc(r[1])}</td><td class="sm">${_esc(r[4]||'—')}</td>`+
-      `<td class="sm"><a class="tick" href="${SA}${r[3]}/" target="_blank" rel="noopener noreferrer">${_esc(r[2])}${_arrow}</a></td></tr>`).join('')+
-    `</tbody></table></div>`;
 }
 
 function chainPane(n,col){
