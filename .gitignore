@@ -5,3 +5,6 @@ Periodic_Elements/
 
 # macOS Finder metadata
 .DS_Store
+
+# The 3000px master; the site ships assets/images/earth-globe.png at 512px
+assets/images/Earth globe 3d illustration.png

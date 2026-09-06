@@ -2936,3 +2936,13 @@ change:{t:'Change',l:'The physical world',
   });
   info.innerHTML=REST;
 })();
+
+/* When the photographic globe loads, retire the drawn one beneath it. If the
+   file is missing the image never fires load and the vector globe stays. */
+(function(){
+  const svg=document.getElementById('mapsvg'); if(!svg) return;
+  const img=svg.querySelector('image.earth'); if(!img) return;
+  const probe=new Image();
+  probe.onload=()=>svg.classList.add('has-earth');
+  probe.src=img.getAttribute('href');
+})();

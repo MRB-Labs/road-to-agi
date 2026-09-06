@@ -1445,3 +1445,6 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
    no-op in some embeddings of this page, and once it is set every scrollTop
    assignment routes through it and silently does nothing. Stage jumps are
    instant, which also means they need no reduced-motion guard. */
+
+/* The drawn globe is the fallback; it steps aside once the photograph loads. */
+#mapsvg.has-earth .sea,#mapsvg.has-earth .leaf{display:none}
