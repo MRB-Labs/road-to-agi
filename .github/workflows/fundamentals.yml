@@ -14,6 +14,10 @@ on:
         description: 'Maximum FMP API calls for this run'
         required: false
         default: '200'
+      retry_all:
+        description: 'Retry symbols previously marked missing (after a plan change)'
+        required: false
+        default: 'false'
 
 concurrency:
   group: fundamentals
@@ -26,16 +30,16 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Fetch from Financial Modeling Prep
         env:
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
-        run: python3 scripts/fetch_fundamentals.py --budget "${{ github.event.inputs.budget || 200 }}"
+        run: python3 scripts/fetch_fundamentals.py --budget "${{ github.event.inputs.budget || 200 }}" ${{ github.event.inputs.retry_all == 'true' && '--retry-all' || '' }}
 
       - name: Stamp assets so browsers pick up the new data
         run: python3 bump-assets.py
