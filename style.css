@@ -1555,3 +1555,16 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .cod-fund .tradingview-widget-container{position:relative; z-index:1}
 .cod-quote,.cod-chart,.cod-fund{position:relative}
 .cod-quote{min-height:150px}
+
+/* Fundamentals from the scheduled refresh, above the TradingView financials. */
+.cod-stats{margin-top:14px}
+.cod-h{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  margin:14px 0 8px; font-weight:600}
+.cod-h span{letter-spacing:.02em; text-transform:none; font-weight:500; opacity:.8}
+.cod-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(112px,1fr)); gap:0;
+  border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.cod-grid>div{padding:9px 12px; border-right:1px solid var(--line); border-bottom:1px solid var(--line)}
+.cod-grid>div span{display:block; font-size:10.5px; color:var(--muted); margin-bottom:2px}
+.cod-grid>div b{font-size:14px; font-weight:600; letter-spacing:-.012em;
+  font-variant-numeric:tabular-nums}
+.cod-stamp{font-size:10.5px; color:var(--muted); margin:8px 0 0}

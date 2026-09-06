@@ -3069,6 +3069,7 @@ function tvTheme(){
       <button type="button" class="cod-close" aria-label="Close">&times;</button>
       <div class="cod-head"></div>
       <div class="cod-chart"></div>
+      <div class="cod-stats"></div>
       <div class="cod-fund"></div>
       <p class="cod-foot"></p>
     </div>`;
@@ -3126,9 +3127,13 @@ function tvTheme(){
       'https://s3.tradingview.com/external-embedding/embed-widget-financials.js',
       {symbol:sym, colorTheme:tvTheme(), displayMode:'compact', isTransparent:false,
        largeChartUrl:'', locale:'en', width:'100%', height:'420'},'420px');
+    const fb=fundamentalsBlock(name);
+    dlg.querySelector('.cod-stats').innerHTML=fb;
+    dlg.querySelector('.cod-stats').hidden=!fb;
     dlg.querySelector('.cod-foot').innerHTML=
       `Quote, chart and financials by <a href="https://www.tradingview.com/symbols/${_esc(sym.replace(':','-'))}/" target="_blank" rel="noopener noreferrer">TradingView</a>`+
       `${ct&&ct[1]?` &middot; <a href="${SA}${ct[1]}/" target="_blank" rel="noopener noreferrer">full profile on Stock Analysis</a>`:''}`+
+      `${(FUNDA&&FUNDA[name]&&FUNDA[name].site)?` &middot; <a href="${FUNDA[name].site}" target="_blank" rel="noopener noreferrer">investor site</a>`:''}`+
       `<br>Market data is delayed and shown for reference. Nothing here is a recommendation.`;
     dlg.setAttribute('aria-label', name+' — market information');
     dlg.showModal();
@@ -3163,3 +3168,61 @@ document.addEventListener('keydown',e=>{
   if(e.key!=='Escape') return;
   document.querySelectorAll('dialog[open]').forEach(d=>d.close());
 });
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FUNDAMENTALS
+   The figures TradingView's free widgets do not carry — beta, volume, average
+   volume, the 52-week range, and the statement lines. Read from a static file
+   refreshed by .github/workflows/fundamentals.yml, which holds the API key in
+   Actions secrets; nothing here ever sees it. Absent data renders nothing
+   rather than a dash, so a company with no entry simply shows the widgets.
+   ══════════════════════════════════════════════════════════════════════════ */
+let FUNDA=null, FUNDA_META=null;
+fetch('assets/market/fundamentals.json')
+  .then(r=>r.ok?r.json():null)
+  .then(d=>{ if(!d) return; FUNDA=d.companies||{}; FUNDA_META=d; })
+  .catch(()=>{});
+
+const _fmtBig=v=>{
+  if(v==null) return null;
+  const a=Math.abs(v);
+  if(a>=1e12) return (v/1e12).toFixed(2)+'T';
+  if(a>=1e9)  return (v/1e9).toFixed(2)+'bn';
+  if(a>=1e6)  return (v/1e6).toFixed(1)+'m';
+  if(a>=1e3)  return (v/1e3).toFixed(1)+'k';
+  return String(Math.round(v*100)/100);
+};
+const _fmtNum=(v,d=2)=>v==null?null:Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const _fmtPct=v=>v==null?null:(v*100).toFixed(1)+'%';
+
+function fundamentalsBlock(name){
+  const f=FUNDA&&FUNDA[name];
+  if(!f) return '';
+  const cur=f.currency||'';
+  const rows=[
+    ['Market cap', _fmtBig(f.marketCap)],
+    ['P/E ratio', _fmtNum(f.pe)],
+    ['EPS', _fmtNum(f.eps)],
+    ['Beta', _fmtNum(f.beta)],
+    ['Volume', _fmtBig(f.volume)],
+    ['Avg. volume', _fmtBig(f.avgVolume)],
+    ['52-wk high', _fmtNum(f.yearHigh)],
+    ['52-wk low', _fmtNum(f.yearLow)],
+  ].filter(r=>r[1]!=null);
+  const fin=[
+    ['Revenue', _fmtBig(f.revenue)],
+    ['Net income', _fmtBig(f.netIncome)],
+    ['Free cash flow', _fmtBig(f.freeCashFlow)],
+    ['Gross margin', _fmtPct(f.grossMargin)],
+  ].filter(r=>r[1]!=null);
+  if(!rows.length&&!fin.length) return '';
+  const grid=r=>`<div class="cod-grid">${r.map(([k,v])=>
+    `<div><span>${k}</span><b>${v}</b></div>`).join('')}</div>`;
+  const stamp=f.quoteAt?new Date(f.quoteAt).toLocaleString(undefined,
+    {dateStyle:'medium',timeStyle:'short'}):null;
+  return (rows.length?`<h5 class="cod-h">Key statistics${cur?` <span>${cur}</span>`:''}</h5>${grid(rows)}`:'')+
+    (fin.length?`<h5 class="cod-h">Latest annual results${f.fiscalYear?` <span>FY${f.fiscalYear}`+
+      `${f.reportCurrency&&f.reportCurrency!==cur?' · '+f.reportCurrency:''}</span>`:''}</h5>${grid(fin)}`:'')+
+    (stamp?`<p class="cod-stamp">Fundamentals as of ${stamp}`+
+      `${FUNDA_META&&FUNDA_META.placeholder?' · sample data until the first scheduled refresh':''}</p>`:'');
+}
