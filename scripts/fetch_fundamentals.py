@@ -25,7 +25,7 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SYMBOLS = os.path.join(ROOT, 'assets', 'market', 'symbols.json')
 OUT = os.path.join(ROOT, 'assets', 'market', 'fundamentals.json')
-BASE = 'https://financialmodelingprep.com/api/v3'
+BASE = 'https://financialmodelingprep.com/stable'
 
 class Budget:
     def __init__(self, n): self.left = n; self.used = 0
@@ -34,6 +34,8 @@ class Budget:
         self.left -= n; self.used += n; return True
 
 def get(path, key, budget, params=None):
+    """One call against FMP's current /stable API. Everything is a query
+    parameter there; the older /api/v3 path style is legacy."""
     if not budget.take(): return None
     q = dict(params or {}); q['apikey'] = key
     url = f'{BASE}/{path}?{urllib.parse.urlencode(q)}'
@@ -56,6 +58,12 @@ def get(path, key, budget, params=None):
 def chunks(xs, n):
     for i in range(0, len(xs), n): yield xs[i:i + n]
 
+def pick(d, *names):
+    """First present key of several. Guards against FMP field renames."""
+    for n in names:
+        if n in d and d[n] is not None: return d[n]
+    return None
+
 def num(v):
     try:
         f = float(v)
@@ -64,6 +72,9 @@ def num(v):
         return None
 
 def refresh(key, budget):
+    # first response of each kind has its field names recorded, so a rename in
+    # FMP's API shows up in the job summary instead of silently emptying a column
+    seen_keys = {'quote': [], 'profile': [], 'income': [], 'cashflow': []}
     syms = json.load(open(SYMBOLS))['symbols']
     prev = {}
     if os.path.exists(OUT):
@@ -76,25 +87,33 @@ def refresh(key, budget):
 
     # ── batched: quote and profile cover every company for a handful of calls ──
     for group in chunks(sorted(by_symbol), 50):
-        data = get('quote/' + ','.join(group), key, budget) or []
+        data = get('batch-quote', key, budget, {'symbols': ','.join(group)}) or []
+        if data and not seen_keys['quote']: seen_keys['quote'] = sorted(data[0].keys())
         for q in data:
             for name in by_symbol.get(q.get('symbol'), []):
                 out[name].update({
-                    'price': num(q.get('price')), 'change': num(q.get('change')),
-                    'changePct': num(q.get('changesPercentage')),
-                    'marketCap': num(q.get('marketCap')), 'pe': num(q.get('pe')),
-                    'eps': num(q.get('eps')), 'volume': num(q.get('volume')),
-                    'avgVolume': num(q.get('avgVolume')),
-                    'yearHigh': num(q.get('yearHigh')), 'yearLow': num(q.get('yearLow')),
-                    'exchange': q.get('exchange'), 'quoteAt': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                    'price': num(pick(q, 'price')),
+                    'change': num(pick(q, 'change')),
+                    'changePct': num(pick(q, 'changesPercentage', 'changePercentage')),
+                    'marketCap': num(pick(q, 'marketCap', 'marketCapitalization')),
+                    'pe': num(pick(q, 'pe', 'peRatio')),
+                    'eps': num(pick(q, 'eps')),
+                    'volume': num(pick(q, 'volume')),
+                    'avgVolume': num(pick(q, 'avgVolume', 'averageVolume')),
+                    'yearHigh': num(pick(q, 'yearHigh')), 'yearLow': num(pick(q, 'yearLow')),
+                    'exchange': pick(q, 'exchange', 'exchangeShortName'),
+                    'quoteAt': datetime.now(timezone.utc).isoformat(timespec='seconds'),
                 })
-    for group in chunks(sorted(by_symbol), 50):
-        data = get('profile/' + ','.join(group), key, budget) or []
+    for sym in sorted(by_symbol):
+        if budget.left < 1: break
+        if out[by_symbol[sym][0]].get('beta') is not None: continue   # profile is static; fetch once
+        data = get('profile', key, budget, {'symbol': sym}) or []
+        if data and not seen_keys['profile']: seen_keys['profile'] = sorted(data[0].keys())
         for p in data:
-            for name in by_symbol.get(p.get('symbol'), []):
-                out[name].update({'beta': num(p.get('beta')),
-                                  'currency': p.get('currency'),
-                                  'site': p.get('website') or None})
+            for name in by_symbol.get(p.get('symbol'), [sym]):
+                out[name].update({'beta': num(pick(p, 'beta')),
+                                  'currency': pick(p, 'currency'),
+                                  'site': pick(p, 'website') or None})
 
     # ── per-symbol: statements, stalest first, only while budget allows ────────
     order = sorted(syms, key=lambda n: out[n].get('statementsAt') or '')
@@ -102,18 +121,21 @@ def refresh(key, budget):
     for name in order:
         if budget.left < 2: break
         sym = syms[name]
-        inc = get(f'income-statement/{sym}', key, budget, {'limit': 1, 'period': 'annual'}) or []
-        cf = get(f'cash-flow-statement/{sym}', key, budget, {'limit': 1, 'period': 'annual'}) or []
+        inc = get('income-statement', key, budget, {'symbol': sym, 'limit': 1, 'period': 'annual'}) or []
+        cf = get('cash-flow-statement', key, budget, {'symbol': sym, 'limit': 1, 'period': 'annual'}) or []
+        if inc and not seen_keys['income']: seen_keys['income'] = sorted(inc[0].keys())
+        if cf and not seen_keys['cashflow']: seen_keys['cashflow'] = sorted(cf[0].keys())
         if inc:
             r = inc[0]
-            rev, gp = num(r.get('revenue')), num(r.get('grossProfit'))
+            rev, gp = num(pick(r, 'revenue')), num(pick(r, 'grossProfit'))
             out[name].update({
-                'revenue': rev, 'netIncome': num(r.get('netIncome')),
+                'revenue': rev, 'netIncome': num(pick(r, 'netIncome')),
                 'grossMargin': (gp / rev) if (rev and gp is not None and rev != 0) else None,
-                'fiscalYear': r.get('calendarYear'), 'reportCurrency': r.get('reportedCurrency'),
+                'fiscalYear': pick(r, 'calendarYear', 'fiscalYear'),
+                'reportCurrency': pick(r, 'reportedCurrency'),
             })
         if cf:
-            out[name]['freeCashFlow'] = num(cf[0].get('freeCashFlow'))
+            out[name]['freeCashFlow'] = num(pick(cf[0], 'freeCashFlow'))
         if inc or cf:
             out[name]['statementsAt'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
             refreshed += 1
@@ -121,16 +143,25 @@ def refresh(key, budget):
     have_quote = sum(1 for v in out.values() if v.get('price') is not None)
     have_stmt = sum(1 for v in out.values() if v.get('revenue') is not None)
     missing = sorted(n for n, v in out.items() if v.get('price') is None)
+    expected = {'quote': ['marketCap', 'eps', 'pe', 'avgVolume', 'yearHigh', 'yearLow'],
+                'profile': ['beta', 'website'], 'income': ['revenue', 'netIncome', 'grossProfit'],
+                'cashflow': ['freeCashFlow']}
+    unknown = {k: [f for f in v if seen_keys[k] and f not in seen_keys[k]]
+               for k, v in expected.items()}
+    unknown = {k: v for k, v in unknown.items() if v}
     return {
         'generated': datetime.now(timezone.utc).isoformat(timespec='seconds'),
         'source': 'Financial Modeling Prep',
         'companies': out,
     }, {'calls': budget.used, 'quotes': have_quote, 'statements': have_stmt,
-        'refreshedStatements': refreshed, 'total': len(syms), 'missing': missing}
+        'refreshedStatements': refreshed, 'total': len(syms), 'missing': missing,
+        'unknownFields': unknown}
 
 def selftest():
     """Exercise the shaping logic with no key and no network."""
     assert num('12.5') == 12.5 and num(None) is None and num('x') is None
+    assert pick({'a': 1}, 'z', 'a') == 1 and pick({'a': None}, 'a', 'b') is None
+    assert BASE.endswith('/stable'), 'should target the current API, not /api/v3'
     assert list(chunks([1, 2, 3, 4, 5], 2)) == [[1, 2], [3, 4], [5]]
     b = Budget(2)
     assert b.take() and b.take() and not b.take()
@@ -158,6 +189,8 @@ if __name__ == '__main__':
           f"refreshed={stats['refreshedStatements']}")
     if stats['missing']:
         print(f"no quote for {len(stats['missing'])}: {', '.join(stats['missing'][:20])}")
+    if stats['unknownFields']:
+        print(f"::warning::FMP fields missing from responses: {stats['unknownFields']}")
     summary = os.environ.get('GITHUB_STEP_SUMMARY')
     if summary:
         with open(summary, 'a') as f:
@@ -169,3 +202,8 @@ if __name__ == '__main__':
             if stats['missing']:
                 f.write(f"- No quote for {len(stats['missing'])}: "
                         f"{', '.join(stats['missing'][:30])}\n")
+            if stats['unknownFields']:
+                f.write("\n**FMP field names have changed** — these were expected but absent, "
+                        "so their columns will be empty until the script is updated:\n\n")
+                for k, v in stats['unknownFields'].items():
+                    f.write(f"- `{k}`: {', '.join(v)}\n")
