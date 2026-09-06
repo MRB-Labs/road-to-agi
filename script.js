@@ -1010,11 +1010,11 @@ function chainPane(n,col){
   return `<p class="chain-lead">${d.lead}</p>
     <section class="vc-index" id="vc-index-${n}" role="navigation" aria-label="Stages in this layer">
       <p class="vc-index-h">How the layer breaks down</p>
-      <p class="vc-index-s">One row, upstream to downstream. Each stage buys from the one on its left &mdash; select any of them to jump to it. Amber marks a chokepoint.</p>
+      <p class="vc-index-s">One row, upstream to downstream. Each stage buys from the one on its left &mdash; select any of them to jump to it. Amber marks a chokepoint stage.</p>
       <ol class="vc-jump">${d.stages.map((st,i)=>`<li><button type="button" class="vj${st.c?' is-choke':''}" data-jump="vc-${n}-${i}"${st.c?' title="Chokepoint stage — few credible suppliers, long time to relieve"':''}>`+
         `<span class="vj-n">${i+1}</span><b>${_esc(st.t)}</b>`+
         `<span class="vj-f">${_esc(st.w||(st.n.length+' named suppliers'))}</span>`+
-        `${st.c?'<span class="vj-choke">Chokepoint</span>':''}</button></li>`).join('')}</ol>
+        `</button></li>`).join('')}</ol>
     </section>
     <div class="chain-key">
       <span><i class="k-choke"></i>Chokepoint stage &mdash; few credible suppliers, long time to relieve</span>

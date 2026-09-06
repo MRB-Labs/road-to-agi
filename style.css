@@ -791,7 +791,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 [data-theme="dark"] a:focus-visible,[data-theme="dark"] button:focus-visible{outline-color:var(--accent-d)}
 
 /* Semantic colour used consistently: teal enables, amber constrains, coral warns */
-.chain-stage.is-choke{background:var(--amber-soft); border-color:var(--amber)}
 .chain-stage.is-choke .chain-step{color:var(--amber)}
 .chain-key i.k-choke{background:var(--amber-soft); border-color:var(--amber)}
 .cmk{stroke:var(--amber)} .cmk-t{fill:var(--amber)}
@@ -1054,7 +1053,6 @@ a.chain-node.is-link.has-logo{gap:6px}
 .cs-head{display:flex; align-items:flex-start; gap:11px; margin-bottom:10px}
 .cs-num{flex:none; width:26px; height:26px; border-radius:7px; display:grid; place-items:center;
   font:600 12.5px var(--f-mono); background:var(--stage,var(--accent)); color:#fff}
-.chain-stage.is-choke .cs-num{background:var(--amber); color:#1b1408}
 .cs-title{min-width:0}
 .cs-title .chain-step{display:block}
 .chain-stage h5{font-size:15.5px; margin:2px 0 0; letter-spacing:-.016em; line-height:1.25}
@@ -1134,7 +1132,6 @@ a.chain-node.is-link>svg{margin-left:auto; opacity:.35}
   grid-template-columns:60px minmax(0,1fr) 104px minmax(150px,232px) minmax(120px,164px);
   gap:16px; align-items:center; padding:12px 14px; border:1px solid var(--line);
   border-radius:10px; background:var(--surface2)}
-.chain-stage.is-choke .vrow{background:var(--surface)}
 .vr-logo{width:52px; height:52px; object-fit:contain; background:#fff; border-radius:8px;
   padding:4px; box-shadow:0 0 0 1px rgba(23,32,42,.08)}
 .vr-logo.is-blank{background:var(--surface3,var(--surface2)); box-shadow:inset 0 0 0 1px var(--line)}
@@ -1601,3 +1598,23 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .vj-choke{display:inline-block; margin-top:5px; font:600 9px var(--f-mono); letter-spacing:.08em;
   text-transform:uppercase; color:var(--amber); border:1px solid var(--amber);
   border-radius:4px; padding:1px 5px}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   CHOKEPOINTS AND CLICKABLE NAMES
+   Amber belongs to the stage index, where the whole layer is visible at once.
+   The stage boxes below carry the same information in their step label, so
+   colouring them too only made the page louder without saying anything new.
+   ────────────────────────────────────────────────────────────────────────── */
+.chain-stage.is-choke{background:var(--surface); border-color:var(--line)}
+.chain-stage.is-choke .cs-num{background:var(--stage,var(--accent)); color:#fff}
+.chain-stage.is-choke .chain-step{color:var(--amber)}   /* the word, not the box */
+.vj.is-choke{border-color:var(--amber)}
+.vj.is-choke .vj-n{background:var(--amber-soft); color:var(--amber)}
+
+/* A company name is a name first. Clickable or not, it reads the same; the
+   affordance is the cursor and a hover underline, not a permanent colour that
+   splits the list into two visual classes. */
+.vr-name.is-link,.co-name.co-link{color:var(--ink)}
+.vr-name.is-link:hover,.co-name.co-link:hover{color:var(--accent); text-decoration:underline}
+.chain-node.is-link .cn-name{color:var(--ink)}
+.chain-node.is-link:hover .cn-name{color:var(--accent)}
