@@ -71,10 +71,11 @@ def num(v):
     except (TypeError, ValueError):
         return None
 
-def refresh(key, budget):
+def refresh(key, budget, retry_all=False):
     # first response of each kind has its field names recorded, so a rename in
     # FMP's API shows up in the job summary instead of silently emptying a column
     seen_keys = {'quote': [], 'profile': [], 'income': [], 'cashflow': []}
+    skipped = set()
     syms = json.load(open(SYMBOLS))['symbols']
     prev = {}
     if os.path.exists(OUT):
@@ -85,12 +86,22 @@ def refresh(key, budget):
     for name, sym in syms.items(): by_symbol.setdefault(sym, []).append(name)
     out = {n: dict(prev.get(n, {})) for n in syms}
 
-    # ── batched: quote and profile cover every company for a handful of calls ──
-    for group in chunks(sorted(by_symbol), 50):
-        data = get('batch-quote', key, budget, {'symbols': ','.join(group)}) or []
+    # ── quotes, one symbol at a time ─────────────────────────────────────────
+    # batch-quote is not in the free plan: it returned nothing for all 144
+    # symbols on the first run while per-symbol calls worked. Symbols that have
+    # missed repeatedly are skipped so they stop consuming the daily budget.
+    for sym in sorted(by_symbol):
+        if budget.left < 1: break
+        names = by_symbol[sym]
+        if not retry_all and out[names[0]].get('misses', 0) >= 3 and out[names[0]].get('price') is None:
+            skipped.add(sym); continue
+        data = get('quote', key, budget, {'symbol': sym}) or []
         if data and not seen_keys['quote']: seen_keys['quote'] = sorted(data[0].keys())
+        if not data:
+            for name in names: out[name]['misses'] = out[name].get('misses', 0) + 1
+            continue
         for q in data:
-            for name in by_symbol.get(q.get('symbol'), []):
+            for name in names:
                 out[name].update({
                     'price': num(pick(q, 'price')),
                     'change': num(pick(q, 'change')),
@@ -103,14 +114,18 @@ def refresh(key, budget):
                     'yearHigh': num(pick(q, 'yearHigh')), 'yearLow': num(pick(q, 'yearLow')),
                     'exchange': pick(q, 'exchange', 'exchangeShortName'),
                     'quoteAt': datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                    'misses': 0,
                 })
     for sym in sorted(by_symbol):
         if budget.left < 1: break
-        if out[by_symbol[sym][0]].get('beta') is not None: continue   # profile is static; fetch once
+        names = by_symbol[sym]
+        if all(out[n].get('beta') is not None for n in names): continue  # profile is static
+        if not retry_all and out[names[0]].get('misses', 0) >= 3 and out[names[0]].get('price') is None:
+            continue
         data = get('profile', key, budget, {'symbol': sym}) or []
         if data and not seen_keys['profile']: seen_keys['profile'] = sorted(data[0].keys())
         for p in data:
-            for name in by_symbol.get(p.get('symbol'), [sym]):
+            for name in names:
                 out[name].update({'beta': num(pick(p, 'beta')),
                                   'currency': pick(p, 'currency'),
                                   'site': pick(p, 'website') or None})
@@ -121,6 +136,8 @@ def refresh(key, budget):
     for name in order:
         if budget.left < 2: break
         sym = syms[name]
+        if not retry_all and out[name].get('misses', 0) >= 3 and out[name].get('price') is None:
+            continue
         inc = get('income-statement', key, budget, {'symbol': sym, 'limit': 1, 'period': 'annual'}) or []
         cf = get('cash-flow-statement', key, budget, {'symbol': sym, 'limit': 1, 'period': 'annual'}) or []
         if inc and not seen_keys['income']: seen_keys['income'] = sorted(inc[0].keys())
@@ -142,7 +159,10 @@ def refresh(key, budget):
 
     have_quote = sum(1 for v in out.values() if v.get('price') is not None)
     have_stmt = sum(1 for v in out.values() if v.get('revenue') is not None)
+    intl = {n for n, sym in syms.items() if '.' in sym}
     missing = sorted(n for n, v in out.items() if v.get('price') is None)
+    missing_us = [n for n in missing if n not in intl]
+    missing_intl = [n for n in missing if n in intl]
     expected = {'quote': ['marketCap', 'eps', 'pe', 'avgVolume', 'yearHigh', 'yearLow'],
                 'profile': ['beta', 'website'], 'income': ['revenue', 'netIncome', 'grossProfit'],
                 'cashflow': ['freeCashFlow']}
@@ -155,7 +175,8 @@ def refresh(key, budget):
         'companies': out,
     }, {'calls': budget.used, 'quotes': have_quote, 'statements': have_stmt,
         'refreshedStatements': refreshed, 'total': len(syms), 'missing': missing,
-        'unknownFields': unknown}
+        'missingUS': missing_us, 'missingIntl': missing_intl,
+        'skipped': len(skipped), 'unknownFields': unknown}
 
 def selftest():
     """Exercise the shaping logic with no key and no network."""
@@ -175,20 +196,24 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--budget', type=int, default=200, help='max API calls this run')
     ap.add_argument('--selftest', action='store_true')
+    ap.add_argument('--retry-all', action='store_true',
+                    help='ignore the miss counter — use after upgrading the FMP plan')
     a = ap.parse_args()
     if a.selftest: selftest(); raise SystemExit(0)
     key = os.environ.get('FMP_API_KEY')
     if not key:
         print('::error::FMP_API_KEY is not set'); raise SystemExit(1)
-    payload, stats = refresh(key, Budget(a.budget))
+    payload, stats = refresh(key, Budget(a.budget), retry_all=a.retry_all)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w') as f:
         json.dump(payload, f, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
     print(f"calls={stats['calls']} quotes={stats['quotes']}/{stats['total']} "
           f"statements={stats['statements']}/{stats['total']} "
           f"refreshed={stats['refreshedStatements']}")
-    if stats['missing']:
-        print(f"no quote for {len(stats['missing'])}: {', '.join(stats['missing'][:20])}")
+    print(f"no quote: {len(stats['missingUS'])} US, {len(stats['missingIntl'])} non-US "
+          f"(free plan is US-only); skipped {stats['skipped']} known-missing symbols")
+    if stats['missingUS']:
+        print(f"US misses: {', '.join(stats['missingUS'][:20])}")
     if stats['unknownFields']:
         print(f"::warning::FMP fields missing from responses: {stats['unknownFields']}")
     summary = os.environ.get('GITHUB_STEP_SUMMARY')
@@ -199,9 +224,16 @@ if __name__ == '__main__':
                     f"- Quotes: **{stats['quotes']}/{stats['total']}**\n"
                     f"- Statements: **{stats['statements']}/{stats['total']}** "
                     f"({stats['refreshedStatements']} refreshed this run)\n")
-            if stats['missing']:
-                f.write(f"- No quote for {len(stats['missing'])}: "
-                        f"{', '.join(stats['missing'][:30])}\n")
+            if stats['skipped']:
+                f.write(f"- Skipped **{stats['skipped']}** symbols that have missed "
+                        f"three times (re-run with `--retry-all` after a plan change)\n")
+            if stats['missingIntl']:
+                f.write(f"\n**{len(stats['missingIntl'])} non-US listings have no data.** "
+                        f"FMP's free plan covers US markets only; these need a paid plan "
+                        f"or they stay on the TradingView widgets alone.\n")
+            if stats['missingUS']:
+                f.write(f"\n**{len(stats['missingUS'])} US listings returned nothing** — "
+                        f"these are worth investigating: {', '.join(stats['missingUS'][:30])}\n")
             if stats['unknownFields']:
                 f.write("\n**FMP field names have changed** — these were expected but absent, "
                         "so their columns will be empty until the script is updated:\n\n")
