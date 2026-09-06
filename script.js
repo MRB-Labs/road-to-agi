@@ -921,32 +921,64 @@ function chainRow(name,layer){
 
 /* Two derived diagrams: how deep each stage is, and where the chain sits. */
 function chainDiagrams(d,col){
-  const rows=d.stages.map(st=>({l:st.t,v:st.n.length,c:st.c}));
-  const max=Math.max(...rows.map(r=>r.v));
-  const depth=rows.map(r=>`<div class="bar"><span class="lb2">${_esc(r.l)}</span>`+
-    `<span class="tr"><i class="fl" data-w="${(r.v/max*100).toFixed(1)}" style="background:${r.c?'var(--amber)':col}"></i></span>`+
-    `<span class="vl">${r.v}</span></div>`).join('');
-
+  /* Where the chain is domiciled. A headcount of the named entities by country
+     of listing or headquarters — read for where the chain touches ground, not
+     for how much value sits in each place. */
   const tally={};
   d.stages.forEach(st=>st.n.forEach(n=>{
     const c=(typeof CT!=='undefined')&&CT[n]; const k=c&&c[2];
     if(k) tally[k]=(tally[k]||0)+1; }));
   const geo=Object.entries(tally).sort((a,b)=>b[1]-a[1]);
-  const gmax=geo.length?geo[0][1]:1, gtot=geo.reduce((s,g)=>s+g[1],0);
-  const geoRows=geo.map(([k,v])=>`<div class="bar"><span class="lb2">${_esc(k)}</span>`+
-    `<span class="tr"><i class="fl" data-w="${(v/gmax*100).toFixed(1)}" style="background:${col}"></i></span>`+
-    `<span class="vl">${v}</span></div>`).join('');
+  if(!geo.length) return '';
+  const total=geo.reduce((s,g)=>s+g[1],0);
 
-  return `<div class="split chain-dia">
-    <div class="block"><h4>How deep is each stage?</h4>
-      <p class="cap" style="margin:0 0 12px">Credible named suppliers per stage. Amber bars are the stages flagged as chokepoints — depth and chokepoint status track each other closely, which is the point.</p>
-      ${depth}
-      <p class="cap" style="margin-top:12px">DERIVED — a count of the entities named in this chain, not a census of the industry. It measures how many suppliers a buyer can realistically approach, which is what matters for pricing power.</p></div>
-    <div class="block"><h4>Where the chain is domiciled</h4>
-      <p class="cap" style="margin:0 0 12px">Named entities by country of listing or headquarters, ${gtot} of them placed.</p>
-      ${geoRows}
-      <p class="cap" style="margin-top:12px">DERIVED — a headcount, not a value-weighted measure. One monopolist counts the same as one of five competitors, so read it for where the chain touches ground, not for how much value sits in each country.</p></div>
-  </div>`;
+  /* One hue per slice, walked around the layer palette so neighbours differ. */
+  const HUES=[1,4,6,2,5,7,3,8];
+  const colour=i=>`var(--l${HUES[i%HUES.length]})`;
+
+  const R=78, r=46, C=100;          /* viewBox is 200 square */
+  let angle=-Math.PI/2, arcs='';
+  geo.forEach(([name,v],i)=>{
+    const sweep=v/total*Math.PI*2, end=angle+sweep, big=sweep>Math.PI?1:0;
+    const pt=(rad,a)=>[(C+rad*Math.cos(a)).toFixed(2),(C+rad*Math.sin(a)).toFixed(2)];
+    const [x1,y1]=pt(R,angle),[x2,y2]=pt(R,end),[x3,y3]=pt(r,end),[x4,y4]=pt(r,angle);
+    /* a full-circle slice cannot be drawn as one arc; split it in two */
+    if(geo.length===1){
+      arcs=`<circle cx="${C}" cy="${C}" r="${(R+r)/2}" fill="none" `+
+           `stroke="${colour(0)}" stroke-width="${R-r}"/>`;
+    } else {
+      arcs+=`<path class="dn-seg" d="M${x1} ${y1} A${R} ${R} 0 ${big} 1 ${x2} ${y2} `+
+            `L${x3} ${y3} A${r} ${r} 0 ${big} 0 ${x4} ${y4} Z" fill="${colour(i)}">`+
+            `<title>${_esc(name)}: ${v} of ${total}</title></path>`;
+    }
+    angle=end;
+  });
+
+  const legend=geo.map(([name,v],i)=>{
+    const pct=(v/total*100);
+    return `<li>
+      <span class="dn-key" style="background:${colour(i)}"></span>
+      <span class="dn-flag" aria-hidden="true">${flagFor(name)}</span>
+      <span class="dn-name">${_esc(name)}</span>
+      <span class="dn-val">${v}</span>
+      <span class="dn-pct">${pct<1?'<1':pct.toFixed(0)}%</span>
+    </li>`;}).join('');
+
+  return `<section class="chain-geo">
+    <h4 class="mini-h">Where the chain is domiciled</h4>
+    <p class="sub">Named entities by country of listing or headquarters &mdash; ${total} of them placed.</p>
+    <div class="dn-wrap">
+      <div class="dn-chart">
+        <svg viewBox="0 0 200 200" role="img" aria-label="Share of named entities in this chain by country of domicile">
+          ${arcs}
+          <text class="dn-total" x="100" y="96" text-anchor="middle">${total}</text>
+          <text class="dn-sub" x="100" y="114" text-anchor="middle">entities</text>
+        </svg>
+      </div>
+      <ol class="dn-legend">${legend}</ol>
+    </div>
+    <p class="cap">DERIVED &mdash; a headcount, not a value-weighted measure. One monopolist counts the same as one of five competitors, so read it for where the chain touches ground, not for how much value sits in each country.</p>
+  </section>`;
 }
 
 /* Every listed entity in the chain, with its stage and where to look it up. */
@@ -1145,8 +1177,7 @@ const HOWTO={
    question each tab answers is the same in every layer.
    ══════════════════════════════════════════════════════════════════════════ */
 const TABINTRO={
- how:['What this layer is',
-   'The physical job the layer does, the engineering constraints that govern it, and the economics those constraints produce. Read this before the thesis.'],
+ how:['What this layer is', null],   /* filled per layer from HOWTO[n].what */
  chain:['Who supplies whom',
    'The chain from raw input to finished output, stage by stage. Each row is one company and what it actually supplies at that stage, with its market capitalisation and position.'],
  materials:['Material foundation',null],
@@ -1166,7 +1197,8 @@ function tabIntro(mode,col,layerTitle){
 function howPane(L,col){
   const d=HOWTO[L.n];
   if(!d) return '<p class="sub">Description unavailable.</p>';
-  return `<div class="how-lede"><p class="lede">${d.what}</p></div>
+  return `<div class="tab-intro" style="--tint:${col}">
+      <h4>What this layer is</h4><p>${d.what}</p></div>
     <div class="how-stats">${d.econ.map(x=>`<div><b class="num">${_esc(x[0])}</b><span>${_esc(x[1])}</span></div>`).join('')}</div>
     <h4 class="mini-h">The engineering that governs the layer</h4>
     <p class="sub">Each of these is a physical constraint, not a market condition. They are why the layer has the shape it has.</p>
@@ -2138,7 +2170,7 @@ LAYERS.forEach((L,i0)=>{
         </div>
         <div class="essay-list">${L.detail.map((d,j)=>`<details class="essay" ${j===0?'open':''}><summary>${d[0]}</summary><p>${d[1]}</p></details>`).join('')}</div>
       </div>
-      <div class="layer-pane on" data-mode-pane="how">${tabIntro('how',col)}${howPane(L,col)}</div>
+      <div class="layer-pane on" data-mode-pane="how">${howPane(L,col)}</div>
       <div class="layer-pane" data-mode-pane="chain">${tabIntro('chain',col)}${chainPane(L.n,col)}</div>
       <div class="layer-pane" data-mode-pane="materials">${materialPane(mat,col)}</div>
       <div class="layer-pane" data-mode-pane="risks">${tabIntro('risks',col)}${riskPane(risk,L)}</div>
@@ -2957,6 +2989,7 @@ fillAll();
     el.addEventListener('focusout',()=>{pinned=null; clear();});
   });
   info.innerHTML=REST;
+  lockPanelHeight(info,[REST,card(0),...LAYERS.map(L=>card(L.n))]);
 })();
 
 /* All layer source registers, rendered onto the Method page now that the
@@ -2968,6 +3001,35 @@ fillAll();
     <summary>${layerIcon(L.n,'src-icon')}<span>Layer ${L.n} &middot; ${_esc(L.t)}</span></summary>
     <div class="src-layer-body">${sourcePane(L.n)}</div></details>`).join('');
 })();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PANEL HEIGHT LOCK
+   The reading panels beside the map and the loop stretch to their grid row, so
+   a taller card grows the row and the page moves under the cursor mid-hover.
+   Measure every state a panel can hold, off-layout in a hidden probe, and hold
+   the tallest. Re-measured on resize, since the tallest state depends on width.
+   ══════════════════════════════════════════════════════════════════════════ */
+function lockPanelHeight(panel, states){
+  if(!panel||!states.length) return;
+  const measure=()=>{
+    panel.style.minHeight='';
+    const probe=document.createElement('div');
+    probe.className=panel.className;
+    probe.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden;'+
+      'pointer-events:none;min-height:0;height:auto;width:'+panel.clientWidth+'px';
+    (panel.parentElement||document.body).appendChild(probe);
+    let tallest=0;
+    for(const html of states){ probe.innerHTML=html; tallest=Math.max(tallest,probe.offsetHeight); }
+    probe.remove();
+    if(tallest) panel.style.minHeight=tallest+'px';
+  };
+  /* setTimeout rather than requestAnimationFrame: rAF does not fire while the
+     tab is hidden, and the panel would then never get its height. */
+  const run=()=>setTimeout(measure,60);
+  run();
+  window.addEventListener('load',run);
+  let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(measure,180);});
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    THE LOOP — each stage explains itself
@@ -3021,6 +3083,7 @@ change:{t:'Change',l:'The physical world',
     n.addEventListener('focusout',()=>{pinned=null;clear();});
   });
   info.innerHTML=REST;
+  lockPanelHeight(info,[REST,...Object.keys(LOOPWHY).map(k=>card(k))]);
 })();
 
 /* When the photographic globe loads, retire the drawn one beneath it. If the
