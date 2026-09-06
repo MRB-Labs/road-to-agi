@@ -335,8 +335,13 @@ function coName(name){
   const lnk=(label,path)=>`<a class="tick" href="${SA}${path}/" target="_blank" rel="noopener noreferrer">${esc(label)}<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2h6v6M10 2 3 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>`;
   if(!t) return `<span class="co-name">${esc(name)}</span>`;
   if(!t.length) return `<span class="co-name">${esc(name)}</span><span class="co-priv">Private — not listed</span>`;
-  if(t.length===1) return `<a class="co-name co-link" href="${SA}${t[0][1]}/" target="_blank" rel="noopener noreferrer">${esc(name)}</a>`+
-    `<span class="co-tick">${lnk(t[0][0],t[0][1])}</span>`;
+  if(t.length===1){
+    const open=typeof TVSYM!=='undefined'&&TVSYM[name];
+    return (open
+      ? `<button type="button" class="co-name co-link" data-co="${_escAttr(name)}" title="${_escAttr(name)} — market information">${esc(name)}</button>`
+      : `<span class="co-name">${esc(name)}</span>`)+
+      `<span class="co-tick">${lnk(t[0][0],t[0][1])}</span>`;
+  }
   return `<span class="co-name">${esc(name)}</span><span class="co-tick">${t.map(x=>lnk(x[0],x[1])).join('')}</span>`;
 }
 
@@ -845,7 +850,8 @@ function chainChip(name){
   const plate=mark||'<span class="co-logo is-blank" aria-hidden="true"></span>';
   const body=`${plate}<span class="cn-text"><span class="cn-name">${_esc(name)}</span>`+
     (c&&c[0]?`<span class="chip-tick">${_esc(c[0])}</span>`:'<span class="chip-tick is-priv">private</span>')+`</span>`;
-  if(c&&c[1]) return `<a class="chain-node is-link" href="${SA}${c[1]}/" target="_blank" rel="noopener noreferrer" title="${_esc(name)} — ${_esc(c[0])} on Stock Analysis">${body}${_arrow}</a>`;
+  if(typeof TVSYM!=='undefined'&&TVSYM[name])
+    return `<button type="button" class="chain-node is-link" data-co="${_escAttr(name)}" title="${_escAttr(name)} — market information">${body}</button>`;
   return `<span class="chain-node">${body}</span>`;
 }
 
@@ -900,7 +906,7 @@ function chainRow(name,layer){
   const mark=logoFor(name,'vr-logo')||'<span class="vr-logo is-blank" aria-hidden="true"></span>';
   const desc=CDESC[name]||'';
   const head=c&&c[1]
-    ? `<a class="vr-name is-link" href="${SA}${c[1]}/" target="_blank" rel="noopener noreferrer">${_esc(name)}${_arrow}</a>`
+    ? `<button type="button" class="vr-name is-link" data-co="${_escAttr(name)}" title="${_escAttr(name)} — market information">${_esc(name)}</button>`
     : `<span class="vr-name">${_esc(name)}</span>`;
   const tick=c&&c[0]?`<span class="vr-tick">${_esc(c[0])}</span>`:'<span class="vr-tick is-priv">not listed</span>';
   return `<li class="vrow">
@@ -960,7 +966,7 @@ function chainTable(d){
     `</tbody></table></div>`;
 }
 
-function chainPane(n,col,sub){
+function chainPane(n,col){
   const d=(typeof CHAIN!=='undefined')&&CHAIN[n];
   if(!d) return '<p class="sub">Data unavailable from accessible sources.</p>';
   const chokes=d.stages.filter(st=>st.c).length;
@@ -1002,12 +1008,14 @@ function chainPane(n,col,sub){
     </section>` : '';
 
   return `<p class="chain-lead">${d.lead}</p>
-    ${sub?`<section class="vc-index" id="vc-index-${n}" role="navigation" aria-label="Stages in this layer">
+    <section class="vc-index" id="vc-index-${n}" role="navigation" aria-label="Stages in this layer">
       <p class="vc-index-h">How the layer breaks down</p>
-      <p class="vc-index-s">One row, upstream to downstream. Each stage buys from the one on its left &mdash; select any of them to jump to it.</p>
-      <ol class="vc-jump">${sub.r.map((r,i)=>`<li><button type="button" class="vj" data-jump="vc-${n}-${i}" title="${_esc(r[2])}">`+
-        `<span class="vj-n">${i+1}</span><b>${_esc(r[0])}</b><span class="vj-f">${_esc(r[1])}</span></button></li>`).join('')}</ol>
-    </section>`:''}
+      <p class="vc-index-s">One row, upstream to downstream. Each stage buys from the one on its left &mdash; select any of them to jump to it. Amber marks a chokepoint.</p>
+      <ol class="vc-jump">${d.stages.map((st,i)=>`<li><button type="button" class="vj${st.c?' is-choke':''}" data-jump="vc-${n}-${i}"${st.c?' title="Chokepoint stage — few credible suppliers, long time to relieve"':''}>`+
+        `<span class="vj-n">${i+1}</span><b>${_esc(st.t)}</b>`+
+        `<span class="vj-f">${_esc(st.w||(st.n.length+' named suppliers'))}</span>`+
+        `${st.c?'<span class="vj-choke">Chokepoint</span>':''}</button></li>`).join('')}</ol>
+    </section>
     <div class="chain-key">
       <span><i class="k-choke"></i>Chokepoint stage &mdash; few credible suppliers, long time to relieve</span>
       <span><i class="k-flow"></i>Each stage buys from the one on its left</span>
@@ -1165,6 +1173,9 @@ function howPane(L,col){
     <ol class="how-list">${d.physics.map((p,i)=>`<li style="--stage:${col}">
       <span class="how-n">${i+1}</span>
       <div><h5>${_esc(p[0])}</h5><p>${_esc(p[1])}</p></div></li>`).join('')}</ol>
+    ${L.sub?`<h4 class="mini-h">How the layer breaks down</h4>
+    <p class="sub">A structural view of the layer itself. The value chain tab shows the same layer as a supply flow, which is a different cut.</p>
+    <div class="tw"><table class="dat">${tbl(L.sub)}</table></div>`:''}
     <div class="how-money" style="border-left-color:${col}">
       <h5>What that means for the money</h5><p>${_esc(d.money)}</p></div>
     ${d.src?`<p class="tnote">${_esc(d.src)}</p>`:''}
@@ -2128,7 +2139,7 @@ LAYERS.forEach((L,i0)=>{
         <div class="essay-list">${L.detail.map((d,j)=>`<details class="essay" ${j===0?'open':''}><summary>${d[0]}</summary><p>${d[1]}</p></details>`).join('')}</div>
       </div>
       <div class="layer-pane on" data-mode-pane="how">${tabIntro('how',col)}${howPane(L,col)}</div>
-      <div class="layer-pane" data-mode-pane="chain">${tabIntro('chain',col)}${chainPane(L.n,col,L.sub)}</div>
+      <div class="layer-pane" data-mode-pane="chain">${tabIntro('chain',col)}${chainPane(L.n,col)}</div>
       <div class="layer-pane" data-mode-pane="materials">${materialPane(mat,col)}</div>
       <div class="layer-pane" data-mode-pane="risks">${tabIntro('risks',col)}${riskPane(risk,L)}</div>
       <div class="layer-pane" data-mode-pane="companies">${tabIntro('companies',col)}<div class="tw"><table class="co">${cotbl(L.co,L.n)}</table></div><p class="tnote"><b>On the share column.</b> Each figure is the company\u2019s approximate share of the specific niche named beside it, not of the layer and not of any single market. Bases, definitions and measurement dates differ from row to row, so the column indicates order of magnitude and competitive position rather than a like-for-like ranking; <em>n/d</em> means no figure is stated here because none is reliable. Country is domicile of listing, which frequently differs from where the production risk actually sits. Inclusion maps exposure to the layer; it is not a buy recommendation. Read the bull and bear columns together.</p></div>
@@ -3061,9 +3072,6 @@ change:{t:'Change',l:'The physical world',
       (e.kind&&!/^Specimen photograph$/.test(e.kind)?`<p class="eld-warn">${e.kind}.</p>`:'')+
       (uses.length?`<div class="eld-uses"><p class="eld-h">Where it enters this report</p>`+
         `<ul>${uses.map(u=>`<li>${u}</li>`).join('')}</ul></div>`:'')+
-      `<p class="eld-credit">${e.attr} &middot; `+
-        `<a href="${e.licurl||e.src}" target="_blank" rel="noopener noreferrer">${e.lic}</a>`+
-        `${e.src?` &middot; <a href="${e.src}" target="_blank" rel="noopener noreferrer">source</a>`:''}</p>`+
       `<p class="eld-shows"><b>What the photograph shows.</b> ${e.note}</p>`;
     dlg.setAttribute('aria-label', e.name+' — element details');
   }

@@ -1525,23 +1525,15 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .cod-tick{font:500 12px var(--f-mono); color:var(--muted); margin:3px 0 0; letter-spacing:.02em}
 .cod-exch{display:inline-block; background:var(--surface2); border:1px solid var(--line);
   border-radius:5px; padding:1px 6px; margin-right:7px; color:var(--ink2)}
-.cod-quote{min-height:96px; margin:2px 0 10px; border:1px solid var(--line);
-  border-radius:10px; overflow:hidden}
 
-.cod-fund{margin-top:14px; min-height:420px; border:1px solid var(--line);
-  border-radius:10px; overflow:hidden}
 .cod-foot{font-size:11px; line-height:1.55; color:var(--muted); margin:14px 0 0;
   padding-top:11px; border-top:1px solid var(--line)}
 .cod-foot a{color:var(--accent); text-decoration:none}
 .cod-foot a:hover{text-decoration:underline}
 .tradingview-widget-container,.tradingview-widget-container__widget{width:100%}
 /* autosize charts need a height all the way down the container chain */
-.cod-chart,.cod-chart .tradingview-widget-container,
-.cod-chart .tradingview-widget-container__widget,.cod-chart iframe{height:100%}
-.cod-chart{height:360px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
 @media (max-width:640px){
   .cod-body{padding:16px 15px 14px}
-  .cod-chart{height:240px}
   .co-dialog h4{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1551,9 +1543,6 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .cod-loading{position:absolute; inset:0; z-index:0; display:flex; align-items:center;
   justify-content:center; margin:0; font-size:12px; color:var(--muted); pointer-events:none}
 /* the widget stacks above the placeholder and hides it once it paints */
-.cod-quote .tradingview-widget-container,.cod-chart .tradingview-widget-container,
-.cod-fund .tradingview-widget-container{position:relative; z-index:1}
-.cod-quote,.cod-chart,.cod-fund{position:relative}
 
 
 /* Fundamentals from the scheduled refresh, above the TradingView financials. */
@@ -1573,11 +1562,42 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
    rather than three panels of different heights. */
 .cod-desc{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:10px 0 14px;
   padding-bottom:13px; border-bottom:1px solid var(--line)}
-.cod-quote,.cod-chart,.cod-fund{height:300px; min-height:300px;
-  border:1px solid var(--line); border-radius:10px; overflow:hidden; position:relative}
-.cod-quote{margin:0 0 12px}
-.cod-chart{margin:0 0 12px}
-.cod-fund{margin:0}
-.cod-quote iframe,.cod-fund iframe{height:100%!important}
-.cod-quote .tradingview-widget-container,.cod-quote .tradingview-widget-container__widget,
-.cod-fund .tradingview-widget-container,.cod-fund .tradingview-widget-container__widget{height:100%}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   COMPANY DIALOG — the three widget boxes
+   One rule, stated once. Earlier attempts left five overlapping declarations
+   fighting over height, including a `height:100%` that resolved to auto and
+   let the chart grow past the others.
+   ────────────────────────────────────────────────────────────────────────── */
+.cod-quote,.cod-chart,.cod-fund{
+  height:300px; min-height:300px; max-height:300px;
+  position:relative; overflow:hidden;
+  border:1px solid var(--line); border-radius:10px;
+  margin:0 0 12px}
+.cod-fund{margin-bottom:0}
+/* the widget fills its box and stacks above the loading placeholder */
+.cod-quote>.tradingview-widget-container,.cod-chart>.tradingview-widget-container,
+.cod-fund>.tradingview-widget-container{position:relative; z-index:1; height:100%}
+.cod-quote .tradingview-widget-container__widget,
+.cod-chart .tradingview-widget-container__widget,
+.cod-fund .tradingview-widget-container__widget{height:100%}
+.cod-quote iframe,.cod-chart iframe,.cod-fund iframe{height:100%!important; display:block}
+@media (max-width:640px){
+  .cod-quote,.cod-chart,.cod-fund{height:260px; min-height:260px; max-height:260px}
+}
+
+/* Names and chips are buttons now, but must still read as text, not controls. */
+button.chain-node,button.vr-name,button.co-name{appearance:none; background:none; border:0;
+  font:inherit; color:inherit; text-align:left; cursor:pointer; padding:0}
+button.chain-node{padding:inherit}
+.vr-name.is-link,.co-name.co-link{color:var(--accent)}
+.vr-name.is-link:hover,.co-name.co-link:hover{text-decoration:underline}
+button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focus-visible{
+  outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+
+/* Chokepoint marking on the stage index, without recolouring the stage below. */
+.vj.is-choke{border-color:var(--amber); background:linear-gradient(var(--surface),var(--surface)) padding-box}
+.vj.is-choke .vj-n{background:var(--amber-soft); color:var(--amber)}
+.vj-choke{display:inline-block; margin-top:5px; font:600 9px var(--f-mono); letter-spacing:.08em;
+  text-transform:uppercase; color:var(--amber); border:1px solid var(--amber);
+  border-radius:4px; padding:1px 5px}
