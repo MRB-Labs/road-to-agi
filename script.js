@@ -939,10 +939,9 @@ function chainPane(n,col,sub){
   return `<p class="chain-lead">${d.lead}</p>
     ${sub?`<section class="vc-index" id="vc-index-${n}" role="navigation" aria-label="Stages in this layer">
       <p class="vc-index-h">How the layer breaks down</p>
-      <p class="vc-index-s">${_esc(sub.h[2]||'Where the chokepoint sits')} &mdash; jump to any stage.</p>
-      <ol class="vc-jump">${sub.r.map((r,i)=>`<li><a href="#vc-${n}-${i}"><span class="vj-n">${i+1}</span>`+
-        `<span class="vj-t"><b>${r[0]}</b><span>${r[1]}</span></span>`+
-        `<span class="vj-c">${r[2]}</span></a></li>`).join('')}</ol>
+      <p class="vc-index-s">One row, upstream to downstream. Each stage buys from the one on its left &mdash; select any of them to jump to it.</p>
+      <ol class="vc-jump">${sub.r.map((r,i)=>`<li><button type="button" class="vj" data-jump="vc-${n}-${i}" title="${_esc(r[2])}">`+
+        `<span class="vj-n">${i+1}</span><b>${_esc(r[0])}</b><span class="vj-f">${_esc(r[1])}</span></button></li>`).join('')}</ol>
     </section>`:''}
     <div class="chain-key">
       <span><i class="k-choke"></i>Chokepoint stage &mdash; few credible suppliers, long time to relieve</span>
@@ -951,10 +950,9 @@ function chainPane(n,col,sub){
     </div>
     <p class="chain-hint">Upstream at the top, downstream at the bottom &mdash; scroll down to follow the chain. Each row is what that company supplies at that stage; the right-hand column is its position where a figure can be stated.</p>
     <div class="chain-wrap"><ol class="chain-flow" aria-label="Value chain for this layer, upstream first">${stages}</ol></div>
-    <p class="vc-top-wrap"><a class="vc-top" href="#vc-index-${n}">Back to the stage index &uarr;</a></p>
+    <p class="vc-top-wrap"><button type="button" class="vc-top">Back to the stage index &uarr;</button></p>
     ${proc}
     ${chainDiagrams(d,col)}
-    ${chainTable(d)}
     <p class="tnote">Companies are named for structural completeness of the chain, not as recommendations, and several are private, Chinese-listed or embedded inside much larger groups. Position within a stage does not imply ranking. A company can appear in more than one stage or more than one layer. Product and platform names resolve to the parent listing, so Google TPU opens Alphabet and NVIDIA Jetson opens NVIDIA. Entities without a ticker are private, state-held, generic categories, or not separately listed.</p>`;
 }
 
@@ -1250,7 +1248,7 @@ const LAYERS=[
  ['Cleveland-Cliffs','Grain-oriented electrical steel; steel','Only domestic US GOES producer; transformer prices up 77% since 2019 on 119% demand growth','Monopoly on a critical input','Genuine monopoly on the material that gates US transformer output','The good asset sits inside a cyclical, leveraged steel business with heavy exposure elsewhere']],
  wrong:'Backlogs are booked at today\u2019s prices, not future prices. If castings, copper, electrical steel and skilled labour rise faster than contracted prices, a record order book converts into revenue growth with margin compression — the commonest way great backlogs produce mediocre returns.'},
 
-{n:2,t:'Materials',moat:'Strong moat',mk:'good',
+{n:2,t:'Raw materials',moat:'Strong moat',mk:'good',
  sub:{h:['Sub-layer','Function','Where the chokepoint sits'],r:[
  ['Extraction','Ore bodies, brines and by-product streams','The least concentrated step — mining is geographically diverse'],
  ['Refining and separation','Concentrate into purified metal or oxide','Where the leverage actually sits; China holds 86–90% of rare earth separation'],
@@ -1972,7 +1970,7 @@ function materialPane(m,col){
     <div><div class="mat-choke">${x.choke}</div><div class="mat-meta"><span class="micro-chip">${x.geo}</span><span class="micro-chip">Relief: ${x.time}</span></div></div>
   </article>`).join('')}</div>
   <div class="conc-wrap" data-conc="${m.__n}"></div>
-  ${(m.__n===3||m.__n===7)?`<div class="policy-rail" data-policy="${m.__n}"></div>`:''}
+  ${m.__n===3?`<div class="policy-rail" data-policy="${m.__n}"></div>`:''}
   <div class="material-note"><b>Investment reading.</b> ${m.note}</div>
   <p class="tnote">Element photographs: Chemical Elements &mdash; A Virtual Museum (images-of-elements.com), <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">CC BY 3.0</a>, retouched onto a neutral ground. Each shows one specimen rather than a canonical appearance &mdash; allotrope, oxide film, container and lighting all change how an element looks.</p>`+crossStack;
 }
@@ -2072,11 +2070,39 @@ LAYERS.forEach((L,i0)=>{
   });
 });
 
-function selectLayerMode(panel,mode){
+/* The tab a reader is on carries across layers: switching from Energy to
+   Compute silicon while reading Layer thesis keeps you on Layer thesis, so the
+   same view can be compared layer by layer. */
+let CURRENT_MODE='how';
+function selectLayerMode(panel,mode,remember=true){
+  if(remember) CURRENT_MODE=mode;
   panel.querySelectorAll('.layer-mode').forEach(b=>b.setAttribute('aria-selected',b.dataset.mode===mode?'true':'false'));
   panel.querySelectorAll('[data-mode-pane]').forEach(v=>v.classList.toggle('on',v.dataset.modePane===mode));
+  const pane=panel.querySelector('[data-mode-pane].on');
+  if(pane) pane.scrollTop=0;
   fill();
 }
+
+/* Stage jumps and back-to-index scroll their own pane rather than navigating.
+   They were anchor hashes, which the layer deep-link handler could not match
+   and so fell through to selecting the physical world. Delegated from the
+   document so it holds however the panes are built or rebuilt. */
+document.addEventListener('click',e=>{
+  const top=e.target.closest('.vc-top');
+  if(top){
+    const pane=top.closest('[data-mode-pane]');
+    if(pane) pane.scrollTop=0;   /* smoothness is CSS scroll-behavior */
+    return;
+  }
+  const jump=e.target.closest('.vj[data-jump]');
+  if(!jump) return;
+  const pane=jump.closest('[data-mode-pane]'), target=document.getElementById(jump.dataset.jump);
+  if(!pane||!target) return;
+  /* measured from rects: the pane is not the target's offsetParent */
+  const delta=target.getBoundingClientRect().top-pane.getBoundingClientRect().top;
+  pane.scrollTop=pane.scrollTop+delta-12;
+});
+
 function sel(i,focus){
   document.querySelectorAll('#rail .tab').forEach((t,j)=>{
     const on=j===i; t.setAttribute('aria-selected',on?'true':'false');
@@ -2084,6 +2110,8 @@ function sel(i,focus){
     t.style.borderLeftColor=on?col:'transparent';
     t.style.borderBottomColor=on?col:'transparent';});
   document.querySelectorAll('#panels .panel').forEach((p,j)=>{p.classList.toggle('on',j===i); p.hidden=j!==i});
+  const shown=document.querySelectorAll('#panels .panel')[i];
+  if(shown&&shown.querySelector(`.layer-mode[data-mode="${CURRENT_MODE}"]`)) selectLayerMode(shown,CURRENT_MODE,false);
   if(focus) document.getElementById('tb'+i).focus();
   fill();
 }
@@ -2214,7 +2242,7 @@ window.addEventListener('resize',fill); fill();
   tabs.forEach((tab,i)=>tab.addEventListener('click',()=>{
     history.replaceState(null,'','#layer-'+(i===0?0:LAYERS[i-1].n));
   }));
-  window.addEventListener('hashchange',apply);
+  window.addEventListener('hashchange',()=>{ if(/^#layer-\d+$/.test(location.hash)) apply(); });
   apply();
 })();
 

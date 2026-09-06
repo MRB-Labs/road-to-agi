@@ -1258,21 +1258,31 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
   padding:18px 20px 16px; margin:0 0 22px}
 .vc-index-h{font-size:15.5px; font-weight:600; letter-spacing:-.014em; margin:0; color:var(--ink)}
 .vc-index-s{font-size:12.5px; color:var(--muted); margin:4px 0 14px}
-.vc-jump{list-style:none; margin:0; padding:0; display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:8px}
-.vc-jump a{display:grid; grid-template-columns:26px minmax(0,1fr); gap:11px; align-items:start;
-  text-decoration:none; background:var(--surface); border:1px solid var(--line);
-  border-radius:9px; padding:11px 13px; transition:border-color .16s var(--ease), transform .16s var(--ease)}
-.vc-jump a:hover{border-color:var(--accent); transform:translateY(-1px)}
-.vc-jump a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.vj-n{width:24px; height:24px; border-radius:50%; background:var(--accent-soft); color:var(--accent);
-  font:600 11.5px var(--f-mono); display:flex; align-items:center; justify-content:center}
-.vj-t b{display:block; font-size:13.5px; color:var(--ink); letter-spacing:-.01em}
-.vj-t span{display:block; font-size:11.5px; color:var(--ink2); margin-top:2px; line-height:1.45}
-.vj-c{grid-column:2; font-size:11px; color:var(--muted); margin-top:6px; padding-top:6px;
-  border-top:1px solid var(--line); line-height:1.45}
+.vc-jump{list-style:none; margin:0; padding:0; display:flex; align-items:stretch; gap:0}
+.vc-jump li{flex:1 1 0; min-width:0; display:flex; align-items:stretch}
+/* the connector: each stage buys from the one on its left */
+.vc-jump li:not(:last-child)::after{content:""; flex:none; align-self:center; width:20px; height:9px;
+  margin:0 5px; background:var(--line2);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 9'%3E%3Cpath d='M0 4.5h16M12.5 1 16 4.5 12.5 8' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 9'%3E%3Cpath d='M0 4.5h16M12.5 1 16 4.5 12.5 8' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
+.vj{appearance:none; width:100%; text-align:left; cursor:pointer; font:inherit;
+  display:flex; flex-direction:column; gap:5px; background:var(--surface);
+  border:1px solid var(--line); border-radius:9px; padding:11px 12px 12px;
+  transition:border-color .16s var(--ease), transform .16s var(--ease)}
+.vj:hover{border-color:var(--accent); transform:translateY(-1px)}
+.vj:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.vj-n{width:22px; height:22px; border-radius:50%; background:var(--accent-soft); color:var(--accent);
+  font:600 11px var(--f-mono); display:flex; align-items:center; justify-content:center; flex:none}
+.vj b{font-size:13px; color:var(--ink); letter-spacing:-.01em; line-height:1.25}
+.vj-f{font-size:11px; color:var(--muted); line-height:1.4}
+@media (max-width:1100px){
+  .vc-jump{flex-wrap:wrap; gap:8px}
+  .vc-jump li{flex:1 1 190px}
+  .vc-jump li:not(:last-child)::after{display:none}
+}
 .vc-top-wrap{margin:18px 0 0; text-align:right}
-.vc-top{font-size:12.5px; font-weight:500; color:var(--accent); text-decoration:none}
+.vc-top{appearance:none; background:none; border:0; cursor:pointer; padding:0;
+  font:500 12.5px var(--f); color:var(--accent)}
 .vc-top:hover{text-decoration:underline}
 .chain-stage{scroll-margin-top:20px}
 .layer-diagnostic.single{grid-template-columns:1fr}
@@ -1426,3 +1436,12 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
   .dia-shell.is-map{grid-template-columns:1fr}
   .dia-shell.is-loop{grid-template-columns:1fr}
 }
+
+/* The photographic globe replaces the drawn one when assets/earth.png exists;
+   the vector globe underneath remains the fallback. */
+#mapsvg .earth{pointer-events:none}
+
+/* Deliberately no scroll-behavior:smooth on .layer-pane. Smooth scrolling is a
+   no-op in some embeddings of this page, and once it is set every scrollTop
+   assignment routes through it and silently does nothing. Stage jumps are
+   instant, which also means they need no reduced-motion guard. */
