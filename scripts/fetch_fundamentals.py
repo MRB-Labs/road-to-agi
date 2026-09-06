@@ -28,9 +28,20 @@ OUT = os.path.join(ROOT, 'assets', 'market', 'fundamentals.json')
 BASE = 'https://financialmodelingprep.com/stable'
 
 class Budget:
-    def __init__(self, n): self.left = n; self.used = 0
+    """Call allowance, plus the two conditions that should end a run early:
+    the provider's daily quota being spent, and wall-clock time."""
+    def __init__(self, n, seconds=600):
+        self.left = n; self.used = 0
+        self.deadline = time.monotonic() + seconds
+        self.rate_limited = 0; self.stopped = None
     def take(self, n=1):
-        if self.left < n: return False
+        if self.stopped: return False
+        if self.rate_limited >= 3:
+            self.stopped = 'daily quota reached'; return False
+        if time.monotonic() > self.deadline:
+            self.stopped = 'time budget reached'; return False
+        if self.left < n:
+            self.stopped = 'call budget reached'; return False
         self.left -= n; self.used += n; return True
 
 def get(path, key, budget, params=None):
@@ -39,20 +50,25 @@ def get(path, key, budget, params=None):
     if not budget.take(): return None
     q = dict(params or {}); q['apikey'] = key
     url = f'{BASE}/{path}?{urllib.parse.urlencode(q)}'
-    for attempt in range(3):
+    for attempt in range(2):
         try:
             req = urllib.request.Request(url, headers={'User-Agent': 'road-to-agi-fundamentals'})
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=20) as r:
+                budget.rate_limited = 0
                 return json.loads(r.read().decode('utf-8'))
         except urllib.error.HTTPError as e:
-            if e.code == 429:                      # rate limited: back off, then give up
-                time.sleep(5 * (attempt + 1)); continue
+            if e.code == 429:
+                # three of these in a row means the daily allowance is gone;
+                # sleeping through the rest of the symbols helps nobody
+                budget.rate_limited += 1
+                if budget.rate_limited >= 3: return None
+                time.sleep(2); continue
             if e.code in (401, 403):
                 print(f'::error::FMP rejected the key ({e.code}). Check the FMP_API_KEY secret.')
                 sys.exit(1)
             return None
         except Exception:
-            time.sleep(2); continue
+            time.sleep(1); continue
     return None
 
 def chunks(xs, n):
@@ -176,7 +192,7 @@ def refresh(key, budget, retry_all=False):
     }, {'calls': budget.used, 'quotes': have_quote, 'statements': have_stmt,
         'refreshedStatements': refreshed, 'total': len(syms), 'missing': missing,
         'missingUS': missing_us, 'missingIntl': missing_intl,
-        'skipped': len(skipped), 'unknownFields': unknown}
+        'skipped': len(skipped), 'unknownFields': unknown, 'stopped': budget.stopped}
 
 def selftest():
     """Exercise the shaping logic with no key and no network."""
@@ -185,7 +201,11 @@ def selftest():
     assert BASE.endswith('/stable'), 'should target the current API, not /api/v3'
     assert list(chunks([1, 2, 3, 4, 5], 2)) == [[1, 2], [3, 4], [5]]
     b = Budget(2)
-    assert b.take() and b.take() and not b.take()
+    assert b.take() and b.take() and not b.take() and b.stopped == 'call budget reached'
+    b = Budget(10); b.rate_limited = 3
+    assert not b.take() and b.stopped == 'daily quota reached'
+    b = Budget(10, seconds=-1)
+    assert not b.take() and b.stopped == 'time budget reached'
     syms = json.load(open(SYMBOLS))['symbols']
     assert len(syms) > 100, 'symbol map looks empty'
     bad = [s for s in syms.values() if not s or ' ' in s]
@@ -196,6 +216,8 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('--budget', type=int, default=200, help='max API calls this run')
     ap.add_argument('--selftest', action='store_true')
+    ap.add_argument('--seconds', type=int, default=600,
+                    help='wall-clock limit, so a run can never hang the workflow')
     ap.add_argument('--retry-all', action='store_true',
                     help='ignore the miss counter — use after upgrading the FMP plan')
     a = ap.parse_args()
@@ -203,10 +225,12 @@ if __name__ == '__main__':
     key = os.environ.get('FMP_API_KEY')
     if not key:
         print('::error::FMP_API_KEY is not set'); raise SystemExit(1)
-    payload, stats = refresh(key, Budget(a.budget), retry_all=a.retry_all)
+    payload, stats = refresh(key, Budget(a.budget, a.seconds), retry_all=a.retry_all)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w') as f:
         json.dump(payload, f, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
+    if stats['stopped']:
+        print(f"::notice::Run ended early — {stats['stopped']}. Progress is saved; the next run continues.")
     print(f"calls={stats['calls']} quotes={stats['quotes']}/{stats['total']} "
           f"statements={stats['statements']}/{stats['total']} "
           f"refreshed={stats['refreshedStatements']}")
@@ -220,7 +244,9 @@ if __name__ == '__main__':
     if summary:
         with open(summary, 'a') as f:
             f.write(f"## Fundamentals refresh\n\n"
-                    f"- API calls: **{stats['calls']}**\n"
+                    + (f"> Ended early: **{stats['stopped']}**. Progress is saved and the "
+                       f"next run picks up where this one stopped.\n\n" if stats['stopped'] else "")
+                    + f"- API calls: **{stats['calls']}**\n"
                     f"- Quotes: **{stats['quotes']}/{stats['total']}**\n"
                     f"- Statements: **{stats['statements']}/{stats['total']}** "
                     f"({stats['refreshedStatements']} refreshed this run)\n")
