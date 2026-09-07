@@ -1531,3 +1531,38 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
   .dn-chart{max-width:220px; margin:0 auto}
 }
 @media (prefers-reduced-motion:reduce){.dn-seg{transition:none}}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   VALUE CHAIN — parallel branches and qualified chokepoints
+   A layer is no longer one queue. Each branch is a chain in its own right,
+   and a chokepoint has to state what it constrains before it earns the amber.
+   ────────────────────────────────────────────────────────────────────────── */
+.chain-branch{margin:26px 0 0}
+.chain-branch:first-of-type{margin-top:18px}
+.cb-head{border-left:3px solid var(--stage); padding:2px 0 2px 13px; margin:0 0 14px}
+.cb-title{font-size:16px; font-weight:600; letter-spacing:-.016em; margin:0; color:var(--ink)}
+.cb-sub{font-size:13.5px; line-height:1.55; color:var(--ink2); margin:4px 0 0; max-width:74ch}
+
+.vj-group+.vj-group{margin-top:16px}
+.vj-gh{display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600;
+  letter-spacing:-.01em; color:var(--ink2); margin:0 0 8px}
+.vj-gn{display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px;
+  border-radius:50%; background:var(--surface2); border:1px solid var(--line);
+  font:600 10.5px var(--f-mono); color:var(--muted); flex:none}
+
+.cq{margin:10px 0 12px; border:1px solid var(--line); border-radius:9px;
+  background:var(--surface2); overflow:hidden}
+.cq>summary{cursor:pointer; list-style:none; padding:9px 12px; font-size:12.5px;
+  color:var(--ink2); display:flex; align-items:center; gap:9px}
+.cq>summary::-webkit-details-marker{display:none}
+.cq>summary:hover{color:var(--ink)}
+.cq-tag{font:600 10px var(--f-mono); letter-spacing:.07em; text-transform:uppercase;
+  color:var(--amber); border:1px solid var(--amber); border-radius:4px; padding:2px 6px; flex:none}
+.cq[open]>summary{border-bottom:1px solid var(--line)}
+.cq-grid{margin:0; padding:11px 13px 13px; display:grid; gap:8px 20px;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.cqr{display:grid; grid-template-columns:96px minmax(0,1fr); gap:10px; align-items:baseline}
+.cqr dt{font:600 10.5px var(--f-mono); letter-spacing:.05em; text-transform:uppercase;
+  color:var(--muted)}
+.cqr dd{margin:0; font-size:12.5px; line-height:1.5; color:var(--ink2)}
+@media(max-width:640px){ .cqr{grid-template-columns:1fr; gap:2px} }
