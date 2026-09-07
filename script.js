@@ -1725,6 +1725,7 @@ function worldPane(){
 const LAYER_ICONS={
  0:'<circle cx="22" cy="22" r="15"/><ellipse cx="22" cy="22" rx="6.6" ry="15"/><path d="M7.4 16.5 H36.6"/><path d="M7.4 27.5 H36.6"/>',
  1:'<path d="M22 7 L12 38"/><path d="M22 7 L32 38"/><path d="M9 15 H35"/><path d="M6 23 H38"/><path d="M9 15 V18.5"/><path d="M35 15 V18.5"/><path d="M6 23 V26.5"/><path d="M38 23 V26.5"/><path d="M18.6 11 L25.4 19"/><path d="M25.4 11 L18.6 19"/><path d="M15.4 26 L28.6 36"/><path d="M28.6 26 L15.4 36"/>',
+ '1p':'<rect x="8" y="8" width="28" height="28" rx="7"/><path d="M24.5 13.5 L17.5 23 H22.5 L19.5 30.5 L26.5 21 H21.5 Z"/>',
  2:'<path d="M6.5 36 L11 25.5 L22 24.5 L26 36 Z"/><path d="M26.5 36 L29 26 L37.5 27.5 L37 36 Z"/><path d="M13 24 L18 13.5 L27.5 16 L25.5 24.5"/>',
  3:'<circle cx="22" cy="22" r="15"/><g clip-path="url(#waferClip)"><path d="M6 15 H38"/><path d="M6 22 H38"/><path d="M6 29 H38"/><path d="M15 6 V38"/><path d="M22 6 V38"/><path d="M29 6 V38"/></g><path d="M19.4 7.5 L22 12.2 L24.6 7.5"/>',
  4:'<rect x="12" y="12" width="20" height="20" rx="3"/><rect x="18" y="18" width="8" height="8" rx="1.5"/><path d="M17 12 V6"/><path d="M22 12 V6"/><path d="M27 12 V6"/><path d="M17 32 V38"/><path d="M22 32 V38"/><path d="M27 32 V38"/><path d="M12 17 H6"/><path d="M12 22 H6"/><path d="M12 27 H6"/><path d="M32 17 H38"/><path d="M32 22 H38"/><path d="M32 27 H38"/>',
@@ -2603,7 +2604,7 @@ const factgrid=f=>f.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span>`
    which has no usable specimen photograph, render without one.
    ══════════════════════════════════════════════════════════════════════════ */
 const EL_HAVE=new Set(["Ac","Ag","Al","Am","Ar","As","Au","B","Ba","Be","Bi","Bk","Br","C","Ca","Cd","Ce","Cf","Cl","Co","Cr","Cs","Cu","Dy","Er","Es","Eu","Fe","Ga","Gd","Ge","H","He","Hf","Hg","Ho","I","In","Ir","K","Kr","La","Li","Lu","Mg","Mn","Mo","N","Na","Nb","Nd","Ne","Ni","Np","O","Os","P","Pb","Pd","Pr","Pt","Pu","Rb","Re","Rh","Ru","S","Sb","Sc","Se","Si","Sm","Sn","Sr","Ta","Tb","Tc","Te","Th","Ti","Tl","Tm","U","V","W","Xe","Y","Yb","Zn","Zr"]);
-const ELMAP={"Copper": ["Cu"], "Copper smelting": ["Cu"], "Copper + underfill": ["Cu"], "ABF resin + copper foil": ["Cu"], "Grain-oriented electrical steel": ["Fe"], "Bearing + gear steels": ["Fe"], "Steel + concrete": ["Fe"], "Rhenium superalloys": ["Re"], "High-purity quartz": ["Si"], "Electronic-grade polysilicon": ["Si"], "Silicon interposers": ["Si"], "InGaAs + silicon": ["In", "Si"], "SiC + GaN": ["Si", "Ga"], "HALEU + zirconium": ["U", "Zr"], "Gallium + germanium": ["Ga", "Ge"], "Fibre + germanium dopant": ["Ge"], "Neon + helium": ["Ne", "He"], "NdFeB + Dy/Tb": ["Nd", "Dy"], "Rare earth separation": ["Nd", "Dy"], "Lithium + graphite": ["Li", "C"], "LFP cells + graphite": ["Li", "C"], "Aluminium + carbon fibre": ["Al", "C"], "Aluminium + silver": ["Al", "Ag"], "Indium + ruthenium": ["In", "Ru"], "Indium foil + diamond composites": ["In", "C"], "Tin + ruthenium + Mo/Si": ["Sn", "Ru"], "Photoresists + HF": ["F"]};
+const ELMAP={"Copper": ["Cu"], "Copper smelting": ["Cu"], "Copper + underfill": ["Cu"], "ABF resin + copper foil": ["Cu"], "Grain-oriented electrical steel": ["Fe"], "Bearing + gear steels": ["Fe"], "Steel + concrete": ["Fe"], "Rhenium superalloys": ["Re"], "High-purity quartz": ["Si"], "Electronic-grade polysilicon": ["Si"], "Silicon interposers": ["Si"], "InGaAs + silicon": ["In", "Si"], "SiC + GaN": ["Si", "Ga"], "HALEU + zirconium": ["U", "Zr"], "Gallium + germanium": ["Ga", "Ge"], "Fibre + germanium dopant": ["Ge"], "Neon + helium": ["Ne", "He"], "NdFeB + Dy/Tb": ["Nd", "Dy"], "Rare earth separation": ["Nd", "Dy"], "Lithium + graphite": ["Li", "C"], "LFP cells + graphite": ["Li", "C"], "Aluminium + carbon fibre": ["Al", "C"], "Aluminium + silver": ["Al", "Ag"], "Indium + ruthenium": ["In", "Ru"], "Indium foil + diamond composites": ["In", "C"], "Tin + ruthenium + Mo/Si": ["Sn", "Ru"], "Photoresists + HF": ["F"], "High-purity silica": ["Si"], "Germanium": ["Ge"], "Compound semiconductors": ["In", "Ga"], "ABF substrates": ["Cu"], "Glycols + dielectric fluids": ["F"], "NAND flash and disk media": ["Si"], "Accelerators + HBM": ["Si"], "Cooling + water": ["O"], "Device hardware": ["Si"]};
 /* ══════════════════════════════════════════════════════════════════════════
    KEY ELEMENTS BY LAYER
    Drawn from AUDIT/AI_INFRASTRUCTURE_ELEMENTS_AND_MATERIALS_DATABASE.md, which
@@ -2645,6 +2646,8 @@ const LAYER_ELEMENTS={
  ['Li','Cells in UPS and behind-the-meter storage. Chemistry-dependent — a sodium-ion or lead-acid installation contains none.','T','kept'],
  ['Ga','Gallium nitride power devices in high-efficiency conversion. A by-product of aluminium refining, so supply does not respond to its own price.','T','kept'],
  ['B','Amorphous metal transformer cores, and NdFeB magnets in the generator designs that use them.','T','kept'],
+ ['Ag','Silver contacts and brazing in switchgear and connectors, where contact resistance over tens of thousands of operations decides service life.','T','kept'],
+ ['C','The carbon in every steel here, and the silicon carbide in efficient power devices.','C','kept'],
  ['F','Sulphur hexafluoride in some switchgear, and refrigerants in the cooling plant. Both are under active regulatory substitution.','L','kept']]},
 
 2:{lead:'This layer is where the elements themselves are produced, so the useful question is not which are present but which have a concentrated or unresponsive supply. Two patterns recur: by-product metals that cannot be produced to order at any price, and separation steps whose difficulty has nothing to do with the abundance of the ore.',
@@ -2698,6 +2701,7 @@ const LAYER_ELEMENTS={
  ['Al','Heat sinks, chassis, electrolytic capacitors and hard disk platters.','C','kept'],
  ['Nd','Magnets in cooling fans, pumps and hard disk actuators. Small per unit; large across a fleet.','T','kept'],
  ['In','Indium phosphide lasers in optical modules, and indium thermal interface foils.','T','kept'],
+ ['Ga','Gallium arsenide and gallium nitride in optical modules and power stages. A by-product of aluminium refining, and export-controlled.','T','kept'],
  ['Ge','Germanium photodetectors integrated onto silicon in optical links.','T','kept'],
  ['Ru','Ruthenium in hard disk magnetic media, alongside platinum and cobalt.','T','kept'],
  ['Be','Beryllium copper in high-cycle connectors, where fatigue life justifies a hazardous alloy.','T','kept']]},
@@ -2714,6 +2718,8 @@ const LAYER_ELEMENTS={
  ['Zn','Galvanising on structural steel, tray and enclosures. Corrosion protection with a defined service life.','C','kept'],
  ['Cr','Stainless piping and vessels in the water and coolant systems.','C','kept'],
  ['Ni','Stainless alloys, and cell chemistry in some battery installations.','C','kept'],
+ ['Ge','The dopant in the fibre entering the building, and in the photodetectors terminating it.','T','kept'],
+ ['H','Bound into the water and glycol in the cooling loop, and into every polymer in the building.','C','kept'],
  ['Pb','Lead-acid UPS strings. Still common, increasingly displaced by lithium, and heavily regulated at end of life.','L','kept'],
  ['Li','Lithium iron phosphate UPS, chosen for footprint and cycle life rather than cost.','T','kept'],
  ['F','Refrigerants and dielectric cooling fluids. The class under the most active regulatory substitution pressure.','T','kept'],
@@ -2762,11 +2768,13 @@ const LAYER_ELEMENTS={
  ['Cu','Motor windings, wiring harness and every power path in the machine.','C','kept'],
  ['Nd','NdFeB magnets in permanent-magnet motors. Present in most compact high-torque designs, absent from induction, reluctance, hydraulic and pneumatic actuation.','T','kept'],
  ['Dy','Added to those magnets so they hold coercivity at joint operating temperature. The most export-exposed element in the machine.','T','kept'],
+ ['Tb','The other heavy rare earth added to magnets for heat resistance, on the same export-control list as dysprosium.','T','kept'],
  ['Sm','Samarium-cobalt magnets, for designs that need temperature stability more than peak energy product.','T','kept'],
  ['Sr','Ferrite magnets — the rare-earth-free option, at a real cost in power density.','T','kept'],
  ['Li','Cell chemistry. Which other elements come with it depends entirely on whether the pack is LFP, NMC or sodium-ion.','T','kept'],
  ['Si','Edge compute, CMOS image sensors, MEMS inertial sensors and silicon power devices.','C','kept'],
  ['Ga','Gallium nitride motor drives, and gallium arsenide lasers in lidar.','T','kept'],
+ ['As','The arsenide in indium gallium arsenide detectors and gallium arsenide emitters.','T','kept'],
  ['In','Indium gallium arsenide detectors in lidar and time-of-flight sensing.','T','kept'],
  ['Zr','Lead zirconate titanate in piezoelectric force and tactile sensing.','T','kept'],
  ['Pb','The lead in that PZT ceramic. Technology-dependent, restricted in many jurisdictions, and under active substitution work.','L','kept']]},
@@ -2791,6 +2799,29 @@ const EL_LAYERS=(()=>{
   return o;
 })();
 
+/* The supply commentary that used to sit on the material cards. Each note is
+   kept as written and shown with the elements it governs, resolved through
+   ELMAP — so the reader meets the element first and the constraint on it
+   second, rather than the same photographs twice on one tab. */
+function supplyNotes(n){
+  const m=(typeof LAYER_MATERIALS!=='undefined')&&LAYER_MATERIALS[n];
+  if(!m||!m.items||!m.items.length) return '';
+  const rows=m.items.map(x=>{
+    const syms=((typeof ELMAP!=='undefined'&&ELMAP[x.n])||[]);
+    const chips=syms.map(sy=>`<button type="button" class="sn-el" data-el="${sy}" title="${sy} — open element details">${sy}</button>`).join('');
+    return `<li class="sn">
+      <div class="sn-h"><h5>${_esc(x.n)}</h5>${chips?`<span class="sn-els">${chips}</span>`:''}</div>
+      <p class="sn-role">${_esc(x.role)}</p>
+      <p class="sn-choke">${_esc(x.choke)}</p>
+      <p class="sn-meta"><span class="micro-chip">${_esc(x.geo)}</span><span class="micro-chip">Relief: ${_esc(x.time)}</span></p>
+    </li>`;}).join('');
+  return `<section class="sn-block">
+    <h4 class="mini-h">Where the supply is actually constrained</h4>
+    <p class="sub">The material each constraint sits in, what makes it binding, where it is concentrated and how long relief takes. Select an element symbol to open it.</p>
+    <ul class="sn-list">${rows}</ul>
+  </section>`;
+}
+
 function elementsPane(n,col){
   const d=(typeof LAYER_ELEMENTS!=='undefined')&&LAYER_ELEMENTS[n];
   if(!d) return '';
@@ -2807,6 +2838,7 @@ function elementsPane(n,col){
       <p class="el-lead">${_esc(d.inherit.lead)}</p>
       <p class="el-none"><b>No intrinsic element set.</b> ${_esc(d.inherit.note)}</p>
       <ul class="ei-deps">${from}</ul>
+      ${supplyNotes(n)}
     </section>`;
   }
 
@@ -2844,6 +2876,7 @@ function elementsPane(n,col){
       <button type="button" class="elf elf-all is-on" data-code="" aria-pressed="true">All ${d.els.length}</button>
     </div>
     <ul class="el-grid">${cards}</ul>
+    ${supplyNotes(n)}
     <p class="tnote">Selections, not inventories. An element appears here because it does identifiable work in a named material, not because it is present as a trace. Nothing is labelled critical on its own: criticality depends on geography and date, and is argued in the value chain where a specific supply step is actually constrained. Product-specific bills of materials and process recipes remain supplier-specific.</p>
   </section>`;
 }
@@ -2883,10 +2916,6 @@ function materialPane(m,col){
   </div>
   <div class="material-stats">${m.stats.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
   <div class="supply-flow">${m.flow.map((x,j)=>`<div class="flow-node"><small>${['Origin','Refine','Transform','Enters stack'][j]}</small><b>${x}</b></div>`).join('')}</div>
-  <div class="material-cards">${m.items.map(x=>`<article class="material-card">
-    <div class="mat-top"><div><h5>${x.n}</h5><div class="mat-role">${x.role}</div></div></div>
-    <div><div class="mat-choke">${x.choke}</div><div class="mat-meta"><span class="micro-chip">${x.geo}</span><span class="micro-chip">Relief: ${x.time}</span></div></div>
-  </article>`).join('')}</div>
   ${elementsPane(m.__n,col)}
   <div class="conc-wrap" data-conc="${m.__n}"></div>
   ${m.__n===3?`<div class="policy-rail" data-policy="${m.__n}"></div>`:''}
@@ -3749,7 +3778,9 @@ fillAll();
 /* Fill the map's mark slots from the shared set, so the icons have one source. */
 (function(){
   document.querySelectorAll('#mapsvg .lic[data-icon]').forEach(g=>{
-    g.innerHTML=LAYER_ICONS[+g.dataset.icon]||'';
+    /* keys are usually the layer number, but '1p' is the on-site plant —
+       the same layer indoors, drawn differently so the two read apart. */
+    g.innerHTML=LAYER_ICONS[g.dataset.icon]||LAYER_ICONS[+g.dataset.icon]||'';
   });
 })();
 
