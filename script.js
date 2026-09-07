@@ -1427,7 +1427,6 @@ function chainPane(n,col){
         `<li><button type="button" class="vj${st.c?' is-choke':''}" data-jump="${sid(bi,si)}"`+
         `${st.c?' title="Chokepoint stage — qualified in the stage itself"':''}>`+
         `<span class="vj-n">${si+1}</span><b>${_esc(st.t)}</b>`+
-        `<span class="vj-f">${_esc(st.w||(st.n.length+' named suppliers'))}</span>`+
         `</button></li>`).join('')}</ol>
     </div>`).join('');
 
@@ -2933,14 +2932,68 @@ function riskPane(r,L){
   <div class="layer-verdict"><b>Risk verdict.</b> ${r.verdict}</div>`;
 }
 
+/* One builder per view. Kept as a table so a page can carry any subset of them
+   without the markup having to know which. */
+const PANE={
+  how:(L,col)=>howPane(L,col),
+  chain:(L,col)=>tabIntro('chain',col)+chainPane(L.n,col),
+  materials:(L,col,mat)=>materialPane(mat,col),
+  thesis:(L,col,mat,risk,ch)=>tabIntro('thesis',col)+
+    `<div class="overview-lede"><div><p class="lede">${L.lede}</p><p class="why">${L.why}</p></div>`+
+    `<div class="choke-card" style="border-left-color:${col}"><b>Binding constraint.</b> ${L.choke}</div></div>`+
+    `<div class="facts">${factgrid(L.facts)}</div>`+
+    `<div class="layer-diagnostic single"><div class="chartbox">${bars(ch)}</div></div>`+
+    `<div class="essay-list">${L.detail.map((d,j)=>`<details class="essay" ${j===0?'open':''}><summary>${d[0]}</summary><p>${d[1]}</p></details>`).join('')}</div>`,
+  companies:(L,col)=>tabIntro('companies',col)+
+    `<div class="tw"><table class="co">${cotbl(L.co,L.n)}</table></div>`+
+    `<p class="tnote"><b>On the share column.</b> Each figure is the company\u2019s approximate share of the specific niche named beside it, not of the layer and not of any single market. Bases, definitions and measurement dates differ from row to row, so the column indicates order of magnitude and competitive position rather than a like-for-like ranking; <em>n/d</em> means no figure is stated here because none is reliable. Country is domicile of listing, which frequently differs from where the production risk actually sits. Inclusion maps exposure to the layer; it is not a buy recommendation. Read the bull and bear columns together.</p>`,
+  risks:(L,col,mat,risk)=>tabIntro('risks',col)+riskPane(risk,L),
+};
+
+/* The wording for "How this breaks". Kept as data rather than inline in the
+   builder so check-content.py can see it: prose written inside a function is
+   invisible to the snapshot, and this text used to have a page of its own. */
+const BREAKS={
+ lead:'A thesis you have not attacked is not a thesis. Five specific failure modes, in rough order of how likely they are to matter — then what survives them.',
+ title:'The verdict',
+ body:[
+  'The loop is real. Cloud revenue is accelerating at three companies simultaneously, physical bottlenecks in power and packaging are genuine, and monopoly pricing is holding at the chokepoints. This is not a narrative in search of numbers. <b>But the loop is not equally investable at every point.</b>',
+  'Layers 1, 2 and 3 hold durable chokepoints. Layer 4 has the highest growth and the shortest moat half-life. Layer 5 is where the leverage sits. Layer 6 splits in two: the routes are among the most durable assets in the report and the equipment is among the least. Layer 7 turns on a legal question rather than a technical one. Layer 8 is the least investable and the most important to monitor. Layer 9 is where the thesis inverts and AI destroys incumbent value. Layer 10 flips the geopolitics against a Western portfolio, and is a diagnostic rather than a holding.',
+  '<b>The deepest risk runs through every layer:</b> a portfolio holding ASML, TSMC, Nvidia, Micron, Vertiv and Constellation feels diversified across six industries. It is one bet. If hyperscaler capex disappoints, all six correlate to one.',
+  'The asymmetry that defines the report: a $2bn campus can sit idle waiting on a $40m transformer. A supplier of a 2% cost item that gates 100% of the project has extraordinary pricing power, and that is not a temporary condition.',
+ ],
+ note:'Nothing on this page is a recommendation. Companies are named because they map exposure to a layer; several are private, Chinese-listed, or a small division inside a much larger group. Where a share figure appears, its base and measurement date differ from row to row, so it indicates competitive position rather than a like-for-like ranking. Read the bull and bear columns together.',
+};
+
+function breaksPane(){
+  return `<p class="chain-lead">${_esc(BREAKS.lead)}</p>
+  <div class="risk-cards">${RISKS.map(r=>`<div class="risk"><h4>${_esc(r.t)}</h4><p>${_esc(r.d)}</p></div>`).join('')}</div>
+  <div class="verdict"><h3>${_esc(BREAKS.title)}</h3>${BREAKS.body.map(x=>`<p>${x}</p>`).join('')}</div>
+  <p class="tnote">${_esc(BREAKS.note)}</p>`;
+}
+
 const rail=document.getElementById('rail'), panels=document.getElementById('panels');
+/* The layer views are split across two pages. The infrastructure page carries
+   what a layer physically is; the investor page carries what to make of it.
+   Each page declares its own set on the rail, and the builder emits only
+   those tabs and panes. */
+const MODES=((rail&&rail.dataset.modes)||'how chain materials thesis companies risks').split(/\s+/);
+const MODE_LABEL={how:'Layer description',chain:'Value chain',materials:'Layer materials',
+                  thesis:'Layer thesis',companies:'Top companies',risks:'Risks + signals'};
 const WORLD={t:'The physical world',n:0};
-(function addWorld(){
-  const i=0, col='var(--accent)';
+/* Slot 0 in the rail is a preamble rather than a layer. On the infrastructure
+   page it is the physical world; on the investor page it is how the thesis
+   breaks, which is the thing to read before any of the layer cases. Both pages
+   keep the slot filled so the tab and panel indices stay aligned. */
+const IS_INVESTOR = MODES.includes('thesis') && !MODES.includes('how');
+(function addLead(){
+  const i=0, col = IS_INVESTOR ? 'var(--flag)' : 'var(--accent)';
   const b=document.createElement('button');
   b.className='tab world-tab'; b.setAttribute('role','tab'); b.id='tb'+i;
   b.setAttribute('aria-controls','pn'+i); b.setAttribute('aria-selected','false');
-  b.innerHTML=`${layerIcon(0,'rail-icon')}<span class="t">The physical world</span>`;
+  b.innerHTML = IS_INVESTOR
+    ? `${layerIcon(0,'rail-icon')}<span class="t">How this breaks</span>`
+    : `${layerIcon(0,'rail-icon')}<span class="t">The physical world</span>`;
   b.onclick=()=>sel(i);
   b.onkeydown=e=>{
     if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();sel(LAYERS.length,1)}
@@ -2949,7 +3002,13 @@ const WORLD={t:'The physical world',n:0};
   const p=document.createElement('div');
   p.className='panel world-panel'; p.id='pn'+i; p.setAttribute('role','tabpanel');
   p.setAttribute('aria-labelledby','tb'+i); p.hidden=true;
-  p.innerHTML=`<div class="card" style="border-top-color:${col}">
+  p.innerHTML = IS_INVESTOR ? `<div class="card" style="border-top-color:${col}">
+    <div class="layer-head">
+      <div class="layer-head-main">${layerIcon(0,'head-icon')}<div><div class="layer-index">Before the layer cases</div>
+      <div class="layer-headline"><h3>How this breaks</h3><span class="chip warn">Attack it first</span></div></div></div>
+    </div>
+    <div class="layer-body world-body"><div class="layer-pane on">${breaksPane()}</div></div>
+  </div>` : `<div class="card" style="border-top-color:${col}">
     <div class="layer-head">
       <div class="layer-head-main">${layerIcon(0,'head-icon')}<div><div class="layer-index">Not a layer · the ground the stack stands on</div>
       <div class="layer-headline"><h3>The physical world</h3><span class="chip">Context, not an allocation</span></div></div></div>
@@ -2983,27 +3042,10 @@ LAYERS.forEach((L,i0)=>{
       <div class="layer-score"><i style="background:${col}"></i><div><span>Material constraint</span><b>${mat.severity}</b></div></div>
     </div>
     <div class="layer-modes" role="tablist" aria-label="${L.t} views">
-      <button class="layer-mode" data-mode="how" aria-selected="true">Layer description</button>
-      <button class="layer-mode" data-mode="chain" aria-selected="false">Value chain</button>
-      <button class="layer-mode" data-mode="materials" aria-selected="false">Layer materials</button>
-      <button class="layer-mode" data-mode="thesis" aria-selected="false">Layer thesis</button>
-      <button class="layer-mode" data-mode="companies" aria-selected="false">Top companies</button>
-      <button class="layer-mode" data-mode="risks" aria-selected="false">Risks + signals</button>
+      ${MODES.map((m,k)=>`<button class="layer-mode" data-mode="${m}" aria-selected="${k===0}">${MODE_LABEL[m]}</button>`).join('')}
     </div>
     <div class="layer-body">
-      <div class="layer-pane" data-mode-pane="thesis">${tabIntro('thesis',col)}
-        <div class="overview-lede"><div><p class="lede">${L.lede}</p><p class="why">${L.why}</p></div><div class="choke-card" style="border-left-color:${col}"><b>Binding constraint.</b> ${L.choke}</div></div>
-        <div class="facts">${factgrid(L.facts)}</div>
-        <div class="layer-diagnostic single">
-          <div class="chartbox">${bars(ch)}</div>
-        </div>
-        <div class="essay-list">${L.detail.map((d,j)=>`<details class="essay" ${j===0?'open':''}><summary>${d[0]}</summary><p>${d[1]}</p></details>`).join('')}</div>
-      </div>
-      <div class="layer-pane on" data-mode-pane="how">${howPane(L,col)}</div>
-      <div class="layer-pane" data-mode-pane="chain">${tabIntro('chain',col)}${chainPane(L.n,col)}</div>
-      <div class="layer-pane" data-mode-pane="materials">${materialPane(mat,col)}</div>
-      <div class="layer-pane" data-mode-pane="risks">${tabIntro('risks',col)}${riskPane(risk,L)}</div>
-      <div class="layer-pane" data-mode-pane="companies">${tabIntro('companies',col)}<div class="tw"><table class="co">${cotbl(L.co,L.n)}</table></div><p class="tnote"><b>On the share column.</b> Each figure is the company\u2019s approximate share of the specific niche named beside it, not of the layer and not of any single market. Bases, definitions and measurement dates differ from row to row, so the column indicates order of magnitude and competitive position rather than a like-for-like ranking; <em>n/d</em> means no figure is stated here because none is reliable. Country is domicile of listing, which frequently differs from where the production risk actually sits. Inclusion maps exposure to the layer; it is not a buy recommendation. Read the bull and bear columns together.</p></div>
+      ${MODES.map((m,k)=>`<div class="layer-pane${k===0?' on':''}" data-mode-pane="${m}">${PANE[m](L,col,mat,risk,ch)}</div>`).join('')}
     </div>
   </div>`;
   panels.appendChild(p);
@@ -3020,7 +3062,7 @@ LAYERS.forEach((L,i0)=>{
 /* The tab a reader is on carries across layers: switching from Energy to
    Compute silicon while reading Layer thesis keeps you on Layer thesis, so the
    same view can be compared layer by layer. */
-let CURRENT_MODE='how';
+let CURRENT_MODE=MODES[0];
 function selectLayerMode(panel,mode,remember=true){
   if(remember) CURRENT_MODE=mode;
   panel.querySelectorAll('.layer-mode').forEach(b=>b.setAttribute('aria-selected',b.dataset.mode===mode?'true':'false'));
@@ -3817,10 +3859,7 @@ fillAll();
     svg.querySelectorAll('[data-from]').forEach(el=>{
       const on = n!==null && el.dataset.from.split(/\s+/).includes(String(n));
       el.classList.toggle('on', on);
-      if(el.tagName.toLowerCase()!=='path') return;
-      if(el.dataset.mk===undefined) el.dataset.mk=el.getAttribute('marker-end')||'';
-      if(on) el.setAttribute('marker-end',`url(#ahL${n})`);
-      else if(el.dataset.mk) el.setAttribute('marker-end',el.dataset.mk);
+      /* The arrowhead keeps its own colour too — see the note in style.css. */
     });
   }
 

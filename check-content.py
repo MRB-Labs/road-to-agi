@@ -21,10 +21,10 @@ SNAP = ROOT / 'content' / 'copy-snapshot.json'
 # the tables in script.js that carry prose rather than data
 TABLES = ['LAYERS','CHAIN','HOWTO','TABINTRO','LAYER_MATERIALS','LAYER_RISKS',
           'LAYER_ELEMENTS','MOATWHY','SOURCES','PSOURCES','CONC','PROC','MATS',
-          'MATTBL','RISKS','GW','HU','LOOPWHY','DEPLOY','ENVIRO','EL_CODES',
+          'MATTBL','RISKS','GW','HU','LOOPWHY','DEPLOY','ENVIRO','EL_CODES','BREAKS',
           'CDESC','DESIGN_MODEL','COMETA']
-PAGES = ['index.html','stack.html','markets.html','environment.html',
-         'projects.html','risks.html','method.html']
+PAGES = ['index.html','stack.html','investor.html','markets.html','environment.html',
+         'projects.html','method.html']
 MIN_LEN = 25          # below this it is a class name, a path or a chip label
 
 

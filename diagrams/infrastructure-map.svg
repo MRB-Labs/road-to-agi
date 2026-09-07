@@ -56,8 +56,8 @@
                bought here — it is captured or extracted. -->
           <path class="wl" d="M1494 84 H1240 V-20 H200 V144" marker-end="url(#ahL1)" stroke-linejoin="round"/>
           <text class="lb-w" x="760" y="-28" text-anchor="middle">sun · wind · water · geothermal · fissile material</text>
-          <path class="wl2" d="M1240 40 H508 V300 H452" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <text class="lb-w" x="880" y="32" text-anchor="middle">ores, minerals and geological resources</text>
+          <path class="wl2" d="M1240 40 H340 V96" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <text class="lb-w" x="800" y="32" text-anchor="middle">ores, minerals and geological resources</text>
 
           <!-- ══ left: the industrial supply base ══════════════════════════ -->
           <rect class="mg-box" x="24" y="104" width="440" height="596" rx="18"/>
@@ -192,8 +192,8 @@
           </a>
 
           <!-- the three flows the bridge carries, both sides -->
-          <path class="ln-m" data-from="5 6 8" d="M1206 470 H1240" marker-end="url(#ahL8)"/>
-          <path class="ln-d" data-from="5 6 7" d="M1240 520 H1206" marker-end="url(#ahL7)"/>
+          <path class="ln-m" data-from="5 6 8" d="M1156 470 H1240" marker-end="url(#ahL8)"/>
+          <path class="ln-d" data-from="5 6 7" d="M1240 520 H1214 V584 H830 V578" marker-end="url(#ahL7)" stroke-linejoin="round"/>
           <path class="ln-m" data-from="6 10 8" d="M1416 470 H1450" marker-end="url(#ahL8)"/>
           <path class="ln-d" data-from="6 10 7" d="M1450 520 H1416" marker-end="url(#ahL7)"/>
           <g class="mg-flows">

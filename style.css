@@ -927,8 +927,12 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 #mapsvg path[data-from]{opacity:.72; transition:opacity .16s var(--ease), stroke-width .16s var(--ease)}
 #mapsvg text[data-from]{opacity:0; transition:opacity .16s var(--ease)}
 #mapsvg.hl path[data-from]:not(.on){opacity:.11}
-#mapsvg path[data-from].on{opacity:1; stroke:var(--hlc); stroke-width:2.3}
-#mapsvg text[data-from].on{opacity:1; fill:var(--hlc)}
+/* Highlighting brightens and thickens an arrow; it must not repaint it. An
+   arrow's colour says which family it belongs to — energy, material,
+   semiconductor, data, model — and recolouring it to whichever layer happens
+   to be under the cursor destroyed exactly the thing the colour encodes. */
+#mapsvg path[data-from].on{opacity:1; stroke-width:2.4}
+#mapsvg text[data-from].on{opacity:1}
 #mapsvg .worldnode{cursor:default}
 #mapsvg.hl .bx{transition:opacity .16s var(--ease)}
 
@@ -1153,23 +1157,23 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
 /* Each chain reads left to right on one line. Long chains scroll rather than
    wrapping, because a wrapped chain stops looking like a chain — the stage
    boxes below are where the vertical space goes. */
-.vj-jump{list-style:none; margin:0; padding:0 0 8px; display:flex; align-items:stretch;
-  gap:0; overflow-x:auto; scrollbar-width:thin}
-.vj-jump li{flex:0 0 172px; min-width:0; display:flex; align-items:stretch}
+.vj-jump{list-style:none; margin:0; padding:0; display:flex; align-items:stretch; gap:0}
+.vj-jump li{flex:1 1 0; min-width:0; display:flex; align-items:stretch}
 /* the connector: within a chain, each stage depends on the one before it */
 .vj-jump li:not(:last-child)::after{content:""; flex:none; align-self:center; width:20px; height:9px;
-  margin:0 5px; background:var(--line2);
+  margin:0 3px; background:var(--line2);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 9'%3E%3Cpath d='M0 4.5h16M12.5 1 16 4.5 12.5 8' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 9'%3E%3Cpath d='M0 4.5h16M12.5 1 16 4.5 12.5 8' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
 .vj{appearance:none; width:100%; text-align:left; cursor:pointer; font:inherit;
-  display:flex; flex-direction:column; gap:5px; background:var(--surface);
-  border:1px solid var(--line); border-radius:9px; padding:11px 12px 12px;
+  display:flex; flex-direction:column; gap:4px; background:var(--surface);
+  border:1px solid var(--line); border-radius:8px; padding:8px 9px 9px;
   transition:border-color .16s var(--ease), transform .16s var(--ease)}
 .vj:hover{border-color:var(--accent); transform:translateY(-1px)}
 .vj:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.vj-n{width:22px; height:22px; border-radius:50%; background:var(--accent-soft); color:var(--accent);
+.vj-n{width:19px; height:19px; border-radius:50%; background:var(--accent-soft); color:var(--accent);
   font:600 11px var(--f-mono); display:flex; align-items:center; justify-content:center; flex:none}
-.vj b{font-size:13px; color:var(--ink); letter-spacing:-.01em; line-height:1.25}
+.vj b{font-size:12px; color:var(--ink); letter-spacing:-.012em; line-height:1.22;
+  overflow-wrap:anywhere}
 .vj-f{font-size:11px; color:var(--muted); line-height:1.4}
 /* (No wrap at narrow widths: the row scrolls instead, so the chain survives.) */
 .vc-top-wrap{margin:18px 0 0; text-align:right}
@@ -1828,10 +1832,6 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .elc-note b{display:block; font-size:12px; font-weight:600; color:var(--ink); margin-bottom:2px}
 .elc-chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
 
-/* the chain index scrollbar, kept discreet */
-.vj-jump::-webkit-scrollbar{height:7px}
-.vj-jump::-webkit-scrollbar-thumb{background:var(--line2); border-radius:4px}
-.vj-jump::-webkit-scrollbar-track{background:transparent}
 .vj-group+.vj-group{margin-top:18px}
 .ei-notes{display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); margin-top:12px}
 .ei-notes .elc-note{margin-top:0}
