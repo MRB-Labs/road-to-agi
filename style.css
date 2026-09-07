@@ -497,8 +497,10 @@ dialog{max-width:min(980px,94vw)}
 .b3{fill:var(--l3s);stroke:var(--l3)} .b4{fill:var(--l4s);stroke:var(--l4)}
 .b5{fill:var(--l5s);stroke:var(--l5)} .b6{fill:var(--l6s);stroke:var(--l6)}
 .b7{fill:var(--l7s);stroke:var(--l7)} .b8{fill:var(--l8s);stroke:var(--l8)}
+.b9{fill:var(--l9s);stroke:var(--l9)} .b10{fill:var(--l10s);stroke:var(--l10)}
 .d1{fill:var(--l1)} .d2{fill:var(--l2)} .d3{fill:var(--l3)} .d4{fill:var(--l4)}
 .d5{fill:var(--l5)} .d6{fill:var(--l6)} .d7{fill:var(--l7)} .d8{fill:var(--l8)}
+.d9{fill:var(--l9)} .d10{fill:var(--l10)}
 .sea{fill:var(--sea);stroke:var(--accent)} .leaf{fill:var(--leaf)}
 
 /* Chart system */
@@ -668,11 +670,20 @@ table.co td.co-n,table.co td.co-geo{white-space:normal}
   --flag:#C23B3B; --flag-soft:#FDE8E7; --flag-ink:#96292C;
   --bull:#087F73; --bull-soft:#DFF5F1; --bull-ink:#065E55;
   --warn-ink:#96292C;
-  /* the eight layers, drawn from the V2 chart family */
-  --l1:#A46100; --l1s:#FFF0CF; --l2:#B4552E; --l2s:#FBE9E0;
-  --l3:#B03A52; --l3s:#FBE6EB; --l4:#7B61B7; --l4s:#EEE9F8;
-  --l5:#2457D6; --l5s:#E7EDFF; --l6:#0C8A7D; --l6s:#DFF5F1;
-  --l7:#3F7D3C; --l7s:#E4F2E2; --l8:#60758A; --l8s:#EAEEF2;
+  /* the ten layers — palette per the AUDIT brief, matched to the
+     architecture diagram: amber energy, orange materials, rose semis,
+     purple compute, blue enclosure, then the cyan-to-teal information
+     band (connectivity, data, models), slate software, green embodied. */
+  --l1:#A46100;  --l1s:#FFF0CF;
+  --l2:#B4552E;  --l2s:#FBE9E0;
+  --l3:#B03A52;  --l3s:#FBE6EB;
+  --l4:#7B61B7;  --l4s:#EEE9F8;
+  --l5:#2457D6;  --l5s:#E7EDFF;
+  --l6:#1573A8;  --l6s:#E2F0F7;
+  --l7:#2E7F6E;  --l7s:#E4F1ED;
+  --l8:#0E9488;  --l8s:#DEF4F1;
+  --l9:#60758A;  --l9s:#EAEEF2;
+  --l10:#3F7D3C; --l10s:#E4F2E2;
   --on-layer:#FFFFFF;
   /* surfaces and depth */
   --invert-bg:#17202A; --invert-fg:#F1F4F7; --invert-fg2:#AEB8C5;
@@ -698,10 +709,16 @@ table.co td.co-n,table.co td.co-geo{white-space:normal}
   --flag:#F07A78; --flag-soft:#4A2427; --flag-ink:#F6A3A1;
   --bull:#55C8B7; --bull-soft:#153B37; --bull-ink:#8ADCCE;
   --warn-ink:#F6A3A1;
-  --l1:#F0B45D; --l1s:#3A2A12; --l2:#EA8A5F; --l2s:#3A2418;
-  --l3:#E0798F; --l3s:#3A1F26; --l4:#B69AE8; --l4s:#282141;
-  --l5:#7DA2FF; --l5s:#1D2D55; --l6:#55C8B7; --l6s:#153B37;
-  --l7:#7FC07A; --l7s:#1C3320; --l8:#9AABBA; --l8s:#242C34;
+  --l1:#F0B45D;  --l1s:#3A2A12;
+  --l2:#EA8A5F;  --l2s:#3A2418;
+  --l3:#E0798F;  --l3s:#3A1F26;
+  --l4:#B69AE8;  --l4s:#282141;
+  --l5:#7DA2FF;  --l5s:#1D2D55;
+  --l6:#55BAD2;  --l6s:#123340;
+  --l7:#66BEA8;  --l7s:#17332C;
+  --l8:#50CFC3;  --l8s:#103330;
+  --l9:#9AABBA;  --l9s:#242C34;
+  --l10:#7FC07A; --l10s:#1C3320;
   --on-layer:#0F1319;
   --invert-bg:#080B10; --invert-fg:#F1F4F7; --invert-fg2:#AEB8C5;
   --track:rgba(241,244,247,.10); --panel-a:rgba(23,28,36,.74);
@@ -815,9 +832,8 @@ a.chain-node.is-link:hover .chip-tick{color:var(--accent)}
 #overview .dia .bn{font-size:12.5px}
 @media(max-width:900px){#overview .dia-grid{grid-template-columns:1fr}}
 
-/* V8 — embodiment moves to slot 8 and takes the green; software takes slate */
-:root{--l7:#60758A; --l7s:#EAEEF2; --l8:#3F7D3C; --l8s:#E4F2E2}
-[data-theme="dark"]{--l7:#9AABBA; --l7s:#242C34; --l8:#7FC07A; --l8s:#1C3320}
+/* (the V8 slot-swap override is gone — the ten-layer palette above is the
+   single definition, so software is 9 and embodied is 10 by name.) */
 .wl{stroke:var(--l1); stroke-width:1.5; fill:none; stroke-dasharray:6 5}
 .wl2{stroke:var(--l2); stroke-width:1.5; fill:none; stroke-dasharray:6 5}
 .mt2{stroke:var(--l2); stroke-width:1.6; fill:none}

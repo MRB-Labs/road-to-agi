@@ -132,14 +132,14 @@ const CHAIN={
   {t:'Compute fit-out',w:'The racks themselves. Compute, networking and storage account for roughly half to sixty per cent of total project cost.',n:['NVIDIA','Broadcom','SK hynix','Supermicro','Dell'],note:'56% of the capital'},
   {t:'Operator',w:'Whoever owns, leases or runs the finished hall — and therefore carries the depreciation and the debt.',n:['AWS','Azure','Google Cloud','Meta','Oracle','CoreWeave','Equinix','Digital Realty'],note:'Where the leverage and the depreciation sit'},
   {t:'Tenant',w:'The party actually renting the capacity. Contract tenor is consistently shorter than the debt that financed the building.',n:['Model labs','Enterprises','Governments'],note:'Contract tenor is shorter than the debt'}]},
-6:{lead:'No material chokepoint anywhere in this chain. Every stage is rented, and the only durable asset is distribution at the end.',
+8:{lead:'No material chokepoint anywhere in this chain. Every stage is rented, and the only durable asset is distribution at the end.',
  stages:[
   {t:'Compute',w:'Access to accelerators, owned or rented. The only genuinely scarce input to a frontier training run.',n:['NVIDIA','Google TPU','AWS Trainium','AMD'],c:1,note:'The only genuinely scarce input'},
   {t:'Data',w:'Corpora, licensed content, and increasingly data the labs generate themselves rather than collect.',n:['Scale AI','Surge','Mercor','Licensed corpora','Synthetic generation'],note:'Increasingly synthetic'},
   {t:'Training',w:'The frontier runs and the labs that do them. Capability leads are now measured in months, not years.',n:['OpenAI','Anthropic','Google DeepMind','Meta','xAI','Mistral','DeepSeek','Alibaba Qwen'],note:'Capability leads last months, not years'},
   {t:'Serving and inference',w:'Running a trained model for customers. Price per token has fallen faster than almost any underlying input cost.',n:['Azure','AWS','Google Cloud','Together','Fireworks','Baseten'],note:'Commoditising fast'},
   {t:'Distribution',w:'The surfaces a model reaches users through. The only stage in this layer holding a durable moat.',n:['ChatGPT','Gemini','Copilot','Claude','Enterprise APIs'],note:'The only stage with a real moat'}]},
-7:{lead:'The layer where the thesis inverts: the same capability that creates these businesses can also compress the seat-based pricing several of them depend on.',
+9:{lead:'The layer where the thesis inverts: the same capability that creates these businesses can also compress the seat-based pricing several of them depend on.',
  stages:[
   {t:'Model access',w:'Models bought as an input through an API. A cost line on the income statement, not an asset on the balance sheet.',n:['OpenAI','Anthropic','Google','Open weights'],note:'A purchased input, not an asset'},
   {t:'Data platform',w:'Where enterprise context is stored and retrieved from, which is what separates a useful agent from a demo.',n:['Snowflake','Databricks','MongoDB','Confluent'],note:'Where enterprise context lives'},
@@ -147,7 +147,7 @@ const CHAIN={
   {t:'Applications',w:'The software people actually buy. Seat-based pricing is precisely what capable agents put at risk.',n:['Salesforce','ServiceNow','Adobe','Intuit','SAP'],c:1,note:'Seat-based pricing is the exposed model'},
   {t:'Security and identity',w:'Authenticating and authorising people and, increasingly, the machine identities acting on their behalf.',n:['CrowdStrike','Palo Alto Networks','Okta','Microsoft Entra','Zscaler'],note:'Machine identity becomes the growth vector'},
   {t:'Observability',w:'Watching what these systems actually did. Consumption pricing tracks agent volume rather than headcount.',n:['Datadog','Dynatrace','Splunk (Cisco)','Grafana'],note:'Consumption pricing tracks agent volume'}]},
-8:{lead:'The chain runs the opposite way geographically to layers 3 and 4. Adding it does not diversify geopolitical risk; it adds a second one.',
+10:{lead:'The chain runs the opposite way geographically to layers 3 and 4. Adding it does not diversify geopolitical risk; it adds a second one.',
  stages:[
   {t:'Rare earth and magnets',w:'The sintered magnets every actuator needs. China restricts export of the separation and magnet-making technology itself, not merely the metal.',n:['China separation capacity','JL MAG','Lynas','MP Materials','Neo Performance','Solvay'],c:1,note:'Separation technology export itself is banned'},
   {t:'Precision components',w:'Harmonic and cycloidal reducers, bearings and ball screws — the parts that set what a joint can actually do.',n:['Harmonic Drive Systems','Nabtesco','THK','NSK','Hiwin','Green Harmonic','Leader Drive'],c:1,note:'~50× expansion needed; Japanese pricing under attack'},
@@ -277,19 +277,19 @@ const SOURCES={
   ['Uptime Institute','Outage data, PUE benchmarks and operational practice surveys','https://uptimeinstitute.com/'],
   ['Lawrence Berkeley National Laboratory','Data centre load, cooling and efficiency research','https://www.lbl.gov/'],
   ['Company disclosure — Alphabet, Microsoft, Amazon, Meta, Oracle, CoreWeave, Equinix','Capital expenditure, useful-life assumptions, lease and debt terms','https://www.sec.gov/edgar/search/']]},
-6:{lead:'Frontier models. This layer has the weakest public data in the report: capability rankings are contested, and no reliable market share series exists.',
+8:{lead:'Frontier models. This layer has the weakest public data in the report: capability rankings are contested, and no reliable market share series exists.',
  items:[
   ['Epoch AI','Training compute estimates, model release tracking and scaling analysis','https://epoch.ai/'],
   ['Stanford HAI AI Index','Annual measurement of capability, investment and deployment','https://hai.stanford.edu/ai-index'],
   ['LMArena','Community preference rankings across frontier models','https://lmarena.ai/'],
   ['Company and laboratory publications','Model cards, system cards and technical reports as published by each laboratory','https://epoch.ai/']]},
-7:{lead:'Enterprise software and security. Share figures here come from vendor-funded analyst research and should be read as positional rather than precise.',
+9:{lead:'Enterprise software and security. Share figures here come from vendor-funded analyst research and should be read as positional rather than precise.',
  items:[
   ['Gartner','Enterprise software, security and IT services market sizing','https://www.gartner.com/'],
   ['International Data Corporation','Security, data platform and observability share estimates','https://www.idc.com/'],
   ['Canalys','Cybersecurity channel and vendor share tracking','https://www.canalys.com/'],
   ['Company disclosure — CrowdStrike, Palo Alto, Snowflake, Datadog, ServiceNow, Salesforce','ARR, net revenue retention, remaining performance obligations','https://www.sec.gov/edgar/search/']]},
-8:{lead:'Humanoids and precision components. The reducer capacity denominator behind the fiftyfold figure is a derivation, not a disclosed statistic, and is the number here most in need of independent verification.',
+10:{lead:'Humanoids and precision components. The reducer capacity denominator behind the fiftyfold figure is a derivation, not a disclosed statistic, and is the number here most in need of independent verification.',
  items:[
   ['International Federation of Robotics','World robotics installation and stock statistics','https://ifr.org/'],
   ['Benchmark Mineral Intelligence','Rare earth and magnet pricing, capacity and supply chain analysis','https://www.benchmarkminerals.com/'],
@@ -1091,7 +1091,7 @@ const HOWTO={
  money:'Weak moats, heavy capital, and returns that depend on the contract rather than the technology. What is genuinely scarce is not the building but the interconnection agreement and the power contract behind it — a signed grid connection in a constrained market is the real asset. The operators earning best are those who secured power years before the demand arrived.',
  src:'Cost composition follows Generative Value, “A Primer on Data Centers”.'},
 
-6:{what:'The models themselves: the training runs that produce weights, and the inference systems that serve them. This layer buys almost everything below it and sells to almost everything above it.',
+8:{what:'The models themselves: the training runs that produce weights, and the inference systems that serve them. This layer buys almost everything below it and sells to almost everything above it.',
  physics:[
   ['Capability scales as a power law in compute','Loss falls roughly as a power of compute, data and parameters. Power laws are brutal: each increment of capability costs multiplicatively more, which is what turns model training into an infrastructure problem rather than a software one.'],
   ['A training run is one long synchronous computation','Weights must stay consistent across the whole cluster, so the slowest link and the least reliable node set the pace. At tens of thousands of accelerators, hardware failure is a routine event that the training system has to survive.'],
@@ -1103,7 +1103,7 @@ const HOWTO={
   ['months','useful commercial life of a frontier lead'],['open','the pricing floor, and it is falling']],
  money:'The weakest durable moat in the stack relative to the capital consumed. Weights depreciate fast, switching cost for a buyer is a prompt rewrite, and the open-weight floor keeps compressing price. What is defensible is distribution, proprietary data and the integration into a workflow — none of which is the model itself. This layer is where the most money is spent and the least of it is likely to be kept.'},
 
-7:{what:'The frameworks, tooling and applications that turn a model into something a business uses. It owns the customer relationship and almost none of the physical stack.',
+9:{what:'The frameworks, tooling and applications that turn a model into something a business uses. It owns the customer relationship and almost none of the physical stack.',
  physics:[
   ['There is no physics here, and that is the point','This is the one layer with no material constraint, no lead time and no capital intensity. Its economics are therefore pure competition: nothing physical protects an incumbent.'],
   ['Context is the scarce input','A model is a commodity; the enterprise data, permissions and process knowledge fed to it are not. Value accrues to whoever owns the context, which is usually the existing system of record rather than the newcomer.'],
@@ -1114,7 +1114,7 @@ const HOWTO={
   ['high','gross margin, and correspondingly low barrier to entry'],['the data','not the model, is the defensible asset']],
  money:'The layer where AI most plausibly destroys incumbent value rather than creating it. The bull case is that owning workflow and data makes an incumbent the natural agent vendor; the bear case is that agents collapse the seat count that the incumbent’s revenue is calculated from. Both can be true for different companies in the same category, which is why this layer resists a single directional view.'},
 
-8:{what:'Machines that sense and act in the physical world — robots, vehicles, drones. It is where the stack stops being information and starts being mechanical, and where a Western portfolio’s geographic assumptions invert.',
+10:{what:'Machines that sense and act in the physical world — robots, vehicles, drones. It is where the stack stops being information and starts being mechanical, and where a Western portfolio’s geographic assumptions invert.',
  physics:[
   ['Actuation is a torque density problem','A useful humanoid joint needs high torque at low speed in a small mass. That means a motor plus a precision reducer — harmonic or cycloidal — and those reducers are ground to micron tolerances by a small number of mostly Japanese firms. This is the binding constraint, and it is mechanical.'],
   ['Permanent magnets set the performance ceiling','Torque density in a compact motor comes from neodymium-iron-boron magnets, with dysprosium or terbium added for heat resistance. That places the most Western-facing robotics thesis directly downstream of Chinese rare earth separation.'],
@@ -1198,7 +1198,7 @@ function worldPane(){
   return `
   <div class="overview-lede">
     <div>
-      <p class="lede">Everything in the eight layers above is, in the end, rearranged pieces of this. Nothing in the stack is created — it is extracted, concentrated, purified and shaped, using energy that was itself captured from somewhere physical.</p>
+      <p class="lede">Everything in the ten layers above is, in the end, rearranged pieces of this. Nothing in the stack is created — it is extracted, concentrated, purified and shaped, using energy that was itself captured from somewhere physical.</p>
       <p>The physical world is not a layer because you cannot invest in it and it has no supplier. It belongs in this report for two reasons. It is the source of the two base layers, energy and materials, and the transformation steps between a natural resource and a usable input are where almost every chokepoint in this analysis actually sits. And it is the environment embodied machines have to operate in — the one part of the stack that was not designed, does not follow a specification, and does not hold still.</p>
     </div>
     <aside class="constraint"><b>The framing that matters.</b> Nature supplies abundance in raw form and scarcity in useful form. There is no shortage of quartz on earth, no shortage of iron, no shortage of sunlight. What is scarce is quartz pure enough for a crucible, steel annealed into a transformer core, and electricity that is firm at three in the morning. <b>Every constraint in this report is a transformation constraint, not a resource constraint.</b></aside>
@@ -1260,9 +1260,9 @@ const LAYER_ICONS={
  3:'<circle cx="22" cy="22" r="15"/><g clip-path="url(#waferClip)"><path d="M6 15 H38"/><path d="M6 22 H38"/><path d="M6 29 H38"/><path d="M15 6 V38"/><path d="M22 6 V38"/><path d="M29 6 V38"/></g><path d="M19.4 7.5 L22 12.2 L24.6 7.5"/>',
  4:'<rect x="12" y="12" width="20" height="20" rx="3"/><rect x="18" y="18" width="8" height="8" rx="1.5"/><path d="M17 12 V6"/><path d="M22 12 V6"/><path d="M27 12 V6"/><path d="M17 32 V38"/><path d="M22 32 V38"/><path d="M27 32 V38"/><path d="M12 17 H6"/><path d="M12 22 H6"/><path d="M12 27 H6"/><path d="M32 17 H38"/><path d="M32 22 H38"/><path d="M32 27 H38"/>',
  5:'<rect x="6" y="8" width="32" height="7.5" rx="2.2"/><rect x="6" y="18.3" width="32" height="7.5" rx="2.2"/><rect x="6" y="28.6" width="32" height="7.5" rx="2.2"/><circle cx="11" cy="11.75" r="1.4"/><circle cx="11" cy="22.05" r="1.4"/><circle cx="11" cy="32.35" r="1.4"/><path d="M30 11.75 H34"/><path d="M30 22.05 H34"/><path d="M30 32.35 H34"/>',
- 6:'<path d="M14.6 12.8 L29.4 16.2"/><path d="M14.1 14.1 L29.9 24.9"/><path d="M14.6 21.2 L29.4 17.8"/><path d="M14.6 22.8 L29.4 26.2"/><path d="M14.1 29.9 L29.9 19.1"/><path d="M14.6 31.2 L29.4 27.8"/><circle cx="11" cy="12" r="2.9"/><circle cx="11" cy="22" r="2.9"/><circle cx="11" cy="32" r="2.9"/><circle cx="33" cy="17" r="2.9"/><circle cx="33" cy="27" r="2.9"/>',
- 7:'<rect x="6" y="10" width="32" height="24" rx="3.2"/><path d="M6 17 H38"/><circle cx="10.6" cy="13.5" r="1.3"/><circle cx="14.8" cy="13.5" r="1.3"/><path d="M12 22.5 L16.5 26.5 L12 30.5"/><path d="M20 30.5 H30"/>',
- 8:'<rect x="16" y="4.5" width="12" height="9.5" rx="3.2"/><circle cx="19.6" cy="9.3" r="1.3"/><circle cx="24.4" cy="9.3" r="1.3"/><path d="M22 14 V16.5"/><rect x="14" y="16.5" width="16" height="12" rx="3.2"/><path d="M14 19.5 H9.5 V26.5"/><path d="M30 19.5 H34.5 V26.5"/><path d="M18.5 28.5 V30.7"/><circle cx="18.5" cy="32.2" r="1.5"/><path d="M18.5 33.7 V36.5"/><path d="M16.2 36.5 H20.8"/><path d="M25.5 28.5 V30.7"/><circle cx="25.5" cy="32.2" r="1.5"/><path d="M25.5 33.7 V36.5"/><path d="M23.2 36.5 H27.8"/>'
+ 8:'<path d="M14.6 12.8 L29.4 16.2"/><path d="M14.1 14.1 L29.9 24.9"/><path d="M14.6 21.2 L29.4 17.8"/><path d="M14.6 22.8 L29.4 26.2"/><path d="M14.1 29.9 L29.9 19.1"/><path d="M14.6 31.2 L29.4 27.8"/><circle cx="11" cy="12" r="2.9"/><circle cx="11" cy="22" r="2.9"/><circle cx="11" cy="32" r="2.9"/><circle cx="33" cy="17" r="2.9"/><circle cx="33" cy="27" r="2.9"/>',
+ 9:'<rect x="6" y="10" width="32" height="24" rx="3.2"/><path d="M6 17 H38"/><circle cx="10.6" cy="13.5" r="1.3"/><circle cx="14.8" cy="13.5" r="1.3"/><path d="M12 22.5 L16.5 26.5 L12 30.5"/><path d="M20 30.5 H30"/>',
+ 10:'<rect x="16" y="4.5" width="12" height="9.5" rx="3.2"/><circle cx="19.6" cy="9.3" r="1.3"/><circle cx="24.4" cy="9.3" r="1.3"/><path d="M22 14 V16.5"/><rect x="14" y="16.5" width="16" height="12" rx="3.2"/><path d="M14 19.5 H9.5 V26.5"/><path d="M30 19.5 H34.5 V26.5"/><path d="M18.5 28.5 V30.7"/><circle cx="18.5" cy="32.2" r="1.5"/><path d="M18.5 33.7 V36.5"/><path d="M16.2 36.5 H20.8"/><path d="M25.5 28.5 V30.7"/><circle cx="25.5" cy="32.2" r="1.5"/><path d="M25.5 33.7 V36.5"/><path d="M23.2 36.5 H27.8"/>'
 };
 /* A standalone mark. `wafer` is why each copy needs its own clip id. */
 let __icn=0;
@@ -1273,10 +1273,10 @@ function layerIcon(n,cls){
     `<defs><clipPath id="${id}"><circle cx="22" cy="22" r="13.6"/></clipPath></defs>${body}</svg>`;
 }
 
-const C=Object.fromEntries([1,2,3,4,5,6,7,8].map(n=>[n,`var(--l${n})`]));
+const C=Object.fromEntries(Array.from({length:10},(_,i)=>i+1).map(n=>[n,`var(--l${n})`]));
 
 const LAYERS=[
-{n:1,t:'Energy and power',moat:'Strong moat',mk:'good',
+{n:1,t:'Energy, power and utilities',moat:'Strong moat',mk:'good',
  sub:{h:['Sub-layer','Function','Where the chokepoint sits'],r:[
  ['Generation','Firm, dispatchable 24/7 output','Existing interconnected capacity, not new build'],
  ['Transmission and interconnection','Grid connection, substations, lines','Five to seven year queues — the binding constraint'],
@@ -1315,7 +1315,7 @@ const LAYERS=[
  ['Cleveland-Cliffs','Grain-oriented electrical steel; steel','Only domestic US GOES producer; transformer prices up 77% since 2019 on 119% demand growth','Monopoly on a critical input','Genuine monopoly on the material that gates US transformer output','The good asset sits inside a cyclical, leveraged steel business with heavy exposure elsewhere']],
  wrong:'Backlogs are booked at today\u2019s prices, not future prices. If castings, copper, electrical steel and skilled labour rise faster than contracted prices, a record order book converts into revenue growth with margin compression — the commonest way great backlogs produce mediocre returns.'},
 
-{n:2,t:'Raw materials',moat:'Strong moat',mk:'good',
+{n:2,t:'Raw and processed materials',moat:'Strong moat',mk:'good',
  sub:{h:['Sub-layer','Function','Where the chokepoint sits'],r:[
  ['Extraction','Ore bodies, brines and by-product streams','The least concentrated step — mining is geographically diverse'],
  ['Refining and separation','Concentrate into purified metal or oxide','Where the leverage actually sits; China holds 86–90% of rare earth separation'],
@@ -1356,7 +1356,7 @@ const LAYERS=[
  ['Wacker Chemie','Electronic-grade polysilicon, silicones','One of four producers of eleven-nines electronic-grade polysilicon','Purification chokepoint','Electronic grade requires several orders of magnitude more purity than solar grade and the two are not interchangeable, which insulates it from Chinese solar overcapacity','Chemicals cyclicality and European energy costs; the solar polysilicon collapse has repeatedly obscured the electronic-grade business'],
  ['Sibelco and The Quartz Corp (private)','High-purity quartz sand from the Spruce Pine district','Roughly 80% of world high-purity quartz supply between them','The infrastructure stack\u2019s most concentrated dependency','If you could own it, you would; the qualification cycle makes substitution extremely slow','Neither is listed. This is a chokepoint with almost no direct investable exposure — which is itself worth knowing']],
  wrong:'Material chokepoints are the most reversible kind in this report. A refining monopoly can be replicated with capital, permitting and political will in three to eight years, and Western governments are actively funding exactly that. If separation capacity outside China arrives faster than expected, or if the November 2026 controls lapse quietly, the scarcity premium in this layer compresses well before the AI build-out does. Sizing this as a hedge against the rest of the thesis is defensible; sizing it as growth is not.'},
-{n:3,t:'Semiconductor value chain',moat:'Very strong moat',mk:'good',
+{n:3,t:'Semiconductor production ecosystem',moat:'Very strong moat',mk:'good',
  sub:{h:['Sub-layer','Function','Where the chokepoint sits'],r:[
  ['Design tools and IP','EDA software, reusable circuit blocks','Three vendors hold ~75% globally and ~80% of China'],
  ['Equipment','Lithography, etch, deposition, metrology','ASML sole EUV supplier; Zeiss its sole optics supplier'],
@@ -1399,7 +1399,7 @@ const LAYERS=[
  ['ASE Technology','Outsourced assembly, packaging and test','Largest OSAT; absorbing CoWoS overflow from constrained TSMC lines','Largest outsourced packager','The most direct listed way to own packaging scarcity without owning TSMC','Structurally lower margin than foundry; capacity additions are actively closing the supply gap']],
  wrong:'This is still a cyclical industry wearing a secular costume. Wafer fab equipment growth of roughly 7% in 2026 and 14% in 2027 is healthy but nothing like the rates embedded in some valuations. Semiconductor equipment has had around a dozen down-cycles in forty years; the AI cycle changed the amplitude of demand, not the existence of cyclicality.'},
 
-{n:4,t:'Compute silicon',moat:'Moderate, eroding',mk:'',
+{n:4,t:'Compute, memory and networking',moat:'Moderate, eroding',mk:'',
  sub:{h:['Sub-layer','Function','Where the chokepoint sits'],r:[
  ['On-package','Logic die plus HBM on a silicon interposer','Terabytes per second — fastest, costliest, most constrained'],
  ['Rack scale-up','NVLink and equivalents, die to die','Proprietary interconnect — the architectural moat'],
@@ -1440,7 +1440,7 @@ const LAYERS=[
  ['Arista Networks','Ethernet switching; EOS network operating system','~19% of data centre Ethernet switching','Leading merchant switch vendor','EOS software is a genuine moat; deep hyperscaler relationships and Ethernet is winning the fabric war','NVIDIA went from under 4% to 21.5% share in a single year and now leads — competing against the supplier of the GPUs its switches connect']],
  wrong:'The base case is not that NVIDIA loses share catastrophically, but that its share drifts down while the market grows — a good outcome for the business and a potentially poor one for a stock priced on share retention. Custom ASIC shipments are growing at nearly three times the GPU rate.'},
 
-{n:5,t:'Data centres and cloud',moat:'Weak, capital-driven',mk:'warn',
+{n:5,t:'Data centres, cloud and edge',moat:'Weak, capital-driven',mk:'warn',
  sub:{h:['Business model','What it owns','The risk it carries'],r:[
  ['Hyperscalers','Own compute and own buildings','Financed from operating cash flow — the strongest position'],
  ['Colocation REITs','Own buildings, lease space','Interconnection is the moat, not floor space'],
@@ -1479,7 +1479,7 @@ const LAYERS=[
  ['Equinix','Interconnection-focused colocation','Owns the neutral meet-me points where networks physically join','Largest interconnection REIT','Interconnection revenue is the moat, not the floor space; durable underlying assets','Slower growth; AI training workloads favour hyperscale self-build over retail colocation']],
  wrong:'Depreciation assumptions are load-bearing for reported earnings. Hyperscalers use five to six years; critics including Burry, Chanos and Damodaran argue two to three. If useful lives compress from six years to four, the effect on hyperscaler profits is material and on neocloud viability is existential.'},
 
-{n:6,t:'AI models',moat:'Weak moat',mk:'warn',
+{n:8,t:'AI models and inference',moat:'Weak moat',mk:'warn',
  sub:{h:['Sub-layer','Function','What it is worth'],r:[
  ['Pre-training','Frontier model training runs','Produces a depreciating asset — expensive, fast to obsolete'],
  ['Post-training','Alignment, RLHF, distillation','Expert human labour, largely private and underpriced'],
@@ -1518,7 +1518,7 @@ const LAYERS=[
  ['DeepSeek and Alibaba Qwen','Open-weight frontier-adjacent models','Pricing near $0.14 / $0.28 per million tokens for near-frontier reasoning','Sets the global price floor','Not directly investable for most Western portfolios','The most direct competitive threat to Western API margins, and a policy variable as much as a commercial one']],
  wrong:'A five-to-tenfold dispersion in reported revenue for the same private company in the same quarter is not a rounding difference. Private valuations that reprice from $380bn to $965bn in three months are marks, not prices — they reflect terms a small number of buyers accepted, not a liquid market\u2019s judgment. An IPO would be the first point at which this layer becomes analysable rather than merely observable.'},
 
-{n:7,t:'Software and agents',moat:'Contested',mk:'warn',
+{n:9,t:'Agentic software and applications',moat:'Contested',mk:'warn',
  sub:{h:['Sub-layer','Function','How the AI transition hits it'],r:[
  ['Orchestration and agents','Runtimes, frameworks, tool use','Fast-moving, largely open source, little defensibility'],
  ['Data platforms','Retrieval, governance, lineage, evaluation','Consumption-priced — structurally aligned with the shift'],
@@ -1557,7 +1557,7 @@ const LAYERS=[
  ['Salesforce','CRM; Agentforce','The most-cited example in seat-compression analysis','Largest CRM','Deep data gravity and an installed base that is expensive to displace','The outcome is genuinely uncertain — a poor vehicle for expressing an AI view in either direction']],
  wrong:'The bear case may be overstated and two credible banks say so; or it may be understated, since growth deceleration predates agents. The more likely outcome nobody weights properly is category contraction with winner concentration: if enterprises cut from 371 applications to 100, survivors gain share even as the category shrinks.'},
 
-{n:8,t:'AI Embodiment',moat:'Moderate moat',mk:'mixed',
+{n:10,t:'Embodied AI and autonomous systems',moat:'Moderate moat',mk:'mixed',
  sub:{h:['Segment','What it covers','Commercial maturity'],r:[
  ['Autonomous vehicles','Robotaxis and driver assistance','<span class="ok">Scaling commercially now</span> — the only segment with revenue at scale'],
  ['Industrial robotics','Arms, AGVs, structured automation','Mature, slow growth, defended installed base'],
@@ -1623,7 +1623,7 @@ const LAYERS=[
 ];
 
 const MATS=[
-{t:'Rare earths',c:C[7],big:'86–90%',d:'Share of world rare earth refining in China. Separation requires hundreds of sequential solvent-extraction stages and a multi-decade process-knowledge lead. April 2025 controls on seven heavy rare earths have never been suspended.',s:'Enters at layers 1, 4 and 8'},
+{t:'Rare earths',c:C[9],big:'86–90%',d:'Share of world rare earth refining in China. Separation requires hundreds of sequential solvent-extraction stages and a multi-decade process-knowledge lead. April 2025 controls on seven heavy rare earths have never been suspended.',s:'Enters at layers 1, 4 and 8'},
 {t:'Copper',c:C[2],big:'48%',d:'China holds roughly 8% of copper concentrate production but 48% of smelting. Spot treatment charges reached negative $90 a tonne in March 2026 — smelters paying for the right to process ore.',s:'Enters at layers 1, 4 and 5'},
 {t:'High-purity quartz',c:C[3],big:'~80%',d:'Two mines in one North Carolina district supply most of the world. Without these crucibles there are no silicon ingots, for anyone. It has no export control regime of any kind.',s:'Enters at layer 3'},
 {t:'Electrical steel',c:C[1],big:'1',d:'Number of domestic US producers of grain-oriented electrical steel. Grain orientation takes days of high-temperature annealing and decades of metallurgical know-how. Every transformer contains it.',s:'Enters at layers 1 and 5'},
@@ -1702,7 +1702,7 @@ const LAYER_MATERIALS={
   {n:"Fibre + germanium dopant",role:"Campus and cluster interconnect",choke:"Preform and optical-component capacity matters more than silica availability.",geo:"US / Japan / China",time:"Moderate"},
   {n:"Water rights",role:"Evaporative heat rejection and construction",choke:"A social-licence and permitting constraint that behaves like a material one in arid regions.",geo:"Entirely site-specific",time:"Potentially permanent"}],
  note:"No intrinsic material here is a universal single-point failure. The layer inherits copper and electrical-steel constraints from energy, then adds water and battery supply chains that delay or relocate projects rather than stop the category."},
-6:{severity:"None direct",summary:"A model is information. It has no mine, refinery or qualified process material of its own—and that absence helps explain why model-layer moats are weaker than physical chokepoints below it.",
+8:{severity:"None direct",summary:"A model is information. It has no mine, refinery or qualified process material of its own—and that absence helps explain why model-layer moats are weaker than physical chokepoints below it.",
  stats:[["0","Distinctive raw materials"],["3","Inherited physical layers"],["$/token","Long-run energy exposure"],["Weak","Material barrier to entry"]],
  flow:["Electricity","Accelerator + HBM","Training / inference run","Model weights"],
  items:[
@@ -1710,7 +1710,7 @@ const LAYER_MATERIALS={
   {n:"Accelerators + HBM",role:"Embodied capital that produces the model",choke:"Inherits CoWoS, HBM and accelerator supply constraints from layers 3–4.",geo:"Taiwan / Korea / US",time:"Inherited"},
   {n:"Cooling + water",role:"Carries training heat out of the facility",choke:"Inherits facility thermal density and local water constraints.",geo:"Campus-specific",time:"Inherited"}],
  note:"Treat a model provider's electricity, compute and depreciation assumptions as physical inputs to gross margin. The absence of a unique material dependency is an analytical result, not a missing chapter."},
-7:{severity:"None direct",summary:"Software and agents consume compute and electricity but introduce no distinctive material base. This makes distribution, workflow ownership, trust and switching cost—not scarcity—the only credible moats.",
+9:{severity:"None direct",summary:"Software and agents consume compute and electricity but introduce no distinctive material base. This makes distribution, workflow ownership, trust and switching cost—not scarcity—the only credible moats.",
  stats:[["0","Distinctive raw materials"],["2","Inherited inputs: compute + power"],["High","Substitution speed"],["Contested","Moat durability"]],
  flow:["Power + cloud compute","Model API / local model","Agent runtime + tools","Workflow outcome"],
  items:[
@@ -1718,7 +1718,7 @@ const LAYER_MATERIALS={
   {n:"Electricity",role:"Indirect cost per completed task",choke:"Usually buried in cloud pricing, but decisive for scaled low-margin workloads.",geo:"Provider-specific",time:"Inherited"},
   {n:"Device hardware",role:"Local inference, sensors and secure credentials",choke:"Inherits semiconductors and batteries only where agents run at the edge.",geo:"Global electronics chain",time:"Inherited"}],
  note:"Layers 6 and 7 are the only layers without a material chokepoint and the two with the most contested moats. Physical scarcity is harder to compete away than software advantage."},
-8:{severity:"Extreme",summary:"Embodiment reverses the infrastructure stack's geography. High-torque-density motors require rare-earth magnets, while precision reducers depend on metallurgy, heat treatment and micron-scale grinding capacity.",
+10:{severity:"Extreme",summary:"Embodiment reverses the infrastructure stack's geography. High-torque-density motors require rare-earth magnets, while precision reducers depend on metallurgy, heat treatment and micron-scale grinding capacity.",
  stats:[["86–90%","Rare-earth refining in China"],[">70%","Rare-earth magnet output in China"],["63%","Humanoid components supplied by China"],["18+ mo","Reducer lead time"]],
  flow:["Ore + alloy steel","Separation + heat treatment","Magnet + reducer manufacture","Motor, actuator, robot"],
  items:[
@@ -1757,17 +1757,17 @@ const LAYER_RISKS={
  {t:"Power delivery",d:"A completed shell can wait years for interconnection, transformer or turbine delivery.",m:"Require firm power and long-lead slots before land."},
  {t:"Utilisation",d:"Break-even deteriorates non-linearly below 70%; idle accelerators still depreciate.",m:"Track realised GPU-hours, not installed GPUs."},
  {t:"Refinancing mismatch",d:"Five-year hardware loans against shorter customer contracts and longer leases create a classic duration mismatch.",m:"Track covenant headroom and customer concentration."}],verdict:"The highest leverage in the infrastructure stack sits here. The building is not the asset; utilisation of rapidly depreciating compute is. Power, of all inputs, decides whether revenue starts on time."},
-6:{scores:[["Commoditisation",5],["Capex dependency",5],["Regulation",3],["Concentration",3]],items:[
+8:{scores:[["Commoditisation",5],["Capex dependency",5],["Regulation",3],["Concentration",3]],items:[
  {t:"Capability convergence",d:"Open and closed models can converge faster than providers build differentiated distribution.",m:"Track price per benchmark-adjusted token."},
  {t:"Efficiency shock",d:"Algorithmic gains can reduce training or inference demand per task faster than usage expands.",m:"Track total compute spend per completed workflow."},
  {t:"Weak pricing power",d:"Model APIs face routing, distillation and multi-model applications that arbitrage suppliers.",m:"Track net revenue retention after price cuts."},
  {t:"Evaluation failure",d:"Benchmarks can rise without reliability improving on economically valuable work.",m:"Track task completion and human-intervention rates."}],verdict:"Models are indispensable but may be a poor standalone profit pool. The investable question is who captures the surplus created by capability—not who temporarily leads a benchmark."},
-7:{scores:[["Commoditisation",5],["Platform capture",5],["Security",4],["Regulation",4]],items:[
+9:{scores:[["Commoditisation",5],["Platform capture",5],["Security",4],["Regulation",4]],items:[
  {t:"Feature absorption",d:"Model or cloud platforms can bundle the agent feature before an application earns distribution.",m:"Track gross retention when foundation models ship substitutes."},
  {t:"Incumbent destruction",d:"Agents can reduce seats, clicks and transaction fees in the same software companies expected to monetise them.",m:"Track revenue per completed task, not per seat."},
  {t:"Permission failure",d:"Tool access turns hallucination into an action; delegation chains create identity and audit gaps.",m:"Track irreversible-action rate and override frequency."},
  {t:"Workflow lock-in",d:"Without proprietary data or control of the system of record, switching costs may remain near zero.",m:"Track depth of write access and embedded approvals."}],verdict:"Distribution wins this layer only when it becomes workflow ownership. A thin agent wrapper is a feature; a governed system of record with proprietary feedback can be a business."},
-8:{scores:[["Timeline",5],["China exposure",5],["Price deflation",5],["Safety",4]],items:[
+10:{scores:[["Timeline",5],["China exposure",5],["Price deflation",5],["Safety",4]],items:[
  {t:"A decade early",d:"A category can be inevitable while productive autonomous deployments remain in the hundreds or low thousands.",m:"Track verified work hours and shipped units."},
  {t:"Chinese cost attack",d:"Green Harmonic prices reducers 30–50% below incumbents and is already inside major supply chains.",m:"Track share and reducer lead-time compression."},
  {t:"Architecture substitution",d:"Quasi-direct-drive motors can reduce or remove the harmonic reducer count per robot.",m:"Track actuator topology in production designs."},
@@ -1906,14 +1906,14 @@ layers:{h:['Layer','What it contains','The constraint'],r:[
 ['3 Connectivity and data','Private 5G, selective upload, fleet telemetry, storage','200 Tbps aggregate is not buildable'],
 ['4 Training and simulation','Foundation models, synthetic data, evaluation, 3–5 GW of compute','Demonstration data, not compute'],
 ['5 Deployment','Charging docks, maintenance depots, spares, technicians, certification','A maintenance trade that does not yet exist']]},
-cap:{t:'Fleet demand as a share of current world output',u:'% of annual production, log scale',c:C[7],log:true,b:[['Precision reducers',5000],['NdFeB magnets',13],['Image sensors',1.2],['Battery cells',1.1],['Copper',0.2]],
+cap:{t:'Fleet demand as a share of current world output',u:'% of annual production, log scale',c:C[9],log:true,b:[['Precision reducers',5000],['NdFeB magnets',13],['Image sensors',1.2],['Battery cells',1.1],['Copper',0.2]],
  note:'Global precision reducer output is estimated at roughly 5 million units a year including all industrial robotics and machine tools. This estimate is the single figure in the analysis most in need of independent verification.'},
 comp:{h:['Component','Per robot','Fleet total'],r:[
 ['Actuators, body and hands','45','450 million'],['Harmonic and RV reducers','25','250 million'],
 ['Planetary roller screws','12','120 million'],['Image sensors','8','80 million'],
 ['Force and torque sensors','6','60 million'],['Edge compute modules','1','10 million'],
 ['NdFeB magnet','3 kg','30,000 t'],['Copper','4 kg','40,000 t'],['Battery','2.0 kWh','20 GWh']]},
-bom:{t:'Where the cost sits in a humanoid',u:'% of bill of materials',c:C[7],b:[['Actuators and joints',50],['Sensors and perception',33],['Hands and manipulation',17]],
+bom:{t:'Where the cost sits in a humanoid',u:'% of bill of materials',c:C[9],b:[['Actuators and joints',50],['Sensors and perception',33],['Hands and manipulation',17]],
  note:'A humanoid is a mechatronics problem with an AI feature, not an AI problem with a mechanical body.'},
 cost:{h:['Platform','Bill of materials','Note'],r:[
 ['Unitree G1','$10,000–16,000','Lowest-cost commercial unit'],
@@ -1931,7 +1931,7 @@ edge:{h:['Hardware','Latency, π0-class model','Frequency'],r:[
 ['Jetson Thor, 128 GB','52.57 ms','19.0 Hz'],['Jetson Thor on π0-XL, 16.7B','—','2.1 Hz'],
 ['Datacenter GPU class','218.8 ms measured','Camera frame rate capable'],
 ['<b>Requirement</b>','<b>under 200 ms action cycle</b>','<b>Cloud round trip of 50–150 ms is marginal</b>']]},
-data:{t:'Robot interaction data, billions of hours',u:'log scale',c:C[8],log:true,b:[['Exists globally today',0.0005],['Needed, low estimate',1],['Needed, high estimate',10],['10M fleet, per year',58.4]],
+data:{t:'Robot interaction data, billions of hours',u:'log scale',c:C[10],log:true,b:[['Exists globally today',0.0005],['Needed, low estimate',1],['Needed, high estimate',10],['10M fleet, per year',58.4]],
  note:'The fleet reproduces the entire existing global corpus every 4.5 minutes and clears the low-end requirement in 6.2 days.'},
 eng:{h:['Metric','Value'],r:[
 ['Per robot','5.6 kWh/day at 350 W over 16 hours'],['Fleet annual consumption','20.4 TWh'],
@@ -1944,7 +1944,7 @@ econ:{h:['Item','Value'],r:[
 ['Supporting AI infrastructure, 3–5 GW','$114–190bn'],['Charging and deployment','$20–40bn'],
 ['<b>Total capital</b>','<b>$300–630bn</b>'],['Fleet output at $10/hr equivalent','$584bn per year'],
 ['At $15/hr','$876bn per year'],['At $25/hr','$1.46tn per year']]},
-ramp:{t:'Cumulative units at 100% annual production growth',u:'millions, log scale',c:C[7],log:true,b:[['2026',0.02],['2028',0.14],['2030',0.62],['2032',2.54],['2034',10.22]],
+ramp:{t:'Cumulative units at 100% annual production growth',u:'millions, log scale',c:C[9],log:true,b:[['2026',0.02],['2028',0.14],['2030',0.62],['2032',2.54],['2034',10.22]],
  note:'Reaching 10 million cumulative units requires doubling production every year for nine consecutive years from a 2026 base of roughly 20,000. No hardware industry has sustained that — and none faced a component needing fiftyfold expansion.'},
 rank:{h:['#','Constraint','Time to relieve'],r:[
 ['1','<span class="hl">Precision reducers and actuators</span>','8–12 years'],['2','<span class="hl">Rare earth magnets</span>','Political, not industrial'],
@@ -2524,10 +2524,10 @@ put('cx-tco',CX.stack100({
   rows:[
     {label:'Upfront capital',sub:'$37.9bn',totalLabel:'',segs:[
       {l:'Servers',v:21188,c:LC(4)},{l:'Facility',v:11433,c:LC(1)},{l:'Network',v:4925,c:LC(5)},
-      {l:'Energy and operations',v:0,c:LC(6)},{l:'Land and utility works',v:336,c:LC(8)}]},
+      {l:'Energy and operations',v:0,c:LC(8)},{l:'Land and utility works',v:336,c:LC(10)}]},
     {label:'Annualised total cost',sub:'$8.51bn per year',totalLabel:'',segs:[
       {l:'Servers',v:5021,c:LC(4)},{l:'Facility',v:1387,c:LC(1)},{l:'Network',v:1167,c:LC(5)},
-      {l:'Energy and operations',v:897,c:LC(6)},{l:'Land and utility works',v:39,c:LC(8)}]}],
+      {l:'Energy and operations',v:897,c:LC(8)},{l:'Land and utility works',v:39,c:LC(10)}]}],
   note:'Servers move from 56% of the cheque to 59% of the annual cost. Energy — the input every headline is about — is 7% of the annual bill and zero of the upfront one. Source: Epoch AI, May 2026; operations line aggregates energy, taxes, maintenance, labour and water.'
 }));
 
@@ -2537,12 +2537,12 @@ put('cx-lead-gantt',CX.gantt({
   max:66,
   rows:[
     {l:'Long-lead equipment orders',a:0,b:3,c:LC(1),kind:'lead',strong:1,tag:'must be first'},
-    {l:'Site and power strategy',a:0,b:12,c:LC(8)},
-    {l:'Permitting and entitlement',a:6,b:24,c:LC(8)},
-    {l:'Site works and foundations',a:12,b:24,c:LC(8)},
-    {l:'Shell construction',a:18,b:36,c:LC(8),tag:'18 months'},
+    {l:'Site and power strategy',a:0,b:12,c:LC(10)},
+    {l:'Permitting and entitlement',a:6,b:24,c:LC(10)},
+    {l:'Site works and foundations',a:12,b:24,c:LC(10)},
+    {l:'Shell construction',a:18,b:36,c:LC(10),tag:'18 months'},
     {l:'Electrical installation',a:24,b:42,c:LC(1)},
-    {l:'Mechanical and cooling',a:26,b:44,c:LC(6)},
+    {l:'Mechanical and cooling',a:26,b:44,c:LC(8)},
     {l:'Commissioning, levels 1–5',a:40,b:52,c:LC(5)},
     {l:'IT fit-out and burn-in',a:42,b:60,c:LC(4)},
     {l:'— large power transformer',a:0,b:29.5,c:LC(1),kind:'lead',tag:'128 wks'},
@@ -2560,7 +2560,7 @@ put('cx-energy-scatter',CX.scatter({
   points:[
     {x:6,y:0,r:6,c:LC(5),l:'Grid',sub:'no capex · 5–7 yr queue',ly:-2,an:'end',lx:-16,tip:'$0 capex, land 0 km², ~$594m a year'},
     {x:6,y:1,r:9,c:LC(1),l:'Gas CCGT',sub:'0.3 km² · turbine slot gated',ly:-26,tip:'~$1.0bn capex, $285–530m a year'},
-    {x:2.5,y:11.5,r:36,c:LC(7),l:'Solar + storage',sub:'~110 km² · not firm alone',ly:52,tip:'~$11–12bn capex, ~110 km² of land'},
+    {x:2.5,y:11.5,r:36,c:LC(9),l:'Solar + storage',sub:'~110 km² · not firm alone',ly:52,tip:'~$11–12bn capex, ~110 km² of land'},
     {x:7.5,y:9,r:12,c:LC(3),l:'Nuclear AP1000',sub:'~1.5 km² · 7+ years',ly:-6,an:'end',lx:-18,tip:'~$9.0bn capex, $570–1,280m a year'}],
   note:'Solar sized for genuine round-the-clock firmness needs roughly fourfold overbuild plus overnight storage — about ninety times the land of the campus it serves. Energy choice moves annual cost by a few hundred million on an $8.5bn total; it moves the schedule by years.'
 }));
@@ -2572,7 +2572,7 @@ put('cx-tornado',CX.tornado({
   rows:[
     {l:'Utilisation rate',sub:'90% → 50%',lo:2.56,hi:4.45,c:LC(1),loL:'$2.56',hiL:'$4.45'},
     {l:'IT equipment life',sub:'7 years → 3 years',lo:2.70,hi:4.36,c:LC(4),loL:'$2.70',hiL:'$4.36'},
-    {l:'Energy source',sub:'gas → nuclear',lo:3.13,hi:3.32,c:LC(6),loL:'$3.13',hiL:'$3.32'}],
+    {l:'Energy source',sub:'gas → nuclear',lo:3.13,hi:3.32,c:LC(8),loL:'$3.13',hiL:'$3.32'}],
   marks:[{x:3.49,label:'cheapest contract $3.49'},{x:4.26,label:'spot median $4.26'}],
   note:'Depreciation swings the answer 8.7 times harder than the energy source. Stated honestly, utilisation across the range tested is wider still — and it is the variable that moves first if demand softens. The energy debate that dominates commentary is the narrowest bar on the chart. All three are drawn from the same model; 3-year and 5-year cases both sit above the cheapest contracted price.'
 }));
@@ -2585,7 +2585,7 @@ put('cx-util-lines',CX.lines({
   series:[
     {n:'3-year life',v:[6.10,5.12,4.36,3.89,3.48],c:LC(3)},
     {n:'5-year life',v:[4.45,3.74,3.19,2.85,2.56],c:LC(4)},
-    {n:'7-year life',v:[3.75,3.16,2.70,2.42,2.17],c:LC(6)}],
+    {n:'7-year life',v:[3.75,3.16,2.70,2.42,2.17],c:LC(8)}],
   marks:[{y:3.49,label:'cheapest custom contract, $3.49'},{y:4.26,label:'spot median, $4.26'}],
   note:'The 3-year line never crosses below the contract floor at any plausible utilisation. The 5-year line clears it only above roughly 65% occupancy. Break-even includes a 12% return on capital; market reference prices are B200 rates at 1 September 2026.'
 }));
@@ -2593,12 +2593,12 @@ put('cx-util-lines',CX.lines({
 put('cx-capstack',CX.stack100({
   t:'Two capital structures, one asset',
   q:'Same building, same chips, different survival odds. The discount rate should not be the same.',
-  key:[{l:'Equity and operating cash flow',c:LC(6)},{l:'Project debt and private credit',c:LC(4)},{l:'GPU-collateralised debt',c:LC(3)}],
+  key:[{l:'Equity and operating cash flow',c:LC(8)},{l:'Project debt and private credit',c:LC(4)},{l:'GPU-collateralised debt',c:LC(3)}],
   rows:[
     {label:'Hyperscaler-funded',sub:'balance-sheet capex',segs:[
-      {l:'Equity and operating cash flow',v:75,c:LC(6)},{l:'Project debt and private credit',v:25,c:LC(4)},{l:'GPU-collateralised debt',v:0,c:LC(3)}]},
+      {l:'Equity and operating cash flow',v:75,c:LC(8)},{l:'Project debt and private credit',v:25,c:LC(4)},{l:'GPU-collateralised debt',v:0,c:LC(3)}]},
     {label:'Neocloud-funded',sub:'levered SPV',segs:[
-      {l:'Equity and operating cash flow',v:20,c:LC(6)},{l:'Project debt and private credit',v:45,c:LC(4)},{l:'GPU-collateralised debt',v:35,c:LC(3)}]}],
+      {l:'Equity and operating cash flow',v:20,c:LC(8)},{l:'Project debt and private credit',v:45,c:LC(4)},{l:'GPU-collateralised debt',v:35,c:LC(3)}]}],
   note:'ILLUSTRATIVE — midpoints chosen inside the disclosed ranges in the table above to show the shape of the difference, not a survey of actual deals. The structural point is not a percentage: a representative neocloud carries five-year loans against three-year customer contracts and fifteen-year leases, secured on an asset whose useful life is the single most contested assumption in the project.'
 }));
 
@@ -2607,7 +2607,7 @@ put('cx-bom-donut',CX.donut({
   t:'Where the cost sits in one humanoid',
   q:'A mechatronics problem with an AI feature, not the reverse.',
   centre:['~50%','actuation'],
-  data:[{l:'Actuators and joints',v:50,c:LC(7),vl:'50%'},{l:'Sensors and perception',v:33,c:LC(5),vl:'33%'},{l:'Hands and manipulation',v:17,c:LC(3),vl:'17%'}],
+  data:[{l:'Actuators and joints',v:50,c:LC(9),vl:'50%'},{l:'Sensors and perception',v:33,c:LC(5),vl:'33%'},{l:'Hands and manipulation',v:17,c:LC(3),vl:'17%'}],
   note:'Morgan Stanley\u2019s teardown of an Optimus Gen 2-class robot put actuators at roughly 56% of a ~$55,000 bill of materials; independent 2026 estimates place high-precision joint actuators at 40–55% of hardware cost. Shares are analyst estimates, not disclosures.'
 }));
 
@@ -2618,7 +2618,7 @@ put('cx-ramp',CX.lines({
   y:{min:0.01,max:20,ticks:[0.01,0.1,1,10],title:'cumulative units, log scale',fmt:t=>t<1?(t*1000).toFixed(0)+'k':t+'m'},log:true,
   series:[
     {n:'Annual production',v:[0.02,0.08,0.32,1.28,5.12],c:LC(5),dash:true},
-    {n:'Cumulative fleet',v:[0.02,0.14,0.62,2.54,10.22],c:LC(7)}],
+    {n:'Cumulative fleet',v:[0.02,0.14,0.62,2.54,10.22],c:LC(9)}],
   marks:[{y:10,label:'10 million cumulative'}],
   note:'DERIVED — sustained 100% annual production growth applied to a 2026 base of roughly 20,000 units. Reaching the threshold requires doubling output every year for nine consecutive years. No hardware industry has sustained that, and none faced a component whose supply chain must grow fiftyfold.'
 }));
@@ -2629,26 +2629,26 @@ put('cx-bottleneck',CX.scatter({
   x:{min:0,max:13,ticks:[0,3,6,9,12],title:'years to relieve →',fmt:t=>t+'y'},
   y:{min:0,max:5.6,ticks:[1,2,3,4,5],title:'severity, 1 low → 5 high',fmt:t=>String(t)},
   points:[
-    {x:10,y:5,r:22,c:LC(7),l:'Precision reducers',sub:'~50× expansion',ly:-32,tip:'8–12 years to relieve'},
+    {x:10,y:5,r:22,c:LC(9),l:'Precision reducers',sub:'~50× expansion',ly:-32,tip:'8–12 years to relieve'},
     {x:11.5,y:4.6,r:16,c:LC(1),l:'Rare earth magnets',sub:'political, not industrial',ly:24,an:'middle',lx:0,tip:'13% of world output, export-controlled'},
     {x:8,y:4.3,r:14,c:LC(3),l:'Manipulation and tactile',sub:'research-dependent',ly:-22,tip:'Unsolved for unstructured work'},
     {x:4,y:3.4,r:12,c:LC(5),l:'Edge inference',sub:'3–5 years',ly:-22,tip:'Models outpace deployable hardware'},
     {x:1.5,y:3.9,r:11,c:LC(4),l:'Training data',sub:'self-resolving above 1m units',ly:-18,an:'end',lx:-16,tip:'Severe below 1m units'},
-    {x:3,y:2.4,r:9,c:LC(6),l:'Battery runtime',sub:'workarounds exist',ly:22,tip:'Architectural, not chemical'},
-    {x:7,y:2.0,r:9,c:LC(8),l:'Maintenance trade',sub:'5–10 years',ly:22,tip:'A trade that does not yet exist'},
-    {x:1,y:1.0,r:7,c:LC(8),l:'Fleet electricity',sub:'not a constraint',ly:20,an:'start',lx:-6,tip:'~0.5% of US consumption'}],
+    {x:3,y:2.4,r:9,c:LC(8),l:'Battery runtime',sub:'workarounds exist',ly:22,tip:'Architectural, not chemical'},
+    {x:7,y:2.0,r:9,c:LC(10),l:'Maintenance trade',sub:'5–10 years',ly:22,tip:'A trade that does not yet exist'},
+    {x:1,y:1.0,r:7,c:LC(10),l:'Fleet electricity',sub:'not a constraint',ly:20,an:'start',lx:-6,tip:'~0.5% of US consumption'}],
   note:'Severity scores are the author\u2019s ranking, positioned against the time-to-relieve estimates in the table below. The reducer capacity denominator behind the fiftyfold figure is a derivation from industrial robot installation volumes, not a disclosed statistic, and is the single number here most in need of primary-source verification.'
 }));
 
 put('cx-energy-cmp',CX.shareBars({
   t:'Fleet energy in context',
-  q:'Ten million robots against the infrastructure that trains them.',c:LC(7),
+  q:'Ten million robots against the infrastructure that trains them.',c:LC(9),
   max:100,
   rows:[
     {l:'Supporting AI training compute, 3–5 GW',v:100,vl:'~26 TWh',c:LC(4)},
-    {l:'10m humanoid fleet, all charging',v:78,vl:'20.4 TWh',c:LC(7)},
+    {l:'10m humanoid fleet, all charging',v:78,vl:'20.4 TWh',c:LC(9)},
     {l:'One 1 GW data centre',v:27,vl:'7.1 TWh',c:LC(5)},
-    {l:'Fleet on-board compute, distributed',v:16,vl:'~1.3 GW',c:LC(8)}],
+    {l:'Fleet on-board compute, distributed',v:16,vl:'~1.3 GW',c:LC(10)}],
   note:'DERIVED — annual terawatt-hours, scaled to the largest bar. The 3–5 GW training estimate is converted at the same 71% utilisation used in the gigawatt model. The whole fleet is roughly 0.5% of US electricity consumption, or 2.9 gigawatt-scale data centres. Compute is energy-intensive; physical work is not. The grid strain from AI comes from training and inference, not from embodiment — the charging load is spread across thousands of facilities and looks like ordinary industrial load growth.'
 }));
 
@@ -2666,7 +2666,7 @@ window.addEventListener('hashchange',()=>setTimeout(fillAll,60));
   const el=document.getElementById('cx-sankey'); if(!el) return;
   const W=720,H=372,T=24,BH=300;
   const mid=[{l:'Servers',v:21188,c:LC(4)},{l:'Facility',v:11433,c:LC(1)},
-             {l:'Network infrastructure',v:4925,c:LC(5)},{l:'Land and utility works',v:336,c:LC(8)}];
+             {l:'Network infrastructure',v:4925,c:LC(5)},{l:'Land and utility works',v:336,c:LC(10)}];
   const sub=[{l:'Electrical infrastructure',v:4875},{l:'Cooling systems',v:2300},
              {l:'Building shell and envelope',v:1425},{l:'Fire, security, controls',v:1150},
              {l:'Design, PM, contingency',v:1113},{l:'Site works and roads',v:570}];
@@ -2729,15 +2729,15 @@ const MOATWHY={
   m:'Heavy capital, weak differentiation. Anyone with land, a balance sheet and a contractor can build a hall. What is genuinely scarce is not the building but the signed grid connection and power contract behind it — and that is an asset the operator secured years earlier, not a durable capability.',
   c:'Steel, concrete, copper and cooling plant are ordinary industrial inputs. The constraint is the interconnection queue and the transformer lead time, which belong to layer 1 rather than here.',
   w:'A moat exists only where power was locked in early. Where it was not, this is a commodity landlord business.'},
-6:{t:'AI models',moat:'Weak',cp:'None',
+8:{t:'AI models',moat:'Weak',cp:'None',
   m:'The weakest durable moat relative to the capital consumed. Weights depreciate in months, switching cost for a buyer is a prompt rewrite, and open weights put a hard floor under what an equivalent API call can be priced at. What is defensible — distribution, proprietary data, workflow integration — is not the model.',
   c:'None. The layer consumes compute and electricity, both bought from below, and has no material input of its own. This is why it sits at the origin on the chokepoint axis.',
   w:'This layer spends the most and is likeliest to keep the least. Watch the gap between open-weight and frontier capability.'},
-7:{t:'Software and agents',moat:'Contested',cp:'None',
+9:{t:'Software and agents',moat:'Contested',cp:'None',
   m:'Higher than models despite no physical constraint, because incumbency in enterprise software is sticky: the data, permissions and process knowledge live in the system of record. But agents attack the pricing model directly — if software does the work rather than helping a person do it, per-seat pricing stops tracking value.',
   c:'None whatsoever. No material input, no lead time, no capital intensity. The layer is pure competition, which is exactly why nothing physical protects an incumbent.',
   w:'The layer where AI most plausibly destroys incumbent value rather than creating it. Vendors already billing on consumption benefit mechanically; those billing per seat do not.'},
-8:{t:'AI embodiment',moat:'Moderate',cp:'High',
+10:{t:'AI embodiment',moat:'Moderate',cp:'High',
   m:'The chokepoints are real but they sit with the component makers, not the humanoid developers attracting the capital. Precision reducers come from two or three Japanese firms at volume; the developers assembling them have little that is hard to copy. The one non-replicable asset is fleet-scale operating data, and almost nobody has it yet.',
   c:'Neodymium-iron-boron magnets with dysprosium or terbium for heat resistance, which places the most Western-facing robotics thesis directly downstream of Chinese separation capacity. Add precision reducers ground to micron tolerances and image sensors from a single dominant supplier.',
   w:'This layer is a diagnostic for where physical constraints bind, not an allocation. The geography inverts against a Western portfolio.'},
@@ -2773,7 +2773,7 @@ const MOATWHY={
   el.innerHTML=`<h4>Chokepoint and moat, layer by layer</h4>`+
     `<p class="cq">The correlation is the most useful heuristic in the analysis.</p>`+
     `<div class="dia-shell">`+
-      `<div class="dia-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the eight layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+`</div>`+
+      `<div class="dia-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the ten layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+`</div>`+
       `<aside class="dia-info" id="mx-info" aria-live="polite">${REST}</aside>`+
     `</div>`+
     `<figcaption class="cnote">Positions are the author’s assessment on both axes, not measured values. They encode the argument made in each layer rather than a dataset, and should be read as a ranking, not a measurement.</figcaption>`;
@@ -2810,14 +2810,14 @@ function policySVG(){
     {d:Date.UTC(2024,11,1),l:'Ga, Ge and Sb banned to the US',s:'Dec 2024',up:0,lv:1,an:'middle',c:LC(3)},
     {d:Date.UTC(2025,3,4),l:'Seven heavy rare earths licensed',s:'4 Apr 2025 · never suspended',up:1,lv:2,an:'middle',c:LC(1),flag:1},
     {d:Date.UTC(2025,9,9),l:'Announcements 61 and 62',s:'9 Oct 2025 · technology export ban',up:0,lv:2,an:'end',c:LC(1)},
-    {d:Date.UTC(2025,10,7),l:'One-year suspension',s:'7 Nov 2025',up:1,lv:1,an:'middle',c:LC(6)},
+    {d:Date.UTC(2025,10,7),l:'One-year suspension',s:'7 Nov 2025',up:1,lv:1,an:'middle',c:LC(8)},
     {d:Date.UTC(2026,5,22),l:'MP Materials and USA Rare Earth listed',s:'22 Jun 2026',up:0,lv:1,an:'middle',c:LC(3)},
     {d:Date.UTC(2026,10,10),l:'Suspension expires',s:'10–27 Nov 2026',up:1,lv:2,an:'end',c:LC(3),flag:1}];
   let g=`<line class="ax" x1="${LP}" y1="${Y}" x2="${W-RP}" y2="${Y}" stroke-width="1.6"/>`;
   [2024,2025,2026].forEach(yr=>{ const x=px(Date.UTC(yr,0,1)).toFixed(1);
     g+=`<line class="gr" x1="${x}" y1="18" x2="${x}" y2="${H-30}"/><text class="cs" x="${x}" y="${H-12}" text-anchor="middle">${yr}</text>`; });
   const a=px(Date.UTC(2025,10,7)),b=px(Date.UTC(2026,10,10));
-  g+=`<rect x="${a.toFixed(1)}" y="${Y-9}" width="${(b-a).toFixed(1)}" height="18" rx="4" fill="${LC(6)}" fill-opacity=".18"/>`+
+  g+=`<rect x="${a.toFixed(1)}" y="${Y-9}" width="${(b-a).toFixed(1)}" height="18" rx="4" fill="${LC(8)}" fill-opacity=".18"/>`+
      `<text class="cs" x="${(a+(b-a)*0.34).toFixed(1)}" y="${Y+4}" text-anchor="middle">October package suspended</text>`;
   E.forEach(e=>{
     const x=px(e.d), stem=e.lv===1?30:62, dir=e.up?-1:1;
@@ -2867,7 +2867,7 @@ const CONC={
    {l:'2026 US capacity under construction',v:33},
    {l:'Land and interconnection, of budget',v:0.9}],
    note:'The last two rows are the layer in one line: the cheapest input gates the schedule, and announced capacity is not delivered capacity.'},
- 8:{t:'Concentration in the embodiment supply chain',c:LC(7),rows:[
+ 10:{t:'Concentration in the embodiment supply chain',c:LC(9),rows:[
    {l:'China, rare earth magnet production',v:70},
    {l:'China, humanoid component supply',v:63},
    {l:'Nabtesco, RV reducers',v:60},
