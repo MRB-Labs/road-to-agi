@@ -1,72 +1,57 @@
-# Company identity and the market map
+# Companies in the value chains
 
-This report carries its own company data and its own identity assets. Nothing
-here reaches a logo API, a CDN, a company website or any other provider — at
-build time or at run time.
+`AI_INFRASTRUCTURE_COMPANY_AND_LOGO_DATABASE_V2/AI_INFRASTRUCTURE_COMPANY_VALUE_CHAIN_DATABASE.md`
+decides which companies appear at each stage. The builder reads that file
+directly — names, tickers and value-chain positions all come from it.
 
 ```bash
-python3 brand/build-companies.py           # rebuild assets, registry and site data
-python3 brand/build-companies.py --check   # fail if the repository is out of date
+python3 brand/build-companies.py           # rebuild the market map and CT rows
+python3 brand/build-companies.py --check   # fail if script.js is out of date
+python3 brand/build-companies.py --logos   # list named companies with no logo
 python3 bump-assets.py                     # re-stamp the asset hashes afterwards
 ```
 
-## What is generated
+It writes a block into `script.js` between `BEGIN generated-company-data` and
+`END generated-company-data` holding `MARKET_MAP` and the `CT` rows those
+companies need, plus `brand/company_registry.csv` for reference. **Do not edit
+the block in `script.js`** — `--check` will say so, and the next build would
+overwrite it.
 
-| Output | What it is |
-|---|---|
-| `assets/company-logos/<id>/icon.svg` | One local SVG identity tile per entity |
-| `brand/company_registry.csv` | One row per entity: id, status, ticker, country, domain, asset, origin, rights |
-| `script.js` (between markers) | `BRAND`, `MARKET_MAP` and the `CT` additions |
+## Logos are not generated here
 
-The block inside `script.js` sits between `BEGIN generated-company-data` and
-`END generated-company-data`. **Do not edit it there** — `--check` will tell you
-if someone has, and the next build would overwrite it.
+Company marks come from `assets/logos/`, vendored from CompaniesLogo.com and
+from company sites. This builder does not touch them and never creates one.
 
-## Sources
+A company with no mark shows a **blank plate** with its name and ticker. That is
+the correct behaviour. An earlier version of this script generated neutral
+initial tiles for every entity, and it was a mistake: a generated tile sits in
+the same place as a real logo and reads as the company's own mark, so the
+reader cannot tell which marks are real. No mark is honest; an invented one is
+not.
 
-`AI_INFRASTRUCTURE_COMPANY_AND_LOGO_DATABASE_V2/` is the source of truth for
-companies, tickers, entity status and value-chain placement. It is a curated
-market map, not an exhaustive registry, and inclusion means relevance rather
-than market leadership, endorsement or investment suitability.
+Currently 696 of the 841 companies the database names have no logo. To add one,
+put the file in `assets/logos/` and add the entry to `LOGO` in `script.js`;
+`--logos` lists what is missing.
 
-It does not carry every company this report already names — Ajinomoto and
-Fujikura among them, and Ajinomoto is a named sole-source chokepoint in layer 3.
-Those entities keep working: the builder generates a tile for them in the same
-deterministic style, and the registry records `origin=report` rather than
-`origin=database` so the difference stays visible.
+Generic groups — "Hyperscalers", "Utilities", "Frontier labs" — are excluded
+from the registry entirely. They are categories, not companies.
 
-## The marks are not logos
-
-Every tile is a **neutral identifier** — initials on a colour derived from the
-entity id — not an official trademark. That is deliberate: it is what makes the
-report self-contained and free of anyone's usage terms.
-
-An official mark may replace a tile only after it has been obtained from the
-company's own brand or media kit, and only once its source URL, retrieval date,
-licence, variant and checksum are recorded in the registry. Until then the
-`rights_status` column says exactly what the asset is. Logos remain the
-trademarks of their owners.
-
-Generic groups — "Hyperscalers", "Utilities", "Frontier labs" and the like —
-get no mark at all. They are categories, not companies, and giving one an
-identity would be inventing something that does not exist.
-
-## How the market map reaches the chains
+## How positions map onto this report's chains
 
 The database uses its own value-chain positions; this report's chains were
 written to the `AUDIT/` brief and carry their own prose, ordering and
-chokepoint qualifications. Neither is wrong, so `brand/stage_map.py` maps every
-database position onto the stage it belongs to here, by hand, with the
+chokepoint qualifications. Neither is wrong, so `brand/stage_map.py` maps all
+126 database positions onto the stage each belongs to here, by hand, with
 deliberate omissions marked `None` and their reason given.
 
-In a stage, the curated entries come first and carry the argument — what that
-company supplies at that point. The rest follow in a collapsed block that
-carries coverage. Conflating the two would lose the distinction.
+In a stage the curated entries come first and carry the argument — what that
+company supplies at that point. The rest follow in a collapsed block carrying
+coverage. Conflating the two would lose the distinction.
 
-## What this does not cover
+## Interpretation
 
-Market quotes and fundamentals still come from outside: the company dialog
-embeds TradingView, and `scripts/fetch_fundamentals.py` calls Financial
-Modeling Prep from a scheduled job. Neither is a logo or company-identity
-dependency, and neither is addressed by this database — see the note in the
-project README before assuming the site is fully provider-free.
+The database is a curated global market map, not an exhaustive registry.
+Inclusion means relevance to the stage, not market leadership, endorsement or
+investment suitability. A company can appear at several stages and in several
+layers. Ownership and listing status are time-sensitive and should be refreshed
+before publication.

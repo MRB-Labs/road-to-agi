@@ -1,926 +1,842 @@
-company_id,display_name,entity_status,ticker,country,stockanalysis_path,official_domain,asset,origin,rights_status
-1x,1X,Private/other,,,,1x.tech,assets/company-logos/1x/icon.svg,database,Generated neutral identifier — not an official mark
-abb,ABB,Public,ABBN.SW,Switzerland,quote/swx/abbn,,assets/company-logos/abb/icon.svg,database,Generated neutral identifier — not an official mark
-abridge,Abridge,Private/other,,,,abridge.com,assets/company-logos/abridge/icon.svg,database,Generated neutral identifier — not an official mark
-acceldata,Acceldata,Private/other,,,,acceldata.io,assets/company-logos/acceldata/icon.svg,database,Generated neutral identifier — not an official mark
-accelink,Accelink,Public,002281.SZ,China,quote/she/002281,,assets/company-logos/accelink/icon.svg,database,Generated neutral identifier — not an official mark
-addverb,Addverb,Private/other,,,,addverb.com,assets/company-logos/addverb/icon.svg,database,Generated neutral identifier — not an official mark
-adobe,Adobe,Public,ADBE,United States,stocks/adbe,,assets/company-logos/adobe/icon.svg,database,Generated neutral identifier — not an official mark
-advantest,Advantest,Public,6857.T,Japan,quote/tyo/6857,,assets/company-logos/advantest/icon.svg,database,Generated neutral identifier — not an official mark
-aecom,AECOM,Public,ACM,United States,stocks/acm,,assets/company-logos/aecom/icon.svg,database,Generated neutral identifier — not an official mark
-aembit,Aembit,Private/other,,,,aembit.io,assets/company-logos/aembit/icon.svg,database,Generated neutral identifier — not an official mark
-aerovironment,AeroVironment,Public,AVAV,United States,stocks/avav,,assets/company-logos/aerovironment/icon.svg,database,Generated neutral identifier — not an official mark
-aes,AES,Public,AES,United States,stocks/aes,,assets/company-logos/aes/icon.svg,database,Generated neutral identifier — not an official mark
-agc,AGC,Public,5201.T,Japan,quote/tyo/5201,,assets/company-logos/agc/icon.svg,database,Generated neutral identifier — not an official mark
-agentops,AgentOps,Private/other,,,,agentops.ai,assets/company-logos/agentops/icon.svg,database,Generated neutral identifier — not an official mark
-agibot,AgiBot,Unclassified,,,,,assets/company-logos/agibot/icon.svg,report,Generated neutral identifier — not an official mark
-agility,Agility,Unclassified,,,,,assets/company-logos/agility/icon.svg,report,Generated neutral identifier — not an official mark
-agility-robotics,Agility Robotics,Private/other,,,,agilityrobotics.com,assets/company-logos/agility-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-ai21-labs,AI21 Labs,Private/other,,,,ai21.com,assets/company-logos/ai21-labs/icon.svg,database,Generated neutral identifier — not an official mark
-air-liquide,Air Liquide,Public,AI.PA,France,quote/epa/ai,,assets/company-logos/air-liquide/icon.svg,database,Generated neutral identifier — not an official mark
-air-products,Air Products,Public,APD,United States,stocks/apd,,assets/company-logos/air-products/icon.svg,database,Generated neutral identifier — not an official mark
-airbyte,Airbyte,Private/other,,,,airbyte.com,assets/company-logos/airbyte/icon.svg,database,Generated neutral identifier — not an official mark
-airspan-related-assets,Airspan-related assets,Unclassified,,,,,assets/company-logos/airspan-related-assets/icon.svg,database,Generated neutral identifier — not an official mark
-aisera,Aisera,Private/other,,,,aisera.com,assets/company-logos/aisera/icon.svg,database,Generated neutral identifier — not an official mark
-ajinomoto,Ajinomoto,Unclassified,,,,,assets/company-logos/ajinomoto/icon.svg,report,Generated neutral identifier — not an official mark
-akamai,Akamai,Public,AKAM,United States,stocks/akam,,assets/company-logos/akamai/icon.svg,database,Generated neutral identifier — not an official mark
-alation,Alation,Private/other,,,,alation.com,assets/company-logos/alation/icon.svg,database,Generated neutral identifier — not an official mark
-albemarle,Albemarle,Public,ALB,United States,stocks/alb,,assets/company-logos/albemarle/icon.svg,database,Generated neutral identifier — not an official mark
-alcoa,Alcoa,Public,AA,United States,stocks/aa,,assets/company-logos/alcoa/icon.svg,database,Generated neutral identifier — not an official mark
-aleph-alpha,Aleph Alpha,Private/other,,,,aleph-alpha.com,assets/company-logos/aleph-alpha/icon.svg,database,Generated neutral identifier — not an official mark
-alfa-laval,Alfa Laval,Unclassified,,,,,assets/company-logos/alfa-laval/icon.svg,report,Generated neutral identifier — not an official mark
-alibaba,Alibaba,Public,9988.HK,Hong Kong,quote/hkg/9988,,assets/company-logos/alibaba/icon.svg,database,Generated neutral identifier — not an official mark
-alibaba-qwen,Alibaba Qwen,Unclassified,,,,,assets/company-logos/alibaba-qwen/icon.svg,report,Generated neutral identifier — not an official mark
-alibaba-t-head,Alibaba T-Head,Private/other,,,,,assets/company-logos/alibaba-t-head/icon.svg,database,Generated neutral identifier — not an official mark
-aligned-data-centers,Aligned Data Centers,Subsidiary/private/other,,,,aligneddc.com,assets/company-logos/aligned-data-centers/icon.svg,database,Generated neutral identifier — not an official mark
-alphabet,Alphabet,Public,GOOG,United States,stocks/goog,,assets/company-logos/alphabet/icon.svg,database,Generated neutral identifier — not an official mark
-alphawave-semi-assets-where-integrated,Alphawave Semi assets where integrated,Private/other,,,,,assets/company-logos/alphawave-semi-assets-where-integrated/icon.svg,database,Generated neutral identifier — not an official mark
-amazon,Amazon,Public,AMZN,United States,stocks/amzn,,assets/company-logos/amazon/icon.svg,database,Generated neutral identifier — not an official mark
-ambarella,Ambarella,Public,AMBA,United States,stocks/amba,,assets/company-logos/ambarella/icon.svg,database,Generated neutral identifier — not an official mark
-amd,AMD,Public,AMD,United States,stocks/amd,,assets/company-logos/amd/icon.svg,database,Generated neutral identifier — not an official mark
-american-electric-power,American Electric Power,Public,AEP,United States,stocks/aep,,assets/company-logos/american-electric-power/icon.svg,database,Generated neutral identifier — not an official mark
-american-tower,American Tower,Public,AMT,United States,stocks/amt,,assets/company-logos/american-tower/icon.svg,database,Generated neutral identifier — not an official mark
-amkor,Amkor,Public,AMKR,United States,stocks/amkr,,assets/company-logos/amkor/icon.svg,database,Generated neutral identifier — not an official mark
-ampere-computing,Ampere Computing,Subsidiary/private/other,,,,amperecomputing.com,assets/company-logos/ampere-computing/icon.svg,database,Generated neutral identifier — not an official mark
-amphenol,Amphenol,Public,APH,United States,stocks/aph,,assets/company-logos/amphenol/icon.svg,database,Generated neutral identifier — not an official mark
-ams-osram,ams OSRAM,Unclassified,,,,,assets/company-logos/ams-osram/icon.svg,report,Generated neutral identifier — not an official mark
-analog-devices,Analog Devices,Public,ADI,United States,stocks/adi,,assets/company-logos/analog-devices/icon.svg,database,Generated neutral identifier — not an official mark
-anduril,Anduril,Private/other,,,,anduril.com,assets/company-logos/anduril/icon.svg,database,Generated neutral identifier — not an official mark
-anglo-american,Anglo American,Public,AAL.L,United Kingdom,quote/lon/aal,,assets/company-logos/anglo-american/icon.svg,database,Generated neutral identifier — not an official mark
-anthropic,Anthropic,Private/other,,,,anthropic.com,assets/company-logos/anthropic/icon.svg,database,Generated neutral identifier — not an official mark
-antofagasta,Antofagasta,Public,ANTO.L,United Kingdom,quote/lon/anto,,assets/company-logos/antofagasta/icon.svg,database,Generated neutral identifier — not an official mark
-anyscale,Anyscale,Private/other,,,,anyscale.com,assets/company-logos/anyscale/icon.svg,database,Generated neutral identifier — not an official mark
-anysphere-cursor,Anysphere/Cursor,Unclassified,,,,,assets/company-logos/anysphere-cursor/icon.svg,database,Generated neutral identifier — not an official mark
-appen,Appen,Public,APX.AX,Australia,quote/asx/apx,,assets/company-logos/appen/icon.svg,database,Generated neutral identifier — not an official mark
-appian,Appian,Public,APPN,United States,stocks/appn,,assets/company-logos/appian/icon.svg,database,Generated neutral identifier — not an official mark
-apple,Apple,Public,AAPL,United States,stocks/aapl,,assets/company-logos/apple/icon.svg,database,Generated neutral identifier — not an official mark
-applied-digital,Applied Digital,Public,APLD,United States,stocks/apld,,assets/company-logos/applied-digital/icon.svg,database,Generated neutral identifier — not an official mark
-applied-intuition,Applied Intuition,Private/other,,,,applied.co,assets/company-logos/applied-intuition/icon.svg,database,Generated neutral identifier — not an official mark
-applied-materials,Applied Materials,Public,AMAT,United States,stocks/amat,,assets/company-logos/applied-materials/icon.svg,database,Generated neutral identifier — not an official mark
-applied-optoelectronics,Applied Optoelectronics,Public,AAOI,United States,stocks/aaoi,,assets/company-logos/applied-optoelectronics/icon.svg,database,Generated neutral identifier — not an official mark
-apptronik,Apptronik,Private/other,,,,apptronik.com,assets/company-logos/apptronik/icon.svg,database,Generated neutral identifier — not an official mark
-aqua-security,Aqua Security,Private/other,,,,aquasec.com,assets/company-logos/aqua-security/icon.svg,database,Generated neutral identifier — not an official mark
-arcelormittal,ArcelorMittal,Public,MT,United States,stocks/mt,,assets/company-logos/arcelormittal/icon.svg,database,Generated neutral identifier — not an official mark
-archer-aviation,Archer Aviation,Public,ACHR,United States,stocks/achr,,assets/company-logos/archer-aviation/icon.svg,database,Generated neutral identifier — not an official mark
-arista,Arista,Public,ANET,United States,stocks/anet,,assets/company-logos/arista/icon.svg,database,Generated neutral identifier — not an official mark
-arista-networks,Arista Networks,Unclassified,,,,,assets/company-logos/arista-networks/icon.svg,database,Generated neutral identifier — not an official mark
-arize-ai,Arize AI,Private/other,,,,arize.com,assets/company-logos/arize-ai/icon.svg,database,Generated neutral identifier — not an official mark
-arm,Arm,Public,ARM,United States,stocks/arm,,assets/company-logos/arm/icon.svg,database,Generated neutral identifier — not an official mark
-armis,Armis,Private/other,,,,armis.com,assets/company-logos/armis/icon.svg,database,Generated neutral identifier — not an official mark
-arnold-magnetic-technologies,Arnold Magnetic Technologies,Private/other,,,,arnoldmagnetics.com,assets/company-logos/arnold-magnetic-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-arrow-electronics,Arrow Electronics,Public,ARW,United States,stocks/arw,,assets/company-logos/arrow-electronics/icon.svg,database,Generated neutral identifier — not an official mark
-arthur-ai,Arthur AI,Private/other,,,,arthur.ai,assets/company-logos/arthur-ai/icon.svg,database,Generated neutral identifier — not an official mark
-arup,Arup,Private/other,,,,arup.com,assets/company-logos/arup/icon.svg,database,Generated neutral identifier — not an official mark
-arup-peers,Arup peers,Unclassified,,,,,assets/company-logos/arup-peers/icon.svg,database,Generated neutral identifier — not an official mark
-ascend-elements,Ascend Elements,Private/other,,,,ascend-elements.com,assets/company-logos/ascend-elements/icon.svg,database,Generated neutral identifier — not an official mark
-ase,ASE,Unclassified,,,,,assets/company-logos/ase/icon.svg,report,Generated neutral identifier — not an official mark
-ase-technology,ASE Technology,Public,3711.TW,Taiwan,quote/tpe/3711,,assets/company-logos/ase-technology/icon.svg,database,Generated neutral identifier — not an official mark
-asm-international,ASM International,Public,ASM.AS,Netherlands,quote/ams/asm,,assets/company-logos/asm-international/icon.svg,database,Generated neutral identifier — not an official mark
-asml,ASML,Public,ASML,United States,stocks/asml,,assets/company-logos/asml/icon.svg,database,Generated neutral identifier — not an official mark
-asmpt,ASMPT,Public,0522.HK,Hong Kong,quote/hkg/0522,,assets/company-logos/asmpt/icon.svg,database,Generated neutral identifier — not an official mark
-associated-publishers-archives-and-specialist-datasets,"Associated publishers, archives and specialist datasets",Unclassified,,,,,assets/company-logos/associated-publishers-archives-and-specialist-datasets/icon.svg,database,Generated neutral identifier — not an official mark
-ast-spacemobile,AST SpaceMobile,Public,ASTS,United States,stocks/asts,,assets/company-logos/ast-spacemobile/icon.svg,database,Generated neutral identifier — not an official mark
-astera-labs,Astera Labs,Public,ALAB,United States,stocks/alab,,assets/company-logos/astera-labs/icon.svg,database,Generated neutral identifier — not an official mark
-at-s,AT&S,Unclassified,,,,,assets/company-logos/at-s/icon.svg,report,Generated neutral identifier — not an official mark
-at-t,AT&T,Unclassified,,,,,assets/company-logos/at-t/icon.svg,report,Generated neutral identifier — not an official mark
-ati,ATI,Public,ATI,United States,stocks/ati,,assets/company-logos/ati/icon.svg,database,Generated neutral identifier — not an official mark
-ati-industrial,ATI Industrial,Unclassified,,,,,assets/company-logos/ati-industrial/icon.svg,report,Generated neutral identifier — not an official mark
-ati-industrial-automation,ATI Industrial Automation,Subsidiary/private/other,,,,,assets/company-logos/ati-industrial-automation/icon.svg,database,Generated neutral identifier — not an official mark
-atlan,Atlan,Private/other,,,,atlan.com,assets/company-logos/atlan/icon.svg,database,Generated neutral identifier — not an official mark
-atlassian,Atlassian,Public,TEAM,United States,stocks/team,,assets/company-logos/atlassian/icon.svg,database,Generated neutral identifier — not an official mark
-aurora-innovation,Aurora Innovation,Public,AUR,United States,stocks/aur,,assets/company-logos/aurora-innovation/icon.svg,database,Generated neutral identifier — not an official mark
-aurubis,Aurubis,Public,NDA.DE,Germany,quote/etr/nda,,assets/company-logos/aurubis/icon.svg,database,Generated neutral identifier — not an official mark
-autogen-ecosystem,AutoGen ecosystem,Unclassified,,,,,assets/company-logos/autogen-ecosystem/icon.svg,database,Generated neutral identifier — not an official mark
-automation-anywhere,Automation Anywhere,Private/other,,,,automationanywhere.com,assets/company-logos/automation-anywhere/icon.svg,database,Generated neutral identifier — not an official mark
-autostore,AutoStore,Public,AUTO.OL,Norway,quote/osl/auto,,assets/company-logos/autostore/icon.svg,database,Generated neutral identifier — not an official mark
-avnet,Avnet,Public,AVT,United States,stocks/avt,,assets/company-logos/avnet/icon.svg,database,Generated neutral identifier — not an official mark
-aws,AWS,Unclassified,,,,,assets/company-logos/aws/icon.svg,report,Generated neutral identifier — not an official mark
-aws-trainium,AWS Trainium,Unclassified,,,,,assets/company-logos/aws-trainium/icon.svg,report,Generated neutral identifier — not an official mark
-axcelis,Axcelis,Public,ACLS,United States,stocks/acls,,assets/company-logos/axcelis/icon.svg,database,Generated neutral identifier — not an official mark
-axelera-ai,Axelera AI,Private/other,,,,axelera.ai,assets/company-logos/axelera-ai/icon.svg,database,Generated neutral identifier — not an official mark
-azure,Azure,Unclassified,,,,,assets/company-logos/azure/icon.svg,report,Generated neutral identifier — not an official mark
-baidu,Baidu,Public,9888.HK,Hong Kong,quote/hkg/9888,,assets/company-logos/baidu/icon.svg,database,Generated neutral identifier — not an official mark
-ballard-power,Ballard Power,Public,BLDP,United States,stocks/bldp,,assets/company-logos/ballard-power/icon.svg,database,Generated neutral identifier — not an official mark
-baseten,Baseten,Private/other,,,,baseten.co,assets/company-logos/baseten/icon.svg,database,Generated neutral identifier — not an official mark
-basler,Basler,Public,BSL.DE,Germany,quote/etr/bsl,,assets/company-logos/basler/icon.svg,database,Generated neutral identifier — not an official mark
-be-semiconductor,BE Semiconductor,Public,BESI.AS,Netherlands,quote/ams/besi,,assets/company-logos/be-semiconductor/icon.svg,database,Generated neutral identifier — not an official mark
-bechtel,Bechtel,Private/other,,,,bechtel.com,assets/company-logos/bechtel/icon.svg,database,Generated neutral identifier — not an official mark
-belden,Belden,Public,BDC,United States,stocks/bdc,,assets/company-logos/belden/icon.svg,database,Generated neutral identifier — not an official mark
-bentoml,BentoML,Private/other,,,,bentoml.com,assets/company-logos/bentoml/icon.svg,database,Generated neutral identifier — not an official mark
-beyond-identity,Beyond Identity,Private/other,,,,beyondidentity.com,assets/company-logos/beyond-identity/icon.svg,database,Generated neutral identifier — not an official mark
-bhp,BHP,Public,BHP,United States,stocks/bhp,,assets/company-logos/bhp/icon.svg,database,Generated neutral identifier — not an official mark
-bigeye,Bigeye,Private/other,,,,bigeye.com,assets/company-logos/bigeye/icon.svg,database,Generated neutral identifier — not an official mark
-bigid,BigID,Private/other,,,,bigid.com,assets/company-logos/bigid/icon.svg,database,Generated neutral identifier — not an official mark
-binarly,Binarly,Private/other,,,,binarly.io,assets/company-logos/binarly/icon.svg,database,Generated neutral identifier — not an official mark
-biren-technology,Biren Technology,Private/other,,,,birentech.com,assets/company-logos/biren-technology/icon.svg,database,Generated neutral identifier — not an official mark
-black-veatch,Black & Veatch,Private/other,,,,bv.com,assets/company-logos/black-veatch/icon.svg,database,Generated neutral identifier — not an official mark
-bloom-energy,Bloom Energy,Public,BE,United States,stocks/be,,assets/company-logos/bloom-energy/icon.svg,database,Generated neutral identifier — not an official mark
-bmw,BMW,Unclassified,,,,,assets/company-logos/bmw/icon.svg,report,Generated neutral identifier — not an official mark
-boliden,Boliden,Public,BOL.ST,Sweden,quote/sto/bol,,assets/company-logos/boliden/icon.svg,database,Generated neutral identifier — not an official mark
-boomi,Boomi,Private/other,,,,boomi.com,assets/company-logos/boomi/icon.svg,database,Generated neutral identifier — not an official mark
-bosch,Bosch,Unclassified,,,,,assets/company-logos/bosch/icon.svg,report,Generated neutral identifier — not an official mark
-bosch-rexroth,Bosch Rexroth,Private/other,,,,boschrexroth.com,assets/company-logos/bosch-rexroth/icon.svg,database,Generated neutral identifier — not an official mark
-boston-dynamics,Boston Dynamics,Subsidiary/private/other,,,,bostondynamics.com,assets/company-logos/boston-dynamics/icon.svg,database,Generated neutral identifier — not an official mark
-boyd,Boyd,Private/other,,,,boydcorp.com,assets/company-logos/boyd/icon.svg,database,Generated neutral identifier — not an official mark
-braintrust,Braintrust,Private/other,,,,braintrust.dev,assets/company-logos/braintrust/icon.svg,database,Generated neutral identifier — not an official mark
-brewer-science,Brewer Science,Private/other,,,,brewer-science.com,assets/company-logos/brewer-science/icon.svg,database,Generated neutral identifier — not an official mark
-broadcom,Broadcom,Public,AVGO,United States,stocks/avgo,,assets/company-logos/broadcom/icon.svg,database,Generated neutral identifier — not an official mark
-brookfield-renewable,Brookfield Renewable,Public,BEP,United States,stocks/bep,,assets/company-logos/brookfield-renewable/icon.svg,database,Generated neutral identifier — not an official mark
-bureau-veritas,Bureau Veritas,Public,BVI.PA,France,quote/epa/bvi,,assets/company-logos/bureau-veritas/icon.svg,database,Generated neutral identifier — not an official mark
-burns-mcdonnell,Burns & McDonnell,Private/other,,,,burnsmcd.com,assets/company-logos/burns-mcdonnell/icon.svg,database,Generated neutral identifier — not an official mark
-bwx-technologies,BWX Technologies,Public,BWXT,United States,stocks/bwxt,,assets/company-logos/bwx-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-byd,BYD,Public,002594.SZ,China,quote/she/002594,,assets/company-logos/byd/icon.svg,database,Generated neutral identifier — not an official mark
-bytedance,ByteDance,Private/other,,,,bytedance.com,assets/company-logos/bytedance/icon.svg,database,Generated neutral identifier — not an official mark
-cadence,Cadence,Public,CDNS,United States,stocks/cdns,,assets/company-logos/cadence/icon.svg,database,Generated neutral identifier — not an official mark
-calypsoai,CalypsoAI,Subsidiary/private/other,,,,calypsoai.com,assets/company-logos/calypsoai/icon.svg,database,Generated neutral identifier — not an official mark
-calypsoai-within-f5,CalypsoAI within F5,Private/other,,,,,assets/company-logos/calypsoai-within-f5/icon.svg,database,Generated neutral identifier — not an official mark
-cambricon,Cambricon,Public,688256.SS,China,quote/sha/688256,,assets/company-logos/cambricon/icon.svg,database,Generated neutral identifier — not an official mark
-cameco,Cameco,Public,CCJ,United States,stocks/ccj,,assets/company-logos/cameco/icon.svg,database,Generated neutral identifier — not an official mark
-camtek,Camtek,Public,CAMT,United States,stocks/camt,,assets/company-logos/camtek/icon.svg,database,Generated neutral identifier — not an official mark
-canadian-solar,Canadian Solar,Public,CSIQ,United States,stocks/csiq,,assets/company-logos/canadian-solar/icon.svg,database,Generated neutral identifier — not an official mark
-canon,Canon,Public,7751.T,Japan,quote/tyo/7751,,assets/company-logos/canon/icon.svg,database,Generated neutral identifier — not an official mark
-carl-zeiss-smt,Carl Zeiss SMT,Subsidiary/private/other,,,,zeiss.com,assets/company-logos/carl-zeiss-smt/icon.svg,database,Generated neutral identifier — not an official mark
-carpenter-technology,Carpenter Technology,Public,CRS,United States,stocks/crs,,assets/company-logos/carpenter-technology/icon.svg,database,Generated neutral identifier — not an official mark
-carrier,Carrier,Public,CARR,United States,stocks/carr,,assets/company-logos/carrier/icon.svg,database,Generated neutral identifier — not an official mark
-caterpillar,Caterpillar,Public,CAT,United States,stocks/cat,,assets/company-logos/caterpillar/icon.svg,database,Generated neutral identifier — not an official mark
-catl,CATL,Public,300750.SZ,China,quote/she/300750,,assets/company-logos/catl/icon.svg,database,Generated neutral identifier — not an official mark
-cbre,CBRE,Public,CBRE,United States,stocks/cbre,,assets/company-logos/cbre/icon.svg,database,Generated neutral identifier — not an official mark
-celestica,Celestica,Public,CLS,United States,stocks/cls,,assets/company-logos/celestica/icon.svg,database,Generated neutral identifier — not an official mark
-celona,Celona,Private/other,,,,celona.io,assets/company-logos/celona/icon.svg,database,Generated neutral identifier — not an official mark
-celonis,Celonis,Private/other,,,,celonis.com,assets/company-logos/celonis/icon.svg,database,Generated neutral identifier — not an official mark
-centrus-energy,Centrus Energy,Public,LEU,United States,stocks/leu,,assets/company-logos/centrus-energy/icon.svg,database,Generated neutral identifier — not an official mark
-century-aluminum,Century Aluminum,Public,CENX,United States,stocks/cenx,,assets/company-logos/century-aluminum/icon.svg,database,Generated neutral identifier — not an official mark
-cerebras,Cerebras,Private/other,,,,cerebras.ai,assets/company-logos/cerebras/icon.svg,database,Generated neutral identifier — not an official mark
-cerebras-peers,Cerebras peers,Unclassified,,,,,assets/company-logos/cerebras-peers/icon.svg,database,Generated neutral identifier — not an official mark
-chalco,Chalco,Public,2600.HK,Hong Kong,quote/hkg/2600,,assets/company-logos/chalco/icon.svg,database,Generated neutral identifier — not an official mark
-chatgpt,ChatGPT,Unclassified,,,,,assets/company-logos/chatgpt/icon.svg,report,Generated neutral identifier — not an official mark
-check-point,Check Point,Public,CHKP,United States,stocks/chkp,,assets/company-logos/check-point/icon.svg,database,Generated neutral identifier — not an official mark
-china-northern-rare-earth,China Northern Rare Earth,Public,600111.SS,China,quote/sha/600111,,assets/company-logos/china-northern-rare-earth/icon.svg,database,Generated neutral identifier — not an official mark
-chipmos,ChipMOS,Public,IMOS,United States,stocks/imos,,assets/company-logos/chipmos/icon.svg,database,Generated neutral identifier — not an official mark
-chroma,Chroma,Private/other,,,,trychroma.com,assets/company-logos/chroma/icon.svg,database,Generated neutral identifier — not an official mark
-chroma-ate,Chroma ATE,Public,2360.TW,Taiwan,quote/tpe/2360,,assets/company-logos/chroma-ate/icon.svg,database,Generated neutral identifier — not an official mark
-ciena,Ciena,Public,CIEN,United States,stocks/cien,,assets/company-logos/ciena/icon.svg,database,Generated neutral identifier — not an official mark
-cirba-solutions,Cirba Solutions,Private/other,,,,cirbasolutions.com,assets/company-logos/cirba-solutions/icon.svg,database,Generated neutral identifier — not an official mark
-cisco,Cisco,Public,CSCO,United States,stocks/csco,,assets/company-logos/cisco/icon.svg,database,Generated neutral identifier — not an official mark
-claroty,Claroty,Private/other,,,,claroty.com,assets/company-logos/claroty/icon.svg,database,Generated neutral identifier — not an official mark
-claude,Claude,Unclassified,,,,,assets/company-logos/claude/icon.svg,report,Generated neutral identifier — not an official mark
-clayco,Clayco,Unclassified,,,,,assets/company-logos/clayco/icon.svg,report,Generated neutral identifier — not an official mark
-cleveland-cliffs,Cleveland-Cliffs,Public,CLF,United States,stocks/clf,,assets/company-logos/cleveland-cliffs/icon.svg,database,Generated neutral identifier — not an official mark
-cloud-provider-internal-services,Cloud-provider internal services,Unclassified,,,,,assets/company-logos/cloud-provider-internal-services/icon.svg,database,Generated neutral identifier — not an official mark
-cloudflare,Cloudflare,Public,NET,United States,stocks/net,,assets/company-logos/cloudflare/icon.svg,database,Generated neutral identifier — not an official mark
-cmoc,CMOC,Public,3993.HK,Hong Kong,quote/hkg/3993,,assets/company-logos/cmoc/icon.svg,database,Generated neutral identifier — not an official mark
-cockroach-labs,Cockroach Labs,Private/other,,,,cockroachlabs.com,assets/company-logos/cockroach-labs/icon.svg,database,Generated neutral identifier — not an official mark
-codeium-windsurf-assets,Codeium/Windsurf assets,Unclassified,,,,,assets/company-logos/codeium-windsurf-assets/icon.svg,database,Generated neutral identifier — not an official mark
-codelco,Codelco,Subsidiary/private/other,,,,,assets/company-logos/codelco/icon.svg,database,Generated neutral identifier — not an official mark
-cogent,Cogent,Public,CCOI,United States,stocks/ccoi,,assets/company-logos/cogent/icon.svg,database,Generated neutral identifier — not an official mark
-cognex,Cognex,Public,CGNX,United States,stocks/cgnx,,assets/company-logos/cognex/icon.svg,database,Generated neutral identifier — not an official mark
-cognition,Cognition,Private/other,,,,cognition.ai,assets/company-logos/cognition/icon.svg,database,Generated neutral identifier — not an official mark
-cohere,Cohere,Private/other,,,,cohere.com,assets/company-logos/cohere/icon.svg,database,Generated neutral identifier — not an official mark
-coherent,Coherent,Public,COHR,United States,stocks/cohr,,assets/company-logos/coherent/icon.svg,database,Generated neutral identifier — not an official mark
-coherent-optics-internal-silicon-and-specialist-startups,Coherent/optics internal silicon and specialist startups,Unclassified,,,,,assets/company-logos/coherent-optics-internal-silicon-and-specialist-startups/icon.svg,database,Generated neutral identifier — not an official mark
-cohu,Cohu,Public,COHU,United States,stocks/cohu,,assets/company-logos/cohu/icon.svg,database,Generated neutral identifier — not an official mark
-collibra,Collibra,Private/other,,,,collibra.com,assets/company-logos/collibra/icon.svg,database,Generated neutral identifier — not an official mark
-colt,Colt,Subsidiary/private/other,,,,colt.net,assets/company-logos/colt/icon.svg,database,Generated neutral identifier — not an official mark
-comau,Comau,Private/other,,,,comau.com,assets/company-logos/comau/icon.svg,database,Generated neutral identifier — not an official mark
-comfort-systems,Comfort Systems,Public,FIX,United States,stocks/fix,,assets/company-logos/comfort-systems/icon.svg,database,Generated neutral identifier — not an official mark
-comfort-systems-usa,Comfort Systems USA,Unclassified,,,,,assets/company-logos/comfort-systems-usa/icon.svg,database,Generated neutral identifier — not an official mark
-commonwealth-fusion-systems,Commonwealth Fusion Systems,Private/other,,,,cfs.energy,assets/company-logos/commonwealth-fusion-systems/icon.svg,database,Generated neutral identifier — not an official mark
-commscope,CommScope,Public,COMM,United States,stocks/comm,,assets/company-logos/commscope/icon.svg,database,Generated neutral identifier — not an official mark
-compass-datacenters,Compass Datacenters,Private/other,,,,compassdatacenters.com,assets/company-logos/compass-datacenters/icon.svg,database,Generated neutral identifier — not an official mark
-confluent,Confluent,Subsidiary/private/other,,,,confluent.io,assets/company-logos/confluent/icon.svg,database,Generated neutral identifier — not an official mark
-consortium-cable-owners,consortium cable owners,Unclassified,,,,,assets/company-logos/consortium-cable-owners/icon.svg,database,Generated neutral identifier — not an official mark
-constellation,Constellation,Unclassified,,,,,assets/company-logos/constellation/icon.svg,report,Generated neutral identifier — not an official mark
-constellation-energy,Constellation Energy,Public,CEG,United States,stocks/ceg,,assets/company-logos/constellation-energy/icon.svg,database,Generated neutral identifier — not an official mark
-coolit,CoolIT,Private/other,,,,coolitsystems.com,assets/company-logos/coolit/icon.svg,database,Generated neutral identifier — not an official mark
-coolit-systems,CoolIT Systems,Subsidiary/private/other,,,,coolitsystems.com,assets/company-logos/coolit-systems/icon.svg,database,Generated neutral identifier — not an official mark
-coorstek,CoorsTek,Private/other,,,,coorstek.com,assets/company-logos/coorstek/icon.svg,database,Generated neutral identifier — not an official mark
-copilot,Copilot,Unclassified,,,,,assets/company-logos/copilot/icon.svg,report,Generated neutral identifier — not an official mark
-coreweave,CoreWeave,Public,CRWV,United States,stocks/crwv,,assets/company-logos/coreweave/icon.svg,database,Generated neutral identifier — not an official mark
-coreweave-platform-services,CoreWeave platform services,Unclassified,,,,,assets/company-logos/coreweave-platform-services/icon.svg,database,Generated neutral identifier — not an official mark
-corgan,Corgan,Private/other,,,,corgan.com,assets/company-logos/corgan/icon.svg,database,Generated neutral identifier — not an official mark
-cornelis-networks,Cornelis Networks,Private/other,,,,cornelisnetworks.com,assets/company-logos/cornelis-networks/icon.svg,database,Generated neutral identifier — not an official mark
-corning,Corning,Public,GLW,United States,stocks/glw,,assets/company-logos/corning/icon.svg,database,Generated neutral identifier — not an official mark
-couchbase,Couchbase,Subsidiary/private/other,,,,couchbase.com,assets/company-logos/couchbase/icon.svg,database,Generated neutral identifier — not an official mark
-coveo,Coveo,Public,CVO.TO,Canada,quote/tsx/cvo,,assets/company-logos/coveo/icon.svg,database,Generated neutral identifier — not an official mark
-credo,Credo,Public,CRDO,United States,stocks/crdo,,assets/company-logos/credo/icon.svg,database,Generated neutral identifier — not an official mark
-credo-technology,Credo Technology,Unclassified,,,,,assets/company-logos/credo-technology/icon.svg,database,Generated neutral identifier — not an official mark
-crewai,CrewAI,Private/other,,,,crewai.com,assets/company-logos/crewai/icon.svg,database,Generated neutral identifier — not an official mark
-cribl,Cribl,Private/other,,,,cribl.io,assets/company-logos/cribl/icon.svg,database,Generated neutral identifier — not an official mark
-crowdstrike,CrowdStrike,Public,CRWD,United States,stocks/crwd,,assets/company-logos/crowdstrike/icon.svg,database,Generated neutral identifier — not an official mark
-crusoe,Crusoe,Private/other,,,,crusoe.ai,assets/company-logos/crusoe/icon.svg,database,Generated neutral identifier — not an official mark
-cummins,Cummins,Public,CMI,United States,stocks/cmi,,assets/company-logos/cummins/icon.svg,database,Generated neutral identifier — not an official mark
-cupertino-electric,Cupertino Electric,Private/other,,,,cei.com,assets/company-logos/cupertino-electric/icon.svg,database,Generated neutral identifier — not an official mark
-cushman-wakefield,Cushman & Wakefield,Public,CWK,United States,stocks/cwk,,assets/company-logos/cushman-wakefield/icon.svg,database,Generated neutral identifier — not an official mark
-cxa-specialists,CxA specialists,Unclassified,,,,,assets/company-logos/cxa-specialists/icon.svg,database,Generated neutral identifier — not an official mark
-cxmt,CXMT,Private/other,,,,cxmt.com,assets/company-logos/cxmt/icon.svg,database,Generated neutral identifier — not an official mark
-cyberark,CyberArk,Public,CYBR,United States,stocks/cybr,,assets/company-logos/cyberark/icon.svg,database,Generated neutral identifier — not an official mark
-cyera,Cyera,Private/other,,,,cyera.io,assets/company-logos/cyera/icon.svg,database,Generated neutral identifier — not an official mark
-cyrusone,CyrusOne,Subsidiary/private/other,,,,cyrusone.com,assets/company-logos/cyrusone/icon.svg,database,Generated neutral identifier — not an official mark
-d-matrix,d-Matrix,Private/other,,,,d-matrix.ai,assets/company-logos/d-matrix/icon.svg,database,Generated neutral identifier — not an official mark
-dagster,Dagster,Private/other,,,,dagster.io,assets/company-logos/dagster/icon.svg,database,Generated neutral identifier — not an official mark
-dai-nippon-printing,Dai Nippon Printing,Public,7912.T,Japan,quote/tyo/7912,,assets/company-logos/dai-nippon-printing/icon.svg,database,Generated neutral identifier — not an official mark
-daikin,Daikin,Public,6367.T,Japan,quote/tyo/6367,,assets/company-logos/daikin/icon.svg,database,Generated neutral identifier — not an official mark
-daqo-new-energy,Daqo New Energy,Public,DQ,United States,stocks/dq,,assets/company-logos/daqo-new-energy/icon.svg,database,Generated neutral identifier — not an official mark
-dassault-systemes,Dassault Systèmes,Public,DSY.PA,France,quote/epa/dsy,,assets/company-logos/dassault-systemes/icon.svg,database,Generated neutral identifier — not an official mark
-data-world,data.world,Private/other,,,,data.world,assets/company-logos/data-world/icon.svg,database,Generated neutral identifier — not an official mark
-databricks,Databricks,Private/other,,,,databricks.com,assets/company-logos/databricks/icon.svg,database,Generated neutral identifier — not an official mark
-databricks-peers,Databricks peers,Unclassified,,,,,assets/company-logos/databricks-peers/icon.svg,database,Generated neutral identifier — not an official mark
-databricks-mosaic-ai,Databricks/Mosaic AI,Unclassified,,,,,assets/company-logos/databricks-mosaic-ai/icon.svg,database,Generated neutral identifier — not an official mark
-datadog,Datadog,Public,DDOG,United States,stocks/ddog,,assets/company-logos/datadog/icon.svg,database,Generated neutral identifier — not an official mark
-db-hitek,DB HiTek,Public,000990.KS,South Korea,quote/krx/000990,,assets/company-logos/db-hitek/icon.svg,database,Generated neutral identifier — not an official mark
-dbt-labs,dbt Labs,Private/other,,,,getdbt.com,assets/company-logos/dbt-labs/icon.svg,database,Generated neutral identifier — not an official mark
-ddn,DDN,Private/other,,,,ddn.com,assets/company-logos/ddn/icon.svg,database,Generated neutral identifier — not an official mark
-deci-assets,Deci assets,Unclassified,,,,,assets/company-logos/deci-assets/icon.svg,database,Generated neutral identifier — not an official mark
-deepseek,DeepSeek,Private/other,,,,deepseek.com,assets/company-logos/deepseek/icon.svg,database,Generated neutral identifier — not an official mark
-deere,Deere,Unclassified,,,,,assets/company-logos/deere/icon.svg,report,Generated neutral identifier — not an official mark
-dell,Dell,Public,DELL,United States,stocks/dell,,assets/company-logos/dell/icon.svg,database,Generated neutral identifier — not an official mark
-dell-technologies,Dell Technologies,Unclassified,,,,,assets/company-logos/dell-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-delta-electronics,Delta Electronics,Public,2308.TW,Taiwan,quote/tpe/2308,,assets/company-logos/delta-electronics/icon.svg,database,Generated neutral identifier — not an official mark
-denso,Denso,Public,6902.T,Japan,quote/tyo/6902,,assets/company-logos/denso/icon.svg,database,Generated neutral identifier — not an official mark
-deutsche-telekom,Deutsche Telekom,Public,DTE.DE,Germany,quote/etr/dte,,assets/company-logos/deutsche-telekom/icon.svg,database,Generated neutral identifier — not an official mark
-digital-realty,Digital Realty,Public,DLR,United States,stocks/dlr,,assets/company-logos/digital-realty/icon.svg,database,Generated neutral identifier — not an official mark
-disco,DISCO,Public,6146.T,Japan,quote/tyo/6146,,assets/company-logos/disco/icon.svg,database,Generated neutral identifier — not an official mark
-dji,DJI,Private/other,,,,dji.com,assets/company-logos/dji/icon.svg,database,Generated neutral identifier — not an official mark
-docusign,DocuSign,Public,DOCU,United States,stocks/docu,,assets/company-logos/docusign/icon.svg,database,Generated neutral identifier — not an official mark
-dominion-energy,Dominion Energy,Public,D,United States,stocks/d,,assets/company-logos/dominion-energy/icon.svg,database,Generated neutral identifier — not an official mark
-doosan-fuel-cell-system-partners,Doosan Fuel Cell system partners,Unclassified,,,,,assets/company-logos/doosan-fuel-cell-system-partners/icon.svg,database,Generated neutral identifier — not an official mark
-dpr,DPR,Unclassified,,,,,assets/company-logos/dpr/icon.svg,report,Generated neutral identifier — not an official mark
-dpr-construction,DPR Construction,Private/other,,,,dpr.com,assets/company-logos/dpr-construction/icon.svg,database,Generated neutral identifier — not an official mark
-dragos,Dragos,Private/other,,,,dragos.com,assets/company-logos/dragos/icon.svg,database,Generated neutral identifier — not an official mark
-drivenets,DriveNets,Private/other,,,,drivenets.ai,assets/company-logos/drivenets/icon.svg,database,Generated neutral identifier — not an official mark
-duke-energy,Duke Energy,Public,DUK,United States,stocks/duk,,assets/company-logos/duke-energy/icon.svg,database,Generated neutral identifier — not an official mark
-dupont,DuPont,Public,DD,United States,stocks/dd,,assets/company-logos/dupont/icon.svg,database,Generated neutral identifier — not an official mark
-dust,Dust,Private/other,,,,dust.tt,assets/company-logos/dust/icon.svg,database,Generated neutral identifier — not an official mark
-dynatrace,Dynatrace,Public,DT,United States,stocks/dt,,assets/company-logos/dynatrace/icon.svg,database,Generated neutral identifier — not an official mark
-eaton,Eaton,Public,ETN,United States,stocks/etn,,assets/company-logos/eaton/icon.svg,database,Generated neutral identifier — not an official mark
-eclypsium,Eclypsium,Private/other,,,,eclypsium.com,assets/company-logos/eclypsium/icon.svg,database,Generated neutral identifier — not an official mark
-edf,EDF,Subsidiary/private/other,,,,edf.fr,assets/company-logos/edf/icon.svg,database,Generated neutral identifier — not an official mark
-edf-renewables,EDF Renewables,Private/other,,,,edf-re.com,assets/company-logos/edf-renewables/icon.svg,database,Generated neutral identifier — not an official mark
-edgeconnex,EdgeConneX,Subsidiary/private/other,,,,edgeconnex.com,assets/company-logos/edgeconnex/icon.svg,database,Generated neutral identifier — not an official mark
-edged-energy,Edged Energy,Private/other,,,,edged.us,assets/company-logos/edged-energy/icon.svg,database,Generated neutral identifier — not an official mark
-edison-international,Edison International,Public,EIX,United States,stocks/eix,,assets/company-logos/edison-international/icon.svg,database,Generated neutral identifier — not an official mark
-ehang,EHang,Public,EH,United States,stocks/eh,,assets/company-logos/ehang/icon.svg,database,Generated neutral identifier — not an official mark
-elastic,Elastic,Public,ESTC,United States,stocks/estc,,assets/company-logos/elastic/icon.svg,database,Generated neutral identifier — not an official mark
-eleutherai,EleutherAI,Private/other,,,,eleuther.ai,assets/company-logos/eleutherai/icon.svg,database,Generated neutral identifier — not an official mark
-emcor,EMCOR,Public,EME,United States,stocks/eme,,assets/company-logos/emcor/icon.svg,database,Generated neutral identifier — not an official mark
-emirates-global-aluminium,Emirates Global Aluminium,Private/other,,,,ega.ae,assets/company-logos/emirates-global-aluminium/icon.svg,database,Generated neutral identifier — not an official mark
-enel,Enel,Public,ENEL.MI,Italy,quote/bit/enel,,assets/company-logos/enel/icon.svg,database,Generated neutral identifier — not an official mark
-energy-fuels,Energy Fuels,Public,UUUU,United States,stocks/uuuu,,assets/company-logos/energy-fuels/icon.svg,database,Generated neutral identifier — not an official mark
-energy-vault,Energy Vault,Public,NRGV,United States,stocks/nrgv,,assets/company-logos/energy-vault/icon.svg,database,Generated neutral identifier — not an official mark
-enfabrica,Enfabrica,Private/other,,,,enfabrica.net,assets/company-logos/enfabrica/icon.svg,database,Generated neutral identifier — not an official mark
-enflame,Enflame,Private/other,,,,enflame-tech.com,assets/company-logos/enflame/icon.svg,database,Generated neutral identifier — not an official mark
-engie,Engie,Public,ENGI.PA,France,quote/epa/engi,,assets/company-logos/engie/icon.svg,database,Generated neutral identifier — not an official mark
-engineai,EngineAI,Private/other,,,,engineai.com,assets/company-logos/engineai/icon.svg,database,Generated neutral identifier — not an official mark
-enphase,Enphase,Public,ENPH,United States,stocks/enph,,assets/company-logos/enphase/icon.svg,database,Generated neutral identifier — not an official mark
-entegris,Entegris,Public,ENTG,United States,stocks/entg,,assets/company-logos/entegris/icon.svg,database,Generated neutral identifier — not an official mark
-entergy,Entergy,Public,ETR,United States,stocks/etr,,assets/company-logos/entergy/icon.svg,database,Generated neutral identifier — not an official mark
-eoptolink,Eoptolink,Public,300502.SZ,China,quote/she/300502,,assets/company-logos/eoptolink/icon.svg,database,Generated neutral identifier — not an official mark
-eos-energy,Eos Energy,Public,EOSE,United States,stocks/eose,,assets/company-logos/eos-energy/icon.svg,database,Generated neutral identifier — not an official mark
-equinix,Equinix,Public,EQIX,United States,stocks/eqix,,assets/company-logos/equinix/icon.svg,database,Generated neutral identifier — not an official mark
-ericsson,Ericsson,Public,ERIC,United States,stocks/eric,,assets/company-logos/ericsson/icon.svg,database,Generated neutral identifier — not an official mark
-ess-tech,ESS Tech,Public,GWH,United States,stocks/gwh,,assets/company-logos/ess-tech/icon.svg,database,Generated neutral identifier — not an official mark
-eunetworks,euNetworks,Subsidiary/private/other,,,,eunetworks.com,assets/company-logos/eunetworks/icon.svg,database,Generated neutral identifier — not an official mark
-eurasian-resources-group,Eurasian Resources Group,Private/other,,,,eurasianresources.lu,assets/company-logos/eurasian-resources-group/icon.svg,database,Generated neutral identifier — not an official mark
-eutelsat,Eutelsat,Public,ETL.PA,France,quote/epa/etl,,assets/company-logos/eutelsat/icon.svg,database,Generated neutral identifier — not an official mark
-ev-group,EV Group,Private/other,,,,evgroup.com,assets/company-logos/ev-group/icon.svg,database,Generated neutral identifier — not an official mark
-eversource,Eversource,Public,ES,United States,stocks/es,,assets/company-logos/eversource/icon.svg,database,Generated neutral identifier — not an official mark
-eviden-via-atos,Eviden via Atos,Public,ATO.PA,France,quote/epa/ato,,assets/company-logos/eviden-via-atos/icon.svg,database,Generated neutral identifier — not an official mark
-exein,Exein,Private/other,,,,exein.io,assets/company-logos/exein/icon.svg,database,Generated neutral identifier — not an official mark
-exelon,Exelon,Public,EXC,United States,stocks/exc,,assets/company-logos/exelon/icon.svg,database,Generated neutral identifier — not an official mark
-exotec,Exotec,Private/other,,,,exotec.com,assets/company-logos/exotec/icon.svg,database,Generated neutral identifier — not an official mark
-extreme,Extreme,Public,EXTR,United States,stocks/extr,,assets/company-logos/extreme/icon.svg,database,Generated neutral identifier — not an official mark
-extreme-networks,Extreme Networks,Unclassified,,,,,assets/company-logos/extreme-networks/icon.svg,database,Generated neutral identifier — not an official mark
-f5,F5,Public,FFIV,United States,stocks/ffiv,,assets/company-logos/f5/icon.svg,database,Generated neutral identifier — not an official mark
-fabrinet,Fabrinet,Public,FN,United States,stocks/fn,,assets/company-logos/fabrinet/icon.svg,database,Generated neutral identifier — not an official mark
-factorial-energy,Factorial Energy,Private/other,,,,factorialenergy.com,assets/company-logos/factorial-energy/icon.svg,database,Generated neutral identifier — not an official mark
-faith-technologies,Faith Technologies,Private/other,,,,faithtechinc.com,assets/company-logos/faith-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-fanuc,FANUC,Public,6954.T,Japan,quote/tyo/6954,,assets/company-logos/fanuc/icon.svg,database,Generated neutral identifier — not an official mark
-fastly,Fastly,Public,FSLY,United States,stocks/fsly,,assets/company-logos/fastly/icon.svg,database,Generated neutral identifier — not an official mark
-faulhaber,FAULHABER,Private/other,,,,faulhaber.com,assets/company-logos/faulhaber/icon.svg,database,Generated neutral identifier — not an official mark
-ferroglobe,Ferroglobe,Public,GSM,United States,stocks/gsm,,assets/company-logos/ferroglobe/icon.svg,database,Generated neutral identifier — not an official mark
-fiddler-ai,Fiddler AI,Private/other,,,,fiddler.ai,assets/company-logos/fiddler-ai/icon.svg,database,Generated neutral identifier — not an official mark
-figure,Figure,Unclassified,,,,,assets/company-logos/figure/icon.svg,report,Generated neutral identifier — not an official mark
-figure-ai,Figure AI,Private/other,,,,figure.ai,assets/company-logos/figure-ai/icon.svg,database,Generated neutral identifier — not an official mark
-finite-state,Finite State,Private/other,,,,finitestate.io,assets/company-logos/finite-state/icon.svg,database,Generated neutral identifier — not an official mark
-fireworks,Fireworks,Unclassified,,,,,assets/company-logos/fireworks/icon.svg,report,Generated neutral identifier — not an official mark
-fireworks-ai,Fireworks AI,Private/other,,,,fireworks.ai,assets/company-logos/fireworks-ai/icon.svg,database,Generated neutral identifier — not an official mark
-first-solar,First Solar,Public,FSLR,United States,stocks/fslr,,assets/company-logos/first-solar/icon.svg,database,Generated neutral identifier — not an official mark
-fivetran,Fivetran,Private/other,,,,fivetran.com,assets/company-logos/fivetran/icon.svg,database,Generated neutral identifier — not an official mark
-flex,Flex,Public,FLEX,United States,stocks/flex,,assets/company-logos/flex/icon.svg,database,Generated neutral identifier — not an official mark
-fluence,Fluence,Public,FLNC,United States,stocks/flnc,,assets/company-logos/fluence/icon.svg,database,Generated neutral identifier — not an official mark
-fluidstack,Fluidstack,Private/other,,,,fluidstack.io,assets/company-logos/fluidstack/icon.svg,database,Generated neutral identifier — not an official mark
-fluor,Fluor,Public,FLR,United States,stocks/flr,,assets/company-logos/fluor/icon.svg,database,Generated neutral identifier — not an official mark
-form-energy,Form Energy,Private/other,,,,formenergy.com,assets/company-logos/form-energy/icon.svg,database,Generated neutral identifier — not an official mark
-formfactor,FormFactor,Public,FORM,United States,stocks/form,,assets/company-logos/formfactor/icon.svg,database,Generated neutral identifier — not an official mark
-formic,Formic,Private/other,,,,formic.co,assets/company-logos/formic/icon.svg,database,Generated neutral identifier — not an official mark
-fortinet,Fortinet,Public,FTNT,United States,stocks/ftnt,,assets/company-logos/fortinet/icon.svg,database,Generated neutral identifier — not an official mark
-fortressiq-assets,FortressIQ assets,Unclassified,,,,,assets/company-logos/fortressiq-assets/icon.svg,database,Generated neutral identifier — not an official mark
-fourier-intelligence,Fourier Intelligence,Private/other,,,,fftai.com,assets/company-logos/fourier-intelligence/icon.svg,database,Generated neutral identifier — not an official mark
-foxconn,Foxconn,Unclassified,,,,,assets/company-logos/foxconn/icon.svg,report,Generated neutral identifier — not an official mark
-freedom-robotics,Freedom Robotics,Private/other,,,,freedomrobotics.ai,assets/company-logos/freedom-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-freeport-mcmoran,Freeport-McMoRan,Public,FCX,United States,stocks/fcx,,assets/company-logos/freeport-mcmoran/icon.svg,database,Generated neutral identifier — not an official mark
-fuelcell-energy,FuelCell Energy,Public,FCEL,United States,stocks/fcel,,assets/company-logos/fuelcell-energy/icon.svg,database,Generated neutral identifier — not an official mark
-fuji-electric,Fuji Electric,Public,6504.T,Japan,quote/tyo/6504,,assets/company-logos/fuji-electric/icon.svg,database,Generated neutral identifier — not an official mark
-fujifilm,Fujifilm,Public,4901.T,Japan,quote/tyo/4901,,assets/company-logos/fujifilm/icon.svg,database,Generated neutral identifier — not an official mark
-fujikura,Fujikura,Unclassified,,,,,assets/company-logos/fujikura/icon.svg,report,Generated neutral identifier — not an official mark
-furiosaai,FuriosaAI,Private/other,,,,furiosa.ai,assets/company-logos/furiosaai/icon.svg,database,Generated neutral identifier — not an official mark
-furukawa-electric,Furukawa Electric,Public,5801.T,Japan,quote/tyo/5801,,assets/company-logos/furukawa-electric/icon.svg,database,Generated neutral identifier — not an official mark
-galileo,Galileo,Private/other,,,,galileo.ai,assets/company-logos/galileo/icon.svg,database,Generated neutral identifier — not an official mark
-ganfeng-lithium,Ganfeng Lithium,Public,002460.SZ,China,quote/she/002460,,assets/company-logos/ganfeng-lithium/icon.svg,database,Generated neutral identifier — not an official mark
-gds-holdings,GDS Holdings,Public,GDS,United States,stocks/gds,,assets/company-logos/gds-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-ge-vernova,GE Vernova,Public,GEV,United States,stocks/gev,,assets/company-logos/ge-vernova/icon.svg,database,Generated neutral identifier — not an official mark
-geek,Geek+,Public,2590.HK,Hong Kong,quote/hkg/2590,,assets/company-logos/geek/icon.svg,database,Generated neutral identifier — not an official mark
-gelsight,GelSight,Private/other,,,,gelsight.com,assets/company-logos/gelsight/icon.svg,database,Generated neutral identifier — not an official mark
-gemini,Gemini,Unclassified,,,,,assets/company-logos/gemini/icon.svg,report,Generated neutral identifier — not an official mark
-general-fusion,General Fusion,Private/other,,,,generalfusion.com,assets/company-logos/general-fusion/icon.svg,database,Generated neutral identifier — not an official mark
-gensler,Gensler,Private/other,,,,gensler.com,assets/company-logos/gensler/icon.svg,database,Generated neutral identifier — not an official mark
-getty-images,Getty Images,Public,GETY,United States,stocks/gety,,assets/company-logos/getty-images/icon.svg,database,Generated neutral identifier — not an official mark
-giskard,Giskard,Private/other,,,,giskard.ai,assets/company-logos/giskard/icon.svg,database,Generated neutral identifier — not an official mark
-github,GitHub,Subsidiary/private/other,,,,,assets/company-logos/github/icon.svg,database,Generated neutral identifier — not an official mark
-gitlab,GitLab,Public,GTLB,United States,stocks/gtlb,,assets/company-logos/gitlab/icon.svg,database,Generated neutral identifier — not an official mark
-glean,Glean,Private/other,,,,glean.com,assets/company-logos/glean/icon.svg,database,Generated neutral identifier — not an official mark
-glencore,Glencore,Public,GLEN.L,United Kingdom,quote/lon/glen,,assets/company-logos/glencore/icon.svg,database,Generated neutral identifier — not an official mark
-globalfoundries,GlobalFoundries,Public,GFS,United States,stocks/gfs,,assets/company-logos/globalfoundries/icon.svg,database,Generated neutral identifier — not an official mark
-globalstar,Globalstar,Public,GSAT,United States,stocks/gsat,,assets/company-logos/globalstar/icon.svg,database,Generated neutral identifier — not an official mark
-globalwafers,GlobalWafers,Public,6488.TWO,Taiwan,quote/tpe/6488,,assets/company-logos/globalwafers/icon.svg,database,Generated neutral identifier — not an official mark
-google,Google,Unclassified,,,,,assets/company-logos/google/icon.svg,report,Generated neutral identifier — not an official mark
-google-cloud,Google Cloud,Unclassified,,,,,assets/company-logos/google-cloud/icon.svg,report,Generated neutral identifier — not an official mark
-google-deepmind,Google DeepMind,Unclassified,,,,,assets/company-logos/google-deepmind/icon.svg,report,Generated neutral identifier — not an official mark
-google-tpu,Google TPU,Unclassified,,,,,assets/company-logos/google-tpu/icon.svg,report,Generated neutral identifier — not an official mark
-government-backed-separation-projects,government-backed separation projects,Unclassified,,,,,assets/company-logos/government-backed-separation-projects/icon.svg,database,Generated neutral identifier — not an official mark
-grafana,Grafana,Unclassified,,,,,assets/company-logos/grafana/icon.svg,report,Generated neutral identifier — not an official mark
-graphcore,Graphcore,Subsidiary/private/other,,,,graphcore.ai,assets/company-logos/graphcore/icon.svg,database,Generated neutral identifier — not an official mark
-grc,GRC,Private/other,,,,grcooling.com,assets/company-logos/grc/icon.svg,database,Generated neutral identifier — not an official mark
-green-harmonic,Green Harmonic,Unclassified,,,,,assets/company-logos/green-harmonic/icon.svg,report,Generated neutral identifier — not an official mark
-green-revolution-cooling,Green Revolution Cooling,Private/other,,,,grcooling.com,assets/company-logos/green-revolution-cooling/icon.svg,database,Generated neutral identifier — not an official mark
-gretel,Gretel,Private/other,,,,gretel.ai,assets/company-logos/gretel/icon.svg,database,Generated neutral identifier — not an official mark
-greyorange,GreyOrange,Private/other,,,,greyorange.com,assets/company-logos/greyorange/icon.svg,database,Generated neutral identifier — not an official mark
-groq,Groq,Private/other,,,,groq.com,assets/company-logos/groq/icon.svg,database,Generated neutral identifier — not an official mark
-gtt,GTT,Private/other,,,,gtt.net,assets/company-logos/gtt/icon.svg,database,Generated neutral identifier — not an official mark
-hai-robotics,Hai Robotics,Private/other,,,,hairobotics.com,assets/company-logos/hai-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-hailo,Hailo,Private/other,,,,hailo.ai,assets/company-logos/hailo/icon.svg,database,Generated neutral identifier — not an official mark
-hana-micron,Hana Micron,Public,067310.KQ,South Korea,quote/krx/067310,,assets/company-logos/hana-micron/icon.svg,database,Generated neutral identifier — not an official mark
-harmonic-drive-systems,Harmonic Drive Systems,Public,6324.T,Japan,quote/tyo/6324,,assets/company-logos/harmonic-drive-systems/icon.svg,database,Generated neutral identifier — not an official mark
-harvey,Harvey,Private/other,,,,harvey.ai,assets/company-logos/harvey/icon.svg,database,Generated neutral identifier — not an official mark
-hd-hyundai-electric,HD Hyundai Electric,Public,267260.KS,South Korea,quote/krx/267260,,assets/company-logos/hd-hyundai-electric/icon.svg,database,Generated neutral identifier — not an official mark
-hebbia,Hebbia,Private/other,,,,hebbia.ai,assets/company-logos/hebbia/icon.svg,database,Generated neutral identifier — not an official mark
-helicone,Helicone,Private/other,,,,helicone.ai,assets/company-logos/helicone/icon.svg,database,Generated neutral identifier — not an official mark
-helion,Helion,Private/other,,,,helionenergy.com,assets/company-logos/helion/icon.svg,database,Generated neutral identifier — not an official mark
-hellenic-cables,Hellenic Cables,Subsidiary/private/other,,,,,assets/company-logos/hellenic-cables/icon.svg,database,Generated neutral identifier — not an official mark
-hemlock,Hemlock,Unclassified,,,,,assets/company-logos/hemlock/icon.svg,report,Generated neutral identifier — not an official mark
-hemlock-semiconductor,Hemlock Semiconductor,Subsidiary/private/other,,,,hscpoly.com,assets/company-logos/hemlock-semiconductor/icon.svg,database,Generated neutral identifier — not an official mark
-hengtong-optic-electric,Hengtong Optic-Electric,Public,600487.SS,China,quote/sha/600487,,assets/company-logos/hengtong-optic-electric/icon.svg,database,Generated neutral identifier — not an official mark
-heraeus,Heraeus,Subsidiary/private/other,,,,heraeus.com,assets/company-logos/heraeus/icon.svg,database,Generated neutral identifier — not an official mark
-hesai,Hesai,Public,HSAI,United States,stocks/hsai,,assets/company-logos/hesai/icon.svg,database,Generated neutral identifier — not an official mark
-hewlett-packard-enterprise,Hewlett Packard Enterprise,Unclassified,,,,,assets/company-logos/hewlett-packard-enterprise/icon.svg,database,Generated neutral identifier — not an official mark
-hiddenlayer,HiddenLayer,Private/other,,,,hiddenlayer.com,assets/company-logos/hiddenlayer/icon.svg,database,Generated neutral identifier — not an official mark
-hippocratic-ai,Hippocratic AI,Private/other,,,,hippocraticai.com,assets/company-logos/hippocratic-ai/icon.svg,database,Generated neutral identifier — not an official mark
-hisense-broadband-business,Hisense Broadband business,Private/other,,,,,assets/company-logos/hisense-broadband-business/icon.svg,database,Generated neutral identifier — not an official mark
-hisense-visual,Hisense Visual,Public,600060.SS,China,quote/sha/600060,,assets/company-logos/hisense-visual/icon.svg,database,Generated neutral identifier — not an official mark
-hitachi,Hitachi,Public,6501.T,Japan,quote/tyo/6501,,assets/company-logos/hitachi/icon.svg,database,Generated neutral identifier — not an official mark
-hitachi-energy,Hitachi Energy,Unclassified,,,,,assets/company-logos/hitachi-energy/icon.svg,database,Generated neutral identifier — not an official mark
-hitachi-high-tech,Hitachi High-Tech,Subsidiary/private/other,,,,hitachi-hightech.com,assets/company-logos/hitachi-high-tech/icon.svg,database,Generated neutral identifier — not an official mark
-hitt,HITT,Private/other,,,,hitt.com,assets/company-logos/hitt/icon.svg,database,Generated neutral identifier — not an official mark
-hiwin,Hiwin,Unclassified,,,,,assets/company-logos/hiwin/icon.svg,report,Generated neutral identifier — not an official mark
-holder-construction,Holder Construction,Private/other,,,,holderconstruction.com,assets/company-logos/holder-construction/icon.svg,database,Generated neutral identifier — not an official mark
-hon-hai-foxconn,Hon Hai/Foxconn,Public,2317.TW,Taiwan,quote/tpe/2317,,assets/company-logos/hon-hai-foxconn/icon.svg,database,Generated neutral identifier — not an official mark
-honeywell,Honeywell,Public,HON,United States,stocks/hon,,assets/company-logos/honeywell/icon.svg,database,Generated neutral identifier — not an official mark
-howmet,Howmet,Unclassified,,,,,assets/company-logos/howmet/icon.svg,report,Generated neutral identifier — not an official mark
-hoya,HOYA,Public,7741.T,Japan,quote/tyo/7741,,assets/company-logos/hoya/icon.svg,database,Generated neutral identifier — not an official mark
-hpe,HPE,Public,HPE,United States,stocks/hpe,,assets/company-logos/hpe/icon.svg,database,Generated neutral identifier — not an official mark
-hua-hong-semiconductor,Hua Hong Semiconductor,Public,1347.HK,Hong Kong,quote/hkg/1347,,assets/company-logos/hua-hong-semiconductor/icon.svg,database,Generated neutral identifier — not an official mark
-huawei,Huawei,Private/other,,,,huawei.com,assets/company-logos/huawei/icon.svg,database,Generated neutral identifier — not an official mark
-huawei-ascend,Huawei Ascend,Private/other,,,,hiascend.com,assets/company-logos/huawei-ascend/icon.svg,database,Generated neutral identifier — not an official mark
-huawei-cloud,Huawei Cloud,Private/other,,,,huaweicloud.com,assets/company-logos/huawei-cloud/icon.svg,database,Generated neutral identifier — not an official mark
-huawei-digital-power,Huawei Digital Power,Private/other,,,,digitalpower.huawei.com,assets/company-logos/huawei-digital-power/icon.svg,database,Generated neutral identifier — not an official mark
-huawei-related-peers,Huawei-related peers,Unclassified,,,,,assets/company-logos/huawei-related-peers/icon.svg,database,Generated neutral identifier — not an official mark
-huayou-cobalt,Huayou Cobalt,Public,603799.SS,China,quote/sha/603799,,assets/company-logos/huayou-cobalt/icon.svg,database,Generated neutral identifier — not an official mark
-hubbell,Hubbell,Public,HUBB,United States,stocks/hubb,,assets/company-logos/hubbell/icon.svg,database,Generated neutral identifier — not an official mark
-hugging-face,Hugging Face,Private/other,,,,huggingface.co,assets/company-logos/hugging-face/icon.svg,database,Generated neutral identifier — not an official mark
-humanloop,Humanloop,Private/other,,,,humanloop.com,assets/company-logos/humanloop/icon.svg,database,Generated neutral identifier — not an official mark
-hut-8,Hut 8,Public,HUT,United States,stocks/hut,,assets/company-logos/hut-8/icon.svg,database,Generated neutral identifier — not an official mark
-hyosung-heavy-industries,Hyosung Heavy Industries,Public,298040.KS,South Korea,quote/krx/298040,,assets/company-logos/hyosung-heavy-industries/icon.svg,database,Generated neutral identifier — not an official mark
-hyundai-mobis,Hyundai Mobis,Unclassified,,,,,assets/company-logos/hyundai-mobis/icon.svg,report,Generated neutral identifier — not an official mark
-iberdrola,Iberdrola,Public,IBE.MC,Spain,quote/bme/ibe,,assets/company-logos/iberdrola/icon.svg,database,Generated neutral identifier — not an official mark
-ibiden,Ibiden,Unclassified,,,,,assets/company-logos/ibiden/icon.svg,report,Generated neutral identifier — not an official mark
-ibm,IBM,Public,IBM,United States,stocks/ibm,,assets/company-logos/ibm/icon.svg,database,Generated neutral identifier — not an official mark
-igo,IGO,Public,IGO.AX,Australia,quote/asx/igo,,assets/company-logos/igo/icon.svg,database,Generated neutral identifier — not an official mark
-iluka-resources,Iluka Resources,Public,ILU.AX,Australia,quote/asx/ilu,,assets/company-logos/iluka-resources/icon.svg,database,Generated neutral identifier — not an official mark
-imagination-technologies,Imagination Technologies,Private/other,,,,imaginationtech.com,assets/company-logos/imagination-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-immuta,Immuta,Private/other,,,,immuta.com,assets/company-logos/immuta/icon.svg,database,Generated neutral identifier — not an official mark
-infineon,Infineon,Public,IFX.DE,Germany,quote/etr/ifx,,assets/company-logos/infineon/icon.svg,database,Generated neutral identifier — not an official mark
-infinera,Infinera,Subsidiary/private/other,,,,infinera.com,assets/company-logos/infinera/icon.svg,database,Generated neutral identifier — not an official mark
-informatica-within-salesforce,Informatica within Salesforce,Unclassified,,,,,assets/company-logos/informatica-within-salesforce/icon.svg,database,Generated neutral identifier — not an official mark
-innio,INNIO,Private/other,,,,innio.com,assets/company-logos/innio/icon.svg,database,Generated neutral identifier — not an official mark
-innio-group,INNIO Group,Private/other,,,,innio.com,assets/company-logos/innio-group/icon.svg,database,Generated neutral identifier — not an official mark
-innolight,Innolight,Public,300308.SZ,China,quote/she/300308,,assets/company-logos/innolight/icon.svg,database,Generated neutral identifier — not an official mark
-innolight,InnoLight,Public,300308.SZ,China,quote/she/300308,,assets/company-logos/innolight/icon.svg,database,Generated neutral identifier — not an official mark
-innoviz,Innoviz,Public,INVZ,United States,stocks/invz,,assets/company-logos/innoviz/icon.svg,database,Generated neutral identifier — not an official mark
-inorbit,InOrbit,Private/other,,,,inorbit.ai,assets/company-logos/inorbit/icon.svg,database,Generated neutral identifier — not an official mark
-intel,Intel,Public,INTC,United States,stocks/intc,,assets/company-logos/intel/icon.svg,database,Generated neutral identifier — not an official mark
-intel-foundry,Intel Foundry,Unclassified,,,,,assets/company-logos/intel-foundry/icon.svg,report,Generated neutral identifier — not an official mark
-intertek,Intertek,Public,ITRK.L,United Kingdom,quote/lon/itrk,,assets/company-logos/intertek/icon.svg,database,Generated neutral identifier — not an official mark
-intrinsic,Intrinsic,Subsidiary/private/other,,,,intrinsic.ai,assets/company-logos/intrinsic/icon.svg,database,Generated neutral identifier — not an official mark
-intuit,Intuit,Public,INTU,United States,stocks/intu,,assets/company-logos/intuit/icon.svg,database,Generated neutral identifier — not an official mark
-invenergy,Invenergy,Private/other,,,,invenergy.com,assets/company-logos/invenergy/icon.svg,database,Generated neutral identifier — not an official mark
-inventec,Inventec,Public,2356.TW,Taiwan,quote/tpe/2356,,assets/company-logos/inventec/icon.svg,database,Generated neutral identifier — not an official mark
-ioneer-project-partners-and-emerging-developers,Ioneer project partners and emerging developers,Unclassified,,,,,assets/company-logos/ioneer-project-partners-and-emerging-developers/icon.svg,database,Generated neutral identifier — not an official mark
-iren,IREN,Public,IREN,United States,stocks/iren,,assets/company-logos/iren/icon.svg,database,Generated neutral identifier — not an official mark
-iridium,Iridium,Public,IRDM,United States,stocks/irdm,,assets/company-logos/iridium/icon.svg,database,Generated neutral identifier — not an official mark
-iron-mountain,Iron Mountain,Public,IRM,United States,stocks/irm,,assets/company-logos/iron-mountain/icon.svg,database,Generated neutral identifier — not an official mark
-jabil,Jabil,Public,JBL,United States,stocks/jbl,,assets/company-logos/jabil/icon.svg,database,Generated neutral identifier — not an official mark
-jacobs,Jacobs,Public,J,United States,stocks/j,,assets/company-logos/jacobs/icon.svg,database,Generated neutral identifier — not an official mark
-jacobs-solutions,Jacobs Solutions,Unclassified,,,,,assets/company-logos/jacobs-solutions/icon.svg,database,Generated neutral identifier — not an official mark
-jcet,JCET,Public,600584.SS,China,quote/sha/600584,,assets/company-logos/jcet/icon.svg,database,Generated neutral identifier — not an official mark
-jfe-holdings,JFE Holdings,Public,5411.T,Japan,quote/tyo/5411,,assets/company-logos/jfe-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-jiangxi-copper,Jiangxi Copper,Public,0358.HK,Hong Kong,quote/hkg/0358,,assets/company-logos/jiangxi-copper/icon.svg,database,Generated neutral identifier — not an official mark
-jinkosolar,JinkoSolar,Public,JKS,United States,stocks/jks,,assets/company-logos/jinkosolar/icon.svg,database,Generated neutral identifier — not an official mark
-jl-mag,JL MAG,Unclassified,,,,,assets/company-logos/jl-mag/icon.svg,report,Generated neutral identifier — not an official mark
-jl-mag-rare-earth,JL MAG Rare-Earth,Public,300748.SZ,China,quote/she/300748,,assets/company-logos/jl-mag-rare-earth/icon.svg,database,Generated neutral identifier — not an official mark
-jll,JLL,Public,JLL,United States,stocks/jll,,assets/company-logos/jll/icon.svg,database,Generated neutral identifier — not an official mark
-joby-aviation,Joby Aviation,Public,JOBY,United States,stocks/joby,,assets/company-logos/joby-aviation/icon.svg,database,Generated neutral identifier — not an official mark
-johnson-controls,Johnson Controls,Public,JCI,United States,stocks/jci,,assets/company-logos/johnson-controls/icon.svg,database,Generated neutral identifier — not an official mark
-jsr,JSR,Subsidiary/private/other,,,,jsr.co.jp,assets/company-logos/jsr/icon.svg,database,Generated neutral identifier — not an official mark
-juniper,Juniper,Subsidiary/private/other,,,,juniper.net,assets/company-logos/juniper/icon.svg,database,Generated neutral identifier — not an official mark
-juniper-networks,Juniper Networks,Subsidiary/private/other,,,,juniper.net,assets/company-logos/juniper-networks/icon.svg,database,Generated neutral identifier — not an official mark
-kawasaki-heavy,Kawasaki Heavy,Public,7012.T,Japan,quote/tyo/7012,,assets/company-logos/kawasaki-heavy/icon.svg,database,Generated neutral identifier — not an official mark
-kazatomprom,Kazatomprom,Public,KAP.L,United Kingdom,quote/lon/kap,,assets/company-logos/kazatomprom/icon.svg,database,Generated neutral identifier — not an official mark
-keppel-dc-reit,Keppel DC REIT,Public,AJBU.SI,Singapore,quote/sgx/ajbu,,assets/company-logos/keppel-dc-reit/icon.svg,database,Generated neutral identifier — not an official mark
-keyence,Keyence,Public,6861.T,Japan,quote/tyo/6861,,assets/company-logos/keyence/icon.svg,database,Generated neutral identifier — not an official mark
-keysight,Keysight,Public,KEYS,United States,stocks/keys,,assets/company-logos/keysight/icon.svg,database,Generated neutral identifier — not an official mark
-keysight-in-electronic-design-test,Keysight  in electronic design/test,Unclassified,,,,,assets/company-logos/keysight-in-electronic-design-test/icon.svg,database,Generated neutral identifier — not an official mark
-kghm,KGHM,Public,KGH.WA,,,,assets/company-logos/kghm/icon.svg,database,Generated neutral identifier — not an official mark
-kinara-assets,Kinara assets,Unclassified,,,,,assets/company-logos/kinara-assets/icon.svg,database,Generated neutral identifier — not an official mark
-kioxia,Kioxia,Public,285A.T,Japan,quote/tyo/285a,,assets/company-logos/kioxia/icon.svg,database,Generated neutral identifier — not an official mark
-kioxia-holdings,Kioxia Holdings,Unclassified,,,,,assets/company-logos/kioxia-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-kla,KLA,Public,KLAC,United States,stocks/klac,,assets/company-logos/kla/icon.svg,database,Generated neutral identifier — not an official mark
-kokusai-electric,Kokusai Electric,Public,6525.T,Japan,quote/tyo/6525,,assets/company-logos/kokusai-electric/icon.svg,database,Generated neutral identifier — not an official mark
-kollmorgen,Kollmorgen,Subsidiary/private/other,,,,kollmorgen.com,assets/company-logos/kollmorgen/icon.svg,database,Generated neutral identifier — not an official mark
-kore-ai,Kore.ai,Private/other,,,,kore.ai,assets/company-logos/kore-ai/icon.svg,database,Generated neutral identifier — not an official mark
-kratos,Kratos,Public,KTOS,United States,stocks/ktos,,assets/company-logos/kratos/icon.svg,database,Generated neutral identifier — not an official mark
-kuka,KUKA,Subsidiary/private/other,,,,kuka.com,assets/company-logos/kuka/icon.svg,database,Generated neutral identifier — not an official mark
-kulicke-soffa,Kulicke & Soffa,Public,KLIC,United States,stocks/klic,,assets/company-logos/kulicke-soffa/icon.svg,database,Generated neutral identifier — not an official mark
-kyec,KYEC,Public,2449.TW,Taiwan,quote/tpe/2449,,assets/company-logos/kyec/icon.svg,database,Generated neutral identifier — not an official mark
-kyocera,Kyocera,Public,6971.T,Japan,quote/tyo/6971,,assets/company-logos/kyocera/icon.svg,database,Generated neutral identifier — not an official mark
-labelbox,Labelbox,Private/other,,,,labelbox.com,assets/company-logos/labelbox/icon.svg,database,Generated neutral identifier — not an official mark
-lacework-assets,Lacework assets,Unclassified,,,,,assets/company-logos/lacework-assets/icon.svg,database,Generated neutral identifier — not an official mark
-lakera,Lakera,Subsidiary/private/other,,,,lakera.ai,assets/company-logos/lakera/icon.svg,database,Generated neutral identifier — not an official mark
-lakera-within-check-point,Lakera within Check Point,Private/other,,,,,assets/company-logos/lakera-within-check-point/icon.svg,database,Generated neutral identifier — not an official mark
-lam-research,Lam Research,Public,LRCX,United States,stocks/lrcx,,assets/company-logos/lam-research/icon.svg,database,Generated neutral identifier — not an official mark
-lambda,Lambda,Private/other,,,,lambda.ai,assets/company-logos/lambda/icon.svg,database,Generated neutral identifier — not an official mark
-langchain,LangChain,Private/other,,,,langchain.com,assets/company-logos/langchain/icon.svg,database,Generated neutral identifier — not an official mark
-langsmith,LangSmith,Private/other,,,,langchain.com,assets/company-logos/langsmith/icon.svg,database,Generated neutral identifier — not an official mark
-lasertec,Lasertec,Public,6920.T,Japan,quote/tyo/6920,,assets/company-logos/lasertec/icon.svg,database,Generated neutral identifier — not an official mark
-leader-drive,Leader Drive,Unclassified,,,,,assets/company-logos/leader-drive/icon.svg,report,Generated neutral identifier — not an official mark
-legrand,Legrand,Public,LR.PA,France,quote/epa/lr,,assets/company-logos/legrand/icon.svg,database,Generated neutral identifier — not an official mark
-lenovo,Lenovo,Public,0992.HK,Hong Kong,quote/hkg/0992,,assets/company-logos/lenovo/icon.svg,database,Generated neutral identifier — not an official mark
-lg-energy-solution,LG Energy Solution,Public,373220.KS,South Korea,quote/krx/373220,,assets/company-logos/lg-energy-solution/icon.svg,database,Generated neutral identifier — not an official mark
-li-cycle,Li-Cycle,Public,LICY,United States,stocks/licy,,assets/company-logos/li-cycle/icon.svg,database,Generated neutral identifier — not an official mark
-lightsource-bp,Lightsource bp,Subsidiary/private/other,,,,lightsourcebp.com,assets/company-logos/lightsource-bp/icon.svg,database,Generated neutral identifier — not an official mark
-linde,Linde,Public,LIN,United States,stocks/lin,,assets/company-logos/linde/icon.svg,database,Generated neutral identifier — not an official mark
-lindy,Lindy,Private/other,,,,lindy.ai,assets/company-logos/lindy/icon.svg,database,Generated neutral identifier — not an official mark
-liquidstack,LiquidStack,Private/other,,,,liquidstack.com,assets/company-logos/liquidstack/icon.svg,database,Generated neutral identifier — not an official mark
-litellm,LiteLLM,Private/other,,,,litellm.ai,assets/company-logos/litellm/icon.svg,database,Generated neutral identifier — not an official mark
-lithium-americas,Lithium Americas,Public,LAC,United States,stocks/lac,,assets/company-logos/lithium-americas/icon.svg,database,Generated neutral identifier — not an official mark
-llamaindex,LlamaIndex,Private/other,,,,llamaindex.ai,assets/company-logos/llamaindex/icon.svg,database,Generated neutral identifier — not an official mark
-locus-robotics,Locus Robotics,Private/other,,,,locusrobotics.com,assets/company-logos/locus-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-longi-green-energy,LONGi Green Energy,Public,601012.SS,China,quote/sha/601012,,assets/company-logos/longi-green-energy/icon.svg,database,Generated neutral identifier — not an official mark
-ls-cable-via-ls-corp,LS Cable via LS Corp,Public,006260.KS,South Korea,quote/krx/006260,,assets/company-logos/ls-cable-via-ls-corp/icon.svg,database,Generated neutral identifier — not an official mark
-ls-electric,LS Electric,Public,010120.KS,South Korea,quote/krx/010120,,assets/company-logos/ls-electric/icon.svg,database,Generated neutral identifier — not an official mark
-lumen,Lumen,Unclassified,,,,,assets/company-logos/lumen/icon.svg,report,Generated neutral identifier — not an official mark
-lumen-technologies,Lumen Technologies,Public,LUMN,United States,stocks/lumn,,assets/company-logos/lumen-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-lumentum,Lumentum,Public,LITE,United States,stocks/lite,,assets/company-logos/lumentum/icon.svg,database,Generated neutral identifier — not an official mark
-lumotive,Lumotive,Private/other,,,,lumotive.com,assets/company-logos/lumotive/icon.svg,database,Generated neutral identifier — not an official mark
-lynas,Lynas,Unclassified,,,,,assets/company-logos/lynas/icon.svg,report,Generated neutral identifier — not an official mark
-lynas-malaysia,Lynas Malaysia,Unclassified,,,,,assets/company-logos/lynas-malaysia/icon.svg,report,Generated neutral identifier — not an official mark
-lynas-rare-earths,Lynas Rare Earths,Public,LYC.AX,Australia,quote/asx/lyc,,assets/company-logos/lynas-rare-earths/icon.svg,database,Generated neutral identifier — not an official mark
-lyten,Lyten,Subsidiary/private/other,,,,lyten.com,assets/company-logos/lyten/icon.svg,database,Generated neutral identifier — not an official mark
-macnica-holdings,Macnica Holdings,Public,3132.T,Japan,quote/tyo/3132,,assets/company-logos/macnica-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-macom,MACOM,Public,MTSI,United States,stocks/mtsi,,assets/company-logos/macom/icon.svg,database,Generated neutral identifier — not an official mark
-magic,Magic,Private/other,,,,magic.dev,assets/company-logos/magic/icon.svg,database,Generated neutral identifier — not an official mark
-make,Make,Private/other,,,,make.com,assets/company-logos/make/icon.svg,database,Generated neutral identifier — not an official mark
-manufacturer-direct-and-specialist-distributors,Manufacturer-direct and specialist distributors,Unclassified,,,,,assets/company-logos/manufacturer-direct-and-specialist-distributors/icon.svg,database,Generated neutral identifier — not an official mark
-martian,Martian,Private/other,,,,withmartian.com,assets/company-logos/martian/icon.svg,database,Generated neutral identifier — not an official mark
-marvell,Marvell,Public,MRVL,United States,stocks/mrvl,,assets/company-logos/marvell/icon.svg,database,Generated neutral identifier — not an official mark
-mastec,MasTec,Public,MTZ,United States,stocks/mtz,,assets/company-logos/mastec/icon.svg,database,Generated neutral identifier — not an official mark
-materialize,Materialize,Private/other,,,,materialize.com,assets/company-logos/materialize/icon.svg,database,Generated neutral identifier — not an official mark
-materion,Materion,Public,MTRN,United States,stocks/mtrn,,assets/company-logos/materion/icon.svg,database,Generated neutral identifier — not an official mark
-matillion,Matillion,Private/other,,,,matillion.com,assets/company-logos/matillion/icon.svg,database,Generated neutral identifier — not an official mark
-maxlinear,MaxLinear,Public,MXL,United States,stocks/mxl,,assets/company-logos/maxlinear/icon.svg,database,Generated neutral identifier — not an official mark
-maxon,maxon,Private/other,,,,maxongroup.com,assets/company-logos/maxon/icon.svg,database,Generated neutral identifier — not an official mark
-may-mobility,May Mobility,Private/other,,,,maymobility.com,assets/company-logos/may-mobility/icon.svg,database,Generated neutral identifier — not an official mark
-merck-kgaa,Merck KGaA,Public,MRK.DE,Germany,quote/etr/mrk,,assets/company-logos/merck-kgaa/icon.svg,database,Generated neutral identifier — not an official mark
-mercor,Mercor,Unclassified,,,,,assets/company-logos/mercor/icon.svg,report,Generated neutral identifier — not an official mark
-meta,Meta,Public,META,United States,stocks/meta,,assets/company-logos/meta/icon.svg,database,Generated neutral identifier — not an official mark
-meta-mtia,Meta MTIA,Unclassified,,,,,assets/company-logos/meta-mtia/icon.svg,report,Generated neutral identifier — not an official mark
-micron,Micron,Public,MU,United States,stocks/mu,,assets/company-logos/micron/icon.svg,database,Generated neutral identifier — not an official mark
-microsoft,Microsoft,Public,MSFT,United States,stocks/msft,,assets/company-logos/microsoft/icon.svg,database,Generated neutral identifier — not an official mark
-microsoft-entra,Microsoft Entra,Unclassified,,,,,assets/company-logos/microsoft-entra/icon.svg,report,Generated neutral identifier — not an official mark
-microsoft-maia,Microsoft Maia,Unclassified,,,,,assets/company-logos/microsoft-maia/icon.svg,report,Generated neutral identifier — not an official mark
-mineral-resources,Mineral Resources,Public,MIN.AX,Australia,quote/asx/min,,assets/company-logos/mineral-resources/icon.svg,database,Generated neutral identifier — not an official mark
-minimax,MiniMax,Public,0100.HK,Hong Kong,quote/hkg/0100,,assets/company-logos/minimax/icon.svg,database,Generated neutral identifier — not an official mark
-mistral,Mistral,Unclassified,,,,,assets/company-logos/mistral/icon.svg,report,Generated neutral identifier — not an official mark
-mistral-ai,Mistral AI,Private/other,,,,mistral.ai,assets/company-logos/mistral-ai/icon.svg,database,Generated neutral identifier — not an official mark
-mitsubishi-electric,Mitsubishi Electric,Public,6503.T,Japan,quote/tyo/6503,,assets/company-logos/mitsubishi-electric/icon.svg,database,Generated neutral identifier — not an official mark
-mitsubishi-heavy,Mitsubishi Heavy,Unclassified,,,,,assets/company-logos/mitsubishi-heavy/icon.svg,report,Generated neutral identifier — not an official mark
-mitsubishi-heavy-industries,Mitsubishi Heavy Industries,Public,7011.T,Japan,quote/tyo/7011,,assets/company-logos/mitsubishi-heavy-industries/icon.svg,database,Generated neutral identifier — not an official mark
-mlflow-within-databricks,MLflow within Databricks,Private/other,,,,,assets/company-logos/mlflow-within-databricks/icon.svg,database,Generated neutral identifier — not an official mark
-mobileye,Mobileye,Public,MBLY,United States,stocks/mbly,,assets/company-logos/mobileye/icon.svg,database,Generated neutral identifier — not an official mark
-modal,Modal,Private/other,,,,modal.com,assets/company-logos/modal/icon.svg,database,Generated neutral identifier — not an official mark
-modine,Modine,Public,MOD,United States,stocks/mod,,assets/company-logos/modine/icon.svg,database,Generated neutral identifier — not an official mark
-modular,Modular,Private/other,,,,modular.com,assets/company-logos/modular/icon.svg,database,Generated neutral identifier — not an official mark
-molex,Molex,Subsidiary/private/other,,,,molex.com,assets/company-logos/molex/icon.svg,database,Generated neutral identifier — not an official mark
-molex-peers,Molex peers,Unclassified,,,,,assets/company-logos/molex-peers/icon.svg,database,Generated neutral identifier — not an official mark
-mongodb,MongoDB,Public,MDB,United States,stocks/mdb,,assets/company-logos/mongodb/icon.svg,database,Generated neutral identifier — not an official mark
-monolithic-power,Monolithic Power,Unclassified,,,,,assets/company-logos/monolithic-power/icon.svg,report,Generated neutral identifier — not an official mark
-monte-carlo,Monte Carlo,Private/other,,,,montecarlodata.com,assets/company-logos/monte-carlo/icon.svg,database,Generated neutral identifier — not an official mark
-moog,Moog,Public,MOG-A,United States,stocks/mog-a,,assets/company-logos/moog/icon.svg,database,Generated neutral identifier — not an official mark
-moonshot-ai,Moonshot AI,Private/other,,,,moonshot.cn,assets/company-logos/moonshot-ai/icon.svg,database,Generated neutral identifier — not an official mark
-moore-threads,Moore Threads,Private/other,,,,mthreads.com,assets/company-logos/moore-threads/icon.svg,database,Generated neutral identifier — not an official mark
-morgan-advanced-materials,Morgan Advanced Materials,Public,MGAM.L,United Kingdom,quote/lon/mgam,,assets/company-logos/morgan-advanced-materials/icon.svg,database,Generated neutral identifier — not an official mark
-mortenson,Mortenson,Private/other,,,,mortenson.com,assets/company-logos/mortenson/icon.svg,database,Generated neutral identifier — not an official mark
-mostly-ai,Mostly AI,Private/other,,,,mostly.ai,assets/company-logos/mostly-ai/icon.svg,database,Generated neutral identifier — not an official mark
-motional,Motional,Subsidiary/private/other,,,,motional.com,assets/company-logos/motional/icon.svg,database,Generated neutral identifier — not an official mark
-motivair-schneider,Motivair (Schneider),Unclassified,,,,,assets/company-logos/motivair-schneider/icon.svg,report,Generated neutral identifier — not an official mark
-moveworks,Moveworks,Subsidiary/private/other,,,,moveworks.com,assets/company-logos/moveworks/icon.svg,database,Generated neutral identifier — not an official mark
-mp-materials,MP Materials,Public,MP,United States,stocks/mp,,assets/company-logos/mp-materials/icon.svg,database,Generated neutral identifier — not an official mark
-munters,Munters,Public,MTRS.ST,Sweden,quote/sto/mtrs,,assets/company-logos/munters/icon.svg,database,Generated neutral identifier — not an official mark
-myr-group,MYR Group,Public,MYRG,United States,stocks/myrg,,assets/company-logos/myr-group/icon.svg,database,Generated neutral identifier — not an official mark
-n8n,n8n,Private/other,,,,n8n.io,assets/company-logos/n8n/icon.svg,database,Generated neutral identifier — not an official mark
-nabtesco,Nabtesco,Public,6268.T,Japan,quote/tyo/6268,,assets/company-logos/nabtesco/icon.svg,database,Generated neutral identifier — not an official mark
-nano-nuclear-energy,Nano Nuclear Energy,Public,NNE,United States,stocks/nne,,assets/company-logos/nano-nuclear-energy/icon.svg,database,Generated neutral identifier — not an official mark
-nanya-technology,Nanya Technology,Public,2408.TW,Taiwan,quote/tpe/2408,,assets/company-logos/nanya-technology/icon.svg,database,Generated neutral identifier — not an official mark
-national-grid,National Grid,Public,NG.L,United Kingdom,quote/lon/ng,,assets/company-logos/national-grid/icon.svg,database,Generated neutral identifier — not an official mark
-nebius,Nebius,Public,NBIS,United States,stocks/nbis,,assets/company-logos/nebius/icon.svg,database,Generated neutral identifier — not an official mark
-nec,NEC,Public,6701.T,Japan,quote/tyo/6701,,assets/company-logos/nec/icon.svg,database,Generated neutral identifier — not an official mark
-neo-performance,Neo Performance,Unclassified,,,,,assets/company-logos/neo-performance/icon.svg,report,Generated neutral identifier — not an official mark
-neo4j,Neo4j,Private/other,,,,neo4j.com,assets/company-logos/neo4j/icon.svg,database,Generated neutral identifier — not an official mark
-netapp,NetApp,Public,NTAP,United States,stocks/ntap,,assets/company-logos/netapp/icon.svg,database,Generated neutral identifier — not an official mark
-neura-robotics,NEURA Robotics,Private/other,,,,neura-robotics.com,assets/company-logos/neura-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-neural-magic-assets-within-red-hat-ibm,Neural Magic assets within Red Hat/IBM,Unclassified,,,,,assets/company-logos/neural-magic-assets-within-red-hat-ibm/icon.svg,database,Generated neutral identifier — not an official mark
-new-relic-assets-within-francisco-partners-tpg,New Relic assets within Francisco Partners/TPG,Unclassified,,,,,assets/company-logos/new-relic-assets-within-francisco-partners-tpg/icon.svg,database,Generated neutral identifier — not an official mark
-news-corp,News Corp,Public,NWSA,United States,stocks/nwsa,,assets/company-logos/news-corp/icon.svg,database,Generated neutral identifier — not an official mark
-nexans,Nexans,Public,NEX.PA,France,quote/epa/nex,,assets/company-logos/nexans/icon.svg,database,Generated neutral identifier — not an official mark
-nextdc,NEXTDC,Public,NXT.AX,Australia,quote/asx/nxt,,assets/company-logos/nextdc/icon.svg,database,Generated neutral identifier — not an official mark
-nextera,NextEra,Unclassified,,,,,assets/company-logos/nextera/icon.svg,report,Generated neutral identifier — not an official mark
-nextera-energy,NextEra Energy,Public,NEE,United States,stocks/nee,,assets/company-logos/nextera-energy/icon.svg,database,Generated neutral identifier — not an official mark
-nickel-industries,Nickel Industries,Public,NIC.AX,Australia,quote/asx/nic,,assets/company-logos/nickel-industries/icon.svg,database,Generated neutral identifier — not an official mark
-nidec,Nidec,Public,6594.T,Japan,quote/tyo/6594,,assets/company-logos/nidec/icon.svg,database,Generated neutral identifier — not an official mark
-nikon,Nikon,Public,7731.T,Japan,quote/tyo/7731,,assets/company-logos/nikon/icon.svg,database,Generated neutral identifier — not an official mark
-nippon-steel,Nippon Steel,Public,5401.T,Japan,quote/tyo/5401,,assets/company-logos/nippon-steel/icon.svg,database,Generated neutral identifier — not an official mark
-nkt,NKT,Public,NKT.CO,Denmark,quote/cph/nkt,,assets/company-logos/nkt/icon.svg,database,Generated neutral identifier — not an official mark
-nokia,Nokia,Public,NOK,United States,stocks/nok,,assets/company-logos/nokia/icon.svg,database,Generated neutral identifier — not an official mark
-norsk-hydro,Norsk Hydro,Public,NHY.OL,Norway,quote/osl/nhy,,assets/company-logos/norsk-hydro/icon.svg,database,Generated neutral identifier — not an official mark
-northern-data,Northern Data,Public,NB2.DE,Germany,quote/etr/nb2,,assets/company-logos/northern-data/icon.svg,database,Generated neutral identifier — not an official mark
-not-diamond,Not Diamond,Private/other,,,,notdiamond.ai,assets/company-logos/not-diamond/icon.svg,database,Generated neutral identifier — not an official mark
-nova,Nova,Public,NVMI,United States,stocks/nvmi,,assets/company-logos/nova/icon.svg,database,Generated neutral identifier — not an official mark
-nozomi-networks,Nozomi Networks,Private/other,,,,nozominetworks.com,assets/company-logos/nozomi-networks/icon.svg,database,Generated neutral identifier — not an official mark
-nsk,NSK,Public,6471.T,Japan,quote/tyo/6471,,assets/company-logos/nsk/icon.svg,database,Generated neutral identifier — not an official mark
-ntt,NTT,Public,9432.T,Japan,quote/tyo/9432,,assets/company-logos/ntt/icon.svg,database,Generated neutral identifier — not an official mark
-nucor,Nucor,Public,NUE,United States,stocks/nue,,assets/company-logos/nucor/icon.svg,database,Generated neutral identifier — not an official mark
-nuro,Nuro,Private/other,,,,nuro.ai,assets/company-logos/nuro/icon.svg,database,Generated neutral identifier — not an official mark
-nuscale-power,NuScale Power,Public,SMR,United States,stocks/smr,,assets/company-logos/nuscale-power/icon.svg,database,Generated neutral identifier — not an official mark
-nvent,nVent,Public,NVT,United States,stocks/nvt,,assets/company-logos/nvent/icon.svg,database,Generated neutral identifier — not an official mark
-nvidia,NVIDIA,Public,NVDA,United States,stocks/nvda,,assets/company-logos/nvidia/icon.svg,database,Generated neutral identifier — not an official mark
-nvidia-jetson,NVIDIA Jetson,Unclassified,,,,,assets/company-logos/nvidia-jetson/icon.svg,report,Generated neutral identifier — not an official mark
-nvidia-nvlink,NVIDIA NVLink,Unclassified,,,,,assets/company-logos/nvidia-nvlink/icon.svg,report,Generated neutral identifier — not an official mark
-nxp,NXP,Public,NXPI,United States,stocks/nxpi,,assets/company-logos/nxp/icon.svg,database,Generated neutral identifier — not an official mark
-ocado,Ocado,Public,OCDO.L,United Kingdom,quote/lon/ocdo,,assets/company-logos/ocado/icon.svg,database,Generated neutral identifier — not an official mark
-oci,OCI,Unclassified,,,,,assets/company-logos/oci/icon.svg,report,Generated neutral identifier — not an official mark
-oci-holdings,OCI Holdings,Public,010060.KS,South Korea,quote/krx/010060,,assets/company-logos/oci-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-octoai-assets,OctoAI assets,Unclassified,,,,,assets/company-logos/octoai-assets/icon.svg,database,Generated neutral identifier — not an official mark
-ofs,OFS,Subsidiary/private/other,,,,ofsoptics.com,assets/company-logos/ofs/icon.svg,database,Generated neutral identifier — not an official mark
-oklo,Oklo,Public,OKLO,United States,stocks/oklo,,assets/company-logos/oklo/icon.svg,database,Generated neutral identifier — not an official mark
-okta,Okta,Public,OKTA,United States,stocks/okta,,assets/company-logos/okta/icon.svg,database,Generated neutral identifier — not an official mark
-omron,Omron,Public,6645.T,Japan,quote/tyo/6645,,assets/company-logos/omron/icon.svg,database,Generated neutral identifier — not an official mark
-onsemi,onsemi,Public,ON,United States,stocks/on,,assets/company-logos/onsemi/icon.svg,database,Generated neutral identifier — not an official mark
-ontario-power-generation,Ontario Power Generation,Subsidiary/private/other,,,,opg.com,assets/company-logos/ontario-power-generation/icon.svg,database,Generated neutral identifier — not an official mark
-onto-innovation,Onto Innovation,Public,ONTO,United States,stocks/onto,,assets/company-logos/onto-innovation/icon.svg,database,Generated neutral identifier — not an official mark
-openai,OpenAI,Private/other,,,,openai.com,assets/company-logos/openai/icon.svg,database,Generated neutral identifier — not an official mark
-openrouter,OpenRouter,Private/other,,,,openrouter.ai,assets/company-logos/openrouter/icon.svg,database,Generated neutral identifier — not an official mark
-oracle,Oracle,Public,ORCL,United States,stocks/orcl,,assets/company-logos/oracle/icon.svg,database,Generated neutral identifier — not an official mark
-orange,Orange,Public,ORA.PA,France,quote/epa/ora,,assets/company-logos/orange/icon.svg,database,Generated neutral identifier — not an official mark
-orano,Orano,Subsidiary/private/other,,,,orano.group,assets/company-logos/orano/icon.svg,database,Generated neutral identifier — not an official mark
-orbbec,Orbbec,Private/other,,,,orbbec.com,assets/company-logos/orbbec/icon.svg,database,Generated neutral identifier — not an official mark
-orca-security,Orca Security,Private/other,,,,orca.security,assets/company-logos/orca-security/icon.svg,database,Generated neutral identifier — not an official mark
-ouster,Ouster,Public,OUST,United States,stocks/oust,,assets/company-logos/ouster/icon.svg,database,Generated neutral identifier — not an official mark
-packaging-partners,Packaging partners,Unclassified,,,,,assets/company-logos/packaging-partners/icon.svg,database,Generated neutral identifier — not an official mark
-pal-robotics,PAL Robotics,Private/other,,,,pal-robotics.com,assets/company-logos/pal-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-palantir,Palantir,Public,PLTR,United States,stocks/pltr,,assets/company-logos/palantir/icon.svg,database,Generated neutral identifier — not an official mark
-palo-alto,Palo Alto,Unclassified,,,,,assets/company-logos/palo-alto/icon.svg,database,Generated neutral identifier — not an official mark
-palo-alto-networks,Palo Alto Networks,Public,PANW,United States,stocks/panw,,assets/company-logos/palo-alto-networks/icon.svg,database,Generated neutral identifier — not an official mark
-panasonic,Panasonic,Public,6752.T,Japan,quote/tyo/6752,,assets/company-logos/panasonic/icon.svg,database,Generated neutral identifier — not an official mark
-panasonic-holdings,Panasonic Holdings,Unclassified,,,,,assets/company-logos/panasonic-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-parallel-domain,Parallel Domain,Private/other,,,,paralleldomain.com,assets/company-logos/parallel-domain/icon.svg,database,Generated neutral identifier — not an official mark
-parker-hannifin,Parker-Hannifin,Public,PH,United States,stocks/ph,,assets/company-logos/parker-hannifin/icon.svg,database,Generated neutral identifier — not an official mark
-patronus-ai,Patronus AI,Private/other,,,,patronus.ai,assets/company-logos/patronus-ai/icon.svg,database,Generated neutral identifier — not an official mark
-pegasystems,Pegasystems,Public,PEGA,United States,stocks/pega,,assets/company-logos/pegasystems/icon.svg,database,Generated neutral identifier — not an official mark
-pegatron,Pegatron,Public,4938.TW,Taiwan,quote/tpe/4938,,assets/company-logos/pegatron/icon.svg,database,Generated neutral identifier — not an official mark
-penguin-solutions,Penguin Solutions,Public,SGH,United States,stocks/sgh,,assets/company-logos/penguin-solutions/icon.svg,database,Generated neutral identifier — not an official mark
-pg-e,PG&E,Public,PCG,United States,stocks/pcg,,assets/company-logos/pg-e/icon.svg,database,Generated neutral identifier — not an official mark
-photronics,Photronics,Public,PLAB,United States,stocks/plab,,assets/company-logos/photronics/icon.svg,database,Generated neutral identifier — not an official mark
-physicsx,PhysicsX,Private/other,,,,physicsx.ai,assets/company-logos/physicsx/icon.svg,database,Generated neutral identifier — not an official mark
-pilbara-minerals,Pilbara Minerals,Public,PLS.AX,Australia,quote/asx/pls,,assets/company-logos/pilbara-minerals/icon.svg,database,Generated neutral identifier — not an official mark
-pinecone,Pinecone,Private/other,,,,pinecone.io,assets/company-logos/pinecone/icon.svg,database,Generated neutral identifier — not an official mark
-plansee-group,Plansee Group,Private/other,,,,plansee.com,assets/company-logos/plansee-group/icon.svg,database,Generated neutral identifier — not an official mark
-plug-power,Plug Power,Public,PLUG,United States,stocks/plug,,assets/company-logos/plug-power/icon.svg,database,Generated neutral identifier — not an official mark
-pony-ai,Pony AI,Public,PONY,United States,stocks/pony,,assets/company-logos/pony-ai/icon.svg,database,Generated neutral identifier — not an official mark
-poolside,Poolside,Private/other,,,,poolside.ai,assets/company-logos/poolside/icon.svg,database,Generated neutral identifier — not an official mark
-portkey,Portkey,Private/other,,,,portkey.ai,assets/company-logos/portkey/icon.svg,database,Generated neutral identifier — not an official mark
-posco,POSCO,Unclassified,,,,,assets/company-logos/posco/icon.svg,report,Generated neutral identifier — not an official mark
-posco-holdings,POSCO Holdings,Public,PKX,United States,stocks/pkx,,assets/company-logos/posco-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-powell-industries,Powell Industries,Public,POWL,United States,stocks/powl,,assets/company-logos/powell-industries/icon.svg,database,Generated neutral identifier — not an official mark
-powerhouse-data-centers,PowerHouse Data Centers,Private/other,,,,powerhousedata.com,assets/company-logos/powerhouse-data-centers/icon.svg,database,Generated neutral identifier — not an official mark
-powertech-technology,Powertech Technology,Public,6239.TW,Taiwan,quote/tpe/6239,,assets/company-logos/powertech-technology/icon.svg,database,Generated neutral identifier — not an official mark
-powin,Powin,Private/other,,,,powin.com,assets/company-logos/powin/icon.svg,database,Generated neutral identifier — not an official mark
-precision-castparts,Precision Castparts,Unclassified,,,,,assets/company-logos/precision-castparts/icon.svg,report,Generated neutral identifier — not an official mark
-prefect,Prefect,Private/other,,,,prefect.io,assets/company-logos/prefect/icon.svg,database,Generated neutral identifier — not an official mark
-privacera,Privacera,Private/other,,,,privacera.com,assets/company-logos/privacera/icon.svg,database,Generated neutral identifier — not an official mark
-private-regional-cdn-providers,Private regional CDN providers,Unclassified,,,,,assets/company-logos/private-regional-cdn-providers/icon.svg,database,Generated neutral identifier — not an official mark
-prolec-ge,Prolec GE,Subsidiary/private/other,,,,prolec.energy,assets/company-logos/prolec-ge/icon.svg,database,Generated neutral identifier — not an official mark
-prologis-where-relevant,Prologis  where relevant,Unclassified,,,,,assets/company-logos/prologis-where-relevant/icon.svg,database,Generated neutral identifier — not an official mark
-prologium,ProLogium,Private/other,,,,prologium.com,assets/company-logos/prologium/icon.svg,database,Generated neutral identifier — not an official mark
-prompt-security,Prompt Security,Private/other,,,,prompt.security,assets/company-logos/prompt-security/icon.svg,database,Generated neutral identifier — not an official mark
-prophesee,Prophesee,Private/other,,,,prophesee.ai,assets/company-logos/prophesee/icon.svg,database,Generated neutral identifier — not an official mark
-protect-ai,Protect AI,Subsidiary/private/other,,,,,assets/company-logos/protect-ai/icon.svg,database,Generated neutral identifier — not an official mark
-protect-ai-assets-within-palo-alto,Protect AI assets within Palo Alto,Unclassified,,,,,assets/company-logos/protect-ai-assets-within-palo-alto/icon.svg,database,Generated neutral identifier — not an official mark
-proterial,Proterial,Public,5486.T,Japan,quote/tyo/5486,,assets/company-logos/proterial/icon.svg,database,Generated neutral identifier — not an official mark
-prysmian,Prysmian,Public,PRY.MI,Italy,quote/bit/pry,,assets/company-logos/prysmian/icon.svg,database,Generated neutral identifier — not an official mark
-pseg,PSEG,Public,PEG,United States,stocks/peg,,assets/company-logos/pseg/icon.svg,database,Generated neutral identifier — not an official mark
-psmc-and-regional-foundry-capacity,PSMC and regional foundry capacity,Unclassified,,,,,assets/company-logos/psmc-and-regional-foundry-capacity/icon.svg,database,Generated neutral identifier — not an official mark
-ptc,PTC,Public,PTC,United States,stocks/ptc,,assets/company-logos/ptc/icon.svg,database,Generated neutral identifier — not an official mark
-pure-storage,Pure Storage,Public,PSTG,United States,stocks/pstg,,assets/company-logos/pure-storage/icon.svg,database,Generated neutral identifier — not an official mark
-qatar-solar-technologies,Qatar Solar Technologies,Private/other,,,,,assets/company-logos/qatar-solar-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-qdrant,Qdrant,Private/other,,,,qdrant.tech,assets/company-logos/qdrant/icon.svg,database,Generated neutral identifier — not an official mark
-qts,QTS,Subsidiary/private/other,,,,qtsdatacenters.com,assets/company-logos/qts/icon.svg,database,Generated neutral identifier — not an official mark
-qualcomm,Qualcomm,Public,QCOM,United States,stocks/qcom,,assets/company-logos/qualcomm/icon.svg,database,Generated neutral identifier — not an official mark
-quanta,Quanta,Unclassified,,,,,assets/company-logos/quanta/icon.svg,report,Generated neutral identifier — not an official mark
-quanta-computer,Quanta Computer,Public,2382.TW,Taiwan,quote/tpe/2382,,assets/company-logos/quanta-computer/icon.svg,database,Generated neutral identifier — not an official mark
-quanta-services,Quanta Services,Public,PWR,United States,stocks/pwr,,assets/company-logos/quanta-services/icon.svg,database,Generated neutral identifier — not an official mark
-quantum-loophole,Quantum Loophole,Private/other,,,,quantumloophole.com,assets/company-logos/quantum-loophole/icon.svg,database,Generated neutral identifier — not an official mark
-rainbow-robotics,Rainbow Robotics,Public,277810.KQ,South Korea,quote/krx/277810,,assets/company-logos/rainbow-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-rambus,Rambus,Public,RMBS,United States,stocks/rmbs,,assets/company-logos/rambus/icon.svg,database,Generated neutral identifier — not an official mark
-rapidus,Rapidus,Subsidiary/private/other,,,,rapidus.inc,assets/company-logos/rapidus/icon.svg,database,Generated neutral identifier — not an official mark
-rebellions,Rebellions,Private/other,,,,rebellions.ai,assets/company-logos/rebellions/icon.svg,database,Generated neutral identifier — not an official mark
-reddit,Reddit,Public,RDDT,United States,stocks/rddt,,assets/company-logos/reddit/icon.svg,database,Generated neutral identifier — not an official mark
-redis,Redis,Private/other,,,,redis.io,assets/company-logos/redis/icon.svg,database,Generated neutral identifier — not an official mark
-redpanda,Redpanda,Private/other,,,,redpanda.com,assets/company-logos/redpanda/icon.svg,database,Generated neutral identifier — not an official mark
-redwood-materials,Redwood Materials,Private/other,,,,redwoodmaterials.com,assets/company-logos/redwood-materials/icon.svg,database,Generated neutral identifier — not an official mark
-redwood-peers,Redwood peers,Unclassified,,,,,assets/company-logos/redwood-peers/icon.svg,database,Generated neutral identifier — not an official mark
-regal-rexnord,Regal Rexnord,Unclassified,,,,,assets/company-logos/regal-rexnord/icon.svg,report,Generated neutral identifier — not an official mark
-regional-specialty-gas-suppliers,Regional specialty-gas suppliers,Unclassified,,,,,assets/company-logos/regional-specialty-gas-suppliers/icon.svg,database,Generated neutral identifier — not an official mark
-regional-wet-bench-specialists,Regional wet-bench specialists,Unclassified,,,,,assets/company-logos/regional-wet-bench-specialists/icon.svg,database,Generated neutral identifier — not an official mark
-reka-ai,Reka AI,Private/other,,,,reka.ai,assets/company-logos/reka-ai/icon.svg,database,Generated neutral identifier — not an official mark
-related-digital,Related Digital,Private/other,,,,,assets/company-logos/related-digital/icon.svg,database,Generated neutral identifier — not an official mark
-relx,RELX,Public,RELX,United States,stocks/relx,,assets/company-logos/relx/icon.svg,database,Generated neutral identifier — not an official mark
-renesas,Renesas,Public,6723.T,Japan,quote/tyo/6723,,assets/company-logos/renesas/icon.svg,database,Generated neutral identifier — not an official mark
-renishaw,Renishaw,Unclassified,,,,,assets/company-logos/renishaw/icon.svg,report,Generated neutral identifier — not an official mark
-replicate,Replicate,Private/other,,,,replicate.com,assets/company-logos/replicate/icon.svg,database,Generated neutral identifier — not an official mark
-replit,Replit,Private/other,,,,replit.com,assets/company-logos/replit/icon.svg,database,Generated neutral identifier — not an official mark
-resonac,Resonac,Public,4004.T,Japan,quote/tyo/4004,,assets/company-logos/resonac/icon.svg,database,Generated neutral identifier — not an official mark
-rio-tinto,Rio Tinto,Public,RIO,United States,stocks/rio,,assets/company-logos/rio-tinto/icon.svg,database,Generated neutral identifier — not an official mark
-risc-v-international,RISC-V International,Private/other,,,,riscv.org,assets/company-logos/risc-v-international/icon.svg,database,Generated neutral identifier — not an official mark
-rittal,Rittal,Subsidiary/private/other,,,,rittal.com,assets/company-logos/rittal/icon.svg,database,Generated neutral identifier — not an official mark
-rivery,Rivery,Private/other,,,,rivery.io,assets/company-logos/rivery/icon.svg,database,Generated neutral identifier — not an official mark
-robco,RobCo,Private/other,,,,robco.de,assets/company-logos/robco/icon.svg,database,Generated neutral identifier — not an official mark
-robert-bosch,Robert Bosch,Private/other,,,,bosch.com,assets/company-logos/robert-bosch/icon.svg,database,Generated neutral identifier — not an official mark
-robosense,RoboSense,Public,2498.HK,Hong Kong,quote/hkg/2498,,assets/company-logos/robosense/icon.svg,database,Generated neutral identifier — not an official mark
-robust-intelligence,Robust Intelligence,Subsidiary/private/other,,,,,assets/company-logos/robust-intelligence/icon.svg,database,Generated neutral identifier — not an official mark
-robust-intelligence-within-cisco,Robust Intelligence within Cisco,Private/other,,,,,assets/company-logos/robust-intelligence-within-cisco/icon.svg,database,Generated neutral identifier — not an official mark
-rolls-royce,Rolls-Royce,Public,RR.L,United Kingdom,quote/lon/rr,,assets/company-logos/rolls-royce/icon.svg,database,Generated neutral identifier — not an official mark
-rolls-royce-power-systems,Rolls-Royce Power Systems,Subsidiary/private/other,,,,,assets/company-logos/rolls-royce-power-systems/icon.svg,database,Generated neutral identifier — not an official mark
-rosenberger,Rosenberger,Private/other,,,,rosenberger.com,assets/company-logos/rosenberger/icon.svg,database,Generated neutral identifier — not an official mark
-rosendin,Rosendin,Private/other,,,,rosendin.com,assets/company-logos/rosendin/icon.svg,database,Generated neutral identifier — not an official mark
-rowan-digital-infrastructure,Rowan Digital Infrastructure,Private/other,,,,rowandigital.com,assets/company-logos/rowan-digital-infrastructure/icon.svg,database,Generated neutral identifier — not an official mark
-rte,RTE,Private/other,,,,rte-france.com,assets/company-logos/rte/icon.svg,database,Generated neutral identifier — not an official mark
-rusal,Rusal,Subsidiary/private/other,,,,,assets/company-logos/rusal/icon.svg,database,Generated neutral identifier — not an official mark
-rwe,RWE,Public,RWE.DE,Germany,quote/etr/rwe,,assets/company-logos/rwe/icon.svg,database,Generated neutral identifier — not an official mark
-saint-gobain,Saint-Gobain,Public,SGO.PA,France,quote/epa/sgo,,assets/company-logos/saint-gobain/icon.svg,database,Generated neutral identifier — not an official mark
-salesforce,Salesforce,Public,CRM,United States,stocks/crm,,assets/company-logos/salesforce/icon.svg,database,Generated neutral identifier — not an official mark
-sama,Sama,Private/other,,,,sama.com,assets/company-logos/sama/icon.svg,database,Generated neutral identifier — not an official mark
-sambanova,SambaNova,Private/other,,,,sambanova.ai,assets/company-logos/sambanova/icon.svg,database,Generated neutral identifier — not an official mark
-samsung,Samsung,Unclassified,,,,,assets/company-logos/samsung/icon.svg,database,Generated neutral identifier — not an official mark
-samsung-electronics,Samsung Electronics,Public,005930.KS,South Korea,quote/krx/005930,,assets/company-logos/samsung-electronics/icon.svg,database,Generated neutral identifier — not an official mark
-samsung-foundry,Samsung Foundry,Unclassified,,,,,assets/company-logos/samsung-foundry/icon.svg,report,Generated neutral identifier — not an official mark
-samsung-sdi,Samsung SDI,Public,006400.KS,South Korea,quote/krx/006400,,assets/company-logos/samsung-sdi/icon.svg,database,Generated neutral identifier — not an official mark
-samtec,Samtec,Private/other,,,,samtec.com,assets/company-logos/samtec/icon.svg,database,Generated neutral identifier — not an official mark
-sanctuary-ai,Sanctuary AI,Private/other,,,,sanctuary.ai,assets/company-logos/sanctuary-ai/icon.svg,database,Generated neutral identifier — not an official mark
-sandisk,Sandisk,Public,SNDK,United States,stocks/sndk,,assets/company-logos/sandisk/icon.svg,database,Generated neutral identifier — not an official mark
-sanhua,Sanhua,Unclassified,,,,,assets/company-logos/sanhua/icon.svg,report,Generated neutral identifier — not an official mark
-sap,SAP,Public,SAP,United States,stocks/sap,,assets/company-logos/sap/icon.svg,database,Generated neutral identifier — not an official mark
-scale-ai,Scale AI,Private/other,,,,scale.com,assets/company-logos/scale-ai/icon.svg,database,Generated neutral identifier — not an official mark
-schaeffler,Schaeffler,Public,SHA.DE,Germany,quote/etr/sha,,assets/company-logos/schaeffler/icon.svg,database,Generated neutral identifier — not an official mark
-schneider,Schneider,Unclassified,,,,,assets/company-logos/schneider/icon.svg,database,Generated neutral identifier — not an official mark
-schneider-electric,Schneider Electric,Public,SU.PA,France,quote/epa/su,,assets/company-logos/schneider-electric/icon.svg,database,Generated neutral identifier — not an official mark
-screen-holdings,SCREEN Holdings,Public,7735.T,Japan,quote/tyo/7735,,assets/company-logos/screen-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-seagate,Seagate,Public,STX,United States,stocks/stx,,assets/company-logos/seagate/icon.svg,database,Generated neutral identifier — not an official mark
-seegrid,Seegrid,Private/other,,,,seegrid.com,assets/company-logos/seegrid/icon.svg,database,Generated neutral identifier — not an official mark
-seer-robotics,SEER Robotics,Public,6106.HK,Hong Kong,quote/hkg/6106,,assets/company-logos/seer-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-selected-specialist-metrology-vendors,Selected specialist metrology vendors,Unclassified,,,,,assets/company-logos/selected-specialist-metrology-vendors/icon.svg,database,Generated neutral identifier — not an official mark
-semtech,Semtech,Public,SMTC,United States,stocks/smtc,,assets/company-logos/semtech/icon.svg,database,Generated neutral identifier — not an official mark
-sensata,Sensata,Public,ST,United States,stocks/st,,assets/company-logos/sensata/icon.svg,database,Generated neutral identifier — not an official mark
-servicenow,ServiceNow,Public,NOW,United States,stocks/now,,assets/company-logos/servicenow/icon.svg,database,Generated neutral identifier — not an official mark
-ses,SES,Public,SESG.PA,France,quote/epa/sesg,,assets/company-logos/ses/icon.svg,database,Generated neutral identifier — not an official mark
-sgb-smit,SGB-SMIT,Private/other,,,,sgb-smit.com,assets/company-logos/sgb-smit/icon.svg,database,Generated neutral identifier — not an official mark
-sgs,SGS,Public,SGSN.SW,Switzerland,quote/swx/sgsn,,assets/company-logos/sgs/icon.svg,database,Generated neutral identifier — not an official mark
-shenghe-resources-partners,Shenghe Resources partners,Unclassified,,,,,assets/company-logos/shenghe-resources-partners/icon.svg,database,Generated neutral identifier — not an official mark
-shield-ai,Shield AI,Private/other,,,,shield.ai,assets/company-logos/shield-ai/icon.svg,database,Generated neutral identifier — not an official mark
-shin-etsu,Shin-Etsu,Unclassified,,,,,assets/company-logos/shin-etsu/icon.svg,report,Generated neutral identifier — not an official mark
-shin-etsu-chemical,Shin-Etsu Chemical,Public,4063.T,Japan,quote/tyo/4063,,assets/company-logos/shin-etsu-chemical/icon.svg,database,Generated neutral identifier — not an official mark
-shinko,Shinko,Unclassified,,,,,assets/company-logos/shinko/icon.svg,report,Generated neutral identifier — not an official mark
-shutterstock,Shutterstock,Public,SSTK,United States,stocks/sstk,,assets/company-logos/shutterstock/icon.svg,database,Generated neutral identifier — not an official mark
-sibelco,Sibelco,Unclassified,,,,,assets/company-logos/sibelco/icon.svg,report,Generated neutral identifier — not an official mark
-sick,SICK,Private/other,,,,sick.com,assets/company-logos/sick/icon.svg,database,Generated neutral identifier — not an official mark
-siemens,Siemens,Public,SIE.DE,Germany,quote/etr/sie,,assets/company-logos/siemens/icon.svg,database,Generated neutral identifier — not an official mark
-siemens-eda,Siemens EDA,Subsidiary/private/other,,,,siemens.com,assets/company-logos/siemens-eda/icon.svg,database,Generated neutral identifier — not an official mark
-siemens-energy,Siemens Energy,Public,ENR.DE,Germany,quote/etr/enr,,assets/company-logos/siemens-energy/icon.svg,database,Generated neutral identifier — not an official mark
-sierra,Sierra,Private/other,,,,sierra.ai,assets/company-logos/sierra/icon.svg,database,Generated neutral identifier — not an official mark
-sifive,SiFive,Private/other,,,,sifive.com,assets/company-logos/sifive/icon.svg,database,Generated neutral identifier — not an official mark
-siliconware-within-ase-and-specialist-packaging-houses,Siliconware within ASE and specialist packaging houses,Unclassified,,,,,assets/company-logos/siliconware-within-ase-and-specialist-packaging-houses/icon.svg,database,Generated neutral identifier — not an official mark
-siltronic,Siltronic,Public,WAF.DE,Germany,quote/etr/waf,,assets/company-logos/siltronic/icon.svg,database,Generated neutral identifier — not an official mark
-sima-ai,SiMa.ai,Private/other,,,,sima.ai,assets/company-logos/sima-ai/icon.svg,database,Generated neutral identifier — not an official mark
-sinequa,Sinequa,Private/other,,,,sinequa.com,assets/company-logos/sinequa/icon.svg,database,Generated neutral identifier — not an official mark
-singlestore,SingleStore,Private/other,,,,singlestore.com,assets/company-logos/singlestore/icon.svg,database,Generated neutral identifier — not an official mark
-sk-hynix,SK hynix,Public,000660.KS,South Korea,quote/krx/000660,,assets/company-logos/sk-hynix/icon.svg,database,Generated neutral identifier — not an official mark
-sk-hynix-solidigm,SK hynix/Solidigm,Unclassified,,,,,assets/company-logos/sk-hynix-solidigm/icon.svg,database,Generated neutral identifier — not an official mark
-sk-siltron,SK Siltron,Subsidiary/private/other,,,,sksiltron.com,assets/company-logos/sk-siltron/icon.svg,database,Generated neutral identifier — not an official mark
-skanska,Skanska,Public,SKA-B.ST,Sweden,quote/sto/ska-b,,assets/company-logos/skanska/icon.svg,database,Generated neutral identifier — not an official mark
-skf,SKF,Public,SKF-B.ST,Sweden,quote/sto/skf-b,,assets/company-logos/skf/icon.svg,database,Generated neutral identifier — not an official mark
-skydio,Skydio,Private/other,,,,skydio.com,assets/company-logos/skydio/icon.svg,database,Generated neutral identifier — not an official mark
-sma-solar,SMA Solar,Public,S92.DE,Germany,quote/etr/s92,,assets/company-logos/sma-solar/icon.svg,database,Generated neutral identifier — not an official mark
-smc,SMC,Public,6273.T,Japan,quote/tyo/6273,,assets/company-logos/smc/icon.svg,database,Generated neutral identifier — not an official mark
-smic,SMIC,Public,0981.HK,Hong Kong,quote/hkg/0981,,assets/company-logos/smic/icon.svg,database,Generated neutral identifier — not an official mark
-snorkel-ai,Snorkel AI,Private/other,,,,snorkel.ai,assets/company-logos/snorkel-ai/icon.svg,database,Generated neutral identifier — not an official mark
-snowflake,Snowflake,Public,SNOW,United States,stocks/snow,,assets/company-logos/snowflake/icon.svg,database,Generated neutral identifier — not an official mark
-snyk,Snyk,Private/other,,,,snyk.io,assets/company-logos/snyk/icon.svg,database,Generated neutral identifier — not an official mark
-socomec,Socomec,Private/other,,,,socomec.com,assets/company-logos/socomec/icon.svg,database,Generated neutral identifier — not an official mark
-soitec,Soitec,Public,SOI.PA,France,quote/epa/soi,,assets/company-logos/soitec/icon.svg,database,Generated neutral identifier — not an official mark
-solaredge,SolarEdge,Public,SEDG,United States,stocks/sedg,,assets/company-logos/solaredge/icon.svg,database,Generated neutral identifier — not an official mark
-solidigm,Solidigm,Subsidiary/private/other,,,,solidigm.com,assets/company-logos/solidigm/icon.svg,database,Generated neutral identifier — not an official mark
-solvay,Solvay,Public,SOLB.BR,Belgium,quote/ebr/solb,,assets/company-logos/solvay/icon.svg,database,Generated neutral identifier — not an official mark
-sony,Sony,Public,6758.T,Japan,quote/tyo/6758,,assets/company-logos/sony/icon.svg,database,Generated neutral identifier — not an official mark
-soroco,Soroco,Private/other,,,,soroco.com,assets/company-logos/soroco/icon.svg,database,Generated neutral identifier — not an official mark
-source-photonics,Source Photonics,Private/other,,,,sourcephotonics.com,assets/company-logos/source-photonics/icon.svg,database,Generated neutral identifier — not an official mark
-south32,South32,Public,S32.AX,Australia,quote/asx/s32,,assets/company-logos/south32/icon.svg,database,Generated neutral identifier — not an official mark
-southern-company,Southern Company,Public,SO,United States,stocks/so,,assets/company-logos/southern-company/icon.svg,database,Generated neutral identifier — not an official mark
-southern-copper,Southern Copper,Public,SCCO,United States,stocks/scco,,assets/company-logos/southern-copper/icon.svg,database,Generated neutral identifier — not an official mark
-southwire,Southwire,Private/other,,,,southwire.com,assets/company-logos/southwire/icon.svg,database,Generated neutral identifier — not an official mark
-spacex-starlink,SpaceX/Starlink,Unclassified,,,,,assets/company-logos/spacex-starlink/icon.svg,database,Generated neutral identifier — not an official mark
-specialist-critical-facility-operators,Specialist critical-facility operators,Unclassified,,,,,assets/company-logos/specialist-critical-facility-operators/icon.svg,database,Generated neutral identifier — not an official mark
-specialist-gearbox-and-precision-mechanics-suppliers,Specialist gearbox and precision-mechanics suppliers,Unclassified,,,,,assets/company-logos/specialist-gearbox-and-precision-mechanics-suppliers/icon.svg,database,Generated neutral identifier — not an official mark
-specialist-integrators,Specialist integrators,Unclassified,,,,,assets/company-logos/specialist-integrators/icon.svg,database,Generated neutral identifier — not an official mark
-specialist-probe-test-interface-vendors,Specialist probe/test-interface vendors,Unclassified,,,,,assets/company-logos/specialist-probe-test-interface-vendors/icon.svg,database,Generated neutral identifier — not an official mark
-spiffe-spire,SPIFFE/SPIRE,Private/other,,,,spiffe.io,assets/company-logos/spiffe-spire/icon.svg,database,Generated neutral identifier — not an official mark
-spiffe-spire-ecosystem,SPIFFE/SPIRE ecosystem,Unclassified,,,,,assets/company-logos/spiffe-spire-ecosystem/icon.svg,database,Generated neutral identifier — not an official mark
-splunk-cisco,Splunk (Cisco),Unclassified,,,,,assets/company-logos/splunk-cisco/icon.svg,report,Generated neutral identifier — not an official mark
-sqm,SQM,Public,SQM,United States,stocks/sqm,,assets/company-logos/sqm/icon.svg,database,Generated neutral identifier — not an official mark
-stability-ai,Stability AI,Private/other,,,,stability.ai,assets/company-logos/stability-ai/icon.svg,database,Generated neutral identifier — not an official mark
-stack-infrastructure,STACK Infrastructure,Subsidiary/private/other,,,,stackinfra.com,assets/company-logos/stack-infrastructure/icon.svg,database,Generated neutral identifier — not an official mark
-starlink,Starlink,Private/other,,,,starlink.com,assets/company-logos/starlink/icon.svg,database,Generated neutral identifier — not an official mark
-state-mining-enterprises-and-regional-producers,State mining enterprises and regional producers,Unclassified,,,,,assets/company-logos/state-mining-enterprises-and-regional-producers/icon.svg,database,Generated neutral identifier — not an official mark
-steel-dynamics,Steel Dynamics,Public,STLD,United States,stocks/stld,,assets/company-logos/steel-dynamics/icon.svg,database,Generated neutral identifier — not an official mark
-sterling-infrastructure,Sterling Infrastructure,Public,STRL,United States,stocks/strl,,assets/company-logos/sterling-infrastructure/icon.svg,database,Generated neutral identifier — not an official mark
-stmicro,STMicro,Unclassified,,,,,assets/company-logos/stmicro/icon.svg,database,Generated neutral identifier — not an official mark
-stmicroelectronics,STMicroelectronics,Public,STM,United States,stocks/stm,,assets/company-logos/stmicroelectronics/icon.svg,database,Generated neutral identifier — not an official mark
-storedot,StoreDot,Private/other,,,,store-dot.com,assets/company-logos/storedot/icon.svg,database,Generated neutral identifier — not an official mark
-staubli,Stäubli,Private/other,,,,staubli.com,assets/company-logos/staubli/icon.svg,database,Generated neutral identifier — not an official mark
-subcom,SubCom,Subsidiary/private/other,,,,subcom.com,assets/company-logos/subcom/icon.svg,database,Generated neutral identifier — not an official mark
-submer,Submer,Private/other,,,,submer.com,assets/company-logos/submer/icon.svg,database,Generated neutral identifier — not an official mark
-suffolk,Suffolk,Private/other,,,,suffolk.com,assets/company-logos/suffolk/icon.svg,database,Generated neutral identifier — not an official mark
-sumco,SUMCO,Public,3436.T,Japan,quote/tyo/3436,,assets/company-logos/sumco/icon.svg,database,Generated neutral identifier — not an official mark
-sumitomo-electric,Sumitomo Electric,Public,5802.T,Japan,quote/tyo/5802,,assets/company-logos/sumitomo-electric/icon.svg,database,Generated neutral identifier — not an official mark
-sungrow,Sungrow,Public,300274.SZ,China,quote/she/300274,,assets/company-logos/sungrow/icon.svg,database,Generated neutral identifier — not an official mark
-super-micro-computer,Super Micro Computer,Unclassified,,,,,assets/company-logos/super-micro-computer/icon.svg,database,Generated neutral identifier — not an official mark
-supermicro,Supermicro,Public,SMCI,United States,stocks/smci,,assets/company-logos/supermicro/icon.svg,database,Generated neutral identifier — not an official mark
-surge,Surge,Unclassified,,,,,assets/company-logos/surge/icon.svg,report,Generated neutral identifier — not an official mark
-surge-ai,Surge AI,Private/other,,,,surgehq.ai,assets/company-logos/surge-ai/icon.svg,database,Generated neutral identifier — not an official mark
-suss-microtec,SUSS MicroTec,Public,SMHN.DE,Germany,quote/etr/smhn,,assets/company-logos/suss-microtec/icon.svg,database,Generated neutral identifier — not an official mark
-swissgrid,Swissgrid,Private/other,,,,swissgrid.ch,assets/company-logos/swissgrid/icon.svg,database,Generated neutral identifier — not an official mark
-symbotic,Symbotic,Public,SYM,United States,stocks/sym,,assets/company-logos/symbotic/icon.svg,database,Generated neutral identifier — not an official mark
-synopsys,Synopsys,Public,SNPS,United States,stocks/snps,,assets/company-logos/synopsys/icon.svg,database,Generated neutral identifier — not an official mark
-synthesis-ai,Synthesis AI,Private/other,,,,synthesis.ai,assets/company-logos/synthesis-ai/icon.svg,database,Generated neutral identifier — not an official mark
-system-integrators,system integrators,Unclassified,,,,,assets/company-logos/system-integrators/icon.svg,database,Generated neutral identifier — not an official mark
-taiyo-nippon-sanso-via-nippon-sanso,Taiyo Nippon Sanso via Nippon Sanso,Public,4091.T,Japan,quote/tyo/4091,,assets/company-logos/taiyo-nippon-sanso-via-nippon-sanso/icon.svg,database,Generated neutral identifier — not an official mark
-talen,Talen,Unclassified,,,,,assets/company-logos/talen/icon.svg,report,Generated neutral identifier — not an official mark
-talen-energy,Talen Energy,Public,TLN,United States,stocks/tln,,assets/company-logos/talen-energy/icon.svg,database,Generated neutral identifier — not an official mark
-tata-communications,Tata Communications,Public,TATACOMM.NS,India,quote/nse/tatacomm,,assets/company-logos/tata-communications/icon.svg,database,Generated neutral identifier — not an official mark
-tdk,TDK,Public,6762.T,Japan,quote/tyo/6762,,assets/company-logos/tdk/icon.svg,database,Generated neutral identifier — not an official mark
-te-connectivity,TE Connectivity,Public,TEL,United States,stocks/tel,,assets/company-logos/te-connectivity/icon.svg,database,Generated neutral identifier — not an official mark
-teledyne,Teledyne,Public,TDY,United States,stocks/tdy,,assets/company-logos/teledyne/icon.svg,database,Generated neutral identifier — not an official mark
-teleport,Teleport,Private/other,,,,goteleport.com,assets/company-logos/teleport/icon.svg,database,Generated neutral identifier — not an official mark
-telus-digital,TELUS Digital,Public,TIXT,United States,stocks/tixt,,assets/company-logos/telus-digital/icon.svg,database,Generated neutral identifier — not an official mark
-temporal,Temporal,Private/other,,,,temporal.io,assets/company-logos/temporal/icon.svg,database,Generated neutral identifier — not an official mark
-tencent,Tencent,Public,0700.HK,Hong Kong,quote/hkg/0700,,assets/company-logos/tencent/icon.svg,database,Generated neutral identifier — not an official mark
-tennet,TenneT,Private/other,,,,tennet.eu,assets/company-logos/tennet/icon.svg,database,Generated neutral identifier — not an official mark
-tenstorrent,Tenstorrent,Private/other,,,,tenstorrent.com,assets/company-logos/tenstorrent/icon.svg,database,Generated neutral identifier — not an official mark
-teradata,Teradata,Public,TDC,United States,stocks/tdc,,assets/company-logos/teradata/icon.svg,database,Generated neutral identifier — not an official mark
-teradyne,Teradyne,Public,TER,United States,stocks/ter,,assets/company-logos/teradyne/icon.svg,database,Generated neutral identifier — not an official mark
-terawulf,TeraWulf,Public,WULF,United States,stocks/wulf,,assets/company-logos/terawulf/icon.svg,database,Generated neutral identifier — not an official mark
-terrapower,TerraPower,Private/other,,,,terrapower.com,assets/company-logos/terrapower/icon.svg,database,Generated neutral identifier — not an official mark
-tesla,Tesla,Public,TSLA,United States,stocks/tsla,,assets/company-logos/tesla/icon.svg,database,Generated neutral identifier — not an official mark
-tesla-ai5,Tesla AI5,Unclassified,,,,,assets/company-logos/tesla-ai5/icon.svg,report,Generated neutral identifier — not an official mark
-tesla-fsd-silicon,Tesla FSD silicon,Unclassified,,,,,assets/company-logos/tesla-fsd-silicon/icon.svg,report,Generated neutral identifier — not an official mark
-texas-instruments,Texas Instruments,Public,TXN,United States,stocks/txn,,assets/company-logos/texas-instruments/icon.svg,database,Generated neutral identifier — not an official mark
-thales,Thales,Public,HO.PA,France,quote/epa/ho,,assets/company-logos/thales/icon.svg,database,Generated neutral identifier — not an official mark
-the-quartz-corp,The Quartz Corp,Unclassified,,,,,assets/company-logos/the-quartz-corp/icon.svg,report,Generated neutral identifier — not an official mark
-thk,THK,Public,6481.T,Japan,quote/tyo/6481,,assets/company-logos/thk/icon.svg,database,Generated neutral identifier — not an official mark
-thomson-reuters,Thomson Reuters,Public,TRI,United States,stocks/tri,,assets/company-logos/thomson-reuters/icon.svg,database,Generated neutral identifier — not an official mark
-thyssenkrupp-electrical-steel-business-units,thyssenkrupp Electrical Steel business units,Private/other,,,,,assets/company-logos/thyssenkrupp-electrical-steel-business-units/icon.svg,database,Generated neutral identifier — not an official mark
-tianqi-lithium,Tianqi Lithium,Public,002466.SZ,China,quote/she/002466,,assets/company-logos/tianqi-lithium/icon.svg,database,Generated neutral identifier — not an official mark
-timken,Timken,Public,TKR,United States,stocks/tkr,,assets/company-logos/timken/icon.svg,database,Generated neutral identifier — not an official mark
-together,Together,Unclassified,,,,,assets/company-logos/together/icon.svg,report,Generated neutral identifier — not an official mark
-together-ai,Together AI,Private/other,,,,together.ai,assets/company-logos/together-ai/icon.svg,database,Generated neutral identifier — not an official mark
-tokuyama,Tokuyama,Unclassified,,,,,assets/company-logos/tokuyama/icon.svg,report,Generated neutral identifier — not an official mark
-tokyo-electron,Tokyo Electron,Public,8035.T,Japan,quote/tyo/8035,,assets/company-logos/tokyo-electron/icon.svg,database,Generated neutral identifier — not an official mark
-tokyo-ohka-kogyo,Tokyo Ohka Kogyo,Public,4186.T,Japan,quote/tyo/4186,,assets/company-logos/tokyo-ohka-kogyo/icon.svg,database,Generated neutral identifier — not an official mark
-toloka,Toloka,Private/other,,,,toloka.ai,assets/company-logos/toloka/icon.svg,database,Generated neutral identifier — not an official mark
-tongfu-microelectronics,Tongfu Microelectronics,Public,002156.SZ,China,quote/she/002156,,assets/company-logos/tongfu-microelectronics/icon.svg,database,Generated neutral identifier — not an official mark
-tongwei,Tongwei,Public,600438.SS,China,quote/sha/600438,,assets/company-logos/tongwei/icon.svg,database,Generated neutral identifier — not an official mark
-toppan-holdings,TOPPAN Holdings,Public,7911.T,Japan,quote/tyo/7911,,assets/company-logos/toppan-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-toppan-photomask-jv-structures,Toppan Photomask/JV structures,Private/other,,,,,assets/company-logos/toppan-photomask-jv-structures/icon.svg,database,Generated neutral identifier — not an official mark
-tower-semiconductor,Tower Semiconductor,Public,TSEM,United States,stocks/tsem,,assets/company-logos/tower-semiconductor/icon.svg,database,Generated neutral identifier — not an official mark
-tract,Tract,Private/other,,,,tract.com,assets/company-logos/tract/icon.svg,database,Generated neutral identifier — not an official mark
-trane,Trane,Public,TT,United States,stocks/tt,,assets/company-logos/trane/icon.svg,database,Generated neutral identifier — not an official mark
-trane-technologies,Trane Technologies,Unclassified,,,,,assets/company-logos/trane-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-tray-ai,Tray.ai,Private/other,,,,tray.ai,assets/company-logos/tray-ai/icon.svg,database,Generated neutral identifier — not an official mark
-trina-solar,Trina Solar,Public,688599.SS,China,quote/sha/688599,,assets/company-logos/trina-solar/icon.svg,database,Generated neutral identifier — not an official mark
-tsingshan-holding,Tsingshan Holding,Private/other,,,,tsingshan.net,assets/company-logos/tsingshan-holding/icon.svg,database,Generated neutral identifier — not an official mark
-tsmc,TSMC,Public,2330.TW,Taiwan,quote/tpe/2330,,assets/company-logos/tsmc/icon.svg,database,Generated neutral identifier — not an official mark
-tsmc-cowos,TSMC CoWoS,Unclassified,,,,,assets/company-logos/tsmc-cowos/icon.svg,report,Generated neutral identifier — not an official mark
-tuopu,Tuopu,Unclassified,,,,,assets/company-logos/tuopu/icon.svg,report,Generated neutral identifier — not an official mark
-turner,Turner,Public,ACS.MC,Spain,quote/bme/acs,,assets/company-logos/turner/icon.svg,database,Generated neutral identifier — not an official mark
-t-v-related-organisations,TÜV-related organisations,Unclassified,,,,,assets/company-logos/t-v-related-organisations/icon.svg,database,Generated neutral identifier — not an official mark
-ubtech,UBTech,Unclassified,,,,,assets/company-logos/ubtech/icon.svg,report,Generated neutral identifier — not an official mark
-ubtech-robotics,UBTECH Robotics,Public,9880.HK,Hong Kong,quote/hkg/9880,,assets/company-logos/ubtech-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-uipath,UiPath,Public,PATH,United States,stocks/path,,assets/company-logos/uipath/icon.svg,database,Generated neutral identifier — not an official mark
-umc,UMC,Public,2303.TW,Taiwan,quote/tpe/2303,,assets/company-logos/umc/icon.svg,database,Generated neutral identifier — not an official mark
-umicore,Umicore,Public,UMI.BR,Belgium,quote/ebr/umi,,assets/company-logos/umicore/icon.svg,database,Generated neutral identifier — not an official mark
-unimicron,Unimicron,Unclassified,,,,,assets/company-logos/unimicron/icon.svg,report,Generated neutral identifier — not an official mark
-unisem,Unisem,Public,5005.KL,,,,assets/company-logos/unisem/icon.svg,database,Generated neutral identifier — not an official mark
-unitree,Unitree,Private/other,,,,unitree.com,assets/company-logos/unitree/icon.svg,database,Generated neutral identifier — not an official mark
-unity,Unity,Public,U,United States,stocks/u,,assets/company-logos/unity/icon.svg,database,Generated neutral identifier — not an official mark
-universal-robots-and-mir,Universal Robots and MiR,Unclassified,,,,,assets/company-logos/universal-robots-and-mir/icon.svg,database,Generated neutral identifier — not an official mark
-uptime-institute,Uptime Institute,Subsidiary/private/other,,,,uptimeinstitute.com,assets/company-logos/uptime-institute/icon.svg,database,Generated neutral identifier — not an official mark
-urenco,Urenco,Subsidiary/private/other,,,,urenco.com,assets/company-logos/urenco/icon.svg,database,Generated neutral identifier — not an official mark
-vacuumschmelze,VACUUMSCHMELZE,Private/other,,,,vacuumschmelze.com,assets/company-logos/vacuumschmelze/icon.svg,database,Generated neutral identifier — not an official mark
-vale,Vale,Public,VALE,United States,stocks/vale,,assets/company-logos/vale/icon.svg,database,Generated neutral identifier — not an official mark
-vantage-data-centers,Vantage Data Centers,Subsidiary/private/other,,,,vantage-dc.com,assets/company-logos/vantage-data-centers/icon.svg,database,Generated neutral identifier — not an official mark
-vast-data,VAST Data,Private/other,,,,vastdata.com,assets/company-logos/vast-data/icon.svg,database,Generated neutral identifier — not an official mark
-veeco,Veeco,Public,VECO,United States,stocks/veco,,assets/company-logos/veeco/icon.svg,database,Generated neutral identifier — not an official mark
-verizon,Verizon,Unclassified,,,,,assets/company-logos/verizon/icon.svg,report,Generated neutral identifier — not an official mark
-vertiv,Vertiv,Public,VRT,United States,stocks/vrt,,assets/company-logos/vertiv/icon.svg,database,Generated neutral identifier — not an official mark
-vicor,Vicor,Unclassified,,,,,assets/company-logos/vicor/icon.svg,report,Generated neutral identifier — not an official mark
-vistra,Vistra,Public,VST,United States,stocks/vst,,assets/company-logos/vistra/icon.svg,database,Generated neutral identifier — not an official mark
-vnet,VNET,Public,VNET,United States,stocks/vnet,,assets/company-logos/vnet/icon.svg,database,Generated neutral identifier — not an official mark
-voestalpine,voestalpine,Public,VOE.VI,Austria,quote/vie/voe,,assets/company-logos/voestalpine/icon.svg,database,Generated neutral identifier — not an official mark
-vultr,Vultr,Private/other,,,,vultr.com,assets/company-logos/vultr/icon.svg,database,Generated neutral identifier — not an official mark
-waabi,Waabi,Private/other,,,,waabi.ai,assets/company-logos/waabi/icon.svg,database,Generated neutral identifier — not an official mark
-wacker-chemie,Wacker Chemie,Public,WCH.DE,Germany,quote/etr/wch,,assets/company-logos/wacker-chemie/icon.svg,database,Generated neutral identifier — not an official mark
-waymo,Waymo,Subsidiary/private/other,,,,waymo.com,assets/company-logos/waymo/icon.svg,database,Generated neutral identifier — not an official mark
-wayve,Wayve,Private/other,,,,wayve.ai,assets/company-logos/wayve/icon.svg,database,Generated neutral identifier — not an official mark
-weaviate,Weaviate,Private/other,,,,weaviate.io,assets/company-logos/weaviate/icon.svg,database,Generated neutral identifier — not an official mark
-weights-biases,Weights & Biases,Subsidiary/private/other,,,,wandb.ai,assets/company-logos/weights-biases/icon.svg,database,Generated neutral identifier — not an official mark
-weka,WEKA,Private/other,,,,weka.io,assets/company-logos/weka/icon.svg,database,Generated neutral identifier — not an official mark
-weride,WeRide,Public,WRD,United States,stocks/wrd,,assets/company-logos/weride/icon.svg,database,Generated neutral identifier — not an official mark
-western-digital,Western Digital,Public,WDC,United States,stocks/wdc,,assets/company-logos/western-digital/icon.svg,database,Generated neutral identifier — not an official mark
-westinghouse,Westinghouse,Subsidiary/private/other,,,,westinghousenuclear.com,assets/company-logos/westinghouse/icon.svg,database,Generated neutral identifier — not an official mark
-whylabs,WhyLabs,Private/other,,,,whylabs.ai,assets/company-logos/whylabs/icon.svg,database,Generated neutral identifier — not an official mark
-wiley,Wiley,Public,WLY,United States,stocks/wly,,assets/company-logos/wiley/icon.svg,database,Generated neutral identifier — not an official mark
-winbond,Winbond,Public,2344.TW,Taiwan,quote/tpe/2344,,assets/company-logos/winbond/icon.svg,database,Generated neutral identifier — not an official mark
-wing,Wing,Subsidiary/private/other,,,,wing.com,assets/company-logos/wing/icon.svg,database,Generated neutral identifier — not an official mark
-wistron,Wistron,Public,3231.TW,Taiwan,quote/tpe/3231,,assets/company-logos/wistron/icon.svg,database,Generated neutral identifier — not an official mark
-wiwynn,Wiwynn,Public,6669.TW,Taiwan,quote/tpe/6669,,assets/company-logos/wiwynn/icon.svg,database,Generated neutral identifier — not an official mark
-wiz,Wiz,Subsidiary/private/other,,,,wiz.io,assets/company-logos/wiz/icon.svg,database,Generated neutral identifier — not an official mark
-workato,Workato,Private/other,,,,workato.com,assets/company-logos/workato/icon.svg,database,Generated neutral identifier — not an official mark
-wpg-holdings,WPG Holdings,Public,3702.TW,Taiwan,quote/tpe/3702,,assets/company-logos/wpg-holdings/icon.svg,database,Generated neutral identifier — not an official mark
-writer,Writer,Private/other,,,,writer.com,assets/company-logos/writer/icon.svg,database,Generated neutral identifier — not an official mark
-wsp-global,WSP Global,Public,WSP.TO,Canada,quote/tsx/wsp,,assets/company-logos/wsp-global/icon.svg,database,Generated neutral identifier — not an official mark
-wt-microelectronics,WT Microelectronics,Public,3036.TW,Taiwan,quote/tpe/3036,,assets/company-logos/wt-microelectronics/icon.svg,database,Generated neutral identifier — not an official mark
-wartsila,Wärtsilä,Public,WRT1V.HE,Finland,quote/hel/wrt1v,,assets/company-logos/wartsila/icon.svg,database,Generated neutral identifier — not an official mark
-x-energy,X-energy,Private/other,,,,x-energy.com,assets/company-logos/x-energy/icon.svg,database,Generated neutral identifier — not an official mark
-xai,xAI,Private/other,,,,x.ai,assets/company-logos/xai/icon.svg,database,Generated neutral identifier — not an official mark
-xcel-energy,Xcel Energy,Public,XEL,United States,stocks/xel,,assets/company-logos/xcel-energy/icon.svg,database,Generated neutral identifier — not an official mark
-xela-robotics,XELA Robotics,Private/other,,,,xelarobotics.com,assets/company-logos/xela-robotics/icon.svg,database,Generated neutral identifier — not an official mark
-xiaomi,Xiaomi,Public,1810.HK,Hong Kong,quote/hkg/1810,,assets/company-logos/xiaomi/icon.svg,database,Generated neutral identifier — not an official mark
-xpeng,XPeng,Public,9868.HK,Hong Kong,quote/hkg/9868,,assets/company-logos/xpeng/icon.svg,database,Generated neutral identifier — not an official mark
-xsight-labs,Xsight Labs,Private/other,,,,xsightlabs.com,assets/company-logos/xsight-labs/icon.svg,database,Generated neutral identifier — not an official mark
-yangtze-optical-fibre,Yangtze Optical Fibre,Public,6869.HK,Hong Kong,quote/hkg/6869,,assets/company-logos/yangtze-optical-fibre/icon.svg,database,Generated neutral identifier — not an official mark
-yaskawa,Yaskawa,Public,6506.T,Japan,quote/tyo/6506,,assets/company-logos/yaskawa/icon.svg,database,Generated neutral identifier — not an official mark
-ymtc,YMTC,Private/other,,,,ymtc.com,assets/company-logos/ymtc/icon.svg,database,Generated neutral identifier — not an official mark
-yondr,Yondr,Private/other,,,,yondrgroup.com,assets/company-logos/yondr/icon.svg,database,Generated neutral identifier — not an official mark
-zapier,Zapier,Private/other,,,,zapier.com,assets/company-logos/zapier/icon.svg,database,Generated neutral identifier — not an official mark
-zayo,Zayo,Private/other,,,,zayo.com,assets/company-logos/zayo/icon.svg,database,Generated neutral identifier — not an official mark
-zebra,Zebra,Public,ZBRA,United States,stocks/zbra,,assets/company-logos/zebra/icon.svg,database,Generated neutral identifier — not an official mark
-zebra-technologies,Zebra Technologies,Unclassified,,,,,assets/company-logos/zebra-technologies/icon.svg,database,Generated neutral identifier — not an official mark
-zeiss-smt,Zeiss SMT,Unclassified,,,,,assets/company-logos/zeiss-smt/icon.svg,report,Generated neutral identifier — not an official mark
-zhipu-ai,Zhipu AI,Public,2513.HK,Hong Kong,quote/hkg/2513,,assets/company-logos/zhipu-ai/icon.svg,database,Generated neutral identifier — not an official mark
-zijin-mining,Zijin Mining,Public,2899.HK,Hong Kong,quote/hkg/2899,,assets/company-logos/zijin-mining/icon.svg,database,Generated neutral identifier — not an official mark
-zilliz,Zilliz,Private/other,,,,zilliz.com,assets/company-logos/zilliz/icon.svg,database,Generated neutral identifier — not an official mark
-zipline,Zipline,Private/other,,,,flyzipline.com,assets/company-logos/zipline/icon.svg,database,Generated neutral identifier — not an official mark
-zoom,Zoom,Public,ZM,United States,stocks/zm,,assets/company-logos/zoom/icon.svg,database,Generated neutral identifier — not an official mark
-zoox,Zoox,Subsidiary/private/other,,,,,assets/company-logos/zoox/icon.svg,database,Generated neutral identifier — not an official mark
-zscaler,Zscaler,Public,ZS,United States,stocks/zs,,assets/company-logos/zscaler/icon.svg,database,Generated neutral identifier — not an official mark
-zt-systems-assets-within-amd-sanmina-structures,ZT Systems assets within AMD/Sanmina structures,Unclassified,,,,,assets/company-logos/zt-systems-assets-within-amd-sanmina-structures/icon.svg,database,Generated neutral identifier — not an official mark
-zte,ZTE,Public,000063.SZ,China,quote/she/000063,,assets/company-logos/zte/icon.svg,database,Generated neutral identifier — not an official mark
-ztt,ZTT,Public,600522.SS,China,quote/sha/600522,,assets/company-logos/ztt/icon.svg,database,Generated neutral identifier — not an official mark
-rsted,Ørsted,Public,ORSTED.CO,Denmark,quote/cph/orsted,,assets/company-logos/rsted/icon.svg,database,Generated neutral identifier — not an official mark
+display_name,entity_status,ticker,country,stockanalysis_path
+1X,Private/other,,,
+ABB,Public,ABBN.SW,Switzerland,quote/swx/abbn
+Abridge,Private/other,,,
+Acceldata,Private/other,,,
+Accelink,Public,002281.SZ,China,quote/she/002281
+Addverb,Private/other,,,
+Adobe,Public,ADBE,United States,stocks/adbe
+Advantest,Public,6857.T,Japan,quote/tyo/6857
+AECOM,Public,ACM,United States,stocks/acm
+Aembit,Private/other,,,
+AeroVironment,Public,AVAV,United States,stocks/avav
+AES,Public,AES,United States,stocks/aes
+AGC,Public,5201.T,Japan,quote/tyo/5201
+AgentOps,Private/other,,,
+Agility Robotics,Private/other,,,
+AI21 Labs,Private/other,,,
+Air Liquide,Public,AI.PA,France,quote/epa/ai
+Air Products,Public,APD,United States,stocks/apd
+Airbyte,Private/other,,,
+Airspan-related assets,Private/other,,,
+Aisera,Private/other,,,
+Akamai,Public,AKAM,United States,stocks/akam
+Alation,Private/other,,,
+Albemarle,Public,ALB,United States,stocks/alb
+Alcoa,Public,AA,United States,stocks/aa
+Aleph Alpha,Private/other,,,
+Alibaba,Public,BABA,United States,stocks/baba
+Alibaba T-Head,Private/other,,,
+Aligned Data Centers,Private/other,,,
+Alphabet,Public,GOOGL,United States,stocks/googl
+Alphawave Semi assets where integrated,Private/other,,,
+Amazon,Public,AMZN,United States,stocks/amzn
+Ambarella,Public,AMBA,United States,stocks/amba
+AMD,Public,AMD,United States,stocks/amd
+American Electric Power,Public,AEP,United States,stocks/aep
+American Tower,Public,AMT,United States,stocks/amt
+Amkor,Public,AMKR,United States,stocks/amkr
+Ampere Computing,Private/other,,,
+Amphenol,Public,APH,United States,stocks/aph
+Analog Devices,Public,ADI,United States,stocks/adi
+Anduril,Private/other,,,
+Anglo American,Public,AAL.L,United Kingdom,quote/lon/aal
+Anthropic,Private/other,,,
+Antofagasta,Public,ANTO.L,United Kingdom,quote/lon/anto
+Anyscale,Private/other,,,
+Anysphere/Cursor,Private/other,,,
+Appen,Public,APX.AX,Australia,quote/asx/apx
+Appian,Public,APPN,United States,stocks/appn
+Apple,Public,AAPL,United States,stocks/aapl
+Applied Digital,Public,APLD,United States,stocks/apld
+Applied Intuition,Private/other,,,
+Applied Materials,Public,AMAT,United States,stocks/amat
+Applied Optoelectronics,Public,AAOI,United States,stocks/aaoi
+Apptronik,Private/other,,,
+Aqua Security,Private/other,,,
+ArcelorMittal,Public,MT,United States,stocks/mt
+Archer Aviation,Public,ACHR,United States,stocks/achr
+Arista,Public,ANET,United States,stocks/anet
+Arista Networks,Public,ANET,United States,stocks/anet
+Arize AI,Private/other,,,
+Arm,Public,ARM,United States,stocks/arm
+Armis,Private/other,,,
+Arnold Magnetic Technologies,Private/other,,,
+Arrow Electronics,Public,ARW,United States,stocks/arw
+Arthur AI,Private/other,,,
+Arup,Private/other,,,
+Arup peers,Public,,,
+Ascend Elements,Private/other,,,
+ASE Technology,Public,ASX,United States,stocks/asx
+ASM International,Public,ASM.AS,Netherlands,quote/ams/asm
+ASML,Public,ASML,United States,stocks/asml
+ASMPT,Public,0522.HK,Hong Kong,quote/hkg/0522
+"Associated publishers, archives and specialist datasets",Private/other,,,
+AST SpaceMobile,Public,ASTS,United States,stocks/asts
+Astera Labs,Public,ALAB,United States,stocks/alab
+ATI,Public,ATI,United States,stocks/ati
+ATI Industrial Automation,Private/other,,,
+Atlan,Private/other,,,
+Atlassian,Public,TEAM,United States,stocks/team
+Aurora Innovation,Public,AUR,United States,stocks/aur
+Aurubis,Public,NDA.DE,Germany,quote/etr/nda
+AutoGen ecosystem,Private/other,,,
+Automation Anywhere,Private/other,,,
+AutoStore,Public,AUTO.OL,Norway,quote/osl/auto
+Avnet,Public,AVT,United States,stocks/avt
+Axcelis,Public,ACLS,United States,stocks/acls
+Axelera AI,Private/other,,,
+Baidu,Public,BIDU,United States,stocks/bidu
+Ballard Power,Public,BLDP,United States,stocks/bldp
+Baseten,Private/other,,,
+Basler,Public,BSL.DE,Germany,quote/etr/bsl
+BE Semiconductor,Public,BESI.AS,Netherlands,quote/ams/besi
+Bechtel,Private/other,,,
+Belden,Public,BDC,United States,stocks/bdc
+BentoML,Private/other,,,
+Beyond Identity,Private/other,,,
+BHP,Public,BHP,United States,stocks/bhp
+Bigeye,Private/other,,,
+BigID,Private/other,,,
+Binarly,Private/other,,,
+Biren Technology,Private/other,,,
+Black & Veatch,Private/other,,,
+Bloom Energy,Public,BE,United States,stocks/be
+Boliden,Public,BOL.ST,Sweden,quote/sto/bol
+Boomi,Private/other,,,
+Bosch Rexroth,Private/other,,,
+Boston Dynamics,Private/other,,,
+Boyd,Private/other,,,
+Braintrust,Private/other,,,
+Brewer Science,Private/other,,,
+Broadcom,Public,AVGO,United States,stocks/avgo
+Brookfield Renewable,Public,BEPC,United States,stocks/bepc
+Bureau Veritas,Public,BVI.PA,France,quote/epa/bvi
+Burns & McDonnell,Private/other,,,
+BWX Technologies,Public,BWXT,United States,stocks/bwxt
+BYD,Public,1211.HK,Hong Kong,quote/hkg/1211
+ByteDance,Private/other,,,
+Cadence,Public,CDNS,United States,stocks/cdns
+CalypsoAI,Private/other,,,
+CalypsoAI within F5,Private/other,,,
+Cambricon,Public,688256.SS,China,quote/sha/688256
+Cameco,Public,CCJ,United States,stocks/ccj
+Camtek,Public,CAMT,United States,stocks/camt
+Canadian Solar,Public,CSIQ,United States,stocks/csiq
+Canon,Public,7751.T,Japan,quote/tyo/7751
+Carl Zeiss SMT,Private/other,,,
+Carpenter Technology,Public,CRS,United States,stocks/crs
+Carrier,Public,CARR,United States,stocks/carr
+Caterpillar,Public,CAT,United States,stocks/cat
+CATL,Public,300750.SZ,China,quote/she/300750
+CBRE,Public,CBRE,United States,stocks/cbre
+Celestica,Public,CLS,United States,stocks/cls
+Celona,Private/other,,,
+Celonis,Private/other,,,
+Centrus Energy,Public,LEU,United States,stocks/leu
+Century Aluminum,Public,CENX,United States,stocks/cenx
+Cerebras,Private/other,,,
+Cerebras peers,Public,,,
+Chalco,Public,2600.HK,Hong Kong,quote/hkg/2600
+Check Point,Public,CHKP,United States,stocks/chkp
+China Northern Rare Earth,Public,600111.SS,China,quote/sha/600111
+ChipMOS,Public,IMOS,United States,stocks/imos
+Chroma,Private/other,,,
+Chroma ATE,Public,2360.TW,Taiwan,quote/tpe/2360
+Ciena,Public,CIEN,United States,stocks/cien
+Cirba Solutions,Private/other,,,
+Cisco,Public,CSCO,United States,stocks/csco
+Claroty,Private/other,,,
+Cleveland-Cliffs,Public,CLF,United States,stocks/clf
+Cloud-provider internal services,Private/other,,,
+Cloudflare,Public,NET,United States,stocks/net
+CMOC,Public,3993.HK,Hong Kong,quote/hkg/3993
+Cockroach Labs,Private/other,,,
+Codeium/Windsurf assets,Private/other,,,
+Codelco,Private/other,,,
+Cogent,Public,CCOI,United States,stocks/ccoi
+Cognex,Public,CGNX,United States,stocks/cgnx
+Cognition,Private/other,,,
+Cohere,Private/other,,,
+Coherent,Public,COHR,United States,stocks/cohr
+Coherent/optics internal silicon and specialist startups,Private/other,,,
+Cohu,Public,COHU,United States,stocks/cohu
+Collibra,Private/other,,,
+Colt,Private/other,,,
+Comau,Private/other,,,
+Comfort Systems,Public,FIX,United States,stocks/fix
+Comfort Systems USA,Public,FIX,United States,stocks/fix
+Commonwealth Fusion Systems,Private/other,,,
+CommScope,Public,COMM,United States,stocks/comm
+Compass Datacenters,Private/other,,,
+Confluent,Private/other,,,
+consortium cable owners,Private/other,,,
+Constellation Energy,Public,CEG,United States,stocks/ceg
+CoolIT,Private/other,,,
+CoolIT Systems,Private/other,,,
+CoorsTek,Private/other,,,
+CoreWeave,Public,CRWV,United States,stocks/crwv
+CoreWeave platform services,Private/other,,,
+Corgan,Private/other,,,
+Cornelis Networks,Private/other,,,
+Corning,Public,GLW,United States,stocks/glw
+Couchbase,Private/other,,,
+Coveo,Public,CVO.TO,Canada,quote/tsx/cvo
+Credo,Public,CRDO,United States,stocks/crdo
+Credo Technology,Public,CRDO,United States,stocks/crdo
+CrewAI,Private/other,,,
+Cribl,Private/other,,,
+CrowdStrike,Public,CRWD,United States,stocks/crwd
+Crusoe,Private/other,,,
+Cummins,Public,CMI,United States,stocks/cmi
+Cupertino Electric,Private/other,,,
+Cushman & Wakefield,Public,CWK,United States,stocks/cwk
+CxA specialists,Private/other,,,
+CXMT,Private/other,,,
+CyberArk,Public,CYBR,United States,stocks/cybr
+Cyera,Private/other,,,
+CyrusOne,Private/other,,,
+d-Matrix,Private/other,,,
+Dagster,Private/other,,,
+Dai Nippon Printing,Public,7912.T,Japan,quote/tyo/7912
+Daikin,Public,6367.T,Japan,quote/tyo/6367
+Daqo New Energy,Public,DQ,United States,stocks/dq
+Dassault Systèmes,Public,DSY.PA,France,quote/epa/dsy
+data.world,Private/other,,,
+Databricks,Private/other,,,
+Databricks peers,Public,,,
+Databricks/Mosaic AI,Private/other,,,
+Datadog,Public,DDOG,United States,stocks/ddog
+DB HiTek,Public,000990.KS,South Korea,quote/krx/000990
+dbt Labs,Private/other,,,
+DDN,Private/other,,,
+Deci assets,Private/other,,,
+DeepSeek,Private/other,,,
+Dell,Public,DELL,United States,stocks/dell
+Dell Technologies,Public,DELL,United States,stocks/dell
+Delta Electronics,Public,2308.TW,Taiwan,quote/tpe/2308
+Denso,Public,6902.T,Japan,quote/tyo/6902
+Deutsche Telekom,Public,DTE.DE,Germany,quote/etr/dte
+Digital Realty,Public,DLR,United States,stocks/dlr
+DISCO,Public,6146.T,Japan,quote/tyo/6146
+DJI,Private/other,,,
+DocuSign,Public,DOCU,United States,stocks/docu
+Dominion Energy,Public,D,United States,stocks/d
+Doosan Fuel Cell system partners,Private/other,,,
+DPR Construction,Private/other,,,
+Dragos,Private/other,,,
+DriveNets,Private/other,,,
+Duke Energy,Public,DUK,United States,stocks/duk
+DuPont,Public,DD,United States,stocks/dd
+Dust,Private/other,,,
+Dynatrace,Public,DT,United States,stocks/dt
+Eaton,Public,ETN,United States,stocks/etn
+Eclypsium,Private/other,,,
+EDF,Private/other,,,
+EDF Renewables,Private/other,,,
+EdgeConneX,Private/other,,,
+Edged Energy,Private/other,,,
+Edison International,Public,EIX,United States,stocks/eix
+EHang,Public,EH,United States,stocks/eh
+Elastic,Public,ESTC,United States,stocks/estc
+EleutherAI,Private/other,,,
+EMCOR,Public,EME,United States,stocks/eme
+Emirates Global Aluminium,Private/other,,,
+Enel,Public,ENEL.MI,Italy,quote/bit/enel
+Energy Fuels,Public,UUUU,United States,stocks/uuuu
+Energy Vault,Public,NRGV,United States,stocks/nrgv
+Enfabrica,Private/other,,,
+Enflame,Private/other,,,
+Engie,Public,ENGI.PA,France,quote/epa/engi
+EngineAI,Private/other,,,
+Enphase,Public,ENPH,United States,stocks/enph
+Entegris,Public,ENTG,United States,stocks/entg
+Entergy,Public,ETR,United States,stocks/etr
+Eoptolink,Public,300502.SZ,China,quote/she/300502
+Eos Energy,Public,EOSE,United States,stocks/eose
+Equinix,Public,EQIX,United States,stocks/eqix
+Ericsson,Public,ERIC,United States,stocks/eric
+ESS Tech,Public,GWH,United States,stocks/gwh
+euNetworks,Private/other,,,
+Eurasian Resources Group,Private/other,,,
+Eutelsat,Public,ETL.PA,France,quote/epa/etl
+EV Group,Private/other,,,
+Eversource,Public,ES,United States,stocks/es
+Eviden via Atos,Public,ATO.PA,France,quote/epa/ato
+Exein,Private/other,,,
+Exelon,Public,EXC,United States,stocks/exc
+Exotec,Private/other,,,
+Extreme,Public,EXTR,United States,stocks/extr
+Extreme Networks,Public,EXTR,United States,stocks/extr
+F5,Public,FFIV,United States,stocks/ffiv
+Fabrinet,Public,FN,United States,stocks/fn
+Factorial Energy,Private/other,,,
+Faith Technologies,Private/other,,,
+FANUC,Public,6954.T,Japan,quote/tyo/6954
+Fastly,Public,FSLY,United States,stocks/fsly
+FAULHABER,Private/other,,,
+Ferroglobe,Public,GSM,United States,stocks/gsm
+Fiddler AI,Private/other,,,
+Figure AI,Private/other,,,
+Finite State,Private/other,,,
+Fireworks AI,Private/other,,,
+First Solar,Public,FSLR,United States,stocks/fslr
+Fivetran,Private/other,,,
+Flex,Public,FLEX,United States,stocks/flex
+Fluence,Public,FLNC,United States,stocks/flnc
+Fluidstack,Private/other,,,
+Fluor,Public,FLR,United States,stocks/flr
+Form Energy,Private/other,,,
+FormFactor,Public,FORM,United States,stocks/form
+Formic,Private/other,,,
+Fortinet,Public,FTNT,United States,stocks/ftnt
+FortressIQ assets,Private/other,,,
+Fourier Intelligence,Private/other,,,
+Freedom Robotics,Private/other,,,
+Freeport-McMoRan,Public,FCX,United States,stocks/fcx
+FuelCell Energy,Public,FCEL,United States,stocks/fcel
+Fuji Electric,Public,6504.T,Japan,quote/tyo/6504
+Fujifilm,Public,4901.T,Japan,quote/tyo/4901
+FuriosaAI,Private/other,,,
+Furukawa Electric,Public,5801.T,Japan,quote/tyo/5801
+Galileo,Private/other,,,
+Ganfeng Lithium,Public,1772.HK,Hong Kong,quote/hkg/1772
+GDS Holdings,Public,GDS,United States,stocks/gds
+GE Vernova,Public,GEV,United States,stocks/gev
+Geek+,Public,2590.HK,Hong Kong,quote/hkg/2590
+GelSight,Private/other,,,
+General Fusion,Private/other,,,
+Gensler,Private/other,,,
+Getty Images,Public,GETY,United States,stocks/gety
+Giskard,Private/other,,,
+GitHub,Private/other,,,
+GitLab,Public,GTLB,United States,stocks/gtlb
+Glean,Private/other,,,
+Glencore,Public,GLEN.L,United Kingdom,quote/lon/glen
+GlobalFoundries,Public,GFS,United States,stocks/gfs
+Globalstar,Public,GSAT,United States,stocks/gsat
+GlobalWafers,Public,6488.TWO,Taiwan,quote/tpe/6488
+government-backed separation projects,Private/other,,,
+Graphcore,Private/other,,,
+GRC,Private/other,,,
+Green Revolution Cooling,Private/other,,,
+Gretel,Private/other,,,
+GreyOrange,Private/other,,,
+Groq,Private/other,,,
+GTT,Private/other,,,
+Hai Robotics,Private/other,,,
+Hailo,Private/other,,,
+Hana Micron,Public,067310.KQ,South Korea,quote/krx/067310
+Harmonic Drive Systems,Public,6324.T,Japan,quote/tyo/6324
+Harvey,Private/other,,,
+HD Hyundai Electric,Public,267260.KS,South Korea,quote/krx/267260
+Hebbia,Private/other,,,
+Helicone,Private/other,,,
+Helion,Private/other,,,
+Hellenic Cables,Private/other,,,
+Hemlock Semiconductor,Private/other,,,
+Hengtong Optic-Electric,Public,600487.SS,China,quote/sha/600487
+Heraeus,Private/other,,,
+Hesai,Public,HSAI,United States,stocks/hsai
+Hewlett Packard Enterprise,Public,HPE,United States,stocks/hpe
+HiddenLayer,Private/other,,,
+Hippocratic AI,Private/other,,,
+Hisense Broadband business,Private/other,,,
+Hisense Visual,Public,600060.SS,China,quote/sha/600060
+Hitachi,Public,6501.T,Japan,quote/tyo/6501
+Hitachi Energy,Private/other,6501.T,Japan,quote/tyo/6501
+Hitachi High-Tech,Private/other,,,
+HITT,Private/other,,,
+Holder Construction,Private/other,,,
+Hon Hai/Foxconn,Public,2317.TW,Taiwan,quote/tpe/2317
+Honeywell,Public,HON,United States,stocks/hon
+HOYA,Public,7741.T,Japan,quote/tyo/7741
+HPE,Public,HPE,United States,stocks/hpe
+Hua Hong Semiconductor,Public,1347.HK,Hong Kong,quote/hkg/1347
+Huawei,Private/other,,,
+Huawei Ascend,Private/other,,,
+Huawei Cloud,Private/other,,,
+Huawei Digital Power,Private/other,,,
+Huawei-related peers,Public,,,
+Huayou Cobalt,Public,603799.SS,China,quote/sha/603799
+Hubbell,Public,HUBB,United States,stocks/hubb
+Hugging Face,Private/other,,,
+Humanloop,Private/other,,,
+Hut 8,Public,HUT,United States,stocks/hut
+Hyosung Heavy Industries,Public,298040.KS,South Korea,quote/krx/298040
+Iberdrola,Public,IBE.MC,Spain,quote/bme/ibe
+IBM,Public,IBM,United States,stocks/ibm
+IGO,Public,IGO.AX,Australia,quote/asx/igo
+Iluka Resources,Public,ILU.AX,Australia,quote/asx/ilu
+Imagination Technologies,Private/other,,,
+Immuta,Private/other,,,
+Infineon,Public,IFX.DE,Germany,quote/etr/ifx
+Infinera,Private/other,,,
+Informatica within Salesforce,Public,,,
+INNIO,Private/other,,,
+INNIO Group,Private/other,,,
+Innolight,Public,300308.SZ,China,quote/she/300308
+Innoviz,Public,INVZ,United States,stocks/invz
+InOrbit,Private/other,,,
+Intel,Public,INTC,United States,stocks/intc
+Intertek,Public,ITRK.L,United Kingdom,quote/lon/itrk
+Intrinsic,Private/other,,,
+Intuit,Public,INTU,United States,stocks/intu
+Invenergy,Private/other,,,
+Inventec,Public,2356.TW,Taiwan,quote/tpe/2356
+Ioneer project partners and emerging developers,Private/other,,,
+IREN,Public,IREN,United States,stocks/iren
+Iridium,Public,IRDM,United States,stocks/irdm
+Iron Mountain,Public,IRM,United States,stocks/irm
+Jabil,Public,JBL,United States,stocks/jbl
+Jacobs,Public,J,United States,stocks/j
+Jacobs Solutions,Public,J,United States,stocks/j
+JCET,Public,600584.SS,China,quote/sha/600584
+JFE Holdings,Public,5411.T,Japan,quote/tyo/5411
+Jiangxi Copper,Public,0358.HK,Hong Kong,quote/hkg/0358
+JinkoSolar,Public,JKS,United States,stocks/jks
+JL MAG Rare-Earth,Public,300748.SZ,China,quote/she/300748
+JLL,Public,JLL,United States,stocks/jll
+Joby Aviation,Public,JOBY,United States,stocks/joby
+Johnson Controls,Public,JCI,United States,stocks/jci
+JSR,Private/other,,,
+Juniper,Private/other,,,
+Juniper Networks,Private/other,,,
+Kawasaki Heavy,Public,7012.T,Japan,quote/tyo/7012
+Kazatomprom,Public,KAP.L,United Kingdom,quote/lon/kap
+Keppel DC REIT,Public,AJBU.SI,Singapore,quote/sgx/ajbu
+Keyence,Public,6861.T,Japan,quote/tyo/6861
+Keysight,Public,KEYS,United States,stocks/keys
+Keysight  in electronic design/test,Private/other,KEYS,United States,stocks/keys
+KGHM,Public,KGH.WA,,
+Kinara assets,Private/other,,,
+Kioxia,Public,285A.T,Japan,quote/tyo/285a
+Kioxia Holdings,Public,285A.T,Japan,quote/tyo/285a
+KLA,Public,KLAC,United States,stocks/klac
+Kokusai Electric,Public,6525.T,Japan,quote/tyo/6525
+Kollmorgen,Private/other,,,
+Kore.ai,Private/other,,,
+Kratos,Public,KTOS,United States,stocks/ktos
+KUKA,Private/other,,,
+Kulicke & Soffa,Public,KLIC,United States,stocks/klic
+KYEC,Public,2449.TW,Taiwan,quote/tpe/2449
+Kyocera,Public,6971.T,Japan,quote/tyo/6971
+Labelbox,Private/other,,,
+Lacework assets,Private/other,,,
+Lakera,Private/other,,,
+Lakera within Check Point,Private/other,,,
+Lam Research,Public,LRCX,United States,stocks/lrcx
+Lambda,Private/other,,,
+LangChain,Private/other,,,
+LangSmith,Private/other,,,
+Lasertec,Public,6920.T,Japan,quote/tyo/6920
+Legrand,Public,LR.PA,France,quote/epa/lr
+Lenovo,Public,0992.HK,Hong Kong,quote/hkg/0992
+LG Energy Solution,Public,373220.KS,South Korea,quote/krx/373220
+Li-Cycle,Public,LICY,United States,stocks/licy
+Lightsource bp,Private/other,,,
+Linde,Public,LIN,United States,stocks/lin
+Lindy,Private/other,,,
+LiquidStack,Private/other,,,
+LiteLLM,Private/other,,,
+Lithium Americas,Public,LAC,United States,stocks/lac
+LlamaIndex,Private/other,,,
+Locus Robotics,Private/other,,,
+LONGi Green Energy,Public,601012.SS,China,quote/sha/601012
+LS Cable via LS Corp,Public,006260.KS,South Korea,quote/krx/006260
+LS Electric,Public,010120.KS,South Korea,quote/krx/010120
+Lumen Technologies,Public,LUMN,United States,stocks/lumn
+Lumentum,Public,LITE,United States,stocks/lite
+Lumotive,Private/other,,,
+Lynas Rare Earths,Public,LYC.AX,Australia,quote/asx/lyc
+Lyten,Private/other,,,
+Macnica Holdings,Public,3132.T,Japan,quote/tyo/3132
+MACOM,Public,MTSI,United States,stocks/mtsi
+Magic,Private/other,,,
+Make,Private/other,,,
+Manufacturer-direct and specialist distributors,Private/other,,,
+Martian,Private/other,,,
+Marvell,Public,MRVL,United States,stocks/mrvl
+MasTec,Public,MTZ,United States,stocks/mtz
+Materialize,Private/other,,,
+Materion,Public,MTRN,United States,stocks/mtrn
+Matillion,Private/other,,,
+MaxLinear,Public,MXL,United States,stocks/mxl
+maxon,Private/other,,,
+May Mobility,Private/other,,,
+Merck KGaA,Public,MRK.DE,Germany,quote/etr/mrk
+Meta,Public,META,United States,stocks/meta
+Micron,Public,MU,United States,stocks/mu
+Microsoft,Public,MSFT,United States,stocks/msft
+Mineral Resources,Public,MIN.AX,Australia,quote/asx/min
+MiniMax,Public,0100.HK,Hong Kong,quote/hkg/0100
+Mistral AI,Private/other,,,
+Mitsubishi Electric,Public,6503.T,Japan,quote/tyo/6503
+Mitsubishi Heavy Industries,Public,7011.T,Japan,quote/tyo/7011
+MLflow within Databricks,Private/other,,,
+Mobileye,Public,MBLY,United States,stocks/mbly
+Modal,Private/other,,,
+Modine,Public,MOD,United States,stocks/mod
+Modular,Private/other,,,
+Molex,Private/other,,,
+Molex peers,Public,,,
+MongoDB,Public,MDB,United States,stocks/mdb
+Monte Carlo,Private/other,,,
+Moog,Public,MOG-A,United States,stocks/mog-a
+Moonshot AI,Private/other,,,
+Moore Threads,Private/other,,,
+Morgan Advanced Materials,Public,MGAM.L,United Kingdom,quote/lon/mgam
+Mortenson,Private/other,,,
+Mostly AI,Private/other,,,
+Motional,Private/other,,,
+Moveworks,Private/other,,,
+MP Materials,Public,MP,United States,stocks/mp
+Munters,Public,MTRS.ST,Sweden,quote/sto/mtrs
+MYR Group,Public,MYRG,United States,stocks/myrg
+n8n,Private/other,,,
+Nabtesco,Public,6268.T,Japan,quote/tyo/6268
+Nano Nuclear Energy,Public,NNE,United States,stocks/nne
+Nanya Technology,Public,2408.TW,Taiwan,quote/tpe/2408
+National Grid,Public,NG.L,United Kingdom,quote/lon/ng
+Nebius,Public,NBIS,United States,stocks/nbis
+NEC,Public,6701.T,Japan,quote/tyo/6701
+Neo4j,Private/other,,,
+NetApp,Public,NTAP,United States,stocks/ntap
+NEURA Robotics,Private/other,,,
+Neural Magic assets within Red Hat/IBM,Private/other,,,
+New Relic assets within Francisco Partners/TPG,Public,,,
+News Corp,Public,NWSA,United States,stocks/nwsa
+Nexans,Public,NEX.PA,France,quote/epa/nex
+NEXTDC,Public,NXT.AX,Australia,quote/asx/nxt
+NextEra Energy,Public,NEE,United States,stocks/nee
+Nickel Industries,Public,NIC.AX,Australia,quote/asx/nic
+Nidec,Public,6594.T,Japan,quote/tyo/6594
+Nikon,Public,7731.T,Japan,quote/tyo/7731
+Nippon Steel,Public,5401.T,Japan,quote/tyo/5401
+NKT,Public,NKT.CO,Denmark,quote/cph/nkt
+Nokia,Public,NOK,United States,stocks/nok
+Norsk Hydro,Public,NHY.OL,Norway,quote/osl/nhy
+Northern Data,Public,NB2.DE,Germany,quote/etr/nb2
+Not Diamond,Private/other,,,
+Nova,Public,NVMI,United States,stocks/nvmi
+Nozomi Networks,Private/other,,,
+NSK,Public,6471.T,Japan,quote/tyo/6471
+NTT,Public,9432.T,Japan,quote/tyo/9432
+Nucor,Public,NUE,United States,stocks/nue
+Nuro,Private/other,,,
+NuScale Power,Public,SMR,United States,stocks/smr
+nVent,Public,NVT,United States,stocks/nvt
+NVIDIA,Public,NVDA,United States,stocks/nvda
+NXP,Public,NXPI,United States,stocks/nxpi
+Ocado,Public,OCDO.L,United Kingdom,quote/lon/ocdo
+OCI Holdings,Public,010060.KS,South Korea,quote/krx/010060
+OctoAI assets,Private/other,,,
+OFS,Private/other,,,
+Oklo,Public,OKLO,United States,stocks/oklo
+Okta,Public,OKTA,United States,stocks/okta
+Omron,Public,6645.T,Japan,quote/tyo/6645
+onsemi,Public,ON,United States,stocks/on
+Ontario Power Generation,Private/other,,,
+Onto Innovation,Public,ONTO,United States,stocks/onto
+OpenAI,Private/other,,,
+OpenRouter,Private/other,,,
+Oracle,Public,ORCL,United States,stocks/orcl
+Orange,Public,ORA.PA,France,quote/epa/ora
+Orano,Private/other,,,
+Orbbec,Private/other,,,
+Orca Security,Private/other,,,
+Ouster,Public,OUST,United States,stocks/oust
+Packaging partners,Private/other,,,
+PAL Robotics,Private/other,,,
+Palantir,Public,PLTR,United States,stocks/pltr
+Palo Alto,Public,PANW,United States,stocks/panw
+Palo Alto Networks,Public,PANW,United States,stocks/panw
+Panasonic,Public,6752.T,Japan,quote/tyo/6752
+Panasonic Holdings,Public,6752.T,Japan,quote/tyo/6752
+Parallel Domain,Private/other,,,
+Parker-Hannifin,Public,PH,United States,stocks/ph
+Patronus AI,Private/other,,,
+Pegasystems,Public,PEGA,United States,stocks/pega
+Pegatron,Public,4938.TW,Taiwan,quote/tpe/4938
+Penguin Solutions,Public,SGH,United States,stocks/sgh
+PG&E,Public,PCG,United States,stocks/pcg
+Photronics,Public,PLAB,United States,stocks/plab
+PhysicsX,Private/other,,,
+Pilbara Minerals,Public,PLS.AX,Australia,quote/asx/pls
+Pinecone,Private/other,,,
+Plansee Group,Private/other,,,
+Plug Power,Public,PLUG,United States,stocks/plug
+Pony AI,Public,PONY,United States,stocks/pony
+Poolside,Private/other,,,
+Portkey,Private/other,,,
+POSCO Holdings,Public,PKX,United States,stocks/pkx
+Powell Industries,Public,POWL,United States,stocks/powl
+PowerHouse Data Centers,Private/other,,,
+Powertech Technology,Public,6239.TW,Taiwan,quote/tpe/6239
+Powin,Private/other,,,
+Prefect,Private/other,,,
+Privacera,Private/other,,,
+Private regional CDN providers,Private/other,,,
+Prolec GE,Private/other,,,
+Prologis  where relevant,Public,PLD,United States,stocks/pld
+ProLogium,Private/other,,,
+Prompt Security,Private/other,,,
+Prophesee,Private/other,,,
+Protect AI,Private/other,,,
+Protect AI assets within Palo Alto,Private/other,,,
+Proterial,Public,5486.T,Japan,quote/tyo/5486
+Prysmian,Public,PRY.MI,Italy,quote/bit/pry
+PSEG,Public,PEG,United States,stocks/peg
+PSMC and regional foundry capacity,Private/other,,,
+PTC,Public,PTC,United States,stocks/ptc
+Pure Storage,Public,PSTG,United States,stocks/pstg
+Qatar Solar Technologies,Private/other,,,
+Qdrant,Private/other,,,
+QTS,Private/other,,,
+Qualcomm,Public,QCOM,United States,stocks/qcom
+Quanta Computer,Public,2382.TW,Taiwan,quote/tpe/2382
+Quanta Services,Public,PWR,United States,stocks/pwr
+Quantum Loophole,Private/other,,,
+Rainbow Robotics,Public,277810.KQ,South Korea,quote/krx/277810
+Rambus,Public,RMBS,United States,stocks/rmbs
+Rapidus,Private/other,,,
+Rebellions,Private/other,,,
+Reddit,Public,RDDT,United States,stocks/rddt
+Redis,Private/other,,,
+Redpanda,Private/other,,,
+Redwood Materials,Private/other,,,
+Redwood peers,Public,,,
+Regional specialty-gas suppliers,Private/other,,,
+Regional wet-bench specialists,Private/other,,,
+Reka AI,Private/other,,,
+Related Digital,Private/other,,,
+RELX,Public,RELX,United States,stocks/relx
+Renesas,Public,6723.T,Japan,quote/tyo/6723
+Replicate,Private/other,,,
+Replit,Private/other,,,
+Resonac,Public,4004.T,Japan,quote/tyo/4004
+Rio Tinto,Public,RIO,United States,stocks/rio
+RISC-V International,Private/other,,,
+Rittal,Private/other,,,
+Rivery,Private/other,,,
+RobCo,Private/other,,,
+Robert Bosch,Private/other,,,
+RoboSense,Public,2498.HK,Hong Kong,quote/hkg/2498
+Robust Intelligence,Private/other,,,
+Robust Intelligence within Cisco,Private/other,,,
+Rolls-Royce,Public,RR.L,United Kingdom,quote/lon/rr
+Rolls-Royce Power Systems,Private/other,,,
+Rosenberger,Private/other,,,
+Rosendin,Private/other,,,
+Rowan Digital Infrastructure,Private/other,,,
+RTE,Private/other,,,
+Rusal,Private/other,,,
+RWE,Public,RWE.DE,Germany,quote/etr/rwe
+Saint-Gobain,Public,SGO.PA,France,quote/epa/sgo
+Salesforce,Public,CRM,United States,stocks/crm
+Sama,Private/other,,,
+SambaNova,Private/other,,,
+Samsung,Public,005930.KS,South Korea,quote/krx/005930
+Samsung Electronics,Public,005930.KS,South Korea,quote/krx/005930
+Samsung SDI,Public,006400.KS,South Korea,quote/krx/006400
+Samtec,Private/other,,,
+Sanctuary AI,Private/other,,,
+Sandisk,Public,SNDK,United States,stocks/sndk
+SAP,Public,SAP,United States,stocks/sap
+Scale AI,Private/other,,,
+Schaeffler,Public,SHA.DE,Germany,quote/etr/sha
+Schneider,Public,SU.PA,France,quote/epa/su
+Schneider Electric,Public,SU.PA,France,quote/epa/su
+SCREEN Holdings,Public,7735.T,Japan,quote/tyo/7735
+Seagate,Public,STX,United States,stocks/stx
+Seegrid,Private/other,,,
+SEER Robotics,Public,6106.HK,Hong Kong,quote/hkg/6106
+Selected specialist metrology vendors,Private/other,,,
+Semtech,Public,SMTC,United States,stocks/smtc
+Sensata,Public,ST,United States,stocks/st
+ServiceNow,Public,NOW,United States,stocks/now
+SES,Public,SESG.PA,France,quote/epa/sesg
+SGB-SMIT,Private/other,,,
+SGS,Public,SGSN.SW,Switzerland,quote/swx/sgsn
+Shenghe Resources partners,Private/other,,,
+Shield AI,Private/other,,,
+Shin-Etsu Chemical,Public,4063.T,Japan,quote/tyo/4063
+Shutterstock,Public,SSTK,United States,stocks/sstk
+SICK,Private/other,,,
+Siemens,Public,SIE.DE,Germany,quote/etr/sie
+Siemens EDA,Private/other,,,
+Siemens Energy,Public,ENR.DE,Germany,quote/etr/enr
+Sierra,Private/other,,,
+SiFive,Private/other,,,
+Siliconware within ASE and specialist packaging houses,Private/other,,,
+Siltronic,Public,WAF.DE,Germany,quote/etr/waf
+SiMa.ai,Private/other,,,
+Sinequa,Private/other,,,
+SingleStore,Private/other,,,
+SK hynix,Public,000660.KS,South Korea,quote/krx/000660
+SK hynix/Solidigm,Public,000660.KS,South Korea,quote/krx/000660
+SK Siltron,Private/other,,,
+Skanska,Public,SKA-B.ST,Sweden,quote/sto/ska-b
+SKF,Public,SKF-B.ST,Sweden,quote/sto/skf-b
+Skydio,Private/other,,,
+SMA Solar,Public,S92.DE,Germany,quote/etr/s92
+SMC,Public,6273.T,Japan,quote/tyo/6273
+SMIC,Public,0981.HK,Hong Kong,quote/hkg/0981
+Snorkel AI,Private/other,,,
+Snowflake,Public,SNOW,United States,stocks/snow
+Snyk,Private/other,,,
+Socomec,Private/other,,,
+Soitec,Public,SOI.PA,France,quote/epa/soi
+SolarEdge,Public,SEDG,United States,stocks/sedg
+Solidigm,Private/other,,,
+Solvay,Public,SOLB.BR,Belgium,quote/ebr/solb
+Sony,Public,6758.T,Japan,quote/tyo/6758
+Soroco,Private/other,,,
+Source Photonics,Private/other,,,
+South32,Public,S32.AX,Australia,quote/asx/s32
+Southern Company,Public,SO,United States,stocks/so
+Southern Copper,Public,SCCO,United States,stocks/scco
+Southwire,Private/other,,,
+SpaceX/Starlink,Private/other,,,
+Specialist critical-facility operators,Private/other,,,
+Specialist gearbox and precision-mechanics suppliers,Private/other,,,
+Specialist integrators,Private/other,,,
+Specialist probe/test-interface vendors,Private/other,,,
+SPIFFE/SPIRE,Private/other,,,
+SPIFFE/SPIRE ecosystem,Private/other,,,
+SQM,Public,SQM,United States,stocks/sqm
+Stability AI,Private/other,,,
+STACK Infrastructure,Private/other,,,
+State mining enterprises and regional producers,Private/other,,,
+Steel Dynamics,Public,STLD,United States,stocks/stld
+Sterling Infrastructure,Public,STRL,United States,stocks/strl
+STMicro,Public,STM,United States,stocks/stm
+STMicroelectronics,Public,STM,United States,stocks/stm
+StoreDot,Private/other,,,
+Stäubli,Private/other,,,
+SubCom,Private/other,,,
+Submer,Private/other,,,
+Suffolk,Private/other,,,
+SUMCO,Public,3436.T,Japan,quote/tyo/3436
+Sumitomo Electric,Public,5802.T,Japan,quote/tyo/5802
+Sungrow,Public,300274.SZ,China,quote/she/300274
+Super Micro Computer,Public,SMCI,United States,stocks/smci
+Supermicro,Public,SMCI,United States,stocks/smci
+Surge AI,Private/other,,,
+SUSS MicroTec,Public,SMHN.DE,Germany,quote/etr/smhn
+Swissgrid,Private/other,,,
+Symbotic,Public,SYM,United States,stocks/sym
+Synopsys,Public,SNPS,United States,stocks/snps
+Synthesis AI,Private/other,,,
+system integrators,Private/other,,,
+Taiyo Nippon Sanso via Nippon Sanso,Public,4091.T,Japan,quote/tyo/4091
+Talen Energy,Public,TLN,United States,stocks/tln
+Tata Communications,Public,TATACOMM.NS,India,quote/nse/tatacomm
+TDK,Public,6762.T,Japan,quote/tyo/6762
+TE Connectivity,Public,TEL,United States,stocks/tel
+Teledyne,Public,TDY,United States,stocks/tdy
+Teleport,Private/other,,,
+TELUS Digital,Public,TIXT,United States,stocks/tixt
+Temporal,Private/other,,,
+Tencent,Public,0700.HK,Hong Kong,quote/hkg/0700
+TenneT,Private/other,,,
+Tenstorrent,Private/other,,,
+Teradata,Public,TDC,United States,stocks/tdc
+Teradyne,Public,TER,United States,stocks/ter
+TeraWulf,Public,WULF,United States,stocks/wulf
+TerraPower,Private/other,,,
+Tesla,Public,TSLA,United States,stocks/tsla
+Texas Instruments,Public,TXN,United States,stocks/txn
+Thales,Public,HO.PA,France,quote/epa/ho
+THK,Public,6481.T,Japan,quote/tyo/6481
+Thomson Reuters,Public,TRI,United States,stocks/tri
+thyssenkrupp Electrical Steel business units,Private/other,,,
+Tianqi Lithium,Public,9696.HK,Hong Kong,quote/hkg/9696
+Timken,Public,TKR,United States,stocks/tkr
+Together AI,Private/other,,,
+Tokyo Electron,Public,8035.T,Japan,quote/tyo/8035
+Tokyo Ohka Kogyo,Public,4186.T,Japan,quote/tyo/4186
+Toloka,Private/other,,,
+Tongfu Microelectronics,Public,002156.SZ,China,quote/she/002156
+Tongwei,Public,600438.SS,China,quote/sha/600438
+TOPPAN Holdings,Public,7911.T,Japan,quote/tyo/7911
+Toppan Photomask/JV structures,Private/other,,,
+Tower Semiconductor,Public,TSEM,United States,stocks/tsem
+Tract,Private/other,,,
+Trane,Public,TT,United States,stocks/tt
+Trane Technologies,Public,TT,United States,stocks/tt
+Tray.ai,Private/other,,,
+Trina Solar,Public,688599.SS,China,quote/sha/688599
+Tsingshan Holding,Private/other,,,
+TSMC,Public,TSM,United States,stocks/tsm
+Turner,Public,ACS.MC,Spain,quote/bme/acs
+TÜV-related organisations,Public,,,
+UBTECH Robotics,Public,9880.HK,Hong Kong,quote/hkg/9880
+UiPath,Public,PATH,United States,stocks/path
+UMC,Public,UMC,United States,stocks/umc
+Umicore,Public,UMI.BR,Belgium,quote/ebr/umi
+Unisem,Public,5005.KL,,
+Unitree,Private/other,,,
+Unity,Public,U,United States,stocks/u
+Universal Robots and MiR,Private/other,,,
+Uptime Institute,Private/other,,,
+Urenco,Private/other,,,
+VACUUMSCHMELZE,Private/other,,,
+Vale,Public,VALE,United States,stocks/vale
+Vantage Data Centers,Private/other,,,
+VAST Data,Private/other,,,
+Veeco,Public,VECO,United States,stocks/veco
+Vertiv,Public,VRT,United States,stocks/vrt
+Vistra,Public,VST,United States,stocks/vst
+VNET,Public,VNET,United States,stocks/vnet
+voestalpine,Public,VOE.VI,Austria,quote/vie/voe
+Vultr,Private/other,,,
+Waabi,Private/other,,,
+Wacker Chemie,Public,WCH.DE,Germany,quote/etr/wch
+Waymo,Private/other,,,
+Wayve,Private/other,,,
+Weaviate,Private/other,,,
+Weights & Biases,Private/other,,,
+WEKA,Private/other,,,
+WeRide,Public,WRD,United States,stocks/wrd
+Western Digital,Public,WDC,United States,stocks/wdc
+Westinghouse,Private/other,,,
+WhyLabs,Private/other,,,
+Wiley,Public,WLY,United States,stocks/wly
+Winbond,Public,2344.TW,Taiwan,quote/tpe/2344
+Wing,Private/other,,,
+Wistron,Public,3231.TW,Taiwan,quote/tpe/3231
+Wiwynn,Public,6669.TW,Taiwan,quote/tpe/6669
+Wiz,Private/other,,,
+Workato,Private/other,,,
+WPG Holdings,Public,3702.TW,Taiwan,quote/tpe/3702
+Writer,Private/other,,,
+WSP Global,Public,WSP.TO,Canada,quote/tsx/wsp
+WT Microelectronics,Public,3036.TW,Taiwan,quote/tpe/3036
+Wärtsilä,Public,WRT1V.HE,Finland,quote/hel/wrt1v
+X-energy,Private/other,,,
+xAI,Private/other,,,
+Xcel Energy,Public,XEL,United States,stocks/xel
+XELA Robotics,Private/other,,,
+Xiaomi,Public,1810.HK,Hong Kong,quote/hkg/1810
+XPeng,Public,XPEV,United States,stocks/xpev
+Xsight Labs,Private/other,,,
+Yangtze Optical Fibre,Public,6869.HK,Hong Kong,quote/hkg/6869
+Yaskawa,Public,6506.T,Japan,quote/tyo/6506
+YMTC,Private/other,,,
+Yondr,Private/other,,,
+Zapier,Private/other,,,
+Zayo,Private/other,,,
+Zebra,Public,ZBRA,United States,stocks/zbra
+Zebra Technologies,Public,ZBRA,United States,stocks/zbra
+Zhipu AI,Public,2513.HK,Hong Kong,quote/hkg/2513
+Zijin Mining,Public,2899.HK,Hong Kong,quote/hkg/2899
+Zilliz,Private/other,,,
+Zipline,Private/other,,,
+Zoom,Public,ZM,United States,stocks/zm
+Zoox,Private/other,,,
+Zscaler,Public,ZS,United States,stocks/zs
+ZT Systems assets within AMD/Sanmina structures,Private/other,,,
+ZTE,Public,0763.HK,Hong Kong,quote/hkg/0763
+ZTT,Public,600522.SS,China,quote/sha/600522
+Ørsted,Public,ORSTED.CO,Denmark,quote/cph/orsted
