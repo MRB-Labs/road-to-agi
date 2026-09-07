@@ -1724,7 +1724,7 @@ function worldPane(){
    ══════════════════════════════════════════════════════════════════════════ */
 const LAYER_ICONS={
  0:'<circle cx="22" cy="22" r="15"/><ellipse cx="22" cy="22" rx="6.6" ry="15"/><path d="M7.4 16.5 H36.6"/><path d="M7.4 27.5 H36.6"/>',
- 1:'<rect x="8" y="8" width="28" height="28" rx="7"/><path d="M24.5 13.5 L17.5 23 H22.5 L19.5 30.5 L26.5 21 H21.5 Z"/>',
+ 1:'<path d="M22 7 L12 38"/><path d="M22 7 L32 38"/><path d="M9 15 H35"/><path d="M6 23 H38"/><path d="M9 15 V18.5"/><path d="M35 15 V18.5"/><path d="M6 23 V26.5"/><path d="M38 23 V26.5"/><path d="M18.6 11 L25.4 19"/><path d="M25.4 11 L18.6 19"/><path d="M15.4 26 L28.6 36"/><path d="M28.6 26 L15.4 36"/>',
  2:'<path d="M6.5 36 L11 25.5 L22 24.5 L26 36 Z"/><path d="M26.5 36 L29 26 L37.5 27.5 L37 36 Z"/><path d="M13 24 L18 13.5 L27.5 16 L25.5 24.5"/>',
  3:'<circle cx="22" cy="22" r="15"/><g clip-path="url(#waferClip)"><path d="M6 15 H38"/><path d="M6 22 H38"/><path d="M6 29 H38"/><path d="M15 6 V38"/><path d="M22 6 V38"/><path d="M29 6 V38"/></g><path d="M19.4 7.5 L22 12.2 L24.6 7.5"/>',
  4:'<rect x="12" y="12" width="20" height="20" rx="3"/><rect x="18" y="18" width="8" height="8" rx="1.5"/><path d="M17 12 V6"/><path d="M22 12 V6"/><path d="M27 12 V6"/><path d="M17 32 V38"/><path d="M22 32 V38"/><path d="M27 32 V38"/><path d="M12 17 H6"/><path d="M12 22 H6"/><path d="M12 27 H6"/><path d="M32 17 H38"/><path d="M32 22 H38"/><path d="M32 27 H38"/>',
@@ -2864,15 +2864,7 @@ document.addEventListener('click',e=>{
 let ELDATA=null;
 fetch('assets/elements/elements.json').then(r=>r.ok?r.json():null).then(d=>{ELDATA=d;}).catch(()=>{});
 
-function elementShots(materialName){
-  const syms=(ELMAP[materialName]||[]).filter(x=>EL_HAVE.has(x));
-  if(!syms.length) return '';
-  const shots=syms.map(x=>
-    `<button type="button" class="el-shot" data-el="${x}" title="${x} — open element details">`+
-    `<img src="assets/elements/${x}.jpg" alt="Specimen of element ${x}" loading="lazy" decoding="async" onerror="this.closest('.el-shot').remove()">`+
-    `<span class="el-cap"><b>${x}</b><span data-elname="${x}">&nbsp;</span></span></button>`).join('');
-  return shots?`<div class="el-shots">${shots}</div>`:'';
-}
+
 
 function materialPane(m,col){
   const isL2 = m.__n===2;
@@ -2891,8 +2883,8 @@ function materialPane(m,col){
   </div>
   <div class="material-stats">${m.stats.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
   <div class="supply-flow">${m.flow.map((x,j)=>`<div class="flow-node"><small>${['Origin','Refine','Transform','Enters stack'][j]}</small><b>${x}</b></div>`).join('')}</div>
-  <div class="material-cards">${m.items.map(x=>`<article class="material-card${elementShots(x.n)?' has-shot':''}">
-    <div class="mat-top">${elementShots(x.n)}<div><h5>${x.n}</h5><div class="mat-role">${x.role}</div></div></div>
+  <div class="material-cards">${m.items.map(x=>`<article class="material-card">
+    <div class="mat-top"><div><h5>${x.n}</h5><div class="mat-role">${x.role}</div></div></div>
     <div><div class="mat-choke">${x.choke}</div><div class="mat-meta"><span class="micro-chip">${x.geo}</span><span class="micro-chip">Relief: ${x.time}</span></div></div>
   </article>`).join('')}</div>
   ${elementsPane(m.__n,col)}
@@ -4324,4 +4316,128 @@ const DEPLOY={
 
   M('dep-implications', DEPLOY.implications.map(([t,w])=>
     `<div class="block"><h4>${e(t)}</h4><p>${w}</p></div>`).join(''));
+})();
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ENVIRONMENTAL IMPACT
+   A first pass, structured so it can be filled in rather than rewritten.
+
+   Two rules govern what goes in here. Impact is attributed to the hardware and
+   the facility that physically cause it, never twice — layers 7, 8 and 9 have
+   no footprint of their own, only an allocated share of somebody else's, in
+   the same way they have no element set of their own. And every quantitative
+   claim needs its system boundary stated, because almost every published
+   number in this field is a different boundary wearing the same unit.
+
+   `status` marks how well the thing is actually measured:
+     measured   routinely disclosed on a defined boundary
+     partial    disclosed by some operators, inconsistently
+     poor       estimated, contested, or not disclosed at all
+   ══════════════════════════════════════════════════════════════════════════ */
+const ENVIRO={
+ lead:'Where the environmental cost of AI infrastructure actually falls, layer by layer. Most public discussion collapses it into one number for a data centre’s electricity, which is the part that is easiest to measure and far from the largest share of the total.',
+ boundaries:[
+  ['Operational versus embodied','Electricity used running a machine, against the energy and material cost of making it. For hardware on a four-to-six year replacement cycle, embodied impact is not a rounding error, and it sits in layers 2 and 3 rather than in the data centre.'],
+  ['Site versus grid','A facility’s own emissions depend on the generation mix of the grid it draws from, at the hour it draws. Annual matching against renewable certificates and hourly matching against actual supply give very different answers for the same building.'],
+  ['Consumption versus withdrawal','Water withdrawn and returned is not water consumed. Evaporative cooling consumes; closed-loop designs withdraw far less and spend electricity instead. The two are routinely reported as if they were the same quantity.'],
+  ['Direct versus allocated','A model’s footprint is a share of a cluster’s, and a cluster’s is a share of a facility’s. Assigning a whole data centre to one workload is defensible only when the facility is dedicated to it.'],
+ ],
+ facility:{
+  lead:'The data centre is where the impact becomes visible, which is not the same as where it is created. These are the categories a facility is actually accountable for.',
+  items:[
+   {t:'Electricity',w:'The dominant operational impact, and the one that determines almost everything else. What matters is not the quantity alone but the carbon intensity of the supply at the hour of use, and whether new load is met by new clean generation or by displacing other consumers on existing capacity.',m:'MWh, and gCO₂e/kWh at the hour of use',s:'measured'},
+   {t:'Water',w:'Consumed by evaporative cooling, and traded directly against electricity: closed-loop and air-cooled designs save water and spend power. The impact depends heavily on local water stress, which makes a single global figure close to meaningless.',m:'Litres consumed per MWh, against local basin stress',s:'partial'},
+   {t:'Carbon — operational',w:'Scope 2 from purchased electricity, plus scope 1 from backup generation and refrigerant loss. Generator testing and refrigerant leakage are small relative to load but are direct emissions the operator controls outright.',m:'tCO₂e by scope, with the matching method stated',s:'partial'},
+   {t:'Carbon — embodied',w:'The concrete, steel and copper in the building, and the manufacturing footprint of the hardware inside it. Semiconductor fabrication is energy- and water-intensive and uses process gases with very high global warming potential.',m:'tCO₂e per MW of critical load, building and IT separated',s:'poor'},
+   {t:'Land and siting',w:'Footprint, and the local consequences that decide whether a site can be permitted at all: noise from cooling plant, traffic during construction, visual impact, and competition for grid capacity and water with existing users.',m:'Hectares, plus grid and water capacity taken',s:'partial'},
+   {t:'Heat',w:'Almost all electricity drawn arrives back as low-grade heat. Rejecting it is a cost; reusing it into a district system is technically straightforward and commercially rare, because it requires a heat customer next door.',m:'MWh rejected against MWh reused',s:'poor'},
+   {t:'Hardware at end of life',w:'Accelerators, drives and batteries retired on a cycle much shorter than the building. Recovery rates for the metals that matter are low, and the refresh cycle is getting shorter rather than longer.',m:'Tonnes, and the recovery rate by material',s:'poor'},
+  ]},
+ layers:{
+ 1:{h:'Where the carbon actually is',w:'This layer decides the carbon intensity of everything above it. A data centre on a low-carbon grid and one on a coal-heavy grid have the same electricity bill in kWh and very different footprints. New large loads also raise a question that a facility-level figure hides: whether the load is met by new clean generation or by taking existing clean supply that something else was using.',
+   drivers:['Generation mix at the hour of use, not the annual average','Whether new load brings new capacity or displaces other consumers','Backup generator testing and refrigerant loss as direct emissions','Transmission losses between generation and site'],
+   reduce:['Hourly matching rather than annual certificate matching','Siting against genuine surplus clean capacity','Long-term contracts that fund new build rather than reallocate existing output','Grid-scale storage to firm intermittent supply'],
+   bad:'Annual renewable matching lets a facility report zero emissions while drawing from a fossil grid at the hours it actually runs. The claim is accurate against its stated boundary and misleading about the physical system.',s:'partial'},
+ 2:{h:'The largest impact, and the least visible',w:'Mining, refining and high-purity processing are energy-intensive, water-intensive and locally disruptive in ways that do not appear on any data centre’s balance sheet. Rare earth separation in particular generates large volumes of process waste, some of it radioactive from the thorium and uranium that occur with the ore.',
+   drivers:['Ore grade — falling grades mean more rock moved per tonne of metal','Energy intensity of smelting, refining and purification','Tailings, process waste and water contamination','Radioactive residues in rare earth separation'],
+   reduce:['Recycling and recovery, which scale with the installed base rather than with new permits','Higher-grade or by-product sources where available','Process electrification on clean supply','Design changes that avoid the material altogether — magnet-free motor topologies, for example'],
+   bad:'This is where the embodied footprint of the whole stack is created, and it is attributed to the mining and chemicals sector rather than to the technology that consumes the output. Nothing about that allocation is wrong; it just means a data centre’s reported footprint omits it.',s:'poor'},
+ 3:{h:'Energy, ultrapure water and process gases',w:'A leading-edge fab is an industrial chemical plant. It runs continuously, consumes very large quantities of ultrapure water, and uses fluorinated process gases with global warming potentials thousands of times that of carbon dioxide. Abatement equipment exists and is effective, but its performance varies and is inconsistently disclosed.',
+   drivers:['Continuous high electrical load, largely independent of utilisation','Ultrapure water production and the wastewater treatment behind it','Perfluorinated compounds and nitrogen trifluoride in etch and clean steps','Yield — a scrapped wafer carries its full footprint'],
+   reduce:['Abatement on fluorinated gas streams, and substitution where a process allows','Water recycling within the fab, which is already high at leading sites','Yield improvement, which cuts footprint per good die directly','Clean power contracting at fab scale'],
+   bad:'Footprint per chip depends on yield, which is the number least likely to be disclosed. Published per-wafer figures therefore understate per-good-die impact by an unknown factor.',s:'partial'},
+ 4:{h:'Embodied impact on a short cycle',w:'Compute hardware carries the manufacturing footprint of layer 3 and adds its own from boards, metals, packaging and transport. What makes it consequential is the replacement cycle: hardware retired after four to six years amortises that embodied cost over a short life, and the cycle is shortening rather than lengthening.',
+   drivers:['Replacement cycle length — shorter cycles raise embodied impact per useful year','Performance per watt, which decides operational energy for a given workload','Memory and networking, which draw power whether or not the accelerators are busy','Utilisation — idle hardware carries its embodied cost and produces nothing'],
+   reduce:['Longer useful life where performance allows','Resale and redeployment into less demanding workloads','Higher utilisation, which is also the strongest commercial incentive','Recovery of gold, copper and rare earth magnets at end of life'],
+   bad:'The same useful-life assumption that is load-bearing for reported earnings is load-bearing for embodied footprint, and the two arguments are made by different people who rarely reconcile them.',s:'poor'},
+ 5:{h:'Where it becomes visible and contested',w:'The facility is the point at which the whole stack’s impact becomes local, permittable and politically visible. Grid capacity, water and land are all things existing users already want, and a large load arriving in a constrained region is a distributional question before it is an environmental one.',
+   drivers:['Cooling design — the electricity-against-water trade is settled here','Power usage effectiveness, and how honestly its boundary is drawn','Construction: concrete, steel and the transport behind them','Backup generation, refrigerants and fire suppression agents'],
+   reduce:['Liquid cooling, which is more efficient and usually less water-intensive than evaporative','Heat reuse where a district or industrial customer exists','Low-carbon concrete and structural reuse','Siting against grid and water headroom rather than against land price'],
+   bad:'Power usage effectiveness measures facility overhead, not efficiency of computation. A hall can improve its ratio while doing less useful work per unit of energy, and the number will look better.',s:'measured'},
+ 6:{h:'Small in operation, long-lived in build',w:'Network equipment draws continuously but modestly against the layers around it. The larger environmental questions in this layer are physical: subsea cable installation across seabed habitat, terrestrial route construction, and the long service life of assets that are difficult to recover at end of life.',
+   drivers:['Continuous draw at exchanges, cell sites, repeaters and landing stations','Seabed disturbance during subsea installation and repair','Route construction and the material in cable and conduit','Optics replacement at each speed generation'],
+   reduce:['Traffic engineering and caching, which move less data further','Efficiency gains per bit, which have been large and continuous','Reuse of existing conduit and duct rather than new build','Recovery of copper and glass from retired cable'],
+   bad:'Efficiency per bit improves steadily while total traffic grows faster, so the per-unit figure and the absolute figure point in opposite directions. Quoting only the first is common.',s:'poor'},
+ 7:{h:'No footprint of its own',w:'Data has no physical footprint. What it has is an allocated share of the storage, compute, network and facility that hold and move it — and a peculiar property that makes it worth its own entry: stored data consumes energy continuously for as long as it is retained, whether or not anyone reads it.',
+   drivers:['Retention policy — data kept forever is powered forever','Replication factor, which multiplies the footprint directly','Storage tier: flash, disk and tape differ by an order of magnitude at rest','Reprocessing, which re-reads entire corpora each time'],
+   reduce:['Deletion on schedule, which is also a governance requirement','Tiering cold data down to disk or tape','Deduplication, which cuts both footprint and training cost','Fewer full reprocessing passes over the same corpus'],
+   bad:'Storage footprint is invisible in every framing that measures training runs. A corpus retained and replicated for years may cost more energy at rest than the run that used it.',s:'poor'},
+ 8:{h:'An allocation problem, not a measurement',w:'Training runs are the most reported number in this field and among the least comparable. A published figure may or may not include data preparation, failed runs, hyperparameter search, evaluation, the embodied cost of the hardware or the facility overhead — and inference, which is continuous, now dominates the lifetime total for a widely used model.',
+   drivers:['Whether failed runs and search are counted at all','Inference volume, which usually exceeds training within months of release','Model size against optimisation — distillation and quantisation cut serving cost sharply','Utilisation, since idle accelerators still draw power'],
+   reduce:['Distillation, quantisation and compilation for serving','Routing, so that easy requests do not reach the largest model','Batching and caching','Siting training where clean supply is genuinely surplus'],
+   bad:'Published training figures are not comparable to each other. Without the boundary stated — failed runs, evaluation, embodied hardware, facility overhead — the number carries no information beyond its own order of magnitude.',s:'poor'},
+ 9:{h:'Efficiency, and the rebound that follows it',w:'Agent software has no footprint of its own, but it decides how much inference happens. Every architectural choice here — how many model calls a task takes, which model handles them, how much context is resent — multiplies through to layer 8. It is also where efficiency gains are most likely to be spent on more usage rather than less energy.',
+   drivers:['Calls per completed task, and how many of them were necessary','Context length resent on every turn','Retry and fallback behaviour on failure','Model selection — using a frontier model where a small one suffices'],
+   reduce:['Routing to the smallest model that meets the requirement','Caching context and intermediate results','Deterministic workflows where a model call adds nothing','Measuring energy per completed task rather than per call'],
+   bad:'Cost per token has fallen steadily while total consumption has risen faster. Efficiency improvements in this layer have so far been spent on more usage, and a per-call figure will show progress while the absolute total grows.',s:'poor'},
+ 10:{h:'Small per machine, unresolved at fleet scale',w:'An individual machine is a modest consumer. The environmental questions here are about materials and about what happens at scale: magnet and battery supply chains reaching back into layer 2, and an end-of-life picture for large fleets that essentially does not exist yet because large fleets do not yet exist.',
+   drivers:['Battery chemistry, and the mining behind it','Magnet content, which follows motor architecture rather than being universal','Duty cycle and charging pattern, which decide operational energy','Service life, repairability and spares availability'],
+   reduce:['Motor topologies that avoid rare-earth magnets where the application allows','Designing for repair and refurbishment rather than replacement','Battery recovery, which is better established than magnet recovery','Longer service life, which spreads embodied impact over more work'],
+   bad:'Comparisons against the human labour a machine replaces are frequently made and almost never on a defensible boundary. They require the full task, environment, duty cycle, intervention rate and lifetime of both, and that comparison has not been published for any humanoid platform.',s:'poor'},
+ },
+ open:[
+  ['Hourly carbon accounting','Whether large loads are matched to clean supply at the hour of use, or only annually against certificates. The distinction changes reported footprints by a large factor and is not yet standard practice.'],
+  ['Embodied footprint of accelerators','No credible published figure exists per accelerator on a stated boundary. Until one does, total lifecycle impact for AI hardware cannot be calculated, only guessed.'],
+  ['Additionality of new generation','Whether power contracts fund new clean capacity or reallocate existing output. This is the single largest open question in layer 1 and it is a contracting question, not a technical one.'],
+  ['Water at basin scale','Consumption figures mean little without local water stress. Facility-level disclosure exists; basin-level context usually does not.'],
+  ['Inference against training','Lifetime energy for a widely deployed model is dominated by inference, and almost all published analysis measures training.'],
+  ['End-of-life recovery','Recovery rates for magnets, cells and accelerator packages, and whether a refresh cycle measured in years can support a recycling industry at all.'],
+ ],
+};
+
+/* Environmental impact page. */
+(function(){
+  const host=document.getElementById('env-layers'); if(!host) return;
+  const e=_esc;
+  const M=(id,html)=>{const el=document.getElementById(id); if(el) el.innerHTML=html;};
+  const badge=s=>`<span class="env-st is-${s}">${s==='measured'?'Measured':s==='partial'?'Partly measured':'Poorly measured'}</span>`;
+
+  M('env-boundaries', ENVIRO.boundaries.map(([t,w])=>
+    `<article class="env-bd"><h5>${e(t)}</h5><p>${e(w)}</p></article>`).join(''));
+
+  M('env-facility', ENVIRO.facility.items.map(x=>
+    `<article class="env-fc"><div class="env-fc-h"><h5>${e(x.t)}</h5>${badge(x.s)}</div>`+
+    `<p>${e(x.w)}</p><p class="env-metric"><b>Measured as</b> ${e(x.m)}</p></article>`).join(''));
+
+  host.innerHTML=Object.keys(ENVIRO.layers).map(n=>{
+    const d=ENVIRO.layers[n];
+    const L=(typeof LAYERS!=='undefined')&&LAYERS.find(x=>x.n===+n);
+    const list=(t,a)=>`<div class="env-col"><p class="env-ch">${t}</p><ul>${a.map(x=>`<li>${e(x)}</li>`).join('')}</ul></div>`;
+    return `<details class="env-layer" style="--stage:var(--l${n})">
+      <summary>
+        ${typeof layerIcon==='function'?layerIcon(+n,'src-icon'):''}
+        <span class="env-n">${n}</span>
+        <b>${e(L?L.t:'Layer '+n)}</b>
+        <span class="env-sum">${e(d.h)}</span>
+        ${badge(d.s)}
+      </summary>
+      <div class="env-body">
+        <p class="env-lede">${e(d.w)}</p>
+        <div class="env-cols">${list('What drives it',d.drivers)}${list('What reduces it',d.reduce)}</div>
+        <p class="env-bad"><b>Measured badly.</b> ${e(d.bad)}</p>
+      </div>
+    </details>`;}).join('');
+
+  M('env-open', ENVIRO.open.map(([t,w])=>
+    `<li><b>${e(t)}</b><span>${e(w)}</span></li>`).join(''));
 })();

@@ -1201,22 +1201,8 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
 .how-money h5{font-size:14px; font-weight:600; margin:0 0 6px; color:var(--ink)}
 .how-money p{font-size:14px; line-height:1.65; color:var(--ink2); margin:0; max-width:88ch}
 
-/* ──────────────────────────────────────────────────────────────────────────
-   ELEMENT PHOTOGRAPHS
-   ────────────────────────────────────────────────────────────────────────── */
-.el-shots{display:flex; gap:7px; flex:none}
-.el-shot{appearance:none; border:0; background:none; padding:0; margin:0; width:52px;
-  cursor:pointer; display:block; text-align:center; font:inherit}
-.el-shot img{width:52px; height:52px; object-fit:cover; border-radius:9px;
-  border:1px solid var(--line); background:#F3F4F4; display:block;
-  transition:border-color .16s var(--ease), transform .16s var(--ease)}
-.el-shot:hover img{border-color:var(--accent); transform:translateY(-1px)}
-.el-shot:focus-visible img{outline:2px solid var(--accent); outline-offset:2px}
-.el-cap{display:block; margin-top:4px; line-height:1.2}
-.el-cap b{display:block; font:600 11px var(--f-mono); color:var(--ink)}
-.el-cap span{display:block; font-size:9.5px; color:var(--muted); overflow:hidden;
-  text-overflow:ellipsis; white-space:nowrap}
-.material-card .mat-top{display:flex; gap:13px; align-items:flex-start}
+/* (The per-material photo strips are gone — each layer now carries a proper
+   key-elements section, and the strips were the same pictures a second time.) */
 .material-card .mat-top>div:last-child{min-width:0}
 .mats-inline{margin-top:8px}
 
@@ -1233,7 +1219,6 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
   color:var(--accent); text-decoration:none}
 .src-doc a:hover{text-decoration:underline}
 @media (max-width:700px){
-  .el-shot,.el-shot img{width:44px} .el-shot img{height:44px}
   .vc-jump{grid-template-columns:1fr}
 }
 
@@ -1324,10 +1309,10 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
    the loop is four boxes and does not, so it renders near its natural size
    rather than stretching to fill half the figure.
    ────────────────────────────────────────────────────────────────────────── */
-.dia-shell.is-map{grid-template-columns:minmax(0,1fr) minmax(232px,286px)}
+.dia-shell.is-map{grid-template-columns:minmax(0,1fr) minmax(190px,228px)}
 /* The map earns more of the page than the other two figures: it is wider,
    carries four groupings and has to stay readable without zooming. */
-#mapsvg{min-height:620px}
+#mapsvg{min-height:700px}
 @media(max-width:1200px){ #mapsvg{min-height:0} }
 .dia-shell.is-loop{grid-template-columns:430px minmax(0,1fr)}
 #loopsvg .bt{font-size:13.5px}
@@ -1379,7 +1364,6 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 .eld-h{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
   margin:0 0 6px; font-weight:600}
 .eld-uses ul{margin:0; padding-left:17px; font-size:13px; color:var(--ink2); line-height:1.55}
-@media (prefers-reduced-motion:reduce){.el-shot img{transition:none}}
 
 /* The photograph note sits under the credit, at caption size. */
 .eld-shows{font-size:11px; line-height:1.5; color:var(--muted); margin:7px 0 0}
@@ -1763,3 +1747,73 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 /* primary-source lines: always legible, since nothing is bought here */
 #mapsvg .wl,#mapsvg .wl2{opacity:.6}
 #mapsvg .lb-w{fill:var(--muted); font:500 12px var(--f); opacity:1}
+
+
+/* The map's reading panel gives width back to the drawing: the schematic is
+   the thing being read, and the panel is a caption for it. */
+.dia-shell.is-map .dia-info{padding:14px 15px 15px}
+.dia-shell.is-map .dia-info h4{font-size:15px; margin-bottom:7px; line-height:1.3}
+.dia-shell.is-map .dia-info .mi-eyebrow{font-size:9.5px; margin-bottom:4px}
+.dia-shell.is-map .dia-info .mi-lede{font-size:12.5px; line-height:1.5}
+.dia-shell.is-map .dia-info .mi-choke{font-size:11.5px; line-height:1.45; margin-top:9px}
+.dia-shell.is-map .dia-info .mi-hint{font-size:11px; line-height:1.42; margin-top:10px}
+.dia-shell.is-map .dia-info .mi-more{font-size:11.5px; margin-top:10px}
+.dia-shell.is-map .dia-info .chip{font-size:10.5px; margin-bottom:8px}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   ENVIRONMENTAL IMPACT
+   Built to be filled in. Every claim carries how well it is currently
+   measured, because in this field that is usually the more interesting fact.
+   ────────────────────────────────────────────────────────────────────────── */
+.env-st{font:600 9.5px var(--f-mono); letter-spacing:.05em; text-transform:uppercase;
+  border-radius:4px; padding:2px 7px; white-space:nowrap; flex:none}
+.env-st.is-measured{color:var(--bull-ink); background:var(--bull-soft)}
+.env-st.is-partial{color:var(--amber); background:var(--amber-soft)}
+.env-st.is-poor{color:var(--warn-ink); background:var(--flag-soft)}
+
+.env-bds{display:grid; gap:11px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); margin-bottom:8px}
+.env-bd{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:15px 17px}
+.env-bd h5{font-size:14.5px; font-weight:600; letter-spacing:-.014em; margin:0 0 7px; color:var(--ink)}
+.env-bd p{margin:0; font-size:13.5px; line-height:1.6; color:var(--ink2)}
+
+.env-fcs{display:grid; gap:11px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.env-fc{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:15px 17px}
+.env-fc-h{display:flex; align-items:center; gap:10px; margin-bottom:8px}
+.env-fc-h h5{font-size:15px; font-weight:600; letter-spacing:-.014em; margin:0; color:var(--ink)}
+.env-fc p{margin:0; font-size:13.5px; line-height:1.6; color:var(--ink2)}
+.env-metric{margin-top:9px !important; font-size:12.5px !important; color:var(--muted) !important}
+.env-metric b{font:600 10px var(--f-mono); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); margin-right:7px}
+
+.env-list{display:grid; gap:9px}
+.env-layer{border:1px solid var(--line); border-left:3px solid var(--stage);
+  border-radius:11px; background:var(--surface)}
+.env-layer summary{display:flex; align-items:center; gap:11px; cursor:pointer; padding:13px 16px;
+  list-style:none}
+.env-layer summary::-webkit-details-marker{display:none}
+.env-layer summary::after{content:"+"; margin-left:auto; color:var(--muted); font:400 17px var(--f-mono); flex:none}
+.env-layer[open] summary::after{content:"\2212"}
+.env-layer summary:hover{background:var(--surface2)}
+.env-n{display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px;
+  border-radius:50%; background:var(--stage); color:var(--on-layer); font:600 11px var(--f); flex:none}
+.env-layer summary b{font-size:14.5px; font-weight:600; letter-spacing:-.012em; color:var(--ink); flex:none}
+.env-sum{font-size:13px; color:var(--muted); min-width:0; overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap}
+.env-body{padding:0 17px 17px; border-top:1px solid var(--line)}
+.env-lede{font-size:14px; line-height:1.62; color:var(--ink2); margin:14px 0 15px; max-width:84ch}
+.env-cols{display:grid; gap:14px 26px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.env-ch{font:600 10.5px var(--f-mono); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 7px}
+.env-col ul{margin:0; padding-left:17px}
+.env-col li{font-size:13px; line-height:1.55; color:var(--ink2); margin-bottom:5px}
+.env-bad{margin:15px 0 0; font-size:13px; line-height:1.58; color:var(--ink2);
+  background:var(--surface2); border:1px solid var(--line); border-radius:8px; padding:11px 14px}
+.env-bad b{color:var(--ink)}
+
+.env-open{list-style:none; margin:0; padding:0; display:grid; gap:9px}
+.env-open li{background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:13px 16px}
+.env-open b{display:block; font-size:14px; font-weight:600; letter-spacing:-.012em;
+  color:var(--ink); margin-bottom:5px}
+.env-open span{font-size:13.5px; line-height:1.58; color:var(--ink2)}
+@media(max-width:700px){ .env-sum{display:none} }

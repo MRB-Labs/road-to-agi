@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="doc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Environmental impact · Road to AGI</title>
+<meta name="description" content="Where the environmental cost of AI infrastructure falls, layer by layer: energy, water, carbon, embodied impact and end of life, with the system boundary stated for each. Revision 10, September 2026.">
+<meta name="theme-color" content="#F6F7F9">
+<script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
+if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
+document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="style.css?v=93ac3aad">
+</head>
+<body class="doc">
+
+<a class="skip-link" href="#environment">Skip to the report</a>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="index.html" style="text-decoration:none;color:inherit"><i></i>Road to AGI</a>
+    <div class="navlinks" id="navlinks" aria-label="Report sections">
+      <a href="index.html">Overview</a>
+      <a href="stack.html">The infrastructure</a>
+      <a href="markets.html">Deployment &amp; markets</a>
+      <a href="environment.html" aria-current="page">Environmental impact</a>
+      <a href="projects.html">Projects</a>
+      <a href="risks.html">Risks</a>
+      <a href="method.html">Method</a>
+    </div>
+    <div class="nav-right">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+        <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.4A8.4 8.4 0 1 1 9.6 4a6.6 6.6 0 0 0 10.4 10.4Z"/></svg>
+        <span class="tt-label">Light</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section id="environment">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Environmental impact</h2>
+      <p>Where the environmental cost of this infrastructure actually falls, layer by layer. Most public discussion collapses it into a single figure for a data centre&rsquo;s electricity &mdash; the part that is easiest to measure, and far from the largest share of the total. This section is a first pass, structured so it can be filled in as better sources arrive rather than rewritten.</p>
+    </div>
+
+    <div class="verdict">
+      <h3>Two rules this section follows</h3>
+      <p><b>Impact is attributed once, to the thing that physically causes it.</b> Layers 7, 8 and 9 have no footprint of their own, in the same way they have no element set of their own &mdash; only an allocated share of the hardware and the facility they run on. Counting a data centre against the model, the agent and the application separately would triple the same electricity.</p>
+      <p><b>Every quantity needs its boundary stated.</b> Almost every published number in this field is a different system boundary wearing the same unit. Where this report cannot state the boundary, it does not give the number.</p>
+    </div>
+
+    <h3 class="blockhead">1 &middot; The four distinctions that decide every figure</h3>
+    <p class="blocksub">Most disagreements about the environmental cost of AI are not disagreements about the physical world. They are two people using the same word for different boundaries.</p>
+    <div class="env-bds" id="env-boundaries"></div>
+
+    <h3 class="blockhead">2 &middot; The data centre, end to end</h3>
+    <p class="blocksub">The facility is where the impact becomes visible, which is not the same as where it is created. These are the categories a data centre is genuinely accountable for, and how well each is currently measured.</p>
+    <div class="env-fcs" id="env-facility"></div>
+
+    <h3 class="blockhead">3 &middot; Layer by layer</h3>
+    <p class="blocksub">What each layer contributes, what drives it, what reduces it, and what is currently measured badly. Open a layer to read it.</p>
+    <div class="env-list" id="env-layers"></div>
+
+    <h3 class="blockhead">4 &middot; Open questions</h3>
+    <p class="blocksub">The things that would most change the picture if they were properly measured. This is the list to attack with papers and primary sources.</p>
+    <ul class="env-open" id="env-open"></ul>
+
+    <div class="verdict">
+      <h3>What this section does not yet do</h3>
+      <p>It states no totals. A defensible figure for the environmental cost of AI infrastructure would need embodied and operational impact on one boundary, hourly carbon accounting, basin-level water context and a credible embodied figure per accelerator &mdash; and the last of those does not exist publicly at all. The structure here is built to hold those numbers when they can be sourced, and to be honest in the meantime about which are missing.</p>
+    </div>
+
+    <p class="tnote">Every claim in this section is qualitative by design. Quantitative figures will be added only with the system boundary, geography, date and source stated together, per the evidence hierarchy on the Method page. Contributions of primary sources &mdash; IEA, USGS, national grid operators, peer-reviewed lifecycle assessment and operator disclosure on a defined boundary &mdash; are what this section is waiting on.</p>
+  </div>
+</section>
+
+<footer><div class="wrap">Road to AGI — revision 10, prepared September 2026. Data current as of that date and changing rapidly. All diagrams and charts in this document are drawn from the underlying data as inline vector graphics. The only imported images are company logos, reproduced to identify the businesses named; each remains the trademark of its owner and appears for identification, not endorsement.</div></footer>
+
+<script src="script.js?v=cfcb7a3a"></script>
+</body>
+</html>
