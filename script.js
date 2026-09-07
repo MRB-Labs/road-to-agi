@@ -1773,7 +1773,7 @@ const LAYERS=[
  lede:'Generation, transmission, substations, electrical distribution gear and thermal management. An AI accelerator is a machine for converting electricity into inference — that is the whole business.',
  why:'Power has replaced silicon as the practical limit on how fast the infrastructure stack can grow. It requires <b>firm</b> power, not just power: training runs and inference serving need continuous 24/7 supply, which is why hyperscalers went to nuclear and gas rather than simply buying more renewables. The cheapest-electron framework that dominated energy investing for fifteen years does not apply here.',
  choke:'The chokepoint is <b>long-lead-time electrical equipment and turbine hot-section castings</b>, not generation. Global heavy-duty turbine capacity runs 60–70 GW a year against roughly 110 GW of outstanding orders, and the constraint is specialised foundries and skilled welders laid off during the lean 2010s.',
- facts:[['116 GW','GE Vernova turbine backlog, Q2 2026'],['128 wks','Large power transformer lead time'],['~1/3','Announced 2026 US capacity under construction'],['40–45%','Electrical plant as a share of facility cost']],
+ facts:[['116 GW','GE Vernova turbine backlog, Q2 2026','Q2 2026','Company disclosure'],['128 wks','Large power transformer lead time','2026','Wood Mackenzie'],['~1/3','Announced 2026 US capacity under construction','2026','Industry tracking'],['40–45%','Electrical plant as a share of facility cost']],
  chart:{t:'Equipment lead times, order to delivery',u:'weeks',b:[['Distribution transformers',30],['UPS above 500 kVA',33],['Pad-mount transformers',52],['Backup generators 2MW+',65],['MV switchgear',95],['HV circuit breakers',125],['Large power transformers',128],['Generator step-up units',160],['Heavy-duty gas turbine',260]],
   note:'The gas turbine figure converts GE Vernova\u2019s stated 2031 delivery slots into weeks from a mid-2026 order. A supplier of a 2% cost item that gates 100% of the project has extraordinary pricing power.'},
  co:[
@@ -1813,7 +1813,7 @@ const LAYERS=[
  lede:'Ore, brine, gas and by-product streams, and the refining, separation and transformation steps that turn them into something a fab, a transformer or a magnet can actually use.',
  why:'Everything above this layer is a claim on material that has been dug up, purified and qualified. Materials sit alongside energy at the base of the infrastructure stack because they are the two things the physical world supplies directly — and because a $38bn project can be gated by an input worth a few million dollars. <b>The relevant question is never how much of a material exists. It is who can refine it, and how long it takes to qualify an alternative.</b>',
  choke:'For most of these materials the chokepoint is <b>refining, separation and qualification rather than reserves in the ground</b> — but not for all of them: high-purity quartz is geologically concentrated, and by-product metals like gallium and germanium cannot be produced to order at any price. Mining is geographically diverse; refining is not. China holds 86–90% of rare earth separation, 48% of copper smelting against 8% of copper mining, and two mines in one North Carolina district supply roughly 80% of the world\u2019s high-purity quartz.',
- facts:[['86–90%','China share of world rare earth refining'],['~80%','World high-purity quartz from one US district'],['48%','China copper smelting, against 8% of mining'],['3–8 yr','Time to build alternative refining capacity']],
+ facts:[['86–90%','China share of world rare earth refining','2026','USGS'],['~80%','World high-purity quartz from one US district','2026','USGS'],['48%','China copper smelting, against 44.6% refining','2026','USGS'],['3–8 yr','Time to build alternative refining capacity']],
  chart:{t:'Concentration at the single dominant node',u:'% of world capacity',b:[['Copper mining, China',8],['Copper refining, China',44.6],['Copper smelting, China',48],['Rare earth magnets, China',70],['High-purity quartz, Spruce Pine',80],['Rare earth refining, China',86],['Electronic-grade polysilicon, top four',95],['EUV optics, Zeiss SMT',100]],
   note:'Read the gap between the first and third bars. China mines 8% of the world\u2019s copper concentrate and smelts 48% of it — the same pattern repeats in almost every material in this layer, and it is why the investable position usually sits one step above the mine.'},
  co:[
@@ -1856,7 +1856,7 @@ const LAYERS=[
  lede:'Design software and IP, wafer fabrication equipment, materials and chemicals, the foundry itself, and advanced packaging and test. Everything required to turn sand into a working advanced logic or memory die.',
  why:'This is the only layer with <b>no substitute and no workaround</b>. You can cool a data centre three ways and generate power five ways. You cannot pattern a 2nm transistor without EUV lithography, and there is exactly one supplier of it. You cannot design a modern chip without EDA software, where three companies hold three-quarters of the market. It also sells into every other technology cycle simultaneously, giving it a demand base that does not vanish if AI capex disappoints.',
  choke:'The bottleneck moved. For years it was lithography; it is now <b>advanced packaging</b> — bonding a logic die to twelve stacks of HBM on a silicon interposer. TSMC controls over 90% of global CoWoS output, and CoWoS allocation is effectively the revenue ceiling for every accelerator vendor.',
- facts:[['1','Suppliers of EUV lithography, worldwide'],['&gt;90%','TSMC share of global CoWoS packaging'],['67.7%','TSMC gross margin, on manufacturing'],['52–78 wks','CoWoS packaging lead time']],
+ facts:[['1','Suppliers of EUV lithography, worldwide','2026','ASML disclosure'],['&gt;90%','TSMC share of global CoWoS packaging','2026','Company disclosure'],['67.7%','TSMC gross margin, on manufacturing','Q2 2026','Company disclosure'],['52–78 wks','CoWoS packaging lead time']],
  chart:{t:'Advanced packaging demand, CoWoS wafers',u:'thousand wafers',b:[['2024',370],['2025',670],['2026 estimate',1000]],
   note:'TSMC has ramped monthly capacity from roughly 35,000 wafers at end-2024 to about 75,000 at end-2025, targeting 120,000–130,000 by end-2026 — and the lines remain fully booked. NVIDIA alone is estimated to hold about 60% of 2026 capacity.'},
  co:[
@@ -1898,7 +1898,7 @@ const LAYERS=[
  lede:'The accelerators, the memory that feeds them, and the networking that binds them into a single training fabric. Highest revenue growth in the infrastructure stack, and the shortest moat half-life.',
  why:'An AI accelerator is not a compute problem, it is a <b>data movement problem</b>. Modern accelerators spend much of their time waiting for data, which is why memory bandwidth and interconnect are co-equal constraints with raw FLOPs — and why the profit pool has split three ways rather than accruing to one company. The workload is also shifting from training to inference, which systematically favours custom silicon and memory bandwidth over peak compute.',
  choke:'Three separate chokepoints, and memory is currently the tightest. <b>The most profitable chip company in history is guiding margins down because its memory suppliers raised prices</b> — value transferring up the supply chain against the buyer\u2019s wishes is what a genuine bottleneck looks like.',
- facts:[['$89.0bn','NVIDIA data centre revenue, quarter to July 2026'],['+117%','Year-on-year growth in that line'],['58%','SK hynix share of HBM revenue'],['44.6%','Custom ASIC unit growth vs 16.1% for GPUs']],
+ facts:[['$89.0bn','NVIDIA data centre revenue, quarter to July 2026','Q2 FY27','Company disclosure'],['+117%','Year-on-year growth in that line','Q2 FY27','Company disclosure'],['58%','SK hynix share of HBM revenue','2026','Company disclosure'],['44.6%','Custom ASIC unit growth vs 16.1% for GPUs']],
  chart:{t:'HBM revenue share, Q1 2026',u:'% of market',b:[['SK hynix',58],['Samsung',21],['Micron',21]],
   note:'HBM capacity has been sold out across all three suppliers. The global HBM market is estimated to grow from about $38bn in 2025 to $58bn in 2026. All three memory makers crossed $1tn in market value in May 2026 — which is precisely why entry valuation now matters more than the bottleneck itself.'},
  co:[
@@ -1937,7 +1937,7 @@ const LAYERS=[
  lede:'The physical buildings and the operating businesses that sell capacity: hyperscale cloud, colocation and GPU-rental neoclouds. Four genuinely different business models that are routinely conflated.',
  why:'Layers 1 to 4 sell into this layer; this layer pays. That makes it where demand is validated or falsified, and where balance sheet risk concentrates. Compute must be sited somewhere with land, fibre, water and — above all — a grid connection. <b>The scarce asset is not the building but the interconnection agreement</b>, which is why sites with secured hundreds of megawatts trade as options on the entire build-out.',
  choke:'This is no longer a technology sector. It is a <b>leveraged infrastructure sector wearing technology multiples</b>. Once the build-out is financed with debt, SPVs and depreciating collateral rather than operating cash flow, the right analytical toolkit is project finance, not software.',
- facts:[['+82%','Google Cloud growth, accelerating from 63%'],['$1.5tn','Projected new tech-sector debt over three years'],['8.94×','CoreWeave debt-to-equity ratio'],['5–7 yrs','Grid interconnection queue']],
+ facts:[['+82%','Google Cloud growth, accelerating from 63%','Q2 2026','Company disclosure'],['$1.5tn','Projected new tech-sector debt over three years','2026','Estimate — see risks'],['8.94×','CoreWeave debt-to-equity ratio','2026','Company filing'],['5–7 yrs','Grid interconnection queue','2026','FERC and RTO data']],
  chart:{t:'Hyperscale cloud growth, quarter ended June 2026',u:'% year on year',b:[['Google Cloud',82],['Microsoft Azure',43],['AWS',36.7]],
   note:'Revenue is accelerating at three companies simultaneously, at scale, with margins expanding and demand exceeding supply. Anyone arguing AI demand is imaginary has to explain this. The bear case in this layer is not about demand — it is about who finances the supply and on what terms.'},
  co:[
@@ -2058,7 +2058,7 @@ const LAYERS=[
  lede:'Frontier training, post-training and alignment, inference serving, and the data pipelines that feed all of it. Where capital expenditure is converted into capability.',
  why:'This is the transformation step in the loop, and the point at which the entire stack below either monetises or does not. But it is also the only layer with <b>no physical barrier to entry</b> — no mine, no refinery, no qualified process material, no fab. Capability leads have historically lasted months, not years, and open-weight models have repeatedly compressed the price of a given capability toward marginal cost.',
  choke:'There may not be one. <b>Model weights are a depreciating asset</b>; a fab is not. The durable assets at this layer are proprietary data and distribution, not the weights themselves — which is why the vertically integrated players look structurally stronger than the pure-play labs.',
- facts:[['+36.4%','Frontier model prices, year on year'],['−35.8%','Mid-tier prices over the same period'],['82%','Open-weight discount to proprietary models'],['5×','Dispersion in estimates for one private lab']],
+ facts:[['+36.4%','Frontier model prices, year on year','2026','Published price lists'],['−35.8%','Mid-tier prices over the same period','2026','Published price lists'],['82%','Open-weight discount to proprietary models','2026','Published price lists'],['5×','Dispersion in estimates for one private lab']],
  chart:{t:'Token prices are diverging, not simply falling',u:'% change, 12 months to August 2026',b:[['Frontier models, up',36.4],['Mid-tier models, down',35.8]],
   note:'Frontier prices rose 36.4% while mid-tier fell 35.8%. The naive view is that models commoditise so there is no business here. The data says something more precise: the commodity tier is collapsing toward marginal cost while the genuine frontier is gaining pricing power. The dangerous place to be is the middle, not the top.'},
  co:[
@@ -2097,7 +2097,7 @@ const LAYERS=[
  lede:'Orchestration frameworks, agent runtimes, vector and operational databases, observability, security, and the application software customers actually pay for.',
  why:'A model in isolation produces text. Software gives it tools, memory, permissions and a place in a business process. But <b>this is where the thesis inverts</b>: in layers 1 to 8, AI creates demand and the exposed companies benefit. In layer 9, AI is currently a net destroyer of incumbent enterprise value, because agents replace the humans who generate per-seat revenue. "Invest in the companies creating the revolution" is precisely the wrong instruction here.',
  choke:'Data gravity and systems of record. The scarce input is <b>context, not intelligence</b> — model capability is available to everyone at collapsing prices, but a company\u2019s customer records, permission structures and process knowledge are not. Whoever owns the context owns the deployment.',
- facts:[['9× → 6×','Software price-to-sales compression in 2026'],['&lt;20%','Contracts still priced purely per seat'],['70%','Vendors reporting AI costs eroding margins'],['40–82:1','Machine identities per human, before agents']],
+ facts:[['9× → 6×','Software price-to-sales compression in 2026','2026','Market data'],['&lt;20%','Contracts still priced purely per seat','2026','Estimate'],['70%','Vendors reporting AI costs eroding gross margin','2026','Survey — positional'],['40–82:1','Machine identities per human, before agents']],
  chart:{t:'Software valuation multiples, price to sales',u:'multiple',b:[['Prior level',9],['2026',6]],
   note:'Levels not seen since the mid-2010s. J.P. Morgan and Goldman Sachs have argued the selloff went too far. But public SaaS growth has decelerated every quarter since 2021 — predating agents — and 70% of vendors report AI compute costs eroding profitability. Revenue pressure and margin pressure are arriving at once.'},
  co:[
@@ -2155,7 +2155,7 @@ const LAYERS=[
  lede:'Robots, vehicles, drones and devices, plus the actuators, reducers, sensors and batteries beneath them. Three industries at three completely different stages of maturity, routinely conflated.',
  why:'Roughly three-quarters of global GDP involves physical work. Software AI addresses the knowledge-work portion; embodiment addresses the rest. Without this layer the thesis is a bet on the digital economy — with it, a bet on the whole economy. It is also how the loop closes, since embodied systems generate the real-world interaction data that digital corpora cannot provide.',
  choke:'<b>The geography inverts here.</b> Layers 3 and 4 concentrate in the Netherlands, Taiwan, Japan and Korea. Layer 10 concentrates in China, which holds 63% of humanoid component supply and over 70% of rare earth magnet production. Adding this layer to a semiconductor-heavy portfolio adds a second, oppositely-directed geopolitical exposure — it does not diversify the first.',
- facts:[['50%','Actuators as a share of humanoid BOM'],['18+ mo','Harmonic Drive reducer lead times'],['63%','China share of humanoid component supply'],['3,000 vs ~50','Waymo robotaxis versus counted Tesla units']],
+ facts:[['~50%','Actuator share of BOM for one class of humanoid — not a universal figure','2026','Vendor teardowns'],['18+ mo','Harmonic Drive reducer lead times','2026','Supplier guidance'],['63%','China share of humanoid component supply','Jan 2026','KR-Asia analysis'],['3,000 vs ~50','Waymo robotaxis versus counted Tesla units']],
  chart:{t:'Humanoid cost is dominated by actuation, not intelligence',u:'% of bill of materials',b:[['Actuators and joints',50],['Sensors and perception',33],['Hands and manipulation',17]],
   note:'Morgan Stanley\u2019s teardown put actuators at roughly 56% of a ~$55,000 bill of materials. A humanoid robot is a mechatronics problem with an AI feature, not an AI problem with a mechanical body — which determines where the durable profit pool sits.'},
  co:[
@@ -2577,7 +2577,13 @@ function cotbl(rows,layer){
       `<td class="sm">${r[2]}</td><td class="sm">${r[3]}</td>`+
       `<td class="bull">${r[4]}</td><td class="bear">${r[5]}</td></tr>`;}).join('')+`</tbody>`;
 }
-const factgrid=f=>f.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span></div>`).join('');
+/* A headline number carries its as-of date and source where it has one, per
+   the audit: a time-sensitive figure without a date is not a fact, it is a
+   memory. Tuples are [figure, label, as-of, source]; the last two are
+   optional so the project pages can keep the shorter form. */
+const factgrid=f=>f.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span>`+
+  (x[2]?`<em class="fact-src">${_esc(x[2])}${x[3]?' · '+_esc(x[3]):''}</em>`:'')+
+  `</div>`).join('');
 
 
 /* ══════════════════════════════════════════════════════════════════════════

@@ -1648,3 +1648,7 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
   .dep-cap{grid-template-columns:32px minmax(0,1fr); row-gap:8px}
   .dc-v{grid-column:2; text-align:left}
 }
+
+/* A headline figure states when it was true and where it came from. */
+.facts .fact-src{display:block; font-style:normal; font-size:11px; line-height:1.45;
+  color:var(--muted); margin-top:6px; font-family:var(--f-mono); letter-spacing:.02em}
