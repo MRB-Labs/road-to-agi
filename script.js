@@ -2799,27 +2799,17 @@ const EL_LAYERS=(()=>{
   return o;
 })();
 
-/* The supply commentary that used to sit on the material cards. Each note is
-   kept as written and shown with the elements it governs, resolved through
-   ELMAP — so the reader meets the element first and the constraint on it
-   second, rather than the same photographs twice on one tab. */
-function supplyNotes(n){
-  const m=(typeof LAYER_MATERIALS!=='undefined')&&LAYER_MATERIALS[n];
-  if(!m||!m.items||!m.items.length) return '';
-  const rows=m.items.map(x=>{
-    const syms=((typeof ELMAP!=='undefined'&&ELMAP[x.n])||[]);
-    const chips=syms.map(sy=>`<button type="button" class="sn-el" data-el="${sy}" title="${sy} — open element details">${sy}</button>`).join('');
-    return `<li class="sn">
-      <div class="sn-h"><h5>${_esc(x.n)}</h5>${chips?`<span class="sn-els">${chips}</span>`:''}</div>
-      <p class="sn-role">${_esc(x.role)}</p>
-      <p class="sn-choke">${_esc(x.choke)}</p>
-      <p class="sn-meta"><span class="micro-chip">${_esc(x.geo)}</span><span class="micro-chip">Relief: ${_esc(x.time)}</span></p>
-    </li>`;}).join('');
-  return `<section class="sn-block">
-    <h4 class="mini-h">Where the supply is actually constrained</h4>
-    <p class="sub">The material each constraint sits in, what makes it binding, where it is concentrated and how long relief takes. Select an element symbol to open it.</p>
-    <ul class="sn-list">${rows}</ul>
-  </section>`;
+
+/* Layers 7 to 9 have no element cards to hang their constraint commentary on,
+   so it sits with the dependencies instead — layer 7's usage-rights note in
+   particular is the binding constraint on the whole layer. */
+function inheritNotes(n){
+  const items=(((typeof LAYER_MATERIALS!=='undefined'&&LAYER_MATERIALS[n])||{}).items)||[];
+  if(!items.length) return '';
+  return `<div class="ei-notes">${items.map(x=>`<span class="elc-note">
+    <b>${_esc(x.n)}</b> ${_esc(x.choke)}
+    <span class="elc-chips"><span class="micro-chip">${_esc(x.geo)}</span><span class="micro-chip">Relief: ${_esc(x.time)}</span></span>
+  </span>`).join('')}</div>`;
 }
 
 function elementsPane(n,col){
@@ -2838,7 +2828,7 @@ function elementsPane(n,col){
       <p class="el-lead">${_esc(d.inherit.lead)}</p>
       <p class="el-none"><b>No intrinsic element set.</b> ${_esc(d.inherit.note)}</p>
       <ul class="ei-deps">${from}</ul>
-      ${supplyNotes(n)}
+      ${inheritNotes(n)}
     </section>`;
   }
 
@@ -2853,6 +2843,15 @@ function elementsPane(n,col){
         ` onerror="this.remove()">`
       : '';
     const also=(EL_LAYERS[sym]||[]).filter(x=>x!==n);
+    /* The supply commentary that used to sit on separate material cards, moved
+       onto the element it actually constrains. An element can appear in more
+       than one constrained material, so this is a list rather than a field. */
+    const mats=(((typeof LAYER_MATERIALS!=='undefined'&&LAYER_MATERIALS[n])||{}).items||[])
+      .filter(x=>((typeof ELMAP!=='undefined'&&ELMAP[x.n])||[]).includes(sym));
+    const notes=mats.map(x=>`<span class="elc-note">
+        <b>${_esc(x.n)}</b> ${_esc(x.choke)}
+        <span class="elc-chips"><span class="micro-chip">${_esc(x.geo)}</span><span class="micro-chip">Relief: ${_esc(x.time)}</span></span>
+      </span>`).join('');
     return `<li class="elc" data-code="${code}" style="--stage:${col}">
       <button type="button" class="elc-btn" data-el="${sym}" title="${sym} — open element details">
         <span class="elc-shot">${shot}<span class="elc-sym">${sym}</span></span>
@@ -2862,6 +2861,7 @@ function elementsPane(n,col){
             <span class="elc-keep is-${keep}">${keep==='kept'?'retained':keep==='trace'?'trace':'process'}</span>
           </span>
           <span class="elc-why">${_esc(why)}</span>
+          ${notes}
           ${also.length?`<span class="elc-also">Also in ${also.length===1?'layer':'layers'} ${also.join(', ')}</span>`:''}
         </span>
       </button>
@@ -2876,7 +2876,6 @@ function elementsPane(n,col){
       <button type="button" class="elf elf-all is-on" data-code="" aria-pressed="true">All ${d.els.length}</button>
     </div>
     <ul class="el-grid">${cards}</ul>
-    ${supplyNotes(n)}
     <p class="tnote">Selections, not inventories. An element appears here because it does identifiable work in a named material, not because it is present as a trace. Nothing is labelled critical on its own: criticality depends on geography and date, and is argued in the value chain where a specific supply step is actually constrained. Product-specific bills of materials and process recipes remain supplier-specific.</p>
   </section>`;
 }

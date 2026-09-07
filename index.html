@@ -9,7 +9,7 @@
 <script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
 if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
 document.documentElement.setAttribute("data-theme",t);})();</script>
-<link rel="stylesheet" href="style.css?v=b572de30">
+<link rel="stylesheet" href="style.css?v=755cd831">
 </head>
 <body>
 
@@ -324,20 +324,21 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
           <path class="ln-i" data-from="10" d="M1546 578 V588" marker-end="url(#ah)"/>
 
           <!-- ══ lanes: the base also feeds connectivity and the machine ═══
-               Ordered so nothing crosses: the deeper the lane, the further
-               left it leaves the supply base and the further right it rises. -->
-          <path class="pw" data-from="1 6" d="M330 700 V892 H1274 V630" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-p" data-from="1 6" x="700" y="884" text-anchor="middle">power for exchanges, cell sites, repeaters and landing stations</text>
-          <path class="mt2" data-from="2 6" d="M294 700 V920 H1304 V630" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <text class="lb-m" data-from="2 6" x="700" y="912" text-anchor="middle">silica, germanium dopant, compound semiconductors and copper</text>
-          <path class="ln-s" data-from="3 6" d="M258 700 V948 H1334 V630" marker-end="url(#ahL3)" stroke-linejoin="round"/>
-          <text class="lb-s" data-from="3 6" x="700" y="940" text-anchor="middle">switch, interface and optical semiconductors</text>
-          <path class="pw" data-from="1 10" d="M222 700 V976 H1660 V699 H1618" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-p" data-from="1 10" x="700" y="968" text-anchor="middle">charging stations and the grid behind them</text>
-          <path class="mt2" data-from="2 10" d="M186 700 V1004 H1674 V623 H1618" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <text class="lb-m" data-from="2 10" x="700" y="996" text-anchor="middle">structures, magnets, cells, bearings and sensor materials</text>
-          <path class="ln-s" data-from="3 10" d="M150 700 V1032 H1688 V405 H1618" marker-end="url(#ahL3)" stroke-linejoin="round"/>
-          <text class="lb-s" data-from="3 10" x="700" y="1024" text-anchor="middle">edge SoCs, sensors, power and motor-control silicon</text>
+               One trunk per source, forking where the two destinations part
+               company, rather than six separate runs. Where a fork has to
+               cross a trunk that has already turned up, it hops over it — the
+               small arcs are bridges, not junctions. -->
+          <path class="pw" data-from="1 6" d="M294 700 V900 H1274 V630" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <path class="pw" data-from="1 10" d="M1274 900 H1297 A7 7 0 0 1 1311 900 H1327 A7 7 0 0 1 1341 900 H1660 V699 H1618" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <text class="lb-p" data-from="1 6" x="700" y="892" text-anchor="middle">power for exchanges and cell sites, and the charging behind the fleet</text>
+
+          <path class="mt2" data-from="2 6" d="M272 700 V932 H1304 V630" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <path class="mt2" data-from="2 10" d="M1304 932 H1327 A7 7 0 0 1 1341 932 H1674 V623 H1618" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <text class="lb-m" data-from="2 6" x="700" y="924" text-anchor="middle">silica and dopants for the network, structures and cells for the machine</text>
+
+          <path class="ln-s" data-from="3 6" d="M250 700 V964 H1334 V630" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <path class="ln-s" data-from="3 10" d="M1334 964 H1688 V405 H1618" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <text class="lb-s" data-from="3 6" x="700" y="956" text-anchor="middle">switch, optical and edge silicon — both destinations need semiconductors</text>
         </svg>
         <!-- END infrastructure-map -->
         </div>
@@ -392,6 +393,6 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
 </header>
 
 
-<script src="script.js?v=a08f8a32"></script>
+<script src="script.js?v=7fe31807"></script>
 </body>
 </html>

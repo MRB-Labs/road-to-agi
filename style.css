@@ -1150,10 +1150,14 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
   padding:18px 20px 16px; margin:0 0 22px}
 .vc-index-h{font-size:15.5px; font-weight:600; letter-spacing:-.014em; margin:0; color:var(--ink)}
 .vc-index-s{font-size:12.5px; color:var(--muted); margin:4px 0 14px}
-.vc-jump{list-style:none; margin:0; padding:0; display:flex; align-items:stretch; gap:0}
-.vc-jump li{flex:1 1 0; min-width:0; display:flex; align-items:stretch}
-/* the connector: each stage buys from the one on its left */
-.vc-jump li:not(:last-child)::after{content:""; flex:none; align-self:center; width:20px; height:9px;
+/* Each chain reads left to right on one line. Long chains scroll rather than
+   wrapping, because a wrapped chain stops looking like a chain — the stage
+   boxes below are where the vertical space goes. */
+.vj-jump{list-style:none; margin:0; padding:0 0 8px; display:flex; align-items:stretch;
+  gap:0; overflow-x:auto; scrollbar-width:thin}
+.vj-jump li{flex:0 0 172px; min-width:0; display:flex; align-items:stretch}
+/* the connector: within a chain, each stage depends on the one before it */
+.vj-jump li:not(:last-child)::after{content:""; flex:none; align-self:center; width:20px; height:9px;
   margin:0 5px; background:var(--line2);
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 9'%3E%3Cpath d='M0 4.5h16M12.5 1 16 4.5 12.5 8' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 9'%3E%3Cpath d='M0 4.5h16M12.5 1 16 4.5 12.5 8' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain}
@@ -1167,11 +1171,7 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
   font:600 11px var(--f-mono); display:flex; align-items:center; justify-content:center; flex:none}
 .vj b{font-size:13px; color:var(--ink); letter-spacing:-.01em; line-height:1.25}
 .vj-f{font-size:11px; color:var(--muted); line-height:1.4}
-@media (max-width:1100px){
-  .vc-jump{flex-wrap:wrap; gap:8px}
-  .vc-jump li{flex:1 1 190px}
-  .vc-jump li:not(:last-child)::after{display:none}
-}
+/* (No wrap at narrow widths: the row scrolls instead, so the chain survives.) */
 .vc-top-wrap{margin:18px 0 0; text-align:right}
 .vc-top{appearance:none; background:none; border:0; cursor:pointer; padding:0;
   font:500 12.5px var(--f); color:var(--accent)}
@@ -1218,9 +1218,7 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
 .src-doc a{display:inline-block; margin-top:6px; font-size:14px; font-weight:500;
   color:var(--accent); text-decoration:none}
 .src-doc a:hover{text-decoration:underline}
-@media (max-width:700px){
-  .vc-jump{grid-template-columns:1fr}
-}
+
 
 /* ──────────────────────────────────────────────────────────────────────────
    TAB INTROS — a title and one line saying what each pane shows, tinted with
@@ -1647,7 +1645,7 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
    inside them, with the applicability code and whether the element survives
    into the product. Layers with no intrinsic element set say so instead.
    ────────────────────────────────────────────────────────────────────────── */
-.el-block{margin:30px 0 0}
+.el-block{margin:14px 0 0}
 .el-lead{font-size:14px; line-height:1.62; color:var(--ink2); margin:0 0 14px; max-width:84ch}
 .el-none{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:0 0 14px; max-width:84ch;
   background:var(--surface2); border:1px solid var(--line); border-left:3px solid var(--muted);
@@ -1676,6 +1674,9 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .el-grid{list-style:none; margin:0; padding:0; display:grid; gap:10px;
   grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
 .elc{display:block}
+/* .elc's display would otherwise outrank the browser's [hidden] rule, which is
+   why the applicability filter appeared to do nothing. */
+.elc[hidden]{display:none}
 .elc-btn{display:grid; grid-template-columns:56px minmax(0,1fr); gap:13px; align-items:start;
   width:100%; text-align:left; cursor:pointer; font-family:var(--f);
   background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--stage);
@@ -1818,21 +1819,19 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .env-open span{font-size:13.5px; line-height:1.58; color:var(--ink2)}
 @media(max-width:700px){ .env-sum{display:none} }
 
-/* Supply notes — the constraint commentary, kept from the old material cards
-   and shown beneath the elements it governs rather than beside a second copy
-   of the same photographs. */
-.sn-block{margin:26px 0 0}
-.sn-list{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:10px;
-  grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
-.sn{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px}
-.sn-h{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:5px}
-.sn-h h5{font-size:14.5px; font-weight:600; letter-spacing:-.014em; margin:0; color:var(--ink)}
-.sn-els{display:inline-flex; gap:5px}
-.sn-el{appearance:none; cursor:pointer; font:600 10px var(--f-mono); letter-spacing:.04em;
-  color:var(--ink2); background:var(--surface2); border:1px solid var(--line);
-  border-radius:4px; padding:2px 6px; transition:border-color .16s, color .16s}
-.sn-el:hover{color:var(--ink); border-color:var(--accent)}
-.sn-el:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.sn-role{margin:0 0 8px; font-size:12.5px; color:var(--muted); line-height:1.45}
-.sn-choke{margin:0 0 10px; font-size:13px; line-height:1.55; color:var(--ink2)}
-.sn-meta{margin:0; display:flex; gap:7px; flex-wrap:wrap}
+
+
+/* Constraint commentary, carried on the element it constrains. */
+.elc-note{display:block; margin-top:8px; padding:8px 10px; border-radius:7px;
+  background:var(--surface2); border:1px solid var(--line);
+  font-size:12px; line-height:1.5; color:var(--ink2)}
+.elc-note b{display:block; font-size:12px; font-weight:600; color:var(--ink); margin-bottom:2px}
+.elc-chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
+
+/* the chain index scrollbar, kept discreet */
+.vj-jump::-webkit-scrollbar{height:7px}
+.vj-jump::-webkit-scrollbar-thumb{background:var(--line2); border-radius:4px}
+.vj-jump::-webkit-scrollbar-track{background:transparent}
+.vj-group+.vj-group{margin-top:18px}
+.ei-notes{display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); margin-top:12px}
+.ei-notes .elc-note{margin-top:0}
