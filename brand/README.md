@@ -1,8 +1,9 @@
 # Companies in the value chains
 
-`AI_INFRASTRUCTURE_COMPANY_AND_LOGO_DATABASE_V2/AI_INFRASTRUCTURE_COMPANY_VALUE_CHAIN_DATABASE.md`
-decides which companies appear at each stage. The builder reads that file
-directly — names, tickers and value-chain positions all come from it.
+`brand/COMPANY_VALUE_CHAIN_DATABASE.md` decides which companies appear at each
+stage. The builder reads that file directly — names, tickers and value-chain
+positions all come from it. Edit the tables there to change the company map;
+nothing else needs touching.
 
 ```bash
 python3 brand/build-companies.py           # rebuild the market map and CT rows

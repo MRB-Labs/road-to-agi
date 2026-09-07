@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 """Map the company database onto this report's value chains.
 
-Source of truth is
-
-    AI_INFRASTRUCTURE_COMPANY_AND_LOGO_DATABASE_V2/AI_INFRASTRUCTURE_COMPANY_VALUE_CHAIN_DATABASE.md
-
-read directly: company names, tickers and value-chain positions all come from
-that file. brand/stage_map.py says where each of its positions belongs in this
-report's own chains.
+Source of truth is brand/COMPANY_VALUE_CHAIN_DATABASE.md, read directly:
+company names, tickers and value-chain positions all come from that file.
+brand/stage_map.py says where each of its positions belongs in this report's
+own chains.
 
 This script writes a generated block into script.js containing MARKET_MAP (the
 companies for each stage) and the CT rows they need, plus a registry for
@@ -25,8 +22,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from stage_map import STAGE_MAP
 
 ROOT = Path(__file__).parent.parent
-MD   = (ROOT / 'AI_INFRASTRUCTURE_COMPANY_AND_LOGO_DATABASE_V2'
-             / 'AI_INFRASTRUCTURE_COMPANY_VALUE_CHAIN_DATABASE.md')
+MD   = Path(__file__).parent / 'COMPANY_VALUE_CHAIN_DATABASE.md'
 REGISTRY = ROOT / 'brand' / 'company_registry.csv'
 SCRIPT   = ROOT / 'script.js'
 
