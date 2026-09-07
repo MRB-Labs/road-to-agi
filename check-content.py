@@ -25,7 +25,10 @@ TABLES = ['LAYERS','CHAIN','HOWTO','TABINTRO','LAYER_MATERIALS','LAYER_RISKS',
           'CDESC','DESIGN_MODEL','COMETA']
 PAGES = ['index.html','stack.html','investor.html','markets.html','environment.html',
          'projects.html','method.html']
-MIN_LEN = 25          # below this it is a class name, a path or a chip label
+MIN_LEN = 4           # short enough to cover tab labels and buttons
+NOISE = re.compile(r'^(?:[\d.,%+\-$£€\s]+|[a-z0-9_-]+\.(?:js|css|png|svg|json|html)'
+                   r'|https?://\S+|[A-Za-z]+:[A-Za-z0-9.\-]+|assets/\S+|var\(--\S+\)'
+                   r'|[a-z-]+(?: [a-z-]+)*\s*[:;{]\S*)$')
 
 
 def strings_in(src, start):
@@ -49,7 +52,7 @@ def strings_in(src, start):
                     break
                 buf.append(src[i]); i += 1
             text = ''.join(buf)
-            if len(text) >= MIN_LEN:
+            if len(text) >= MIN_LEN and not NOISE.match(text):
                 out.append((key, text))
             pending = ''
             i += 1
@@ -70,13 +73,17 @@ def strings_in(src, start):
 
 def collect():
     snap = {}
-    src = (ROOT / 'script.js').read_text()
-    for t in TABLES:
-        m = re.search(r'\bconst ' + t + r'\s*=\s*[\{\[]', src)
-        if not m:
-            continue
-        for n, (key, text) in enumerate(strings_in(src, m.start())):
-            snap['script.js/%s/%s/%d' % (t, key, n)] = text
+    # Prose lives in both files: the content tables were split into
+    # assets/content.js, but a few — BREAKS, DESIGN_MODEL, EL_CODES — sit
+    # beside the code that uses them. Scanning only one silently drops them.
+    for path in (ROOT / 'assets' / 'content.js', ROOT / 'script.js'):
+        src = path.read_text()
+        for t in TABLES:
+            m = re.search(r'\bconst ' + t + r'\s*=\s*[\{\[]', src)
+            if not m:
+                continue
+            for n, (key, text) in enumerate(strings_in(src, m.start())):
+                snap['%s/%s/%s/%d' % (path.name, t, key, n)] = text
 
     tag = re.compile(r'<(script|style)\b.*?</\1>', re.S | re.I)
     for page in PAGES:
@@ -88,7 +95,7 @@ def collect():
         n = 0
         for chunk in re.split(r'<[^>]+>', body):
             text = html.unescape(re.sub(r'\s+', ' ', chunk)).strip()
-            if len(text) >= MIN_LEN:
+            if len(text) >= MIN_LEN and not NOISE.match(text):
                 snap['%s/%d' % (page, n)] = text
                 n += 1
     return snap

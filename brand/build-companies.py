@@ -24,7 +24,7 @@ from stage_map import STAGE_MAP
 ROOT = Path(__file__).parent.parent
 MD   = Path(__file__).parent / 'COMPANY_VALUE_CHAIN_DATABASE.md'
 REGISTRY = ROOT / 'brand' / 'company_registry.csv'
-SCRIPT   = ROOT / 'script.js'
+SCRIPT   = ROOT / 'assets' / 'content.js'
 
 BEGIN = '/* BEGIN generated-company-data — built by brand/build-companies.py, do not edit here */'
 END   = '/* END generated-company-data */'

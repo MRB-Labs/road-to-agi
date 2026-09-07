@@ -982,7 +982,10 @@ a.chain-node.is-link:hover .cn-name{color:var(--accent)}
 .chain-node .chip-tick{font-size:8.5px; border:0; padding:0; background:none}
 .chip-tick.is-priv{font-style:italic}
 .chain-node .co-logo{width:20px; height:20px; margin-top:1px}
+/* Kept for the value-chain rows, where the column has to line up. Chips do not
+   use it: an empty square there reads as a broken image. */
 .co-logo.is-blank{background:var(--surface2); box-shadow:inset 0 0 0 1px var(--line)}
+.chain-node:not(:has(img,.co-logo)){padding-left:11px}
 a.chain-node.is-link>svg{margin-left:auto; opacity:.35}
 .chain-note{font-size:11px; margin-top:auto; padding-top:11px}
 
@@ -1856,3 +1859,9 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .mkt-list .chain-node{font-size:12px}
 .mkt-note{margin:0; padding:0 12px 12px; font-size:11.5px; line-height:1.5; color:var(--muted)}
 .mkt-note code{font:500 11px var(--f-mono); color:var(--ink2)}
+
+/* Said plainly when the stored set does not cover a company. */
+.cod-nodata{margin:0 0 14px; padding:11px 13px; border-radius:8px;
+  background:var(--surface2); border:1px solid var(--line);
+  font-size:12.5px; line-height:1.55; color:var(--ink2)}
+.cod-nodata b{color:var(--ink)}

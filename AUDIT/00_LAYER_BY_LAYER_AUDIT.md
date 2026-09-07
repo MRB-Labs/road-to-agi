@@ -1,5 +1,10 @@
 # AI Infrastructure Website — Master Layer-by-Layer Audit
 
+> **Snapshot dated 2026-09-07. Review by 2027-03-07.**
+> This document is load-bearing for the ten-layer taxonomy. Ownership, listings and
+> capacity claims age; re-check them at the review date and move the
+> date forward, or record what changed.
+
 ## Purpose
 
 Use this document as the authoritative correction brief for the website. The website should explain the **physical architecture required to create, operate and deploy powerful AI, agents and embodied AI**, while still allowing each numbered layer to have its own investable value chain.

@@ -20,8 +20,14 @@ purpose is approved explicitly with `--accept`.
   `ENVIRO`, `DEPLOY` and the rest.
 - The visible text of every page, with markup, scripts and styles stripped.
 
-Strings shorter than 25 characters are ignored: at that length they are class
-names, file paths and chip labels rather than wording.
+Very short strings and obvious non-wording — file paths, URLs, bare numbers,
+CSS fragments — are filtered out. Everything else is covered, including tab
+labels and button text.
+
+Changing that filter re-keys the snapshot, because keys carry an ordinal within
+their table. Widening it once produced 855 apparent changes that were nothing
+of the sort. If you change it, compare the *strings* rather than the keys
+before re-accepting, or you will approve a real edit by accident.
 
 Keys look like `script.js/HOWTO/6/75` or `stack.html/12`, which is enough to
 find the string being reported.

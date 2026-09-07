@@ -1,5 +1,10 @@
 # AI Infrastructure — Company and Value-Chain Database
 
+> **Snapshot dated 2026-09-07. Review by 2027-03-07.**
+> This document is load-bearing for the company map. Ownership, listings and
+> capacity claims age; re-check them at the review date and move the
+> date forward, or record what changed.
+
 > **This file decides which companies appear at each stage of every layer.**
 >
 > It is the source of truth for the company map: `brand/build-companies.py`
