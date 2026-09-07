@@ -3872,3 +3872,140 @@ function fundamentalsBlock(name){
     (stamp?`<p class="cod-stamp">Fundamentals as of ${stamp}`+
       `${FUNDA_META&&FUNDA_META.placeholder?' · sample data until the first scheduled refresh':''}</p>`:'');
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   DEPLOYMENT AND MARKETS
+   Deliberately not layer 11. This is the commercial system that surrounds
+   layers 1–10 and decides whether any of their capability turns into an
+   adopted workflow, a measured outcome and a return. It sits beside the
+   physical map, not above it.
+   ══════════════════════════════════════════════════════════════════════════ */
+const DEPLOY={
+ pipeline:[
+  {t:'Problem and workflow mapping',w:'Naming the task, not the technology. Which decision or action is being changed, who performs it now, and what happens around it.'},
+  {t:'Baseline measurement',w:'Current cost, quality, cycle time and error rate. Without this the pilot cannot be judged, and most disappointments trace back to its absence.'},
+  {t:'Technical and economic feasibility',w:'Whether it can work here, and whether it is worth it here. These are different questions and the second fails more often.'},
+  {t:'Procurement and vendor selection',w:'Commercial terms, security review and the question of who carries liability when the system is wrong.'},
+  {t:'Integration and readiness',w:'Connecting to systems of record and identity, and preparing the site or workflow. Routinely the largest line in the budget.'},
+  {t:'Pilot against acceptance criteria',w:'Agreed in advance, measured against the baseline. A pilot without acceptance criteria cannot fail, which is why so few do.'},
+  {t:'Security, legal and safety approval',w:'Data protection, sector regulation and, for physical systems, a safety case. The stage most likely to add quarters.'},
+  {t:'Training and change management',w:'Teaching people the new procedure, including what to do when the system is uncertain or wrong.'},
+  {t:'Production deployment',w:'Running for real, with support, monitoring and an escalation path.'},
+  {t:'Outcome measurement',w:'Against the baseline, on the metric agreed at the start, over a period long enough to include the bad weeks.'},
+  {t:'Renewal, expansion or termination',w:'The only honest verdict on the whole sequence, and the number that decides whether the vendor has a business.'}],
+ stakeholders:{h:['Role','What they optimise for','Why it matters commercially'],r:[
+  ['Economic buyer','Return, risk and budget cycle','Signs, but rarely uses. Sells the internal case and needs numbers, not demonstrations.'],
+  ['Technical buyer','Integration cost, security and supportability','Can stop a deal without ever saying no. Owns the architecture review.'],
+  ['Operator','Whether their shift gets easier or harder','Adoption dies quietly here. A system that adds steps is worked around.'],
+  ['End user','Speed and confidence in the output','May not be the operator. In consumer and clinical settings, often not the buyer either.'],
+  ['Affected person','Fair treatment and recourse','A patient, applicant, driver or passenger. Increasingly has statutory rights over the decision.'],
+  ['Regulator or approval authority','Safety, fairness and evidence','Sets the gate for medical, financial, automotive and defence deployment.'],
+  ['Insurer or liability bearer','Loss frequency and severity','Underwrites the residual risk, and can price a technology out of a market without banning it.']]},
+ markets:[
+  {t:'Consumer and personal productivity',w:'Largest user counts, lowest revenue per user, and the fastest feature cycle.',m:'Subscription and advertising'},
+  {t:'Enterprise knowledge work',w:'Drafting, research, summarisation and analysis inside existing applications.',m:'Seats, moving to usage'},
+  {t:'Software development and IT operations',w:'The most mature agent market, because the environment is text, the tests are automatic and the feedback is immediate.',m:'Seats and usage'},
+  {t:'Manufacturing and industrial automation',w:'Existing automation base, long qualification cycles and genuine safety regulation.',m:'Capital plus service'},
+  {t:'Warehousing and logistics',w:'Structured environments, measurable throughput and an established integrator channel. The first credible market for mobile robots at scale.',m:'Capital, leasing and RaaS'},
+  {t:'Automotive and mobility',w:'The largest embodied deployment to date, and the one with the clearest regulatory framework and liability regime.',m:'Vehicle sale and per-mile'},
+  {t:'Healthcare and life sciences',w:'High value per decision, and the slowest approval path of any market here.',m:'Per-procedure and licence'},
+  {t:'Financial services',w:'Dense in text and process, heavily supervised, and unusually willing to pay for accuracy.',m:'Seats, usage and outcome'},
+  {t:'Defence and national security',w:'Sovereign buyers, non-commercial procurement, and requirements that do not appear elsewhere.',m:'Programme contracts'},
+  {t:'Energy and utilities',w:'Asset inspection, grid operations and forecasting, inside a regulated cost base.',m:'Service and licence'},
+  {t:'Construction and mining',w:'Unstructured, hazardous and hard to instrument — high value where it works, and it mostly does not yet.',m:'Capital and service'},
+  {t:'Agriculture',w:'Seasonal, weather-bound and capital-constrained, with an equipment channel that already exists.',m:'Equipment and subscription'},
+  {t:'Education and research',w:'Large user base, constrained budgets, and unresolved questions about assessment.',m:'Institutional licence'},
+  {t:'Public administration',w:'Large process volumes, procurement rules that slow adoption, and the highest bar for explainability.',m:'Framework contracts'},
+  {t:'Household and personal robotics',w:'The most discussed and least proven. Unstructured environments, price-sensitive buyers, and safety around children and pets.',m:'Hardware sale'}],
+ models:{h:['Model','What the customer is buying','Where it fits','What it exposes the vendor to'],r:[
+  ['Hardware sale','A machine they own','Industrial and consumer equipment','Working capital, warranty and residual value'],
+  ['Software subscription','Access for a period','Enterprise applications','Renewal risk at every term'],
+  ['Usage-based API or compute','Consumption','Model and cloud access','Direct exposure to price deflation'],
+  ['Per-seat','A named user','Incumbent enterprise software','The seat count agents are expected to reduce'],
+  ['Per-device or per-robot licence','A deployed unit','Fleet software','Tracks units, not value delivered'],
+  ['Robotics as a service','Capacity, not equipment','Warehousing and logistics','Balance sheet, utilisation and maintenance'],
+  ['Managed service','An outcome someone else operates','Regulated and complex settings','Labour cost and service-level exposure'],
+  ['Transaction or outcome pricing','A result','Financial and clinical workflows','Attribution disputes and measurement cost'],
+  ['Systems integration project','A working deployment','Every physical market','Project risk and non-recurring revenue'],
+  ['Maintenance and lifecycle','Continued operation','Installed equipment bases','The most durable line in the model'],
+  ['Leasing and capacity reservation','Access without capital','Compute and fleets','Credit and refinancing risk']]},
+ unit:{h:['Measure','Why it decides the outcome'],r:[
+  ['Customer acquisition and deployment cost','Deployment usually exceeds acquisition in physical markets, and is frequently under-counted.'],
+  ['Hardware and infrastructure cost','The floor under gross margin, and the part that falls slowest.'],
+  ['Integration and training cost','Paid once per customer, and the single commonest reason a pilot never scales.'],
+  ['Gross margin by revenue stream','Blended margin hides a hardware business inside a software multiple.'],
+  ['Human supervision and exception handling','The cost of every case the system cannot complete. Falls with capability, never to zero.'],
+  ['Utilisation and uptime','For anything capital-intensive, the difference between a good business and a bad one.'],
+  ['Payback period','What the buyer actually decides on, and it is usually shorter than vendors assume.'],
+  ['Switching cost','What the second year is worth.'],
+  ['Renewal and expansion rate','The only evidence that measured outcomes were real.'],
+  ['Liability, warranty and support burden','Small until it is not, and concentrated in physical deployment.'],
+  ['Working capital and financing','Decides whether growth is fundable at all in hardware-led models.']]},
+ embodied:[['Cost per productive hour','The comparable the buyer actually uses, against a loaded labour rate'],
+  ['Intervention rate','How often a human has to step in — the number that decides the economics'],
+  ['Maintenance and spares','Recurring, and higher in year three than in year one'],
+  ['Energy and consumables','Small per unit, material per fleet'],
+  ['Insurance','Prices the residual risk the vendor did not retain'],
+  ['Residual value','What underwrites any leasing or RaaS structure']],
+ capture:[
+  {n:1,w:'Sells capacity into a build-out it does not control. Pricing power where lead times are long.',v:'Strong, cyclical'},
+  {n:2,w:'Prices set in commodity markets except at the qualified and separated steps, where they are not.',v:'Concentrated at a few steps'},
+  {n:3,w:'The clearest value capture in the report: monopoly and near-monopoly positions at several steps at once.',v:'Very strong'},
+  {n:4,w:'High growth, and the shortest moat half-life of the hardware layers. Ecosystem lock is doing the work.',v:'Strong, eroding'},
+  {n:5,w:'Capital-intensive, increasingly levered, and paying everyone upstream.',v:'Weak per unit of capital'},
+  {n:6,w:'Routes capture; boxes do not. The two are frequently held as one thing.',v:'Split'},
+  {n:7,w:'Rights holders capture where rights are clean. Platforms compete with their own hosts.',v:'Conditional'},
+  {n:8,w:'Capability is expensive to create and repeatedly repriced downward once created.',v:'Contested'},
+  {n:9,w:'Captures most where it owns the workflow and the system of record, least where it is a wrapper.',v:'Workflow-dependent'},
+  {n:10,w:'Value is captured by whoever carries the deployment and the liability, which is often the integrator rather than the maker.',v:'Integrator-weighted'}],
+ avoid:['If the technology works, adoption follows.',
+  'The largest technical moat captures the most value.',
+  'Labour cost equals addressable revenue.',
+  'A successful pilot proves scalable economics.',
+  'Automation eliminates an entire job.',
+  'The buyer and the end user have the same incentives.'],
+ implications:[
+  ['Deployment cost is the real barrier, not capability','In every physical market and most enterprise ones, the gap between a working demonstration and a deployed system is integration, approval and change management — none of which improves with model quality. Vendors who own that work capture more than vendors who supply into it.'],
+  ['The integrator may out-earn the maker','A technically essential supplier with a substitutable product can capture very little. A firm that owns the customer workflow, carries the liability and measures the outcome can capture a great deal, while inventing none of the technology.'],
+  ['Pilots are a poor predictor','Pilots run on the best site, with the vendor present, on a task chosen to succeed. Renewal and expansion after a full term is the first evidence that matters.'],
+  ['Liability allocation is a market-structure question','Who pays when the system is wrong determines which business models are possible. It is currently unsettled in most markets and will decide several of them.'],
+  ['Value created is not value captured','A deployment can produce large customer savings and leave nothing for the supplier, if competitive pressure compresses the margin pool. Ask where the surplus lands, not how big it is.']]
+};
+
+/* Renders the Deployment and Markets page. Every builder no-ops when its
+   mount point is absent, so this file stays inert on the other pages. */
+(function(){
+  const M=(id,html)=>{const el=document.getElementById(id); if(el) el.innerHTML=html;};
+  if(!document.getElementById('dep-pipeline')) return;
+  const e=_esc;
+
+  M('dep-pipeline', DEPLOY.pipeline.map((s,i)=>
+    `<li class="dep-step"><span class="ds-num">${i+1}</span>`+
+    `<div class="ds-body"><h5>${e(s.t)}</h5><p>${e(s.w)}</p></div></li>`).join(''));
+
+  /* tbl() returns thead+tbody only, so it needs the table wrapper around it. */
+  const table=o=>`<div class="tw"><table class="dat">${tbl(o)}</table></div>`;
+  M('dep-stake', table(DEPLOY.stakeholders));
+
+  M('dep-markets', DEPLOY.markets.map(m=>
+    `<div class="dep-mk"><h5>${e(m.t)}</h5><p>${e(m.w)}</p>`+
+    `<span class="dep-tag">${e(m.m)}</span></div>`).join(''));
+
+  M('dep-models', table(DEPLOY.models));
+  M('dep-unit',   table(DEPLOY.unit));
+
+  M('dep-embodied', DEPLOY.embodied.map(([t,w])=>
+    `<li><b>${e(t)}</b><span>${e(w)}</span></li>`).join(''));
+
+  M('dep-capture', DEPLOY.capture.map(c=>{
+    const L=LAYERS.find(x=>x.n===c.n);
+    return `<li class="dep-cap" style="--stage:var(--l${c.n})">`+
+      `<span class="dc-n">${c.n}</span>`+
+      `<div class="dc-body"><h5>${e(L?L.t:'Layer '+c.n)}</h5><p>${e(c.w)}</p></div>`+
+      `<span class="dc-v">${e(c.v)}</span></li>`;}).join(''));
+
+  M('dep-avoid', DEPLOY.avoid.map(a=>`<li>${e(a)}</li>`).join(''));
+
+  M('dep-implications', DEPLOY.implications.map(([t,w])=>
+    `<div class="block"><h4>${e(t)}</h4><p>${w}</p></div>`).join(''));
+})();

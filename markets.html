@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="doc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deployment and markets · Road to AGI</title>
+<meta name="description" content="The commercial system around the ten technical layers: how capability becomes an adopted workflow, a measured outcome and a return. Revision 10, September 2026.">
+<meta name="theme-color" content="#F6F7F9">
+<script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
+if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
+document.documentElement.setAttribute("data-theme",t);})();</script>
+<link rel="stylesheet" href="style.css?v=433d2d4a">
+</head>
+<body class="doc">
+
+<a class="skip-link" href="#markets">Skip to the report</a>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="index.html" style="text-decoration:none;color:inherit"><i></i>Road to AGI</a>
+    <div class="navlinks" id="navlinks" aria-label="Report sections">
+      <a href="index.html">Overview</a>
+      <a href="stack.html">The infrastructure</a>
+      <a href="markets.html" aria-current="page">Deployment &amp; markets</a>
+      <a href="projects.html">Projects</a>
+      <a href="risks.html">Risks</a>
+      <a href="method.html">Method</a>
+    </div>
+    <div class="nav-right">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+        <svg class="tt-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        <svg class="tt-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.4A8.4 8.4 0 1 1 9.6 4a6.6 6.6 0 0 0 10.4 10.4Z"/></svg>
+        <span class="tt-label">Light</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section id="markets">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Deployment and markets</h2>
+      <p>This is not an eleventh layer. It is the commercial system that surrounds the ten technical ones and decides whether any of their capability becomes an adopted workflow, a measured outcome and a return. It sits beside the physical map, not above it — and a product can be technically available and commercially undeployable for reasons that have nothing to do with whether it works.</p>
+    </div>
+
+    <div class="verdict">
+      <h3>What this section answers</h3>
+      <p>Who buys the system. Which business problem it solves. Who integrates and operates it. Who carries implementation and liability risk. How value is measured and monetised. And, separately from all of that, <b>who captures the economic surplus</b> — because a technically essential supplier can capture very little, and an integrator who invented none of the technology can capture a great deal.</p>
+    </div>
+
+    <h3 class="blockhead">1 · The adoption pipeline</h3>
+    <p class="blocksub">Eleven stages between a customer problem and a renewal. Technical readiness gets a deployment to about stage three; everything after that is integration, approval and change management.</p>
+    <ol class="dep-flow" id="dep-pipeline"></ol>
+
+    <h3 class="blockhead">2 · Buyer and stakeholder map</h3>
+    <p class="blocksub">The buyer is not always the beneficiary, and the beneficiary is not always the person affected. Seven roles with genuinely different incentives, any of which can stop a deployment.</p>
+    <div id="dep-stake"></div>
+
+    <h3 class="blockhead">3 · End markets</h3>
+    <p class="blocksub">Fifteen markets with different regulatory gates, integration costs and willingness to pay. They are listed in rough order of how quickly capability has converted into deployment, not by size.</p>
+    <div class="dep-mkgrid" id="dep-markets"></div>
+
+    <h3 class="blockhead">4 · Systems integrators and the channel</h3>
+    <p class="blocksub">The participants that turn a product into a working deployment. Most of them are not technology companies, and in physical markets they capture more of the value than the vendors do.</p>
+    <div class="block">
+      <h4>Who is actually in the value chain</h4>
+      <p>Consultants and engineering firms; systems integrators; managed-service providers; distributors and channel partners; industry-specific software providers; robot integrators and automation specialists; training and change-management providers; certification, testing and audit organisations; insurers and financiers; and maintenance, repair and lifecycle-service providers.</p>
+      <p class="cap">None of these appear in the ten technical layers, and no deployment at scale happens without several of them. Their margin comes out of the same customer budget as the vendor's.</p>
+    </div>
+
+    <h3 class="blockhead">5 · Business models</h3>
+    <p class="blocksub">Eleven ways the same capability gets sold. The model chosen decides what the vendor is exposed to far more than the technology does.</p>
+    <div id="dep-models"></div>
+
+    <h3 class="blockhead">6 · Unit economics and return</h3>
+    <p class="blocksub">What has to be measured before a deployment can be called economic. Deployment and integration costs are the lines most often under-counted.</p>
+    <div id="dep-unit"></div>
+    <h4 class="mini-h">Additionally, for embodied systems</h4>
+    <ul class="dep-list" id="dep-embodied"></ul>
+
+    <h3 class="blockhead">7 · Regulation, safety and liability</h3>
+    <p class="blocksub">The gate that decides which markets open, and in what order.</p>
+    <div class="block">
+      <h4>Three separate questions, routinely merged</h4>
+      <p><b>Is it permitted?</b> Sector regulation — medical device approval, financial supervision, automotive type approval, aviation certification. <b>Is it safe enough to deploy here?</b> A safety case for this specific installation, which is site work rather than product work. <b>Who pays when it is wrong?</b> Liability allocation between vendor, integrator, operator and insurer, which is unsettled in most markets and will determine which business models are viable in several of them.</p>
+      <p class="cap">A capability can clear the first and fail the third. Insurance pricing can remove a technology from a market without any regulator banning it.</p>
+    </div>
+
+    <h3 class="blockhead">8 · Operation, maintenance and lifecycle</h3>
+    <p class="blocksub">What happens after the deployment, which is where most of the lifetime cost and most of the durable revenue both sit.</p>
+    <div class="block">
+      <h4>The part that is not a launch</h4>
+      <p>Monitoring and support; incident response; exception handling by people; spares, repair and refurbishment; recalibration and requalification after any change; software and model updates, staged and reversible; retraining of staff as procedures change; and eventually replacement, resale or disposal. For physical systems the maintenance line is higher in year three than in year one, and it is the line that decides whether a leasing or as-a-service structure works at all.</p>
+    </div>
+
+    <h3 class="blockhead">9 · Value capture by layer</h3>
+    <p class="blocksub">Where the surplus lands. Technical necessity and pricing power are different properties, and this is the distinction the whole report is built to make.</p>
+    <ol class="dep-caps" id="dep-capture"></ol>
+
+    <h3 class="blockhead">10 · Investment implications</h3>
+    <p class="blocksub">What follows from the sections above, stated as claims that can be argued with.</p>
+    <div id="dep-implications"></div>
+
+    <div class="verdict">
+      <h3>Claims this section refuses to make</h3>
+      <ul class="dep-avoid" id="dep-avoid"></ul>
+      <p>Each is common, each is convenient, and each fails on contact with an actual deployment. Market sizing built by multiplying jobs or wages by an assumed automation percentage is the most persistent of them, and it is not a method.</p>
+    </div>
+
+    <p class="tnote">Every market-size and productivity claim in this section is deliberately qualitative. A defensible one would need the use case, customer, geography, adoption rate, price, implementation cost, time horizon and source stated together — and where this report cannot state all of those, it does not give a number.</p>
+  </div>
+</section>
+
+<footer><div class="wrap">Road to AGI — revision 10, prepared September 2026. Data current as of that date and changing rapidly. All diagrams and charts in this document are drawn from the underlying data as inline vector graphics. The only imported images are company logos, reproduced to identify the businesses named; each remains the trademark of its owner and appears for identification, not endorsement.</div></footer>
+
+<script src="script.js?v=081d4d86"></script>
+</body>
+</html>

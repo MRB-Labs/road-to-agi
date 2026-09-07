@@ -1599,3 +1599,52 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 /* the enclosure box must not swallow clicks meant for the cards inside it */
 #mapsvg a.encl{pointer-events:none}
 #mapsvg a.encl .encl-box,#mapsvg a.encl text,#mapsvg a.encl circle{pointer-events:auto}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   DEPLOYMENT AND MARKETS
+   The commercial system beside the ten layers. Reuses the report's card and
+   table grammar; adds a numbered pipeline, a market grid and a per-layer
+   value-capture list keyed to the layer palette.
+   ────────────────────────────────────────────────────────────────────────── */
+.dep-flow{list-style:none; margin:18px 0 0; padding:0; display:grid; gap:10px}
+.dep-step{display:grid; grid-template-columns:34px minmax(0,1fr); gap:14px; align-items:start;
+  background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:14px 16px}
+.ds-num{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
+  border-radius:50%; background:var(--surface2); border:1px solid var(--line2);
+  font:600 12px var(--f-mono); color:var(--ink2)}
+.ds-body h5{font-size:15px; font-weight:600; letter-spacing:-.014em; margin:3px 0 5px; color:var(--ink)}
+.ds-body p{font-size:13.5px; line-height:1.58; color:var(--ink2); margin:0; max-width:82ch}
+
+.dep-mkgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-top:18px}
+.dep-mk{background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:16px 18px}
+.dep-mk h5{font-size:15px; font-weight:600; letter-spacing:-.014em; margin:0 0 6px; color:var(--ink)}
+.dep-mk p{font-size:13px; line-height:1.55; color:var(--ink2); margin:0 0 11px}
+.dep-tag{display:inline-block; font:600 10.5px var(--f-mono); letter-spacing:.05em;
+  text-transform:uppercase; color:var(--muted); border:1px solid var(--line2);
+  border-radius:4px; padding:3px 7px}
+
+.dep-list{list-style:none; margin:12px 0 0; padding:0; display:grid; gap:8px}
+.dep-list li{display:grid; grid-template-columns:220px minmax(0,1fr); gap:14px; align-items:baseline;
+  border-bottom:1px solid var(--line); padding-bottom:8px}
+.dep-list b{font-size:13.5px; color:var(--ink)}
+.dep-list span{font-size:13px; color:var(--ink2); line-height:1.55}
+
+.dep-caps{list-style:none; margin:18px 0 0; padding:0; display:grid; gap:9px}
+.dep-cap{display:grid; grid-template-columns:32px minmax(0,1fr) auto; gap:14px; align-items:center;
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--stage);
+  border-radius:9px; padding:13px 16px}
+.dc-n{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
+  border-radius:50%; background:var(--stage); color:var(--on-layer); font:600 12px var(--f)}
+.dc-body h5{font-size:14.5px; font-weight:600; letter-spacing:-.014em; margin:0 0 4px; color:var(--ink)}
+.dc-body p{font-size:13px; line-height:1.55; color:var(--ink2); margin:0; max-width:78ch}
+.dc-v{font:600 11px var(--f-mono); letter-spacing:.04em; text-transform:uppercase;
+  color:var(--muted); text-align:right; white-space:nowrap}
+
+.dep-avoid{margin:12px 0 16px; padding-left:20px}
+.dep-avoid li{font-size:14px; line-height:1.6; color:var(--ink2); margin-bottom:5px}
+
+@media(max-width:720px){
+  .dep-list li{grid-template-columns:1fr; gap:2px}
+  .dep-cap{grid-template-columns:32px minmax(0,1fr); row-gap:8px}
+  .dc-v{grid-column:2; text-align:left}
+}
