@@ -2604,6 +2604,263 @@ const factgrid=f=>f.map(x=>`<div><b class="num">${x[0]}</b><span>${x[1]}</span>`
    ══════════════════════════════════════════════════════════════════════════ */
 const EL_HAVE=new Set(["Ac","Ag","Al","Am","Ar","As","Au","B","Ba","Be","Bi","Bk","Br","C","Ca","Cd","Ce","Cf","Cl","Co","Cr","Cs","Cu","Dy","Er","Es","Eu","Fe","Ga","Gd","Ge","H","He","Hf","Hg","Ho","I","In","Ir","K","Kr","La","Li","Lu","Mg","Mn","Mo","N","Na","Nb","Nd","Ne","Ni","Np","O","Os","P","Pb","Pd","Pr","Pt","Pu","Rb","Re","Rh","Ru","S","Sb","Sc","Se","Si","Sm","Sn","Sr","Ta","Tb","Tc","Te","Th","Ti","Tl","Tm","U","V","W","Xe","Y","Yb","Zn","Zr"]);
 const ELMAP={"Copper": ["Cu"], "Copper smelting": ["Cu"], "Copper + underfill": ["Cu"], "ABF resin + copper foil": ["Cu"], "Grain-oriented electrical steel": ["Fe"], "Bearing + gear steels": ["Fe"], "Steel + concrete": ["Fe"], "Rhenium superalloys": ["Re"], "High-purity quartz": ["Si"], "Electronic-grade polysilicon": ["Si"], "Silicon interposers": ["Si"], "InGaAs + silicon": ["In", "Si"], "SiC + GaN": ["Si", "Ga"], "HALEU + zirconium": ["U", "Zr"], "Gallium + germanium": ["Ga", "Ge"], "Fibre + germanium dopant": ["Ge"], "Neon + helium": ["Ne", "He"], "NdFeB + Dy/Tb": ["Nd", "Dy"], "Rare earth separation": ["Nd", "Dy"], "Lithium + graphite": ["Li", "C"], "LFP cells + graphite": ["Li", "C"], "Aluminium + carbon fibre": ["Al", "C"], "Aluminium + silver": ["Al", "Ag"], "Indium + ruthenium": ["In", "Ru"], "Indium foil + diamond composites": ["In", "C"], "Tin + ruthenium + Mo/Si": ["Sn", "Ru"], "Photoresists + HF": ["F"]};
+/* ══════════════════════════════════════════════════════════════════════════
+   KEY ELEMENTS BY LAYER
+   Drawn from AUDIT/AI_INFRASTRUCTURE_ELEMENTS_AND_MATERIALS_DATABASE.md, which
+   sets the rules this table follows.
+
+   An element is not a material. Copper is an element; copper busway, a
+   grain-oriented electrical steel core and an NdFeB magnet are materials, and
+   each contains several elements. Every row below therefore names the material
+   the element does its work in, not the element in the abstract.
+
+   Applicability follows the database's four codes:
+     C  core — common across most implementations of the layer
+     T  technology-dependent — only for a particular architecture or chemistry
+     P  process — dopant, gas, slurry or catalyst, often not in the product
+     L  legacy or restricted — present in older or regulated designs
+
+   `keep` records whether the element stays in the finished product or is
+   consumed during manufacture. That distinction matters: a fab's neon does not
+   end up in a chip, but it still has to be bought.
+
+   These are selections, not inventories. The database is explicit that the
+   union of a layer's elements is not a claim that every asset contains all of
+   them, and that criticality is a function of geography and date rather than a
+   property of an element. Nothing here is labelled critical on its own.
+   ══════════════════════════════════════════════════════════════════════════ */
+const LAYER_ELEMENTS={
+1:{lead:'Two element families do the work here: the conductors that carry power and the alloying elements that let a turbine hot section survive its own combustion temperature. The scarcity is concentrated in the second group and in the fuel cycle, not in the first.',
+ els:[
+ ['Cu','Windings, busway, cable and every winding in between. The volume metal of the layer, and the one that sets copper demand from the build-out.','C','kept'],
+ ['Fe','Grain-oriented electrical steel for transformer cores, plus structural steel everywhere. The annealing that aligns its magnetic domains is the narrow step, not the iron.','C','kept'],
+ ['Si','Alloyed into electrical steel to cut core loss, and the substrate of the power semiconductors that convert voltage at every stage.','C','kept'],
+ ['Al','Overhead conductor, busbar and enclosure. Substitutes for copper where weight or price wins over conductivity.','C','kept'],
+ ['Ni','Superalloys in turbine hot sections, and stainless everywhere water and heat meet.','C','kept'],
+ ['Cr','Stainless and alloy steels; corrosion resistance across the thermal plant.','C','kept'],
+ ['Co','Superalloy strengthening in the hottest turbine stages.','T','kept'],
+ ['Re','Single-crystal turbine blade superalloys. Tiny volumes, a very short supplier list, and no substitute at the temperatures involved.','T','kept'],
+ ['U','Nuclear fuel. Abundant as an ore; the constraint is enrichment and, for advanced reactors, HALEU conversion capacity.','T','kept'],
+ ['Zr','Fuel cladding alloys, chosen for a low neutron cross-section that few other metals offer.','T','kept'],
+ ['Li','Cells in UPS and behind-the-meter storage. Chemistry-dependent — a sodium-ion or lead-acid installation contains none.','T','kept'],
+ ['Ga','Gallium nitride power devices in high-efficiency conversion. A by-product of aluminium refining, so supply does not respond to its own price.','T','kept'],
+ ['B','Amorphous metal transformer cores, and NdFeB magnets in the generator designs that use them.','T','kept'],
+ ['F','Sulphur hexafluoride in some switchgear, and refrigerants in the cooling plant. Both are under active regulatory substitution.','L','kept']]},
+
+2:{lead:'This layer is where the elements themselves are produced, so the useful question is not which are present but which have a concentrated or unresponsive supply. Two patterns recur: by-product metals that cannot be produced to order at any price, and separation steps whose difficulty has nothing to do with the abundance of the ore.',
+ els:[
+ ['Si','From quartz to metallurgical silicon to electronic-grade polysilicon to a wafer. Four different products, four different supplier bases.','C','kept'],
+ ['Cu','Mined, smelted, refined. Smelting and refining are more concentrated than mining, which is the opposite of the usual assumption.','C','kept'],
+ ['Al','Bauxite to alumina to aluminium, and the source of by-product gallium.','C','kept'],
+ ['Fe','Ore to steel to electrical steel. Volume is not the issue; grain-oriented grades are.','C','kept'],
+ ['Nd','The magnet element. Separation, not mining, is where the concentration sits.','T','kept'],
+ ['Dy','Added to NdFeB to keep coercivity at temperature. Heavy rare earth, and the most export-controlled of the group.','T','kept'],
+ ['Tb','The other heavy rare earth used for magnet heat resistance, on the same control list.','T','kept'],
+ ['Ga','Recovered from alumina refining. A by-product, so its supply follows aluminium, not gallium demand.','T','kept'],
+ ['Ge','Recovered from zinc processing and coal fly ash. Same by-product logic; used in fibre and photodetectors.','T','kept'],
+ ['In','Recovered from zinc. Photonics, solders and transparent conductors.','T','kept'],
+ ['Li','Brine and hard rock, then chemical conversion to battery-grade carbonate or hydroxide. Conversion is the concentrated step.','T','kept'],
+ ['Co','Largely a by-product of copper and nickel mining, with a highly concentrated mining geography.','T','kept'],
+ ['Ta','Capacitors and semiconductor barrier layers. Small volumes, and a supply chain with genuine provenance problems.','T','kept'],
+ ['W','Tool steels and chip contacts. Chinese production dominates, and substitution is poor at the hardness required.','T','kept'],
+ ['Ce','Polishing slurries for glass and wafers. A light rare earth, produced in surplus alongside neodymium.','P','process']]},
+
+3:{lead:'The broadest element set in the report, and the one where the retained-versus-process distinction matters most. A large part of what a fab buys never reaches the chip: gases, slurries and resists are consumed making it. Both halves have to be bought, and the process half has been the source of more supply scares than the retained half.',
+ els:[
+ ['Si','The substrate. Monocrystalline wafers, plus silicon dioxide and nitride as insulator and passivation.','C','kept'],
+ ['O','Gate oxide, field oxide and every other oxide layer. Also the ultrapure water the process runs on.','C','kept'],
+ ['Cu','Interconnect. Replaced aluminium because resistivity started to matter more than ease of etching.','C','kept'],
+ ['W','Contacts and plugs down to the transistor, where copper cannot go.','C','kept'],
+ ['Ta','Barrier layers that stop copper diffusing into silicon. A few atomic layers, and non-negotiable.','C','kept'],
+ ['Hf','Hafnium oxide as the high-k gate dielectric. The material that let gate scaling continue past silicon dioxide.','C','kept'],
+ ['Ru','Emerging interconnect metal at the tightest pitches, and part of the EUV mask stack.','T','kept'],
+ ['Mo','Molybdenum-silicon multilayers are what make an EUV mask reflective at 13.5 nm. There is no alternative mirror.','T','kept'],
+ ['Sn','The EUV source itself: tin droplets struck by a laser to make the plasma that emits the light. Also solder.','T','process'],
+ ['B','P-type dopant, and part of borosilicate optics.','P','trace'],
+ ['P','N-type dopant, delivered as phosphine.','P','trace'],
+ ['As','N-type dopant for shallow junctions, and the arsenide in compound semiconductors.','P','trace'],
+ ['Ne','Excimer laser gas for DUV lithography. Consumed, not retained — and the 2022 supply shock came from exactly this line.','P','process'],
+ ['He','Cooling, purging and leak detection throughout the fab. Non-substitutable and non-renewable.','P','process'],
+ ['F','Etch chemistry and tungsten hexafluoride precursor. Almost none of it stays in the device.','P','process'],
+ ['Ce','Cerium oxide slurry for chemical-mechanical polishing.','P','process']]},
+
+4:{lead:'Where devices become machines. The element set is dominated by what joins, cools and powers the silicon rather than the silicon itself — solder, plating, dielectric ceramics and heat spreaders. Several entries here exist in milligrams per part and still gate the build.',
+ els:[
+ ['Cu','Board traces, heat spreaders, cold plates, cable and every power path on the board.','C','kept'],
+ ['Si','The packaged devices arriving from layer 3, and the interposers several of them sit on.','C','kept'],
+ ['Sn','Solder. Tin-silver-copper alloys join essentially every component to every board.','C','kept'],
+ ['Ag','Solder alloys, sintered die attach and high-conductivity thermal materials.','C','kept'],
+ ['Au','Contact plating and wire bonding, where reliability matters more than the metal price.','C','kept'],
+ ['Ni','Barrier plating under gold, and structural stainless in racks and chassis.','C','kept'],
+ ['Ta','Tantalum capacitors, where volumetric efficiency and stability justify the cost.','T','kept'],
+ ['Ba','Barium titanate in multilayer ceramic capacitors. Thousands per server board.','C','kept'],
+ ['Ti','The other half of the MLCC dielectric, and a barrier metal in packaging.','C','kept'],
+ ['Al','Heat sinks, chassis, electrolytic capacitors and hard disk platters.','C','kept'],
+ ['Nd','Magnets in cooling fans, pumps and hard disk actuators. Small per unit; large across a fleet.','T','kept'],
+ ['In','Indium phosphide lasers in optical modules, and indium thermal interface foils.','T','kept'],
+ ['Ge','Germanium photodetectors integrated onto silicon in optical links.','T','kept'],
+ ['Ru','Ruthenium in hard disk magnetic media, alongside platinum and cobalt.','T','kept'],
+ ['Be','Beryllium copper in high-cycle connectors, where fatigue life justifies a hazardous alloy.','T','kept']]},
+
+5:{lead:'A facility is mostly concrete, steel and copper — ordinary construction materials at extraordinary volume. The interesting entries are the ones that come with regulatory exposure rather than supply risk: refrigerants, suppression agents and lead. The IT equipment inside the building belongs to layer 4 and is not counted twice here.',
+ els:[
+ ['Ca','Portland cement, and therefore the foundations, slabs and structure. The single largest material mass on site.','C','kept'],
+ ['Fe','Reinforcing bar, structural steel, piping, enclosures and cable tray.','C','kept'],
+ ['Cu','Busway, feeder cable, earthing and the cooling loop. The largest metal line in the electrical fit-out.','C','kept'],
+ ['Al','Busway, cable and structural elements where weight or cost favours it over copper.','C','kept'],
+ ['Si','Concrete aggregate, glass, and the sand the whole thing is built from.','C','kept'],
+ ['O','Bound into concrete, glass, oxides and the water in the cooling loop.','C','kept'],
+ ['C','Structural and reinforcing steel, and every polymer in the building.','C','kept'],
+ ['Zn','Galvanising on structural steel, tray and enclosures. Corrosion protection with a defined service life.','C','kept'],
+ ['Cr','Stainless piping and vessels in the water and coolant systems.','C','kept'],
+ ['Ni','Stainless alloys, and cell chemistry in some battery installations.','C','kept'],
+ ['Pb','Lead-acid UPS strings. Still common, increasingly displaced by lithium, and heavily regulated at end of life.','L','kept'],
+ ['Li','Lithium iron phosphate UPS, chosen for footprint and cycle life rather than cost.','T','kept'],
+ ['F','Refrigerants and dielectric cooling fluids. The class under the most active regulatory substitution pressure.','T','kept'],
+ ['Ar','Inert gas fire suppression, where water would destroy what it saves.','T','process']]},
+
+6:{lead:'Almost the whole layer runs on one material — high-purity silica drawn into fibre — modified by dopants present in fractions of a percent. The elements that matter are the ones that change the refractive index and the ones that make light on the other end of the glass.',
+ els:[
+ ['Si','Silica glass: the preform, the fibre drawn from it, and the silicon in silicon photonics.','C','kept'],
+ ['O','The other half of silica. Fibre is, physically, extremely pure sand.','C','kept'],
+ ['Ge','The core dopant that raises the refractive index and makes light stay in the fibre. Also germanium photodetectors.','C','kept'],
+ ['Er','Erbium-doped fibre amplifiers regenerate a signal optically, without converting it back to electricity. This is what makes long-haul and subsea transmission economic at all.','T','kept'],
+ ['In','Indium phosphide: the platform most transmit lasers are built on.','T','kept'],
+ ['P','The phosphide in InP, and a fibre dopant in its own right.','T','kept'],
+ ['Ga','Gallium arsenide and gallium nitride in lasers and radio-frequency power amplifiers.','T','kept'],
+ ['As','The arsenide half of GaAs and InGaAs detectors.','T','kept'],
+ ['Cu','Short-reach copper links inside racks, and the power conductor that feeds repeaters along a subsea cable.','C','kept'],
+ ['Fe','Steel armour on submarine cable, and the chassis of every switch and router.','C','kept'],
+ ['Zr','Zirconia ceramic ferrules align two fibre cores to sub-micron tolerance in every connector.','C','kept'],
+ ['Y','Stabilises the zirconia so the ferrule does not crack.','C','kept'],
+ ['Nb','Lithium niobate modulators, still the highest-performance way to impress data onto light.','T','kept'],
+ ['Li','The lithium in lithium niobate. A different use of the element from anything in a battery.','T','kept'],
+ ['B','Fibre cladding dopant, lowering the refractive index where germanium raises it.','P','trace'],
+ ['F','The other index-lowering dopant, and a component of cable jacketing compounds.','P','trace']]},
+
+7:{inherit:{from:[3,4,5,6],
+ lead:'This layer has no element set of its own, and the database is emphatic about why. Data is information represented by physical states in storage and memory devices. The material belongs to those devices, not to the data — writing that a corpus is "made of silicon" would be a category error, not a shorthand.',
+ note:'What the layer does consume is a share of somebody else’s hardware: NAND flash and disk media from layer 3, storage and network systems from layer 4, the facility from layer 5, and the fibre it moves across from layer 6. The honest way to account for it is allocated capacity, energy and replacement life, not a bill of materials.'}},
+
+8:{inherit:{from:[1,3,4,5],
+ lead:'Model weights are mathematical artifacts. They have no periodic-table composition, and no amount of scale gives them one.',
+ note:'The material question for this layer is an allocation question: which share of a cluster’s embodied hardware, and which share of its energy, belongs to a given training run or inference workload. Assigning a whole data centre to one model is only defensible when the data centre is dedicated to it.'}},
+
+9:{inherit:{from:[3,4,5],
+ lead:'Agent code, workflows and applications are informational artifacts. Their footprint is entirely the infrastructure they execute on, plus the endpoint a person uses to reach them.',
+ note:'This layer is better described by material dependency than by material content — and the endpoint device should be counted once, against the device, rather than a second time against the software running on it.'}},
+
+10:{lead:'The widest range of any layer, because a humanoid, an industrial arm, a drone and an autonomous vehicle share a category and very little else. Two rules from the database govern this list: rare-earth content follows the motor architecture, and battery elements follow the cell chemistry. Neither is universal.',
+ els:[
+ ['Fe','Structural steel, bearing and gear steels, and the electrical steel in every motor stator.','C','kept'],
+ ['C','The carbon in those steels, carbon-fibre composite structures, and the graphite anode in the cells.','C','kept'],
+ ['Cr','Bearing and tool steels, and corrosion resistance on exposed mechanism.','C','kept'],
+ ['Ni','Alloy steels and stainless, plus cathode chemistry in nickel-bearing cells.','C','kept'],
+ ['Mo','Alloy steels for gears and reducers, and molybdenum disulphide as a solid lubricant.','C','kept'],
+ ['Al','Housings, structural frame and heat spreaders. The default where mass matters.','C','kept'],
+ ['Ti','Structures and fasteners where stiffness per unit mass justifies the cost.','T','kept'],
+ ['Cu','Motor windings, wiring harness and every power path in the machine.','C','kept'],
+ ['Nd','NdFeB magnets in permanent-magnet motors. Present in most compact high-torque designs, absent from induction, reluctance, hydraulic and pneumatic actuation.','T','kept'],
+ ['Dy','Added to those magnets so they hold coercivity at joint operating temperature. The most export-exposed element in the machine.','T','kept'],
+ ['Sm','Samarium-cobalt magnets, for designs that need temperature stability more than peak energy product.','T','kept'],
+ ['Sr','Ferrite magnets — the rare-earth-free option, at a real cost in power density.','T','kept'],
+ ['Li','Cell chemistry. Which other elements come with it depends entirely on whether the pack is LFP, NMC or sodium-ion.','T','kept'],
+ ['Si','Edge compute, CMOS image sensors, MEMS inertial sensors and silicon power devices.','C','kept'],
+ ['Ga','Gallium nitride motor drives, and gallium arsenide lasers in lidar.','T','kept'],
+ ['In','Indium gallium arsenide detectors in lidar and time-of-flight sensing.','T','kept'],
+ ['Zr','Lead zirconate titanate in piezoelectric force and tactile sensing.','T','kept'],
+ ['Pb','The lead in that PZT ceramic. Technology-dependent, restricted in many jurisdictions, and under active substitution work.','L','kept']]},
+};
+/* Applicability codes, expanded for the reader rather than left as letters. */
+const EL_CODES={
+ C:['Core','Common across most implementations of this layer — though not necessarily in every individual product.'],
+ T:['Technology-dependent','Required only for a particular architecture, chemistry or product type.'],
+ P:['Process','A dopant, gas, slurry, catalyst or coating. Frequently consumed rather than retained.'],
+ L:['Legacy or restricted','Present in older or regulated designs. Not an indication of what a new design should use.'],
+};
+
+/* Which layers use a given element, built once from the table itself so the
+   element dialog can answer the reverse question without a second dataset. */
+const EL_LAYERS=(()=>{
+  const o={};
+  Object.keys(LAYER_ELEMENTS).forEach(n=>{
+    const d=LAYER_ELEMENTS[n]; if(!d.els) return;
+    d.els.forEach(([sym])=>{ (o[sym]=o[sym]||[]).push(+n); });
+  });
+  Object.keys(o).forEach(k=>o[k].sort((a,b)=>a-b));
+  return o;
+})();
+
+function elementsPane(n,col){
+  const d=(typeof LAYER_ELEMENTS!=='undefined')&&LAYER_ELEMENTS[n];
+  if(!d) return '';
+
+  /* Layers 7, 8 and 9 are informational. The database forbids inventing an
+     element set for them, so they state what they depend on instead. */
+  if(d.inherit){
+    const from=d.inherit.from.map(k=>{
+      const L=(typeof LAYERS!=='undefined')&&LAYERS.find(x=>x.n===k);
+      return `<li class="ei-dep" style="--stage:var(--l${k})"><span class="ei-n">${k}</span>`+
+             `<span>${_esc(L?L.t:'Layer '+k)}</span></li>`;}).join('');
+    return `<section class="el-block">
+      <h4 class="mini-h">Key elements in this layer</h4>
+      <p class="el-lead">${_esc(d.inherit.lead)}</p>
+      <p class="el-none"><b>No intrinsic element set.</b> ${_esc(d.inherit.note)}</p>
+      <ul class="ei-deps">${from}</ul>
+    </section>`;
+  }
+
+  const chip=(c,cnt)=>`<button type="button" class="elf" data-code="${c}" aria-pressed="false">`+
+    `<b>${c}</b>${_esc(EL_CODES[c][0])}<span>${cnt}</span></button>`;
+  const counts={};
+  d.els.forEach(([,,c])=>counts[c]=(counts[c]||0)+1);
+
+  const cards=d.els.map(([sym,why,code,keep])=>{
+    const shot=EL_HAVE.has(sym)
+      ? `<img src="assets/elements/${sym}.jpg" alt="Specimen of ${sym}" loading="lazy" decoding="async"`+
+        ` onerror="this.remove()">`
+      : '';
+    const also=(EL_LAYERS[sym]||[]).filter(x=>x!==n);
+    return `<li class="elc" data-code="${code}" style="--stage:${col}">
+      <button type="button" class="elc-btn" data-el="${sym}" title="${sym} — open element details">
+        <span class="elc-shot">${shot}<span class="elc-sym">${sym}</span></span>
+        <span class="elc-body">
+          <span class="elc-head"><b data-elname="${sym}">${sym}</b>
+            <span class="elc-code" title="${_esc(EL_CODES[code][1])}">${code}</span>
+            <span class="elc-keep is-${keep}">${keep==='kept'?'retained':keep==='trace'?'trace':'process'}</span>
+          </span>
+          <span class="elc-why">${_esc(why)}</span>
+          ${also.length?`<span class="elc-also">Also in ${also.length===1?'layer':'layers'} ${also.join(', ')}</span>`:''}
+        </span>
+      </button>
+    </li>`;}).join('');
+
+  return `<section class="el-block">
+    <h4 class="mini-h">Key elements in this layer</h4>
+    <p class="el-lead">${_esc(d.lead)}</p>
+    <div class="el-filter" role="group" aria-label="Filter elements by applicability">
+      <span class="elf-h">Show</span>
+      ${['C','T','P','L'].filter(c=>counts[c]).map(c=>chip(c,counts[c])).join('')}
+      <button type="button" class="elf elf-all is-on" data-code="" aria-pressed="true">All ${d.els.length}</button>
+    </div>
+    <ul class="el-grid">${cards}</ul>
+    <p class="tnote">Selections, not inventories. An element appears here because it does identifiable work in a named material, not because it is present as a trace. Nothing is labelled critical on its own: criticality depends on geography and date, and is argued in the value chain where a specific supply step is actually constrained. Product-specific bills of materials and process recipes remain supplier-specific.</p>
+  </section>`;
+}
+
+/* Filter chips. Delegated, because panes are rebuilt whenever a layer changes. */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.elf'); if(!b) return;
+  const box=b.closest('.el-block'); if(!box) return;
+  const code=b.dataset.code;
+  box.querySelectorAll('.elf').forEach(x=>{
+    const on=x===b; x.classList.toggle('is-on',on); x.setAttribute('aria-pressed',String(on));
+  });
+  box.querySelectorAll('.elc').forEach(c=>{
+    c.hidden = !!code && c.dataset.code!==code;
+  });
+});
+
 let ELDATA=null;
 fetch('assets/elements/elements.json').then(r=>r.ok?r.json():null).then(d=>{ELDATA=d;}).catch(()=>{});
 
@@ -2638,6 +2895,7 @@ function materialPane(m,col){
     <div class="mat-top">${elementShots(x.n)}<div><h5>${x.n}</h5><div class="mat-role">${x.role}</div></div></div>
     <div><div class="mat-choke">${x.choke}</div><div class="mat-meta"><span class="micro-chip">${x.geo}</span><span class="micro-chip">Relief: ${x.time}</span></div></div>
   </article>`).join('')}</div>
+  ${elementsPane(m.__n,col)}
   <div class="conc-wrap" data-conc="${m.__n}"></div>
   ${m.__n===3?`<div class="policy-rail" data-policy="${m.__n}"></div>`:''}
   <div class="material-note"><b>Investment reading.</b> ${m.note}</div>
@@ -3673,7 +3931,9 @@ change:{t:'Change',l:'The physical world',
    and the backdrop close it and focus is restored on its own.
    ══════════════════════════════════════════════════════════════════════════ */
 (function(){
-  if(!document.querySelector('.el-shot')) return;
+  /* Both the material photo strips and the per-layer element cards open this,
+     so gate on the data rather than on one of the two markups. */
+  if(typeof EL_HAVE==='undefined') return;
 
   const dlg=document.createElement('dialog');
   dlg.className='el-dialog';
@@ -3692,6 +3952,7 @@ change:{t:'Change',l:'The physical world',
     const e=ELDATA&&ELDATA[sym];
     if(!e){ body.innerHTML='<p class="eld-lede">Details for this element are still loading.</p>'; return; }
     const uses=usedIn(sym);
+    const layers=(typeof EL_LAYERS!=='undefined'&&EL_LAYERS[sym])||[];
     body.innerHTML=
       `<button type="button" class="eld-close" aria-label="Close">&times;</button>`+
       `<div class="eld-head">`+
@@ -3703,14 +3964,21 @@ change:{t:'Change',l:'The physical world',
         `</div>`+
       `</div>`+
       (e.kind&&!/^Specimen photograph$/.test(e.kind)?`<p class="eld-warn">${e.kind}.</p>`:'')+
-      (uses.length?`<div class="eld-uses"><p class="eld-h">Where it enters this report</p>`+
+      (layers.length?`<div class="eld-uses"><p class="eld-h">Layers that use it</p>`+
+        `<ul class="eld-layers">${layers.map(n=>{
+          const L=(typeof LAYERS!=='undefined')&&LAYERS.find(x=>x.n===n);
+          const row=(LAYER_ELEMENTS[n].els||[]).find(r=>r[0]===sym);
+          return `<li style="--stage:var(--l${n})"><a href="stack.html#layer-${n}">`+
+            `<span class="eldl-n">${n}</span><b>${L?L.t:'Layer '+n}</b>`+
+            `<span>${row?row[1]:''}</span></a></li>`;}).join('')}</ul></div>`:'')+
+      (uses.length?`<div class="eld-uses"><p class="eld-h">Material entries resting on it</p>`+
         `<ul>${uses.map(u=>`<li>${u}</li>`).join('')}</ul></div>`:'')+
       `<p class="eld-shows"><b>What the photograph shows.</b> ${e.note}</p>`;
     dlg.setAttribute('aria-label', e.name+' — element details');
   }
 
   document.addEventListener('click',e=>{
-    const shot=e.target.closest('.el-shot');
+    const shot=e.target.closest('[data-el]');
     if(shot){ render(shot.dataset.el); dlg.showModal(); return; }
     if(e.target.closest('.eld-close')) dlg.close();
   });

@@ -1652,3 +1652,76 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 /* A headline figure states when it was true and where it came from. */
 .facts .fact-src{display:block; font-style:normal; font-size:11px; line-height:1.45;
   color:var(--muted); margin-top:6px; font-family:var(--f-mono); letter-spacing:.02em}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   KEY ELEMENTS BY LAYER
+   The materials view names materials; this names the elements doing the work
+   inside them, with the applicability code and whether the element survives
+   into the product. Layers with no intrinsic element set say so instead.
+   ────────────────────────────────────────────────────────────────────────── */
+.el-block{margin:30px 0 0}
+.el-lead{font-size:14px; line-height:1.62; color:var(--ink2); margin:0 0 14px; max-width:84ch}
+.el-none{font-size:13.5px; line-height:1.6; color:var(--ink2); margin:0 0 14px; max-width:84ch;
+  background:var(--surface2); border:1px solid var(--line); border-left:3px solid var(--muted);
+  border-radius:8px; padding:12px 15px}
+.el-none b{color:var(--ink)}
+
+.ei-deps{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px}
+.ei-dep{display:inline-flex; align-items:center; gap:9px; background:var(--surface);
+  border:1px solid var(--line); border-left:3px solid var(--stage); border-radius:8px;
+  padding:8px 13px 8px 11px; font-size:13px; color:var(--ink2)}
+.ei-n{display:inline-flex; align-items:center; justify-content:center; width:21px; height:21px;
+  border-radius:50%; background:var(--stage); color:var(--on-layer); font:600 11px var(--f)}
+
+.el-filter{display:flex; flex-wrap:wrap; align-items:center; gap:7px; margin:0 0 14px}
+.elf-h{font:600 10.5px var(--f-mono); letter-spacing:.07em; text-transform:uppercase;
+  color:var(--muted); margin-right:3px}
+.elf{display:inline-flex; align-items:center; gap:7px; cursor:pointer; font-family:var(--f);
+  font-size:12.5px; color:var(--ink2); background:var(--surface); border:1px solid var(--line);
+  border-radius:20px; padding:5px 12px; transition:border-color .16s, color .16s, background .16s}
+.elf:hover{color:var(--ink); border-color:var(--line2)}
+.elf b{font:600 11px var(--f-mono); color:var(--muted)}
+.elf span{font:600 11px var(--f-mono); color:var(--muted)}
+.elf.is-on{background:var(--surface2); border-color:var(--accent); color:var(--ink)}
+.elf.is-on b,.elf.is-on span{color:var(--accent)}
+
+.el-grid{list-style:none; margin:0; padding:0; display:grid; gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.elc{display:block}
+.elc-btn{display:grid; grid-template-columns:56px minmax(0,1fr); gap:13px; align-items:start;
+  width:100%; text-align:left; cursor:pointer; font-family:var(--f);
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--stage);
+  border-radius:9px; padding:12px 14px; transition:border-color .16s, background .16s}
+.elc-btn:hover{background:var(--surface2); border-color:var(--line2); border-left-color:var(--stage)}
+.elc-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.elc-shot{position:relative; display:block; width:56px; height:56px; border-radius:7px;
+  overflow:hidden; background:var(--surface2); border:1px solid var(--line)}
+.elc-shot img{width:100%; height:100%; object-fit:cover; display:block}
+.elc-sym{position:absolute; inset:auto 0 0 0; text-align:center; font:600 10px var(--f-mono);
+  letter-spacing:.06em; color:var(--ink2); background:var(--panel-a); padding:2px 0}
+.elc-head{display:flex; align-items:center; flex-wrap:wrap; gap:7px; margin-bottom:5px}
+.elc-head b{font-size:14px; font-weight:600; letter-spacing:-.012em; color:var(--ink)}
+.elc-code{font:600 9.5px var(--f-mono); letter-spacing:.06em; color:var(--muted);
+  border:1px solid var(--line2); border-radius:4px; padding:1px 5px; cursor:help}
+.elc-keep{font:600 9.5px var(--f-mono); letter-spacing:.05em; text-transform:uppercase;
+  border-radius:4px; padding:1px 6px}
+.elc-keep.is-kept{color:var(--bull-ink); background:var(--bull-soft)}
+.elc-keep.is-process{color:var(--warn-ink); background:var(--flag-soft)}
+.elc-keep.is-trace{color:var(--muted); background:var(--track)}
+.elc-why{display:block; font-size:13px; line-height:1.55; color:var(--ink2)}
+.elc-also{display:block; margin-top:7px; font:500 11px var(--f-mono); letter-spacing:.03em;
+  color:var(--muted)}
+@media(max-width:640px){ .el-grid{grid-template-columns:1fr} }
+
+/* An element opens to say which layers use it, and for what. */
+.eld-layers{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+.eld-layers li{margin:0}
+.eld-layers a{display:grid; grid-template-columns:22px minmax(0,1fr); gap:9px 10px;
+  align-items:baseline; text-decoration:none; color:inherit;
+  background:var(--surface2); border:1px solid var(--line); border-left:3px solid var(--stage);
+  border-radius:7px; padding:8px 11px}
+.eld-layers a:hover{border-color:var(--line2); background:var(--surface3)}
+.eldl-n{display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px;
+  border-radius:50%; background:var(--stage); color:var(--on-layer); font:600 10.5px var(--f)}
+.eld-layers b{font-size:13px; font-weight:600; color:var(--ink); letter-spacing:-.012em}
+.eld-layers a>span:last-child{grid-column:2; font-size:12px; line-height:1.5; color:var(--ink2)}
