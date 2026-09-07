@@ -3789,8 +3789,11 @@ fillAll();
   function highlight(n){
     svg.classList.toggle('hl', n!==null);
     if(n!==null) svg.style.setProperty('--hlc', n===0?'var(--accent)':`var(--l${n})`);
+    /* data-from carries a list, not a single layer: the sensors arrow belongs
+       to both the physical world and the machine, and the bridge arrows belong
+       to the layer at each end. Hovering either end lights the arrow. */
     svg.querySelectorAll('[data-from]').forEach(el=>{
-      const on = n!==null && +el.dataset.from===n;
+      const on = n!==null && el.dataset.from.split(/\s+/).includes(String(n));
       el.classList.toggle('on', on);
       if(el.tagName.toLowerCase()!=='path') return;
       if(el.dataset.mk===undefined) el.dataset.mk=el.getAttribute('marker-end')||'';

@@ -1324,7 +1324,11 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
    the loop is four boxes and does not, so it renders near its natural size
    rather than stretching to fill half the figure.
    ────────────────────────────────────────────────────────────────────────── */
-.dia-shell.is-map{grid-template-columns:minmax(0,1fr) minmax(250px,320px)}
+.dia-shell.is-map{grid-template-columns:minmax(0,1fr) minmax(232px,286px)}
+/* The map earns more of the page than the other two figures: it is wider,
+   carries four groupings and has to stay readable without zooming. */
+#mapsvg{min-height:620px}
+@media(max-width:1200px){ #mapsvg{min-height:0} }
 .dia-shell.is-loop{grid-template-columns:430px minmax(0,1fr)}
 #loopsvg .bt{font-size:13.5px}
 #loopsvg .bs{font-size:10.5px}
@@ -1725,3 +1729,37 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
   border-radius:50%; background:var(--stage); color:var(--on-layer); font:600 10.5px var(--f)}
 .eld-layers b{font-size:13px; font-weight:600; color:var(--ink); letter-spacing:-.012em}
 .eld-layers a>span:last-child{grid-column:2; font-size:12px; line-height:1.5; color:var(--ink2)}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   THE PHYSICAL WORLD
+   Vector, in the same family as the layer marks, but coloured and carrying
+   more detail — it is the one thing on the map nobody designed.
+   ────────────────────────────────────────────────────────────────────────── */
+:root{
+  --globe-sea:#2E7FC4; --globe-land:#4E9E62; --globe-ice:#F2F7FA;
+  --globe-line:rgba(255,255,255,.36); --globe-edge:#1B5C93; --globe-cloud:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --globe-sea:#2C6FA6; --globe-land:#4B9159; --globe-ice:#E4EDF4;
+    --globe-line:rgba(255,255,255,.28); --globe-edge:#7FB6E2; --globe-cloud:#F4F8FB;
+  }
+}
+:root[data-theme="dark"]{
+  --globe-sea:#2C6FA6; --globe-land:#4B9159; --globe-ice:#E4EDF4;
+  --globe-line:rgba(255,255,255,.28); --globe-edge:#7FB6E2; --globe-cloud:#F4F8FB;
+}
+#mapsvg .g-sea{fill:var(--globe-sea)}
+#mapsvg .g-land{fill:var(--globe-land); stroke:var(--globe-edge); stroke-width:.7;
+  stroke-linejoin:round; opacity:.96}
+#mapsvg .g-ice{fill:var(--globe-ice); opacity:.9}
+#mapsvg .g-cloud{fill:var(--globe-cloud); opacity:.3}
+#mapsvg .g-grid{fill:none; stroke:var(--globe-line); stroke-width:.8}
+#mapsvg .g-edge{fill:none; stroke:var(--globe-edge); stroke-width:1.9}
+#mapsvg .worldnode{cursor:pointer}
+#mapsvg .worldnode:hover .g-edge{stroke-width:2.6}
+#mapsvg .globe{transition:transform .2s var(--ease)}
+
+/* primary-source lines: always legible, since nothing is bought here */
+#mapsvg .wl,#mapsvg .wl2{opacity:.6}
+#mapsvg .lb-w{fill:var(--muted); font:500 12px var(--f); opacity:1}
