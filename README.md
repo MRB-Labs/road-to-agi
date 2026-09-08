@@ -51,7 +51,7 @@ guards there, which is the point of the branch.
 
 | Question | Answer lives in |
 |---|---|
-| What the ten layers are, and why | `AUDIT/` — the brief the taxonomy was built to |
+| What the ten layers are, and why | `assets/taxonomy.js`, and each layer's own description |
 | Which companies appear at each stage | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` |
 | Where a database position maps to | `brand/stage_map.py` |
 | What the schematic asserts, and its rules | `diagrams/MAINTAINING-THE-SCHEMATIC.md` |

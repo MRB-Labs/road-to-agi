@@ -9,7 +9,7 @@
 <script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
 if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
 document.documentElement.setAttribute("data-theme",t);})();</script>
-<link rel="stylesheet" href="style.css?v=7418bc21">
+<link rel="stylesheet" href="style.css?v=e9f7348b">
 </head>
 <body>
 
@@ -57,10 +57,10 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
         <div class="dia-shell is-map">
         <div class="dia-chart">
         <!-- BEGIN infrastructure-map (generated from diagrams/infrastructure-map.svg — do not edit here) -->
-<svg id="mapsvg" viewBox="0 -80 1740 1180" role="group" aria-labelledby="d1t d1d">
+<svg id="mapsvg" viewBox="0 -100 1800 1330" role="group" aria-labelledby="d1t d1d">
           <title id="d1t">Physical architecture of the AI infrastructure stack</title>
-          <desc id="d1d">Four dashed groupings. On the left, the industrial supply base holding energy and utilities, raw and processed materials, and the semiconductor ecosystem, which exchange inputs with each other. In the centre, land, building, operations and security enclosing the AI data centre, which contains the on-site electrical and thermal plant, central compute, data and knowledge systems, training and cloud inference, and cloud agent services. To its right, internet and telecommunications enclosing the connectivity layer. On the right, deployed robots and smart devices enclosing the embodied machine, which contains sensors, edge compute, local models, agent and control software, actuators and a battery and thermal system. Above them the physical world, which supplies primary energy and geological resources to the base by dashed lines, receives the machine's actuators and returns sensor readings. Energy and materials also run to connectivity and to the machine along dedicated lanes beneath the diagram.</desc>
-          <defs>
+          <desc id="d1d">On the left, two dashed groups: natural resources conversion, holding energy and utilities and raw and processed materials, and device manufacture below it, holding the semiconductor ecosystem, with a summary of what flows out of them. In the centre, land, building, operations and security enclosing the AI data centre, itself divided into physical plant and machines — the on-site electrical and thermal plant and central compute — and data, models and software, holding data and knowledge, training and cloud inference, and cloud agent services. To its right, internet and telecommunications enclosing the connectivity layer. On the right, deployed robots and smart devices enclosing the embodied machine, which contains sensors, edge compute, local models, agent and control software, actuators and a battery and thermal system. Above them the physical world, which sends two dashed lines of primary energy and geological resources into the conversion group, receives the machine's actuators and returns sensor readings. Energy, materials and semiconductors also run to connectivity and to the machine along dedicated lanes beneath the diagram.</desc>
+<defs>
             <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M1.5 1.2 L8 5 L1.5 8.8" fill="none" stroke="var(--line2)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></marker>
             <marker id="ahP" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M1.5 1.2 L8 5 L1.5 8.8" fill="none" stroke="var(--accent)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></marker>
             <marker id="ahL0" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M1.5 1.2 L8 5 L1.5 8.8" fill="none" stroke="var(--accent)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></marker>
@@ -78,12 +78,9 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
             <clipPath id="globeClip"><circle cx="0" cy="0" r="52"/></clipPath>
           </defs>
 
-          <!-- ══ the physical world ════════════════════════════════════════
-               Drawn as vectors in the same family as the layer marks, but
-               coloured and carrying more detail, because it is the one thing
-               on this map that was not designed by anybody. -->
+          <!-- ══ the physical world ════════════════════════════════════════ -->
           <a class="worldnode" href="stack.html#layer-0" data-layer="0" aria-label="The physical world — open it in the infrastructure">
-            <g class="globe" transform="translate(1558 8)">
+            <g class="globe" transform="translate(1585 8)">
               <circle class="g-sea" cx="0" cy="0" r="52"/>
               <g clip-path="url(#globeClip)">
                 <ellipse class="g-ice" cx="0" cy="-52" rx="42" ry="15"/>
@@ -108,17 +105,17 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
               </g>
               <circle class="g-edge" cx="0" cy="0" r="52"/>
             </g>
-            <text class="mg-label" x="1558" y="-56" text-anchor="middle">The physical world</text>
+            <text class="mg-label" x="1585" y="-70" text-anchor="middle">The physical world</text>
           </a>
 
-          <!-- primary sources into the base pair. Dashed, because nothing is
-               bought here — it is captured or extracted. -->
-          <path class="wl" d="M1506 8 H200 V100" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-w" x="820" y="-6" text-anchor="middle">sun · wind · water · geothermal · fissile material</text>
-          <path class="wl2" d="M340 8 V100" marker-end="url(#ahL2)"/>
-          <text class="lb-w" x="820" y="30" text-anchor="middle">ores, minerals and geological resources</text>
+          <!-- Two lines, each leaving the globe on its own. Nothing is bought
+               at this step; it is captured or extracted, so both are dashed. -->
+          <path class="wl" d="M1549 -30 H200 V100" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <text class="lb-w" x="860" y="-38" text-anchor="middle">sun · wind · water · geothermal · fissile material</text>
+          <path class="wl2" d="M1533 8 H340 V100" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <text class="lb-w" x="860" y="30" text-anchor="middle">ores, minerals and geological resources</text>
 
-          <!-- ══ left: the industrial supply base ══════════════════════════ -->
+          <!-- ══ left: natural resources conversion ════════════════════════ -->
           <rect class="mg-box" x="24" y="104" width="440" height="268" rx="18"/>
           <text class="mg-label" x="46" y="132">Natural resources conversion</text>
 
@@ -140,10 +137,11 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
             <g class="lic" data-icon="2" style="stroke:var(--l2)" transform="translate(398 280) scale(0.72)" aria-hidden="true"></g>
           </a>
 
-<rect class="mg-box" x="24" y="396" width="440" height="176" rx="18"/>
+          <!-- ══ left: device manufacture ══════════════════════════════════ -->
+          <rect class="mg-box" x="24" y="396" width="440" height="176" rx="18"/>
           <text class="mg-label" x="46" y="424">Device manufacture</text>
 
-                    <a class="node" href="stack.html#layer-3" aria-label="Layer 3, Semiconductor production ecosystem — open this layer">
+          <a class="node" href="stack.html#layer-3" aria-label="Layer 3, Semiconductor production ecosystem — open this layer">
             <rect class="bx b3" x="96" y="444" width="348" height="92" rx="10"/>
             <circle cx="128" cy="478" r="13" class="d3"/><text class="bn" x="128" y="482" text-anchor="middle">3</text>
             <text class="bt" x="154" y="477">Semiconductor ecosystem</text>
@@ -152,196 +150,198 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
             <g class="lic" data-icon="3" style="stroke:var(--l3)" transform="translate(398 462) scale(0.72)" aria-hidden="true"></g>
           </a>
 
-          <rect class="mg-panel" x="96" y="592" width="348" height="186" rx="10"/>
-          <text class="mg-h" x="118" y="620">What flows out</text>
-          <circle class="d1" cx="122" cy="645" r="3.4"/><text class="bs" x="136" y="650">Electricity, cooling and water</text>
-          <circle class="d3" cx="122" cy="673" r="3.4"/><text class="bs" x="136" y="678">Chips, memory, sensors and optics</text>
-          <circle class="d2" cx="122" cy="701" r="3.4"/><text class="bs" x="136" y="706">Structural and actuator materials</text>
-          <circle class="d2" cx="122" cy="729" r="3.4"/><text class="bs" x="136" y="734">Batteries and power electronics</text>
-          <circle class="d2" cx="122" cy="757" r="3.4"/><text class="bs" x="136" y="762">Replacement equipment and recycling</text>
+          <!-- moved left, clear of the lanes that descend beside it -->
+          <rect class="mg-panel" x="24" y="592" width="300" height="176" rx="10"/>
+          <text class="mg-h" x="46" y="620">What flows out</text>
+          <circle class="d1" cx="50" cy="645" r="3.4"/><text class="bs" x="64" y="650">Electricity, cooling and water</text>
+          <circle class="d3" cx="50" cy="671" r="3.4"/><text class="bs" x="64" y="676">Chips, memory, sensors and optics</text>
+          <circle class="d2" cx="50" cy="697" r="3.4"/><text class="bs" x="64" y="702">Structural and actuator materials</text>
+          <circle class="d2" cx="50" cy="723" r="3.4"/><text class="bs" x="64" y="728">Batteries and power electronics</text>
+          <circle class="d2" cx="50" cy="749" r="3.4"/><text class="bs" x="64" y="754">Replacement equipment and recycling</text>
 
-          <!-- inside the base: the three feed each other -->
+          <!-- inside and between the two groups -->
           <path class="pw" data-from="1 2" d="M250 240 V258" marker-end="url(#ahL1)"/>
           <path class="mt2" data-from="1 2" d="M310 262 V244" marker-end="url(#ahL2)"/>
           <path class="mt2" data-from="2 3" d="M270 354 V440" marker-end="url(#ahL2)"/>
           <path class="pw" data-from="1 3" d="M96 200 H58 V468 H86" marker-end="url(#ahL1)" stroke-linejoin="round"/>
           <text class="lb-p" data-from="1 3" x="46" y="350" text-anchor="middle" transform="rotate(-90 46 350)">fabs run on firm power</text>
 
-          <!-- the base into the data centre -->
-          <path class="pw" data-from="1 5" d="M444 232 H496" marker-end="url(#ahL1)"/>
+          <!-- each supply arrow lands on what it actually feeds -->
+          <path class="pw" data-from="1 5" d="M444 232 H500 V290 H536" marker-end="url(#ahL1)" stroke-linejoin="round"/>
           <path class="mt2" data-from="2 5" d="M444 348 H496" marker-end="url(#ahL2)"/>
-          <path class="ln-s" data-from="3 5" d="M444 490 H496" marker-end="url(#ahL3)"/>
+          <path class="ln-s" data-from="3 5" d="M444 490 H512 V401 H536" marker-end="url(#ahL3)" stroke-linejoin="round"/>
 
           <!-- ══ centre: land, building, operations, security ══════════════ -->
-          <rect class="mg-box" x="496" y="100" width="706" height="760" rx="20"/>
+          <rect class="mg-box" x="496" y="100" width="706" height="832" rx="20"/>
           <text class="mg-label" x="518" y="128">Land · building · operations · security</text>
 
           <a class="node encl" href="stack.html#layer-5" aria-label="Layer 5, Data centres, cloud and edge — open this layer">
-            <rect class="bx b5 encl-box" x="518" y="144" width="662" height="700" rx="18"/>
+            <rect class="bx b5 encl-box" x="518" y="144" width="662" height="772" rx="18"/>
             <circle cx="554" cy="182" r="15" class="d5"/><text class="bn" x="554" y="186" text-anchor="middle">5</text>
             <text class="bt" x="582" y="180">AI data centre and cloud</text>
             <text class="bs" x="582" y="201">The enclosure housing central compute, data, models and cloud AI</text>
             <g class="lic" data-icon="5" style="stroke:var(--l5)" transform="translate(1122 160) scale(0.78)" aria-hidden="true"></g>
           </a>
 
+          <!-- what is made of metal, and what is made of information -->
+          <rect class="mg-sub" x="528" y="212" width="642" height="240" rx="14"/>
+          <text class="mg-sublabel" x="550" y="238">Physical plant and machines</text>
+
           <a class="node" href="stack.html#layer-1" aria-label="Layer 1 inside the data centre, the on-site electrical and thermal plant">
-            <rect class="bx b1" x="542" y="222" width="614" height="76" rx="10"/>
-            <circle cx="572" cy="251" r="12" class="d1"/><text class="bn" x="572" y="255" text-anchor="middle">1</text>
-            <text class="bt2" x="598" y="250">On-site electrical and thermal plant</text>
-            <text class="bs" x="598" y="273">Substation · switchgear · UPS · busway · backup · liquid cooling · heat rejection</text>
-            <g class="lic" data-icon="1p" style="stroke:var(--l1)" transform="translate(1104 238) scale(0.62)" aria-hidden="true"></g>
+            <rect class="bx b1" x="542" y="252" width="614" height="76" rx="10"/>
+            <circle cx="572" cy="281" r="12" class="d1"/><text class="bn" x="572" y="285" text-anchor="middle">1</text>
+            <text class="bt2" x="598" y="280">On-site electrical and thermal plant</text>
+            <text class="bs" x="598" y="303">Substation · switchgear · UPS · busway · backup · liquid cooling · heat rejection</text>
+            <g class="lic" data-icon="1p" style="stroke:var(--l1)" transform="translate(1104 268) scale(0.62)" aria-hidden="true"></g>
           </a>
 
-          <!-- the plant powers and cools the machines directly -->
-          <path class="pw" data-from="1 4" d="M849 298 V332" marker-end="url(#ahL1)"/>
-          <text class="lb-p" data-from="1 4" x="866" y="320">power and cooling to the racks</text>
+          <path class="pw" data-from="1 4" d="M849 328 V352" marker-end="url(#ahL1)"/>
+          <text class="lb-p" data-from="1 4" x="866" y="346">power and cooling to the racks</text>
 
           <a class="node" href="stack.html#layer-4" aria-label="Layer 4 inside the data centre, central compute, memory and networking">
-            <rect class="bx b4" x="542" y="342" width="614" height="86" rx="10"/>
-            <circle cx="572" cy="371" r="12" class="d4"/><text class="bn" x="572" y="375" text-anchor="middle">4</text>
-            <text class="bt2" x="598" y="370">Central compute, memory and networking</text>
-            <text class="bs" x="598" y="393">Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network</text>
-            <text class="mg-note" x="598" y="415">The execution engine for layers 7, 8 and 9</text>
-            <g class="lic" data-icon="4" style="stroke:var(--l4)" transform="translate(1104 358) scale(0.62)" aria-hidden="true"></g>
+            <rect class="bx b4" x="542" y="358" width="614" height="86" rx="10"/>
+            <circle cx="572" cy="387" r="12" class="d4"/><text class="bn" x="572" y="391" text-anchor="middle">4</text>
+            <text class="bt2" x="598" y="386">Central compute, memory and networking</text>
+            <text class="bs" x="598" y="409">Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network</text>
+            <text class="mg-note" x="598" y="431">The execution engine for layers 7, 8 and 9</text>
+            <g class="lic" data-icon="4" style="stroke:var(--l4)" transform="translate(1104 374) scale(0.62)" aria-hidden="true"></g>
           </a>
 
+          <rect class="mg-sub" x="528" y="470" width="642" height="414" rx="14"/>
+          <text class="mg-sublabel" x="550" y="496">Data, models and software</text>
+
           <a class="node" href="stack.html#layer-7" aria-label="Layer 7 inside the data centre, data and knowledge infrastructure">
-            <rect class="bx b7" x="542" y="444" width="298" height="132" rx="10"/>
-            <circle cx="572" cy="473" r="12" class="d7"/><text class="bn" x="572" y="477" text-anchor="middle">7</text>
-            <text class="bt2" x="598" y="472">Data and knowledge</text>
-            <text class="bs" x="564" y="499">Databases · object storage · data lakes</text>
-            <text class="bs" x="564" y="519">Ingestion · curation · governance</text>
-            <text class="mg-note" x="564" y="545">Persists sensor and enterprise data</text>
-            <g class="lic" data-icon="7" style="stroke:var(--l7)" transform="translate(790 460) scale(0.62)" aria-hidden="true"></g>
+            <rect class="bx b7" x="542" y="510" width="298" height="132" rx="10"/>
+            <circle cx="572" cy="539" r="12" class="d7"/><text class="bn" x="572" y="543" text-anchor="middle">7</text>
+            <text class="bt2" x="598" y="538">Data and knowledge</text>
+            <text class="bs" x="564" y="565">Databases · object storage · data lakes</text>
+            <text class="bs" x="564" y="585">Ingestion · curation · governance</text>
+            <text class="mg-note" x="564" y="611">Persists sensor and enterprise data</text>
+            <g class="lic" data-icon="7" style="stroke:var(--l7)" transform="translate(790 526) scale(0.62)" aria-hidden="true"></g>
           </a>
 
           <a class="node" href="stack.html#layer-8" aria-label="Layer 8 inside the data centre, training and cloud inference">
-            <rect class="bx b8" x="858" y="444" width="298" height="132" rx="10"/>
-            <circle cx="888" cy="473" r="12" class="d8"/><text class="bn" x="888" y="477" text-anchor="middle">8</text>
-            <text class="bt2" x="914" y="472">Training and cloud inference</text>
-            <text class="bs" x="880" y="499">Pre-training · post-training · evaluation</text>
-            <text class="bs" x="880" y="519">Model serving · routing · optimisation</text>
-            <text class="mg-note" x="880" y="545">Model weights and inference runtime</text>
-            <g class="lic" data-icon="8" style="stroke:var(--l8)" transform="translate(1122 458) scale(0.58)" aria-hidden="true"></g>
+            <rect class="bx b8" x="858" y="510" width="298" height="132" rx="10"/>
+            <circle cx="888" cy="539" r="12" class="d8"/><text class="bn" x="888" y="543" text-anchor="middle">8</text>
+            <text class="bt2" x="914" y="538">Training and cloud inference</text>
+            <text class="bs" x="880" y="565">Pre-training · post-training · evaluation</text>
+            <text class="bs" x="880" y="585">Model serving · routing · optimisation</text>
+            <text class="mg-note" x="880" y="611">Model weights and inference runtime</text>
+            <g class="lic" data-icon="8" style="stroke:var(--l8)" transform="translate(1122 524) scale(0.58)" aria-hidden="true"></g>
           </a>
 
           <a class="node" href="stack.html#layer-9" aria-label="Layer 9 inside the data centre, cloud agent services and applications">
-            <rect class="bx b9" x="542" y="606" width="614" height="84" rx="10"/>
-            <circle cx="572" cy="635" r="12" class="d9"/><text class="bn" x="572" y="639" text-anchor="middle">9</text>
-            <text class="bt2" x="598" y="634">Cloud agent services and applications</text>
-            <text class="bs" x="598" y="657">Retrieval · memory · tools · orchestration · identity · observability</text>
-            <text class="mg-note" x="598" y="679">Some agents stay in the cloud; others deploy to the edge</text>
-            <g class="lic" data-icon="9" style="stroke:var(--l9)" transform="translate(1104 622) scale(0.62)" aria-hidden="true"></g>
+            <rect class="bx b9" x="542" y="672" width="614" height="84" rx="10"/>
+            <circle cx="572" cy="701" r="12" class="d9"/><text class="bn" x="572" y="705" text-anchor="middle">9</text>
+            <text class="bt2" x="598" y="700">Cloud agent services and applications</text>
+            <text class="bs" x="598" y="723">Retrieval · memory · tools · orchestration · identity · observability</text>
+            <text class="mg-note" x="598" y="745">Some agents stay in the cloud; others deploy to the edge</text>
+            <g class="lic" data-icon="9" style="stroke:var(--l9)" transform="translate(1104 688) scale(0.62)" aria-hidden="true"></g>
           </a>
 
-          <rect class="mg-panel" x="542" y="706" width="614" height="106" rx="10"/>
-          <text class="mg-h" x="566" y="734">Central learning loop</text>
-          <text class="bs" x="566" y="758">Stored experience → curated datasets → training and evaluation → validated update</text>
-          <text class="mg-note" x="566" y="784">The data centre trains; the edge senses, decides and acts in real time</text>
+          <rect class="mg-panel" x="542" y="772" width="614" height="100" rx="10"/>
+          <text class="mg-h" x="566" y="800">Central learning loop</text>
+          <text class="bs" x="566" y="824">Stored experience → curated datasets → training and evaluation → validated update</text>
+          <text class="mg-note" x="566" y="850">The data centre trains; the edge senses, decides and acts in real time</text>
 
           <!-- ══ layer 6: internet and telecommunications ══════════════════ -->
-          <text class="mg-label" x="1328" y="342" text-anchor="middle">Internet ·</text>
-          <text class="mg-label" x="1328" y="362" text-anchor="middle">telecommunications</text>
-          <rect class="mg-box" x="1226" y="368" width="204" height="280" rx="16"/>
+          <g class="mg-flows">
+            <text class="lb-m2" x="1316" y="236" text-anchor="middle">→ model and software updates</text>
+            <text class="lb-d" x="1316" y="254" text-anchor="middle">← sensor and experience data</text>
+            <text class="lb" x="1316" y="272" text-anchor="middle">↔ supervision and fleet control</text>
+            <text class="mg-note" x="1316" y="296" text-anchor="middle">Safety-critical control</text>
+            <text class="mg-note" x="1316" y="312" text-anchor="middle">must not depend on this</text>
+          </g>
+          <text class="mg-label" x="1316" y="342" text-anchor="middle">Internet ·</text>
+          <text class="mg-label" x="1316" y="362" text-anchor="middle">telecommunications</text>
+          <rect class="mg-box" x="1226" y="392" width="180" height="280" rx="16"/>
 
           <a class="node" href="stack.html#layer-6" aria-label="Layer 6, Connectivity and communications — open this layer">
-            <rect class="bx b6" x="1246" y="392" width="164" height="232" rx="12"/>
-            <circle cx="1328" cy="426" r="14" class="d6"/><text class="bn" x="1328" y="430" text-anchor="middle">6</text>
-            <text class="bt2" x="1328" y="470" text-anchor="middle">Connectivity</text>
-            <text class="bs" x="1328" y="494" text-anchor="middle">Fibre · 5G · subsea</text>
-            <text class="bs" x="1328" y="514" text-anchor="middle">Wi-Fi · satellite</text>
-            <g class="lic" data-icon="6" style="stroke:var(--l6)" transform="translate(1310 540) scale(0.78)" aria-hidden="true"></g>
+            <rect class="bx b6" x="1244" y="416" width="144" height="232" rx="12"/>
+            <circle cx="1316" cy="450" r="14" class="d6"/><text class="bn" x="1316" y="454" text-anchor="middle">6</text>
+            <text class="bt2" x="1316" y="494" text-anchor="middle">Connectivity</text>
+            <text class="bs" x="1316" y="518" text-anchor="middle">Fibre · 5G · subsea</text>
+            <text class="bs" x="1316" y="538" text-anchor="middle">Wi-Fi · satellite</text>
+            <g class="lic" data-icon="6" style="stroke:var(--l6)" transform="translate(1298 564) scale(0.78)" aria-hidden="true"></g>
           </a>
 
-          <!-- the three flows the bridge carries, both sides -->
-          <path class="ln-m" data-from="5 6 8" d="M1156 470 H1246" marker-end="url(#ahL8)"/>
-          <path class="ln-d" data-from="5 6 7" d="M1246 520 H1214 V590 H830 V582" marker-end="url(#ahL7)" stroke-linejoin="round"/>
-          <path class="ln-m" data-from="6 10 8" d="M1410 470 H1456" marker-end="url(#ahL8)"/>
-          <path class="ln-d" data-from="6 10 7" d="M1456 520 H1410" marker-end="url(#ahL7)"/>
-          <g class="mg-flows">
-            <text class="lb-m2" x="1328" y="236" text-anchor="middle">→ model and software updates</text>
-            <text class="lb-d" x="1328" y="254" text-anchor="middle">← sensor and experience data</text>
-            <text class="lb" x="1328" y="272" text-anchor="middle">↔ supervision and fleet control</text>
-            <text class="mg-note" x="1328" y="296" text-anchor="middle">Safety-critical control</text>
-            <text class="mg-note" x="1328" y="316" text-anchor="middle">must not depend on this</text>
-          </g>
+          <path class="ln-m" data-from="5 6 8" d="M1156 540 H1240" marker-end="url(#ahL8)"/>
+          <path class="ln-d" data-from="5 6 7" d="M1240 580 H1210 V656 H830 V648" marker-end="url(#ahL7)" stroke-linejoin="round"/>
+          <path class="ln-m" data-from="6 10 8" d="M1392 540 H1452" marker-end="url(#ahL8)"/>
+          <path class="ln-d" data-from="6 10 7" d="M1452 580 H1392" marker-end="url(#ahL7)"/>
 
           <!-- ══ right: deployed robots and smart devices ══════════════════ -->
-          <rect class="mg-box" x="1440" y="168" width="236" height="676" rx="18"/>
-          <text class="mg-label" x="1558" y="866" text-anchor="middle">Deployed robots</text>
-          <text class="mg-label" x="1558" y="886" text-anchor="middle">and smart devices</text>
+          <rect class="mg-box" x="1440" y="100" width="290" height="832" rx="18"/>
+          <text class="mg-label" x="1585" y="954" text-anchor="middle">Deployed robots</text>
+          <text class="mg-label" x="1585" y="974" text-anchor="middle">and smart devices</text>
 
-          <path class="ln-a" data-from="10 0" d="M1524 226 V51" marker-end="url(#ahL10)"/>
-          <text class="lb-a" data-from="10 0" x="1518" y="150" text-anchor="end">actuators</text>
-          <path class="ln-w" data-from="0 10" d="M1592 51 V226" marker-end="url(#ahP)"/>
-          <text class="lb-wf" data-from="0 10" x="1598" y="150">sensors</text>
+          <path class="ln-a" data-from="10 0" d="M1551 144 V51" marker-end="url(#ahL10)"/>
+          <text class="lb-a" data-from="10 0" x="1545" y="112" text-anchor="end">actuators</text>
+          <path class="ln-w" data-from="0 10" d="M1619 51 V144" marker-end="url(#ahP)"/>
+          <text class="lb-wf" data-from="0 10" x="1625" y="112">sensors</text>
 
           <a class="node encl" href="stack.html#layer-10" aria-label="Layer 10, Embodied AI and autonomous systems — open this layer">
-            <rect class="bx b10 encl-box" x="1456" y="230" width="204" height="600" rx="16"/>
-            <circle cx="1484" cy="264" r="14" class="d10"/><text class="bn" x="1484" y="268" text-anchor="middle">10</text>
-            <text class="bt3" x="1506" y="262">Embodied AI</text>
-            <text class="bs2" x="1470" y="286">Robot · vehicle · drone</text>
-            <g class="lic" data-icon="10" style="stroke:var(--l10)" transform="translate(1594 248) scale(0.6)" aria-hidden="true"></g>
+            <rect class="bx b10 encl-box" x="1456" y="144" width="258" height="772" rx="18"/>
+            <circle cx="1490" cy="182" r="15" class="d10"/><text class="bn" x="1490" y="186" text-anchor="middle">10</text>
+            <text class="bt" x="1518" y="180">Embodied AI</text>
+            <text class="bs" x="1518" y="201">Robot · vehicle · drone</text>
+            <g class="lic" data-icon="10" style="stroke:var(--l10)" transform="translate(1660 162) scale(0.7)" aria-hidden="true"></g>
           </a>
 
           <a class="node" href="stack.html#layer-10" aria-label="Sensors inside the embodied machine">
-            <rect class="bx b10" x="1470" y="300" width="176" height="62" rx="9"/>
-            <text class="bt3" x="1486" y="324">Sensors</text>
-            <text class="bs2" x="1486" y="344">Vision · tactile · audio</text>
+            <rect class="bx b10" x="1470" y="232" width="230" height="76" rx="9"/>
+            <text class="bt3" x="1490" y="262">Sensors</text>
+            <text class="bs2" x="1490" y="286">Vision · tactile · audio · proprioception</text>
           </a>
           <a class="node" href="stack.html#layer-4" aria-label="Layer 4 inside the machine, edge compute">
-            <rect class="bx b4" x="1470" y="376" width="176" height="58" rx="9"/>
-            <circle cx="1489" cy="398" r="10" class="d4"/><text class="bn2" x="1489" y="402" text-anchor="middle">4</text>
-            <text class="bt3" x="1506" y="402">Edge compute</text>
-            <text class="bs2" x="1486" y="424">SoC · memory · real-time</text>
+            <rect class="bx b4" x="1470" y="330" width="230" height="76" rx="9"/>
+            <circle cx="1490" cy="356" r="11" class="d4"/><text class="bn2" x="1490" y="360" text-anchor="middle">4</text>
+            <text class="bt3" x="1510" y="360">Edge compute</text>
+            <text class="bs2" x="1490" y="384">SoC · memory · storage · real-time I/O</text>
           </a>
           <a class="node" href="stack.html#layer-8" aria-label="Layer 8 inside the machine, local models">
-            <rect class="bx b8" x="1470" y="448" width="176" height="58" rx="9"/>
-            <circle cx="1489" cy="470" r="10" class="d8"/><text class="bn2" x="1489" y="474" text-anchor="middle">8</text>
-            <text class="bt3" x="1506" y="474">Local models</text>
-            <text class="bs2" x="1486" y="496">Perception · world model</text>
+            <rect class="bx b8" x="1470" y="428" width="230" height="76" rx="9"/>
+            <circle cx="1490" cy="454" r="11" class="d8"/><text class="bn2" x="1490" y="458" text-anchor="middle">8</text>
+            <text class="bt3" x="1510" y="458">Local models</text>
+            <text class="bs2" x="1490" y="482">Perception · world model · policy</text>
           </a>
           <a class="node" href="stack.html#layer-9" aria-label="Layer 9 inside the machine, agent and control software">
-            <rect class="bx b9" x="1470" y="520" width="176" height="58" rx="9"/>
-            <circle cx="1489" cy="542" r="10" class="d9"/><text class="bn2" x="1489" y="546" text-anchor="middle">9</text>
-            <text class="bt3" x="1506" y="546">Agent and control</text>
-            <text class="bs2" x="1486" y="568">Planning · safety</text>
+            <rect class="bx b9" x="1470" y="526" width="230" height="76" rx="9"/>
+            <circle cx="1490" cy="552" r="11" class="d9"/><text class="bn2" x="1490" y="556" text-anchor="middle">9</text>
+            <text class="bt3" x="1510" y="556">Agent and control</text>
+            <text class="bs2" x="1490" y="580">Planning · tools · safety · control</text>
           </a>
           <a class="node" href="stack.html#layer-10" aria-label="Actuators inside the embodied machine">
-            <rect class="bx b10" x="1470" y="592" width="176" height="62" rx="9"/>
-            <text class="bt3" x="1486" y="616">Actuators</text>
-            <text class="bs2" x="1486" y="636">Motors · drives · joints</text>
+            <rect class="bx b10" x="1470" y="624" width="230" height="76" rx="9"/>
+            <text class="bt3" x="1490" y="654">Actuators</text>
+            <text class="bs2" x="1490" y="678">Motors · drives · joints · grippers</text>
           </a>
           <a class="node" href="stack.html#layer-1" aria-label="Layer 1 inside the machine, battery, power and thermal system">
-            <rect class="bx b1" x="1470" y="668" width="176" height="62" rx="9"/>
-            <circle cx="1489" cy="690" r="10" class="d1"/><text class="bn2" x="1489" y="694" text-anchor="middle">1</text>
-            <text class="bt3" x="1506" y="694">Battery · power</text>
-            <text class="bs2" x="1486" y="716">Thermal system</text>
+            <rect class="bx b1" x="1470" y="722" width="230" height="76" rx="9"/>
+            <circle cx="1490" cy="748" r="11" class="d1"/><text class="bn2" x="1490" y="752" text-anchor="middle">1</text>
+            <text class="bt3" x="1510" y="752">Battery · power</text>
+            <text class="bs2" x="1490" y="776">Thermal system</text>
           </a>
-          <text class="mg-note" x="1558" y="750" text-anchor="middle">Supports every</text>
-          <text class="mg-note" x="1558" y="770" text-anchor="middle">block above</text>
+          <text class="mg-note" x="1585" y="832" text-anchor="middle">Supports every</text>
+          <text class="mg-note" x="1585" y="850" text-anchor="middle">block above</text>
 
-          <path class="ln-i" data-from="10" d="M1558 362 V372" marker-end="url(#ah)"/>
-          <path class="ln-i" data-from="10" d="M1558 434 V444" marker-end="url(#ah)"/>
-          <path class="ln-i" data-from="10" d="M1558 506 V516" marker-end="url(#ah)"/>
-          <path class="ln-i" data-from="10" d="M1558 578 V588" marker-end="url(#ah)"/>
+          <path class="ln-i" data-from="10" d="M1585 308 V324" marker-end="url(#ah)"/>
+          <path class="ln-i" data-from="10" d="M1585 406 V422" marker-end="url(#ah)"/>
+          <path class="ln-i" data-from="10" d="M1585 504 V520" marker-end="url(#ah)"/>
+          <path class="ln-i" data-from="10" d="M1585 602 V618" marker-end="url(#ah)"/>
 
           <!-- ══ lanes: the base also feeds connectivity and the machine ═══
-               One trunk per source, forking where the two destinations part
-               company, rather than six separate runs. Where a fork has to
-               cross a trunk that has already turned up, it hops over it — the
-               small arcs are bridges, not junctions. -->
-          <path class="pw" data-from="1 6 10" d="M294 770 V900 H1274 V630" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <path class="pw" data-from="1 10" d="M1274 900 H1297 A7 7 0 0 1 1311 900 H1327 A7 7 0 0 1 1341 900 H1690 V699 H1642" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-p" data-from="1 6 10" x="700" y="892" text-anchor="middle">power for exchanges and cell sites, and the charging behind the fleet</text>
-
-          <path class="mt2" data-from="2 6 10" d="M272 770 V932 H1304 V630" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <path class="mt2" data-from="2 10" d="M1304 932 H1327 A7 7 0 0 1 1341 932 H1706 V623 H1642" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <text class="lb-m" data-from="2 6 10" x="700" y="924" text-anchor="middle">silica and dopants for the network, structures and cells for the machine</text>
-
-          <path class="ln-s" data-from="3 6 10" d="M250 770 V964 H1334 V630" marker-end="url(#ahL3)" stroke-linejoin="round"/>
-          <path class="ln-s" data-from="3 10" d="M1334 964 H1722 V405 H1642" marker-end="url(#ahL3)" stroke-linejoin="round"/>
-          <text class="lb-s" data-from="3 6 10" x="700" y="956" text-anchor="middle">switch, optical and edge silicon — both destinations need semiconductors</text>
+               Ordered so nothing crosses: the deeper the lane, the further
+               left it leaves the group and the further right it rises. -->
+          <path class="pw" data-from="1 6 10" d="M400 790 V1010 H1290 V678" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <path class="pw" data-from="1 10" d="M1290 1010 H1313 A7 7 0 0 1 1327 1010 H1343 A7 7 0 0 1 1357 1010 H1750 V760 H1706" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <text class="lb-p" data-from="1 6 10" x="760" y="1002" text-anchor="middle">power for exchanges and cell sites, and the charging behind the fleet</text>
+          <path class="mt2" data-from="2 6 10" d="M375 790 V1042 H1320 V678" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <path class="mt2" data-from="2 10" d="M1320 1042 H1343 A7 7 0 0 1 1357 1042 H1766 V662 H1706" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <text class="lb-m" data-from="2 6 10" x="760" y="1034" text-anchor="middle">silica and dopants for the network, structures and cells for the machine</text>
+          <path class="ln-s" data-from="3 6 10" d="M350 790 V1074 H1350 V678" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <path class="ln-s" data-from="3 10" d="M1350 1074 H1782 V368 H1706" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <text class="lb-s" data-from="3 6 10" x="760" y="1066" text-anchor="middle">switch, optical and edge silicon — both destinations need semiconductors</text>
         </svg>
         <!-- END infrastructure-map -->
         </div>
@@ -397,7 +397,7 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
 
 
 <script src="assets/taxonomy.js?v=b40c88ac"></script>
-<script src="assets/content.js?v=c572b56f"></script>
+<script src="assets/content.js?v=470098bb"></script>
 <script src="script.js?v=5c8a237d"></script>
 </body>
 </html>

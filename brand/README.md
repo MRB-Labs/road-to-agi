@@ -40,7 +40,7 @@ from the registry entirely. They are categories, not companies.
 ## How positions map onto this report's chains
 
 The database uses its own value-chain positions; this report's chains were
-written to the `AUDIT/` brief and carry their own prose, ordering and
+written to their own brief and carry their own prose, ordering and
 chokepoint qualifications. Neither is wrong, so `brand/stage_map.py` maps all
 126 database positions onto the stage each belongs to here, by hand, with
 deliberate omissions marked `None` and their reason given.

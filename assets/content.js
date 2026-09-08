@@ -2154,8 +2154,8 @@ const ELMAP={"Copper": ["Cu"], "Copper smelting": ["Cu"], "Copper + underfill": 
 
 /* ══════════════════════════════════════════════════════════════════════════
    KEY ELEMENTS BY LAYER
-   Drawn from AUDIT/AI_INFRASTRUCTURE_ELEMENTS_AND_MATERIALS_DATABASE.md, which
-   sets the rules this table follows.
+   Drawn from the elements and materials database that came with the ten-layer
+   brief, which set the rules this table follows.
 
    An element is not a material. Copper is an element; copper busway, a
    grain-oriented electrical steel core and an NdFeB magnet are materials, and

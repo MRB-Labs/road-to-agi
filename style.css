@@ -1882,3 +1882,10 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 /* The world's two exchanges with the machine stay legible without hovering:
    they are the loop the whole report is about, not a detail to discover. */
 #mapsvg text.lb-a,#mapsvg text.lb-wf{opacity:1}
+
+/* Sub-groups inside the data centre: what is made of metal, and what is made
+   of information. Lighter than the outer group boxes so the hierarchy reads
+   enclosure → division → layer rather than three competing boxes. */
+#mapsvg .mg-sub{fill:none; stroke:var(--line2); stroke-width:1.1; stroke-dasharray:4 5; opacity:.75}
+#mapsvg .mg-sublabel{fill:var(--muted); font:600 11px var(--f); letter-spacing:.07em;
+  text-transform:uppercase}

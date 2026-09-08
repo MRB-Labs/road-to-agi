@@ -21,7 +21,7 @@ and every card is a link whose hover drives the reading panel beside it.
 
 ## 1 · What the drawing asserts
 
-Three claims, not a stack. The audit brief in `AUDIT/` rules out the earlier
+Three claims, not a stack. The brief this was written to rules out the earlier
 reading in which every layer bought from the layer below it.
 
 1. **What must physically exist** — the industrial supply base on the left.
