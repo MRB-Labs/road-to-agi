@@ -1865,3 +1865,16 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
   background:var(--surface2); border:1px solid var(--line);
   font-size:12.5px; line-height:1.55; color:var(--ink2)}
 .cod-nodata b{color:var(--ink)}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   THE WORLD AND THE MACHINE — arrow colours
+   .ln-a and .lb-a are older classes meaning "the accented flow", from the map
+   this one replaced. On the new map the two arrows they carry have owners:
+   actuators belong to the machine, sensors to the physical world. Left as they
+   were, the actuator arrow drew a blue line under a green arrowhead and the
+   sensor arrow a grey line under a blue one.
+   ────────────────────────────────────────────────────────────────────────── */
+#mapsvg .ln-a{stroke:var(--l10); stroke-width:1.7; fill:none}
+#mapsvg .lb-a{fill:var(--l10)}
+#mapsvg .ln-w{stroke:var(--accent); stroke-width:1.7; fill:none}
+#mapsvg .lb-wf{fill:var(--accent)}

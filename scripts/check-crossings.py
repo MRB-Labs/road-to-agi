@@ -31,7 +31,7 @@ def label(cls, attrs):
     return '%s [%s]' % (cls.strip(), m.group(1) if m else '-')
 
 arrows=[(label(c,a),)+segs(d) for c,a,d in paths
-        if 'marker-end' in a or c.strip() in ('pw','mt2','ln','ln-a','ln-s','ln-d','ln-m','ln-i','wl','wl2')]
+        if 'marker-end' in a or c.strip() in ('pw','mt2','ln','ln-a','ln-s','ln-d','ln-m','ln-i','ln-w','wl','wl2')]
 
 def cross(s1,s2):
     (ax1,ay1),(ax2,ay2)=s1; (bx1,by1),(bx2,by2)=s2
