@@ -1887,7 +1887,7 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 
 /* The world's two exchanges with the machine stay legible without hovering:
    they are the loop the whole report is about, not a detail to discover. */
-#mapsvg text.lb-a,#mapsvg text.lb-wf{opacity:1}
+#mapsvg text.lb-a,#mapsvg text.lb-wf,#mapsvg text.lb-w{opacity:1}
 
 /* Sub-groups inside the data centre: what is made of metal, and what is made
    of information. Lighter than the outer group boxes so the hierarchy reads
@@ -1906,3 +1906,59 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
   color:var(--muted); border:1px solid var(--line2); border-radius:4px; padding:1px 6px}
 .eld-c-why{display:block; margin-top:6px; font-size:12.5px; line-height:1.55; color:var(--ink2)}
 .eld-c-chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px}
+
+/* The layer marks are the quickest way to tell one box from another, so they
+   are drawn a size up from where they started. */
+#mapsvg .lic{stroke-width:2.1}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   HOW A LAYER IS MEASURED
+   Formulas are HTML, not typeset maths — the report loads no remote scripts,
+   and a formula the reader can select and copy beats one that needs a library
+   to render at all. Monospace, generous line height, wraps on narrow screens.
+   ────────────────────────────────────────────────────────────────────────── */
+.mtr{margin:28px 0 0}
+.mtr-primary{background:var(--surface); border:1px solid var(--line);
+  border-left:3px solid var(--stage); border-radius:10px; padding:15px 17px; margin:14px 0 0}
+.mtr-eyebrow{font:600 10px var(--f-mono); letter-spacing:.09em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 6px}
+.mtr-primary h5{font-size:15.5px; font-weight:600; letter-spacing:-.014em; margin:0 0 11px; color:var(--ink)}
+.mtr-w{margin:11px 0 0; font-size:13.5px; line-height:1.62; color:var(--ink2)}
+.mtr-w b{color:var(--ink)}
+.mtr-h{font-size:13px; font-weight:600; letter-spacing:-.01em; color:var(--ink2); margin:20px 0 8px}
+
+.fml{display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 12px; margin:10px 0}
+.fml-t{font:600 10.5px var(--f-mono); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); flex:none}
+.fml code,.dat code{font:500 12.5px var(--f-mono); color:var(--ink); background:var(--surface2);
+  border:1px solid var(--line); border-radius:6px; padding:7px 10px; line-height:1.75;
+  display:inline-block; max-width:100%; overflow-wrap:anywhere}
+.dat code{font-size:11.5px; padding:3px 6px; line-height:1.5; background:none; border:0}
+.fml.is-lead code{font-size:13px; display:block}
+.fml-u{font:500 11.5px var(--f-mono); color:var(--accent); flex:none}
+.fml code sub{font-size:.72em; opacity:.85}
+
+.mtr-worked{margin:16px 0 0; background:var(--surface2); border:1px solid var(--line);
+  border-left:3px solid var(--stage); border-radius:9px; padding:13px 16px}
+.mtr-worked ul{margin:0; padding-left:18px}
+.mtr-worked li{font-size:13px; line-height:1.55; color:var(--ink2); margin-bottom:3px}
+.mtr-r{margin:10px 0 0; font:500 13px var(--f-mono); color:var(--ink);
+  background:var(--surface); border:1px solid var(--line); border-radius:7px;
+  padding:9px 12px; overflow-wrap:anywhere}
+
+.mfr{margin:18px 0 0; border:1px solid var(--line); border-radius:10px; background:var(--surface2)}
+.mfr>summary{cursor:pointer; list-style:none; padding:11px 14px; font-size:13px;
+  font-weight:600; color:var(--ink2); display:flex; align-items:center}
+.mfr>summary::-webkit-details-marker{display:none}
+.mfr>summary::after{content:"+"; margin-left:auto; color:var(--muted); font:400 16px var(--f-mono)}
+.mfr[open]>summary::after{content:"\2212"}
+.mfr[open]>summary{border-bottom:1px solid var(--line)}
+.mfr>summary:hover{color:var(--ink)}
+.mfr-body{padding:14px 16px 16px}
+.mfr-w{margin:6px 0 14px; font-size:13px; line-height:1.6; color:var(--ink2)}
+.mfr-h{font-size:12.5px; font-weight:600; color:var(--ink); margin:16px 0 7px}
+.mfr-guards{margin:0; padding-left:18px}
+.mfr-guards li{font-size:13px; line-height:1.55; color:var(--ink2); margin-bottom:4px}
+.mfr-warn{margin:14px 0 0; font-size:13px; line-height:1.58; color:var(--ink2);
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--amber);
+  border-radius:7px; padding:10px 13px}

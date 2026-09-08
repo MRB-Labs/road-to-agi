@@ -1310,6 +1310,193 @@ const HOWTO={
    layer's own colour. The wording is per-tab, not per-layer, because the
    question each tab answers is the same in every layer.
    ══════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   HOW EACH LAYER IS MEASURED
+   From the layer metrics database. One idea runs through all ten: a layer
+   converts inputs into output, and the number that matters is not gross
+   output but accepted useful output per unit of cost, energy or time.
+
+   Every ratio here is meaningless without its functional unit, system
+   boundary, quality threshold, workload, geography and period. The database
+   is emphatic about that and so is the pane that renders this.
+
+   Formulas are written as HTML rather than typeset maths: the report loads no
+   remote scripts, and a formula the reader can select and copy is worth more
+   than one that needs a library to appear at all.
+   ══════════════════════════════════════════════════════════════════════════ */
+const METRIC_FRAME={
+ lead:'Ten layers, one measurement idea. Each converts something into something else, and the honest number is accepted useful output per unit of what it consumed — never gross output, and never a ratio without the conditions it was measured under.',
+ accepted:{
+   t:'Accepted useful output',
+   f:'U = Q<sub>rated</sub> × T × A × u × y × q',
+   w:'Rated capacity, scheduled time, availability, utilisation, yield and an acceptance factor between nought and one. Use only the factors that are independent in the layer being measured — multiplying two numbers that already contain the same loss counts it twice.'},
+ ratios:[
+  ['Economic productivity','U / C<sub>TCO</sub>','What one dollar buys','higher'],
+  ['Unit cost','C<sub>TCO</sub> / U','What one useful unit costs','lower'],
+  ['Energy productivity','U / E','What one unit of energy produces','higher'],
+  ['Time productivity','U / T','How fast useful output appears','higher'],
+ ],
+ chain:{
+   t:'Why small reliability gains compound',
+   f:'Y<sub>end-to-end</sub> = Π y<sub>i</sub>',
+   w:'Twenty agent steps at 99% each give 81.8% end to end. At 99.9% each they give 98.0%. A layer-level improvement that looks marginal can decide whether a system works at all.'},
+ bottleneck:{
+   t:'Why the slowest step sets the pace',
+   f:'Q<sub>system</sub> ≤ min(Q<sub>1</sub>, Q<sub>2</sub>, … Q<sub>n</sub>)',
+   w:'In a serial capacity chain, throughput is the bottleneck. This is the arithmetic behind every chokepoint argument in this report.'},
+ guards:['Quality — does the output meet specification?','Reliability — is it there when required, repeatably?',
+         'Latency — is it delivered soon enough to be useful?','Safety and security — does it stay inside mandatory limits?',
+         'Sustainability — what energy, water, material and emissions burden?','Scalability — can capacity be added at the required cost and lead time?'],
+ warn:'Safety, legal compliance and minimum quality are constraints, not quantities to trade away for a better headline ratio.',
+};
+
+const LAYER_METRICS={
+1:{primary:{n:'Reliable delivered electricity productivity',
+   f:'P<sub>energy</sub> = PV(E<sub>delivered, SLA</sub>) ÷ PV(C<sub>capex</sub> + C<sub>O&amp;M</sub> + C<sub>fuel</sub> + C<sub>grid</sub> + C<sub>storage</sub> + C<sub>losses</sub>)',
+   u:'kWh per dollar',
+   w:'The inverse is the conventional delivered levelised cost. The word that carries the weight is <b>delivered</b>: reliably, at the required location and time, including transmission, firming and curtailment. Electricity at the plant gate is not the product.'},
+ kpis:[['Capacity factor','Actual MWh ÷ (nameplate MW × 8,760 h)','Production against continuous nameplate output'],
+  ['Availability','Available hours ÷ scheduled hours','Whether the asset can produce when asked'],
+  ['Delivery efficiency','Load-point kWh ÷ generated kWh','Transmission, conversion and storage losses'],
+  ['Firm-capacity cost','Annualised system cost ÷ dependable kW','Cost of capacity at the required reliability'],
+  ['Time-to-power','Date usable MW arrives − project start','The binding constraint on data-centre deployment'],
+  ['Carbon intensity','Lifecycle kg CO₂e ÷ delivered kWh','Environmental guardrail'],
+  ['Water intensity','Water consumed ÷ delivered kWh','Location-dependent, and traded against electricity']],
+ worked:{s:['Discounted lifecycle cost $1.0bn','Discounted SLA-compliant delivered energy 5.0bn kWh'],
+   r:'P<sub>energy</sub> = 5.0 kWh/$ &nbsp;·&nbsp; delivered LCOE = $0.20/kWh'}},
+
+2:{primary:{n:'Qualified material productivity',
+   f:'P<sub>material</sub> = M<sub>qualified</sub> ÷ (C<sub>mining</sub> + C<sub>refining</sub> + C<sub>conversion</sub> + C<sub>qualification</sub> + C<sub>logistics</sub>)',
+   u:'kg per dollar',
+   w:'Only material meeting the downstream purity, form and qualification specification belongs in the numerator. Tonnes that fail qualification are cost, not output.'},
+ kpis:[['Recovery yield','Recovered target material ÷ target in feed','Metallurgical conversion efficiency'],
+  ['Qualification yield','Accepted mass ÷ processed mass','Fraction meeting purity and form'],
+  ['Energy intensity','Process energy ÷ qualified kg','Energy burden of usable output'],
+  ['Recycling input rate','Recycled feed ÷ total feed','Reliance on secondary material'],
+  ['Supplier concentration','HHI = Σ s<sub>i</sub>²','Concentration, using shares as decimals'],
+  ['Inventory coverage','Usable inventory ÷ expected daily demand','Days of protection'],
+  ['Lead time','Receipt date − order date','Responsiveness of supply']],
+ worked:{s:['1,000 t of feed','80% recovered','95% passes qualification','$3.8m total cost'],
+   r:'M<sub>qualified</sub> = 760 t &nbsp;·&nbsp; 0.20 kg/$ &nbsp;·&nbsp; $5 per qualified kg'}},
+
+3:{primary:{n:'Known-good packaged devices per dollar',
+   f:'P<sub>semi</sub> = N<sub>packaged, qualified</sub> ÷ (C<sub>wafer</sub> + C<sub>fab</sub> + C<sub>test</sub> + C<sub>package</sub> + C<sub>scrap</sub>)',
+   u:'devices per dollar',
+   w:'Yield compounds through every step: N<sub>good</sub> = N<sub>gross</sub> × Y<sub>fab</sub> × Y<sub>sort</sub> × Y<sub>package</sub> × Y<sub>final test</sub>. Gross dies on a wafer of diameter D and die area A<sub>d</sub> approximate to πD²/4A<sub>d</sub> − πD/√(2A<sub>d</sub>) — the second term is the edge the circle wastes.'},
+ kpis:[['Die yield','Electrically good dies ÷ gross dies','Fab conversion yield'],
+  ['Package yield','Good packaged devices ÷ dies entering package','Back-end conversion'],
+  ['OEE','Availability × performance × quality','Overall equipment effectiveness'],
+  ['Wafer cycle time','Wafer-out − wafer-start','Speed through the fab'],
+  ['Defect density','Counted defects ÷ wafer area','Process-control diagnostic'],
+  ['Energy and water intensity','Fab energy or water ÷ good device','Resource burden of usable output'],
+  ['Time to yield maturity','Process start → target yield','Quality and speed of the commercial ramp']],
+ worked:{s:['600 gross dies','80% fab yield','98% sort','95% package','99% final test','$20,000 wafer plus allocated test and packaging'],
+   r:'N<sub>good</sub> ≈ 442 &nbsp;·&nbsp; ≈ $45.21 per good device'}},
+
+4:{primary:{n:'Useful work per dollar, and per joule',
+   f:'P<sub>compute,$</sub> = U<sub>workload</sub> ÷ (C<sub>hardware, ann</sub> + C<sub>software</sub> + C<sub>energy</sub> + C<sub>operations</sub>) &nbsp;·&nbsp; P<sub>compute,E</sub> = U<sub>workload</sub> ÷ E<sub>IT</sub>',
+   u:'accepted tokens per dollar, per joule',
+   w:'Valid only at a fixed model, precision, software stack, batch and concurrency, input-output mix, quality target and latency SLA. Because power is joules per second, tokens/J = (tokens/s) ÷ watts. Tokens from different tokenisers or models are not equivalent and must not be compared without task-level normalisation.'},
+ kpis:[['System throughput','Completed benchmark units ÷ second','Aggregate capacity'],
+  ['Per-user generation rate','Output tokens ÷ active-user second','Interactive speed'],
+  ['Time to first token','First-token − request timestamp','Initial responsiveness'],
+  ['Time per output token','Decode duration ÷ output tokens','Streaming latency'],
+  ['Accelerator utilisation','Busy time ÷ available time','Asset utilisation'],
+  ['Memory-bandwidth utilisation','Sustained ÷ theoretical bandwidth','The usual real bottleneck'],
+  ['Interconnect efficiency','Useful payload bandwidth ÷ link capacity','Scale-up and scale-out efficiency']],
+ worked:{s:['10,000 output tokens/s','8,000 W','92% meet the latency SLA'],
+   r:'1.25 tokens/J gross &nbsp;·&nbsp; 1.15 accepted tokens/J'}},
+
+5:{primary:{n:'SLA-compliant IT work per facility dollar',
+   f:'P<sub>facility</sub> = U<sub>IT, SLA</sub> ÷ (C<sub>building</sub> + C<sub>electrical</sub> + C<sub>cooling</sub> + C<sub>operations</sub> + C<sub>energy</sub> + C<sub>downtime</sub>)',
+   u:'IT work per dollar',
+   w:'This is the facility boundary. Central layer 4 hardware may enter a full-stack view but must not be counted twice. Facility energy per token is e<sub>IT/token</sub> × PUE — and PUE says nothing about whether the IT equipment itself is efficient.'},
+ kpis:[['PUE','Total facility energy ÷ IT equipment energy','Facility overhead; floor is 1.0'],
+  ['DCiE','IT energy ÷ total facility energy = 1/PUE','Fraction reaching the equipment'],
+  ['Facility availability','SLA-compliant service time ÷ scheduled time','Power, cooling and plant reliability'],
+  ['Capacity utilisation','Average IT load ÷ commissioned IT capacity','Use of what was built'],
+  ['WUE','Site water consumed ÷ IT energy','Water-use effectiveness'],
+  ['CUE','Operational CO₂e ÷ IT energy','Carbon-use effectiveness'],
+  ['Time-to-operational-MW','Commissioned MW usable − project start','Deployment speed'],
+  ['Cost per commissioned MW','Facility capital ÷ commissioned IT MW','Capital intensity']],
+ worked:{s:['Layer 4 uses 1.0 J per token','PUE = 1.20'],
+   r:'Facility energy = 1.20 J per token'}},
+
+6:{primary:{n:'SLA-compliant payload goodput per dollar',
+   f:'P<sub>network,$</sub> = B<sub>payload, delivered, SLA</sub> ÷ (C<sub>equipment</sub> + C<sub>fibre/spectrum</sub> + C<sub>energy</sub> + C<sub>operations</sub>)',
+   u:'bits per dollar, and bits per joule',
+   w:'Count useful payload delivered — not nominal line rate, and not retransmitted overhead. bits/J = (payload bits/s) ÷ watts. A headline link speed is a rated capacity, not an output.'},
+ kpis:[['Goodput','Delivered application payload bits ÷ second','Useful throughput'],
+  ['Link utilisation','Carried traffic ÷ usable capacity','Congestion and capital use'],
+  ['Packet loss','(input − output) ÷ input','Delivery failure rate'],
+  ['Latency','Receive − send timestamp','Publish p50, p95 and p99, never the mean alone'],
+  ['Jitter','Variation in packet delay','Timing consistency'],
+  ['Cost per delivered traffic','Lifecycle cost ÷ delivered PB','Usage economics'],
+  ['Recovery time','Restoration − failure timestamp','Resilience']],
+ worked:{s:['85 Gbit/s of payload','1,000 W','nominal capacity 100 Gbit/s'],
+   r:'85 Mbit/J &nbsp;·&nbsp; 85% payload utilisation — report latency and loss beside it'}},
+
+7:{primary:{n:'Successful governed retrievals per dollar',
+   f:'P<sub>data</sub> = (N<sub>retrievals</sub> × S<sub>retrieval</sub> × S<sub>quality</sub> × S<sub>governance</sub>) ÷ (C<sub>storage</sub> + C<sub>ingestion</sub> + C<sub>cleaning</sub> + C<sub>catalogue</sub> + C<sub>retrieval</sub> + C<sub>operations</sub>)',
+   u:'accepted retrievals per dollar',
+   w:'Bytes are not useful output. The quality score is a declared weighted sum, S<sub>quality</sub> = Σ w<sub>j</sub>s<sub>j</sub> with Σw<sub>j</sub> = 1, over accuracy, completeness, freshness, consistency, uniqueness and relevance. Publish every weight — a composite that hides its judgment is not a measurement.'},
+ kpis:[['Storage unit cost','Storage TCO ÷ retained TB-month','Capacity economics only'],
+  ['Retrieval precision','Relevant retrieved ÷ all retrieved','Noise'],
+  ['Retrieval recall','Relevant retrieved ÷ all relevant','Missed knowledge'],
+  ['Freshness lag','Availability − source-event timestamp','Timeliness'],
+  ['Accuracy','Verified correct ÷ sampled records','Correctness'],
+  ['Lineage coverage','Assets with provenance ÷ governed assets','Traceability'],
+  ['Rights coverage','Assets with valid rights ÷ assets used','Legal usability'],
+  ['Data utilisation','Assets used in period ÷ active governed assets','Whether the data does anything']],
+ worked:{s:['Retrieval and quality scores multiply, they do not average','A corpus with perfect recall and no usage rights scores zero'],
+   r:'Rights coverage is a gate on the numerator, not a deduction from it'}},
+
+8:{primary:{n:'Successful quality-constrained tasks per lifecycle dollar',
+   f:'P<sub>model</sub> = (N<sub>requests</sub> × R<sub>accepted</sub>) ÷ (C<sub>data</sub> + C<sub>training</sub> + C<sub>evaluation</sub> + C<sub>inference</sub> + C<sub>monitoring</sub>)',
+   u:'accepted tasks per dollar',
+   w:'For training, the clean comparison is time, cost and energy <b>to a fixed target quality</b>, not throughput. Raw tokens per dollar remains a useful diagnostic but must not replace accepted tasks per dollar — a cheaper token that fails the task is not cheaper.'},
+ kpis:[['Task acceptance rate','Accepted ÷ evaluated outputs','Quality-adjusted success'],
+  ['Capability score','Benchmark score under a fixed protocol','Task capability, not general intelligence'],
+  ['Error rate','Materially incorrect ÷ evaluated outputs','Reliability risk'],
+  ['Robustness delta','Baseline − out-of-distribution score','Sensitivity to change'],
+  ['Training efficiency','Target-quality runs ÷ kWh or dollar','Development efficiency'],
+  ['Inference efficiency','Accepted tasks ÷ kWh or dollar','Serving efficiency'],
+  ['Context efficiency','Accepted performance at stated context length and cost','What more context is worth']],
+ worked:{s:['1,000,000 requests','80% acceptance','$20,000 lifecycle cost allocated to the period'],
+   r:'Cost per accepted task = $0.025'}},
+
+9:{primary:{n:'Completed end-to-end workflows per dollar',
+   f:'P<sub>agent</sub> = (N<sub>workflows</sub> × R<sub>completion</sub> × R<sub>acceptance</sub>) ÷ (C<sub>models</sub> + C<sub>software</sub> + C<sub>integration</sub> + C<sub>human review</sub> + C<sub>errors</sub> + C<sub>operations</sub>)',
+   u:'accepted workflows per dollar',
+   w:'Human review and the cost of errors belong in the denominator. Where return is claimed, use realised audited value — not theoretical hours multiplied by a salary. This layer is where the chain-reliability arithmetic bites hardest.'},
+ kpis:[['Workflow completion rate','Correctly completed ÷ initiated','End-to-end success'],
+  ['Straight-through automation','Completed without human action ÷ completed','True autonomy'],
+  ['Human intervention rate','Requiring intervention ÷ initiated','Supervision burden'],
+  ['Error escape rate','Undetected material errors ÷ completed','Downstream risk'],
+  ['Cycle time','Completion − initiation','Speed'],
+  ['Tool and API success','Successful calls ÷ attempted','Integration reliability'],
+  ['Security incident rate','Material incidents ÷ workflows or time','A hard guardrail, not a trade']],
+ worked:{s:['100,000 initiated workflows','88% completion','97% acceptance','$60,000 full cost'],
+   r:'85,360 accepted &nbsp;·&nbsp; $0.703 per accepted workflow — and a 20-step chain of 99% steps is only 81.8% reliable'}},
+
+10:{primary:{n:'Accepted physical work per dollar, and per hour',
+   f:'P<sub>robot,$</sub> = N<sub>good tasks</sub> ÷ (C<sub>robot, ann</sub> + C<sub>energy</sub> + C<sub>maintenance</sub> + C<sub>integration</sub> + C<sub>supervision</sub> + C<sub>downtime</sub>)',
+   u:'accepted tasks per dollar, per hour',
+   w:'N<sub>good tasks</sub> = Rate<sub>ideal</sub> × T<sub>scheduled</sub> × A × u × R<sub>task success</sub>. The work unit must match the end market — accepted picks, assembled units, welds, inspected parts, deliveries, hectares, kilometres, kilograms moved. There is no general unit of robot work.'},
+ kpis:[['Task success','Accepted ÷ attempted tasks','Core effectiveness'],
+  ['Good-task rate','Accepted tasks ÷ operating hour','Physical productivity'],
+  ['Cost per good task','Lifecycle TCO ÷ accepted tasks','Unit economics'],
+  ['Energy per good task','Robot energy ÷ accepted tasks','Energy efficiency'],
+  ['Availability','Ready-to-operate ÷ scheduled time','Reliability'],
+  ['Autonomy rate','Completed without intervention ÷ completed','Operational autonomy'],
+  ['Interventions','Human interventions ÷ operating hour','Supervision burden'],
+  ['MTBF and MTTR','Operating time ÷ failures; repair time ÷ repairs','Reliability and maintainability'],
+  ['Safety incident rate','Recordable events ÷ exposure hours','Non-negotiable guardrail'],
+  ['Asset-life output','Lifetime accepted tasks ÷ robot','Durability and capital productivity']],
+ worked:{s:['Perception, decision, control, actuation and acceptance rates each below 1','Estimate from end-to-end trials, not by multiplying component rates'],
+   r:'Component rates are diagnostic; only the end-to-end trial is the measurement'}},
+};
+
 const TABINTRO={
  how:['What this layer is', null],   /* filled per layer from HOWTO[n].what */
  chain:['Who supplies whom',

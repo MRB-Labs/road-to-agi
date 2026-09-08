@@ -422,6 +422,53 @@ function tabIntro(mode,col,layerTitle){
     <h4>${_esc(t[0])}</h4><p>${_esc(t[1])}</p></div>`;
 }
 
+/* How a layer is measured: the ratio that matters, the formula behind it, the
+   KPIs that diagnose it, and a worked number. The framework is the same for
+   all ten — accepted useful output over what it cost — so it is stated once,
+   collapsed, and the layer-specific part is open by default. */
+function metricsBlock(n, col){
+  const m=(typeof LAYER_METRICS!=='undefined')&&LAYER_METRICS[n];
+  if(!m) return '';
+  const F=(typeof METRIC_FRAME!=='undefined')&&METRIC_FRAME;
+
+  const frame = F ? `<details class="mfr">
+    <summary>The measurement framework these all share</summary>
+    <div class="mfr-body">
+      <p class="sub">${_esc(F.lead)}</p>
+      <div class="fml"><span class="fml-t">${_esc(F.accepted.t)}</span><code>${F.accepted.f}</code></div>
+      <p class="mfr-w">${F.accepted.w}</p>
+      <div class="tw"><table class="dat"><thead><tr><th>Question it answers</th><th>Ratio</th><th>What it tells you</th><th>Direction</th></tr></thead><tbody>
+        ${F.ratios.map(r=>`<tr><td>${_esc(r[2])}</td><td><code>${r[1]}</code></td><td>${_esc(r[0])}</td><td>${r[3]==='higher'?'higher is better':'lower is better'}</td></tr>`).join('')}
+      </tbody></table></div>
+      ${[F.chain,F.bottleneck].map(x=>`<div class="fml"><span class="fml-t">${_esc(x.t)}</span><code>${x.f}</code></div><p class="mfr-w">${_esc(x.w)}</p>`).join('')}
+      <p class="mfr-h">No ratio is publishable without all six</p>
+      <ul class="mfr-guards">${F.guards.map(g=>`<li>${_esc(g)}</li>`).join('')}</ul>
+      <p class="mfr-warn">${_esc(F.warn)}</p>
+    </div>
+  </details>` : '';
+
+  return `<section class="mtr">
+    <h4 class="mini-h">How this layer is measured</h4>
+    <p class="sub">The ratio that decides whether the layer is getting better, what it is made of, and a worked number. Every figure below needs its functional unit, boundary, quality threshold, workload, geography and period stated with it — a ratio without those is not a measurement.</p>
+    <div class="mtr-primary" style="--stage:${col}">
+      <p class="mtr-eyebrow">Primary metric</p>
+      <h5>${_esc(m.primary.n)}</h5>
+      <div class="fml is-lead"><code>${m.primary.f}</code><span class="fml-u">${_esc(m.primary.u)}</span></div>
+      <p class="mtr-w">${m.primary.w}</p>
+    </div>
+    <h5 class="mtr-h">What diagnoses it</h5>
+    <div class="tw"><table class="dat"><thead><tr><th>Indicator</th><th>How it is computed</th><th>What it tells you</th></tr></thead><tbody>
+      ${m.kpis.map(k=>`<tr><td><b>${_esc(k[0])}</b></td><td><code>${k[1]}</code></td><td>${_esc(k[2])}</td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="mtr-worked" style="--stage:${col}">
+      <p class="mtr-eyebrow">Worked through</p>
+      <ul>${m.worked.s.map(x=>`<li>${_esc(x)}</li>`).join('')}</ul>
+      <p class="mtr-r">${m.worked.r}</p>
+    </div>
+    ${frame}
+  </section>`;
+}
+
 function howPane(L,col){
   const d=HOWTO[L.n];
   if(!d) return '<p class="sub">Description unavailable.</p>';
@@ -438,6 +485,7 @@ function howPane(L,col){
     <div class="tw"><table class="dat">${tbl(L.sub)}</table></div>`:''}
     <div class="how-money" style="border-left-color:${col}">
       <h5>What that means for the money</h5><p>${_esc(d.money)}</p></div>
+    ${metricsBlock(L.n,col)}
     ${d.src?`<p class="tnote">${_esc(d.src)}</p>`:''}
     <p class="tnote">Physical relationships stated here are standard engineering and are given without citation. Every figure repeated in this tab is sourced where it first appears elsewhere in the report; see Method for the register.</p>`;
 }

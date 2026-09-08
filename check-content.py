@@ -18,11 +18,11 @@ import json, re, sys, pathlib, html
 ROOT = pathlib.Path(__file__).parent
 SNAP = ROOT / 'content' / 'copy-snapshot.json'
 
-# the tables in script.js that carry prose rather than data
+# the tables that carry prose rather than data, in either file
 TABLES = ['LAYERS','CHAIN','HOWTO','TABINTRO','LAYER_MATERIALS','LAYER_RISKS',
           'LAYER_ELEMENTS','MOATWHY','SOURCES','PSOURCES','CONC','PROC','MATS',
           'MATTBL','RISKS','GW','HU','LOOPWHY','DEPLOY','ENVIRO','EL_CODES','BREAKS',
-          'CDESC','DESIGN_MODEL','COMETA']
+          'CDESC','DESIGN_MODEL','COMETA','LAYER_METRICS','METRIC_FRAME']
 PAGES = ['index.html','stack.html','investor.html','markets.html','environment.html',
          'projects.html','method.html']
 MIN_LEN = 4           # short enough to cover tab labels and buttons

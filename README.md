@@ -33,12 +33,13 @@ python3 bump-assets.py               # re-stamp cache-busting hashes — run thi
 ```bash
 python3 build-diagram.py --check         # the page matches the diagram source
 python3 scripts/check-crossings.py       # no arrow crosses another on the schematic
+python3 scripts/check-marks.py           # every layer mark has clear space around it
 python3 brand/build-companies.py --check # the company map matches its database
 python3 check-content.py                 # wording matches the approved baseline
 python3 scripts/check-offline.py         # no page fetches assets from another server
 ```
 
-All five also run in CI on every push and pull request, so a stale generated
+All six also run in CI on every push and pull request, so a stale generated
 block or an unapproved wording change cannot reach the published site. If
 `check-content.py` reports a change you intended, approve it with `--accept`.
 
