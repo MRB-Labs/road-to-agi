@@ -359,7 +359,7 @@ function chainPane(n,col){
         ${marketRow(`L${n}.${bi}.${si}`, st.n)}
         ${st.note?`<p class="chain-note">${_esc(st.note)}</p>`:''}
       </li>`).join('');
-    return `<section class="chain-branch"${b.t?` aria-label="${_esc(b.t)}"`:''}>
+    return `<section class="chain-branch${bi===0?' is-on':''}" data-branch="${bi}"${b.t?` aria-label="${_esc(b.t)}"`:''}>
       ${b.t?`<div class="cb-head" style="--stage:${col}">
         <h4 class="cb-title">${_esc(b.t)}</h4>
         ${b.w?`<p class="cb-sub">${_esc(b.w)}</p>`:''}
@@ -367,11 +367,19 @@ function chainPane(n,col){
       <div class="chain-wrap"><ol class="chain-flow">${stages}</ol></div>
     </section>`;}).join('');
 
+  /* The index stays an overview of every chain; the companies below show one
+     chain at a time, chosen here. Before this the pane rendered all of them
+     stacked — twenty-five stages of companies on layer 5 — so reading one
+     chain meant scrolling past the others. */
   const index=branches.map((b,bi)=>`
-    <div class="vj-group">
-      ${b.t?`<p class="vj-gh"><span class="vj-gn">${bi+1}</span>${_esc(b.t)}</p>`:''}
+    <div class="vj-group${bi===0?' is-on':''}" data-branch="${bi}">
+      ${b.t?`<button type="button" class="vj-gh" data-open="${bi}" aria-expanded="${bi===0}">
+        <span class="vj-gn">${bi+1}</span><span class="vj-gt">${_esc(b.t)}</span>
+        <span class="vj-gc">${b.stages.length} stages</span>
+        <span class="vj-gx" aria-hidden="true"></span>
+      </button>`:''}
       <ol class="vj-jump">${b.stages.map((st,si)=>
-        `<li><button type="button" class="vj${st.c?' is-choke':''}" data-jump="${sid(bi,si)}"`+
+        `<li><button type="button" class="vj${st.c?' is-choke':''}" data-jump="${sid(bi,si)}" data-branch="${bi}"`+
         `${st.c?' title="Chokepoint stage — qualified in the stage itself"':''}>`+
         `<span class="vj-n">${si+1}</span><b>${_esc(st.t)}</b>`+
         `</button></li>`).join('')}</ol>
@@ -399,8 +407,8 @@ function chainPane(n,col){
     <section class="vc-index" id="vc-index-${n}" role="navigation" aria-label="Stages in this layer">
       <p class="vc-index-h">How the layer breaks down</p>
       <p class="vc-index-s">${multi
-        ? 'This layer runs '+branches.length+' chains in parallel. Within a chain, each stage depends principally on the one before it; between chains, nothing does. Select any stage to jump to it. Amber marks a chokepoint, qualified where it is marked.'
-        : 'Upstream to downstream. Each stage depends principally on the one before it &mdash; select any of them to jump to it. Amber marks a chokepoint, qualified where it is marked.'}</p>
+        ? 'This layer runs '+branches.length+' chains in parallel. Within a chain, each stage depends principally on the one before it; between chains, nothing does. Select a chain to open its companies below, or any stage to go straight to it. Amber marks a chokepoint, qualified where it is marked.'
+        : 'Upstream to downstream. Each stage depends principally on the one before it &mdash; select any of them to go straight to it. Amber marks a chokepoint, qualified where it is marked.'}</p>
       ${index}
     </section>
     <div class="chain-key">
@@ -922,6 +930,18 @@ function selectLayerMode(panel,mode,remember=true){
   fill();
 }
 
+/* Show one chain's stages and mark it in the index. */
+function showChain(pane, bi){
+  if(!pane) return;
+  pane.querySelectorAll('.chain-branch[data-branch]').forEach(sec=>
+    sec.classList.toggle('is-on', sec.dataset.branch===String(bi)));
+  pane.querySelectorAll('.vj-group[data-branch]').forEach(g=>{
+    const on=g.dataset.branch===String(bi);
+    g.classList.toggle('is-on', on);
+    const h=g.querySelector('.vj-gh'); if(h) h.setAttribute('aria-expanded', String(on));
+  });
+}
+
 /* Stage jumps and back-to-index scroll their own pane rather than navigating.
    They were anchor hashes, which the layer deep-link handler could not match
    and so fell through to selecting the physical world. Delegated from the
@@ -933,10 +953,17 @@ document.addEventListener('click',e=>{
     if(pane) pane.scrollTop=0;   /* smoothness is CSS scroll-behavior */
     return;
   }
+  /* Opening a chain: the index keeps every chain visible, the body shows the
+     one selected. A stage jump opens its own chain first, or it would scroll
+     to something still hidden. */
+  const open=e.target.closest('.vj-gh[data-open]');
+  if(open){ showChain(open.closest('[data-mode-pane]'), open.dataset.open); return; }
+
   const jump=e.target.closest('.vj[data-jump]');
   if(!jump) return;
   const pane=jump.closest('[data-mode-pane]'), target=document.getElementById(jump.dataset.jump);
   if(!pane||!target) return;
+  if(jump.dataset.branch) showChain(pane, jump.dataset.branch);
   /* measured from rects: the pane is not the target's offsetParent */
   const delta=target.getBoundingClientRect().top-pane.getBoundingClientRect().top;
   pane.scrollTop=pane.scrollTop+delta-12;
