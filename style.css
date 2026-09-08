@@ -1157,11 +1157,13 @@ td.co-geo .vr-flag{margin-right:6px; vertical-align:-1px}
   padding:18px 20px 16px; margin:0 0 22px}
 .vc-index-h{font-size:15.5px; font-weight:600; letter-spacing:-.014em; margin:0; color:var(--ink)}
 .vc-index-s{font-size:12.5px; color:var(--muted); margin:4px 0 14px}
-/* Each chain reads left to right on one line. Long chains scroll rather than
-   wrapping, because a wrapped chain stops looking like a chain — the stage
-   boxes below are where the vertical space goes. */
-.vj-jump{list-style:none; margin:0; padding:0; display:flex; align-items:stretch; gap:0}
-.vj-jump li{flex:1 1 0; min-width:0; display:flex; align-items:stretch}
+/* Each chain reads left to right. Short ones fit a line; layer 5's runs to
+   fourteen stages, so chains wrap onto a second row rather than squeezing
+   every stage into an unreadable sliver. The connector carries across the
+   wrap, so it still reads as one chain. */
+.vj-jump{list-style:none; margin:0; padding:0; display:flex; align-items:stretch;
+  gap:8px 0; flex-wrap:wrap}
+.vj-jump li{flex:1 1 132px; min-width:0; display:flex; align-items:stretch}
 /* the connector: within a chain, each stage depends on the one before it */
 .vj-jump li:not(:last-child)::after{content:""; flex:none; align-self:center; width:20px; height:9px;
   margin:0 3px; background:var(--line2);
@@ -1536,9 +1538,13 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .cb-title{font-size:16px; font-weight:600; letter-spacing:-.016em; margin:0; color:var(--ink)}
 .cb-sub{font-size:13.5px; line-height:1.55; color:var(--ink2); margin:4px 0 0; max-width:74ch}
 
-.vj-group+.vj-group{margin-top:16px}
+/* One box per chain. A layer runs several in parallel and they are different
+   subjects, not one sequence — the box is what says so at a glance. */
+.vj-group{border:1px solid var(--line); border-radius:11px; background:var(--surface2);
+  padding:13px 14px 14px}
+.vj-group+.vj-group{margin-top:10px}
 .vj-gh{display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600;
-  letter-spacing:-.01em; color:var(--ink2); margin:0 0 8px}
+  letter-spacing:-.01em; color:var(--ink2); margin:0 0 9px}
 .vj-gn{display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px;
   border-radius:50%; background:var(--surface2); border:1px solid var(--line);
   font:600 10.5px var(--f-mono); color:var(--muted); flex:none}
@@ -1835,7 +1841,7 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .elc-note b{display:block; font-size:12px; font-weight:600; color:var(--ink); margin-bottom:2px}
 .elc-chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
 
-.vj-group+.vj-group{margin-top:18px}
+.vj-group+.vj-group{margin-top:10px}
 .ei-notes{display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); margin-top:12px}
 .ei-notes .elc-note{margin-top:0}
 
@@ -1889,3 +1895,14 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 #mapsvg .mg-sub{fill:none; stroke:var(--line2); stroke-width:1.1; stroke-dasharray:4 5; opacity:.75}
 #mapsvg .mg-sublabel{fill:var(--muted); font:600 11px var(--f); letter-spacing:.07em;
   text-transform:uppercase}
+
+/* Supply constraints live in the element dialog now, not on the card. The card
+   stays a compact index entry; the detail is one click away. */
+.eld-cons{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.eld-cons li{background:var(--surface2); border:1px solid var(--line); border-radius:8px;
+  padding:10px 12px}
+.eld-cons b{font-size:13px; font-weight:600; color:var(--ink); margin-right:8px}
+.eld-c-layer{font:600 10px var(--f-mono); letter-spacing:.05em; text-transform:uppercase;
+  color:var(--muted); border:1px solid var(--line2); border-radius:4px; padding:1px 6px}
+.eld-c-why{display:block; margin-top:6px; font-size:12.5px; line-height:1.55; color:var(--ink2)}
+.eld-c-chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px}

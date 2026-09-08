@@ -9,7 +9,7 @@
 <script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
 if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
 document.documentElement.setAttribute("data-theme",t);})();</script>
-<link rel="stylesheet" href="style.css?v=e9f7348b">
+<link rel="stylesheet" href="style.css?v=768af3c2">
 </head>
 <body>
 
@@ -57,7 +57,7 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
         <div class="dia-shell is-map">
         <div class="dia-chart">
         <!-- BEGIN infrastructure-map (generated from diagrams/infrastructure-map.svg — do not edit here) -->
-<svg id="mapsvg" viewBox="0 -100 1800 1330" role="group" aria-labelledby="d1t d1d">
+<svg id="mapsvg" viewBox="-80 -100 1880 1330" role="group" aria-labelledby="d1t d1d">
           <title id="d1t">Physical architecture of the AI infrastructure stack</title>
           <desc id="d1d">On the left, two dashed groups: natural resources conversion, holding energy and utilities and raw and processed materials, and device manufacture below it, holding the semiconductor ecosystem, with a summary of what flows out of them. In the centre, land, building, operations and security enclosing the AI data centre, itself divided into physical plant and machines — the on-site electrical and thermal plant and central compute — and data, models and software, holding data and knowledge, training and cloud inference, and cloud agent services. To its right, internet and telecommunications enclosing the connectivity layer. On the right, deployed robots and smart devices enclosing the embodied machine, which contains sensors, edge compute, local models, agent and control software, actuators and a battery and thermal system. Above them the physical world, which sends two dashed lines of primary energy and geological resources into the conversion group, receives the machine's actuators and returns sensor readings. Energy, materials and semiconductors also run to connectivity and to the machine along dedicated lanes beneath the diagram.</desc>
 <defs>
@@ -249,8 +249,8 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
             <text class="lb-m2" x="1316" y="236" text-anchor="middle">→ model and software updates</text>
             <text class="lb-d" x="1316" y="254" text-anchor="middle">← sensor and experience data</text>
             <text class="lb" x="1316" y="272" text-anchor="middle">↔ supervision and fleet control</text>
-            <text class="mg-note" x="1316" y="296" text-anchor="middle">Safety-critical control</text>
-            <text class="mg-note" x="1316" y="312" text-anchor="middle">must not depend on this</text>
+            <text class="mg-note" x="1316" y="294" text-anchor="middle">Safety-critical control</text>
+            <text class="mg-note" x="1316" y="314" text-anchor="middle">must not depend on this</text>
           </g>
           <text class="mg-label" x="1316" y="342" text-anchor="middle">Internet ·</text>
           <text class="mg-label" x="1316" y="362" text-anchor="middle">telecommunications</text>
@@ -333,13 +333,13 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
           <!-- ══ lanes: the base also feeds connectivity and the machine ═══
                Ordered so nothing crosses: the deeper the lane, the further
                left it leaves the group and the further right it rises. -->
-          <path class="pw" data-from="1 6 10" d="M400 790 V1010 H1290 V678" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <path class="pw" data-from="1 6 10" d="M96 170 H-50 V1010 H-33 A7 7 0 0 1 -19 1010 H-9 A7 7 0 0 1 5 1010 H1290 V654" marker-end="url(#ahL1)" stroke-linejoin="round"/>
           <path class="pw" data-from="1 10" d="M1290 1010 H1313 A7 7 0 0 1 1327 1010 H1343 A7 7 0 0 1 1357 1010 H1750 V760 H1706" marker-end="url(#ahL1)" stroke-linejoin="round"/>
           <text class="lb-p" data-from="1 6 10" x="760" y="1002" text-anchor="middle">power for exchanges and cell sites, and the charging behind the fleet</text>
-          <path class="mt2" data-from="2 6 10" d="M375 790 V1042 H1320 V678" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <path class="mt2" data-from="2 6 10" d="M96 330 H65 A7 7 0 0 0 51 330 H-26 V1042 H-9 A7 7 0 0 1 5 1042 H1320 V654" marker-end="url(#ahL2)" stroke-linejoin="round"/>
           <path class="mt2" data-from="2 10" d="M1320 1042 H1343 A7 7 0 0 1 1357 1042 H1766 V662 H1706" marker-end="url(#ahL2)" stroke-linejoin="round"/>
           <text class="lb-m" data-from="2 6 10" x="760" y="1034" text-anchor="middle">silica and dopants for the network, structures and cells for the machine</text>
-          <path class="ln-s" data-from="3 6 10" d="M350 790 V1074 H1350 V678" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <path class="ln-s" data-from="3 6 10" d="M96 500 H-2 V1074 H1350 V654" marker-end="url(#ahL3)" stroke-linejoin="round"/>
           <path class="ln-s" data-from="3 10" d="M1350 1074 H1782 V368 H1706" marker-end="url(#ahL3)" stroke-linejoin="round"/>
           <text class="lb-s" data-from="3 6 10" x="760" y="1066" text-anchor="middle">switch, optical and edge silicon — both destinations need semiconductors</text>
         </svg>
@@ -398,6 +398,6 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
 
 <script src="assets/taxonomy.js?v=b40c88ac"></script>
 <script src="assets/content.js?v=470098bb"></script>
-<script src="script.js?v=5c8a237d"></script>
+<script src="script.js?v=96fe1594"></script>
 </body>
 </html>

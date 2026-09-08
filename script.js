@@ -655,17 +655,8 @@ function elementsPane(n,col){
         ` onerror="this.remove()">`
       : '';
     const also=(EL_LAYERS[sym]||[]).filter(x=>x!==n);
-    /* The supply commentary that used to sit on separate material cards, moved
-       onto the element it actually constrains. An element can appear in more
-       than one constrained material, so this is a list rather than a field. */
-    const mats=(((typeof LAYER_MATERIALS!=='undefined'&&LAYER_MATERIALS[n])||{}).items||[])
-      .filter(x=>((typeof ELMAP!=='undefined'&&ELMAP[x.n])||[]).includes(sym));
-    const notes=mats.map(x=>`<span class="elc-note">
-        <b>${_esc(x.n)}</b> ${_esc(x.choke)}
-        <span class="elc-chips"><span class="micro-chip">${_esc(x.geo)}</span><span class="micro-chip">Relief: ${_esc(x.time)}</span></span>
-      </span>`).join('');
     return `<li class="elc" data-code="${code}" style="--stage:${col}">
-      <button type="button" class="elc-btn" data-el="${sym}" title="${sym} — open element details">
+      <button type="button" class="elc-btn" data-el="${sym}" title="${_esc(sym)} — open for supply constraints and detail">
         <span class="elc-shot">${shot}<span class="elc-sym">${sym}</span></span>
         <span class="elc-body">
           <span class="elc-head"><b data-elname="${sym}">${sym}</b>
@@ -673,7 +664,6 @@ function elementsPane(n,col){
             <span class="elc-keep is-${keep}">${keep==='kept'?'retained':keep==='trace'?'trace':'process'}</span>
           </span>
           <span class="elc-why">${_esc(why)}</span>
-          ${notes}
           ${also.length?`<span class="elc-also">Also in ${also.length===1?'layer':'layers'} ${also.join(', ')}</span>`:''}
         </span>
       </button>
@@ -1563,8 +1553,8 @@ fillAll();
     '<p class="mi-lede">Not a single queue. An industrial supply base feeds two physical enclosures: '+
     'the data centre, and the machine at the edge. Layers 4, 8 and 9 appear inside both, because the '+
     'same capability class runs at two scales. Layer 6 is the only path between them.</p>'+
-    '<p class="mi-hint">Point at any layer to read it here and light up the arrows leaving it. '+
-    'Click to open the layer in full.</p>';
+    '<p class="mi-hint">Point at any layer to read it here and light up the arrows in and out of it. '+
+    'Click the layer itself to open it in full.</p>';
 
   function card(n){
     if(n===0) return '<p class="mi-eyebrow">Outside the stack</p><h4>The physical world</h4>'+
@@ -1573,8 +1563,7 @@ fillAll();
     return `<p class="mi-eyebrow">Layer ${L.n}</p><h4>${L.t}</h4>`+
       `<span class="chip ${L.mk}">${L.moat}</span>`+
       `<p class="mi-lede">${L.lede}</p>`+
-      `<p class="mi-choke"><b>Binding constraint.</b> ${L.choke}</p>`+
-      `<a class="mi-more" href="stack.html#layer-${L.n}">Open layer ${L.n} in full</a>`;
+      `<p class="mi-choke"><b>Binding constraint.</b> ${L.choke}</p>`;
   }
 
   function highlight(n){
@@ -1720,6 +1709,17 @@ function lockPanelHeight(panel, states){
     if(!e){ body.innerHTML='<p class="eld-lede">Details for this element are still loading.</p>'; return; }
     const uses=usedIn(sym);
     const layers=(typeof EL_LAYERS!=='undefined'&&EL_LAYERS[sym])||[];
+    /* Every constrained material this element governs, across all ten layers.
+       Deduplicated: rare earth separation constrains four layers and the
+       reader does not need it four times. */
+    const seen=new Set(), cons=[];
+    if(typeof LAYER_MATERIALS!=='undefined') Object.keys(LAYER_MATERIALS).forEach(k=>{
+      ((LAYER_MATERIALS[k]||{}).items||[]).forEach(x=>{
+        if(!((typeof ELMAP!=='undefined'&&ELMAP[x.n])||[]).includes(sym)) return;
+        if(seen.has(x.n)) return; seen.add(x.n);
+        cons.push(Object.assign({layer:k}, x));
+      });
+    });
     body.innerHTML=
       `<button type="button" class="eld-close" aria-label="Close">&times;</button>`+
       `<div class="eld-head">`+
@@ -1738,6 +1738,12 @@ function lockPanelHeight(panel, states){
           return `<li style="--stage:var(--l${n})"><a href="stack.html#layer-${n}">`+
             `<span class="eldl-n">${n}</span><b>${L?L.t:'Layer '+n}</b>`+
             `<span>${row?row[1]:''}</span></a></li>`;}).join('')}</ul></div>`:'')+
+      (cons.length?`<div class="eld-uses"><p class="eld-h">Where its supply is constrained</p>`+
+        `<ul class="eld-cons">${cons.map(c=>`<li>`+
+          `<b>${_esc(c.n)}</b><span class="eld-c-layer">layer ${c.layer}</span>`+
+          `<span class="eld-c-why">${_esc(c.choke)}</span>`+
+          `<span class="eld-c-chips"><span class="micro-chip">${_esc(c.geo)}</span>`+
+          `<span class="micro-chip">Relief: ${_esc(c.time)}</span></span></li>`).join('')}</ul></div>`:'')+
       (uses.length?`<div class="eld-uses"><p class="eld-h">Material entries resting on it</p>`+
         `<ul>${uses.map(u=>`<li>${u}</li>`).join('')}</ul></div>`:'')+
       `<p class="eld-shows"><b>What the photograph shows.</b> ${e.note}</p>`;
