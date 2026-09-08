@@ -1,1 +1,42 @@
+name: Checks
 
+# Everything that can silently rot has a guard. This runs them all, so drift
+# cannot reach main and cannot reach the published site.
+on:
+  push:
+    branches: [main, preview]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Diagram matches its source file
+        run: python3 build-diagram.py --check
+
+      - name: No arrow crosses another on the schematic
+        run: python3 scripts/check-crossings.py
+
+      - name: Company map matches the value-chain database
+        run: python3 brand/build-companies.py --check
+
+      - name: Wording matches the approved baseline
+        run: python3 check-content.py
+
+      - name: Asset hashes are current
+        run: |
+          python3 bump-assets.py
+          if ! git diff --quiet; then
+            echo "::error::Asset hashes are stale. Run: python3 bump-assets.py"
+            git --no-pager diff --stat
+            exit 1
+          fi
+
+      - name: No remote asset loads
+        run: python3 scripts/check-offline.py
