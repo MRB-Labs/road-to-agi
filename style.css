@@ -1878,3 +1878,7 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 #mapsvg .lb-a{fill:var(--l10)}
 #mapsvg .ln-w{stroke:var(--accent); stroke-width:1.7; fill:none}
 #mapsvg .lb-wf{fill:var(--accent)}
+
+/* The world's two exchanges with the machine stay legible without hovering:
+   they are the loop the whole report is about, not a detail to discover. */
+#mapsvg text.lb-a,#mapsvg text.lb-wf{opacity:1}
