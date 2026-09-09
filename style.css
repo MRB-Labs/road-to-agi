@@ -1330,8 +1330,10 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
    ────────────────────────────────────────────────────────────────────────── */
 .dia-shell.is-map{grid-template-columns:minmax(0,1fr) minmax(168px,196px)}
 /* The map earns more of the page than the other two figures: it is wider,
-   carries four groupings and has to stay readable without zooming. */
-#mapsvg{min-height:760px}
+   carries four groupings and has to stay readable without zooming. Keep this
+   under the height the viewBox's own ratio gives at full width, or the box
+   letterboxes: -80 -96 1888 1184 is 1.595:1. */
+#mapsvg{min-height:660px}
 @media(max-width:1200px){ #mapsvg{min-height:0} }
 .dia-shell.is-loop{grid-template-columns:430px minmax(0,1fr)}
 #loopsvg .bt{font-size:13.5px}
