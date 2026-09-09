@@ -31,6 +31,9 @@ jobs:
       - name: Diagram matches its source file
         run: python3 build-diagram.py --check
 
+      - name: Per-page content files are current
+        run: python3 build-content.py --check
+
       - name: No arrow crosses another on the schematic
         run: python3 scripts/check-crossings.py
 
