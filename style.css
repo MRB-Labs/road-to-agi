@@ -934,7 +934,14 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 #mapsvg path[data-from].on{opacity:1; stroke-width:2.4}
 #mapsvg text[data-from].on{opacity:1}
 #mapsvg .worldnode{cursor:default}
-#mapsvg.hl .bx{transition:opacity .16s var(--ease)}
+
+/* Hovering a layer fades every box that is not that layer, so what is left at
+   full strength is the layer itself and the arrows in and out of it. A layer
+   can own several boxes (layer 1 is the grid, the on-site plant and the
+   machine's battery); all of them stay lit. The fade is partial on purpose —
+   the rest of the map still has to read as context, not disappear. */
+#mapsvg a.node,#mapsvg a.worldnode{transition:opacity .16s var(--ease)}
+#mapsvg.hl a.node:not(.on),#mapsvg.hl a.worldnode:not(.on){opacity:.3}
 
 /* Layer marks in the rail and the layer head on the infrastructure page */
 .licon{fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; flex:none}
@@ -943,7 +950,8 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 .head-icon{width:40px; height:40px}
 .layer-head-main{display:flex; align-items:center; gap:14px; min-width:0}
 @media (prefers-reduced-motion:reduce){
-  #mapsvg path[data-from],#mapsvg text[data-from]{transition:none}
+  #mapsvg path[data-from],#mapsvg text[data-from],
+  #mapsvg a.node,#mapsvg a.worldnode{transition:none}
 }
 
 /* Company marks on the value-chain chips. Logos sit on a light plate so marks

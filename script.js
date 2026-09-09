@@ -1641,8 +1641,14 @@ fillAll();
       `<p class="mi-choke"><b>Binding constraint.</b> ${L.choke}</p>`;
   }
 
+  /* Filled in below, once the node list exists: hovering a layer should also
+     fade every box that is not that layer, so the eye keeps only the layer and
+     the arrows in and out of it. */
+  let dim=()=>{};
+
   function highlight(n){
     svg.classList.toggle('hl', n!==null);
+    dim(n);
     if(n!==null) svg.style.setProperty('--hlc', n===0?'var(--accent)':`var(--l${n})`);
     /* data-from carries a list, not a single layer: the sensors arrow belongs
        to both the physical world and the machine, and the bridge arrows belong
@@ -1665,6 +1671,10 @@ fillAll();
   const nodes=[...svg.querySelectorAll('a.node')].map(a=>[a,layerOf(a)]).filter(p=>p[1]!==null);
   const world=svg.querySelector('.worldnode');
   if(world) nodes.push([world,0]);
+  /* A layer can hold several boxes — layer 1 is the grid, the on-site plant and
+     the machine's battery — so this matches on the layer number, not the node. */
+  dim=n=>nodes.forEach(([el,ln])=>el.classList.toggle('on', n!==null && ln===n));
+
   nodes.forEach(([el,n])=>{
     el.addEventListener('mouseenter',()=>show(n));
     el.addEventListener('mouseleave',clear);
