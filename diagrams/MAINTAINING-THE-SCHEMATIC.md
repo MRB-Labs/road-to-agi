@@ -92,7 +92,9 @@ sub-frame     →  card               8
 ### Gutters, corridors and lanes
 
 - Vertical corridors outside the frames are **24 apart**, on both sides, and the
-  outermost sits **16 inside the viewBox**. The left and right gutters mirror
+  outermost sits **16 inside the viewBox**. Two arrows whose vertical runs do
+  not overlap share one corridor rather than taking two: nearly-parallel columns
+  a short distance apart read as a misalignment, not as a pair. The left and right gutters mirror
   each other; they must not drift apart.
 - Horizontal supply lanes under the drawing are **32 apart**, because each
   carries a label in the gap above it.
@@ -205,7 +207,7 @@ differently so the indoor and outdoor instances read apart.
 
 ## 5 · Constraints to preserve
 
-- viewBox is `-80 -96 1888 1184`. The negative top is where the primary-source
+- viewBox is `-80 -112 1888 1200`. The negative top is where the primary-source
   lines run; the bottom band is where the supply lanes run. Keep
   `#mapsvg{min-height}` under the height that ratio gives at full width, or the
   box letterboxes.
