@@ -13,6 +13,15 @@ html{scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 16px)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important; transition:none!important}}
 body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--f);
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; font-feature-settings:'tnum' 1}
+/* The atlas photograph, fixed and very far back, so the dark theme carries the
+   same sky as the map. Light theme keeps its paper. Behind everything, never
+   under text directly: every surface above it is opaque. */
+[data-theme="dark"] body::before{content:''; position:fixed; inset:0; z-index:-1;
+  pointer-events:none; background:url("assets/atlas/space-wash.jpg") center/cover no-repeat;
+  opacity:.30; filter:saturate(.75)}
+[data-theme="dark"] body::after{content:''; position:fixed; inset:0; z-index:-1;
+  pointer-events:none; background:linear-gradient(180deg,
+    rgba(8,19,31,.55) 0%, rgba(8,19,31,.86) 42%, var(--bg) 100%)}
 .wrap{max-width:1180px; margin:0 auto; padding:0 28px}
 @media(max-width:640px){.wrap{padding:0 16px}}
 h1,h2,h3,h4{margin:0; font-weight:600; letter-spacing:-.02em; line-height:1.2}
@@ -703,9 +712,11 @@ table.co td.co-n,table.co td.co-geo{white-space:normal}
 }
 [data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0F1319; --surface:#171C24; --surface2:#1E2530; --surface3:#27313E;
-  --ink:#F1F4F7; --ink2:#AEB8C5; --muted:#818D9C;
-  --line:#2D3744; --line2:#465364;
+  /* Tuned to the atlas photograph so the whole report reads as one piece:
+     the same deep navy, the same blue cast in the lines. */
+  --bg:#08131F; --surface:#0F1E2D; --surface2:#152838; --surface3:#1D3448;
+  --ink:#EDF4FA; --ink2:#A8BBCC; --muted:#7C90A2;
+  --line:#20364A; --line2:#38536B;
   --accent:#7DA2FF; --accent-d:#9BB8FF; --accent-soft:#1D2D55;
   --teal:#55C8B7; --teal-soft:#153B37;
   --amber:#F0B45D; --amber-soft:#493315;

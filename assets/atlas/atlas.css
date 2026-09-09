@@ -11,7 +11,6 @@
    different sizes, so it states them here, after the base sheet. */
 .atlas svg{width:auto; height:auto; max-width:none}
 .atlas .atlas-canvas,.atlas .atlas-bg-svg svg{width:100%; height:100%}
-.atlas .atlas-minimap svg{width:100%; height:auto}
 .atlas .atlas-search svg{width:15px; height:15px}
 
 .atlas{
@@ -56,27 +55,35 @@
 }
 
 /* ── background, in separately editable layers ───────────────────────────── */
+/* The photograph belongs to the canvas, not to the whole component: it has to
+   cover exactly the stage rectangle for its planet to land on the coordinates
+   in atlas-layout.js, and it rides the pan and zoom with everything else. */
 .atlas-bg{position:absolute; inset:0; pointer-events:none; z-index:0}
 .atlas-bg>*{position:absolute; inset:0}
-.atlas-bg-base{background:
-  radial-gradient(120% 90% at 82% 42%, #10304e 0%, rgba(8,22,38,0) 58%),
-  radial-gradient(90% 70% at 12% 20%, #0d2136 0%, rgba(6,16,29,0) 60%),
-  linear-gradient(180deg,#071426 0%, var(--atlas-bg) 55%, #050d18 100%)}
-.atlas-bg-grid{background-image:
-  linear-gradient(var(--atlas-grid) 1px, transparent 1px),
-  linear-gradient(90deg, var(--atlas-grid) 1px, transparent 1px);
-  background-size:48px 48px; mask-image:radial-gradient(130% 100% at 50% 40%,#000 55%,transparent 100%)}
-.atlas-bg-svg{width:100%; height:100%}
-.atlas-bg-svg svg{width:100%; height:100%; display:block}
+/* The photograph is the atmosphere: grid, dotted world, stars, orbital arcs
+   and the planet, all in one asset. The canvas shares its aspect exactly, so
+   the planet lands on the coordinates in atlas-layout.js at every size.
+   The tint above it keeps the cards legible over the brighter regions. */
+/* Behind the stage: the same photograph, blurred and dimmed, so the toolbar
+   band and the edges do not read as a hard cut. */
+.atlas-bg-photo{background:var(--atlas-bg) url("space-wash.jpg") center/cover no-repeat;
+  filter:blur(24px) saturate(.8); opacity:.5; transform:scale(1.08)}
+.atlas-bg-tint{background:linear-gradient(180deg,
+  rgba(4,11,22,.85) 0%, rgba(4,11,22,.35) 22%, rgba(4,11,22,.35) 78%, rgba(4,11,22,.85) 100%)}
 
 /* ── the stage: clips, and owns pan and zoom ─────────────────────────────── */
-.atlas-stage{position:relative; z-index:1; width:100%; aspect-ratio:1760/880;
+.atlas-stage{position:relative; z-index:1; width:100%; aspect-ratio:1760/990;
   overflow:hidden; cursor:grab; touch-action:pan-y}
 .atlas-stage.is-panning{cursor:grabbing}
 .atlas-world{position:absolute; inset:0; transform-origin:0 0;
+  background:url("space.jpg") center/100% 100% no-repeat;
   transition:transform var(--atlas-motion-normal) var(--atlas-ease)}
 .atlas-world.is-dragging{transition:none}
 .atlas-canvas{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+/* a wash over the picture on the left, where the cards sit */
+.atlas-world::before{content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, rgba(4,11,22,.62) 0%, rgba(4,11,22,.34) 46%,
+  rgba(4,11,22,.08) 72%, rgba(4,11,22,0) 88%)}
 
 /* ── macro-system regions ────────────────────────────────────────────────── */
 .rg-box{fill:rgba(10,26,44,.42); stroke:currentColor; stroke-width:1.2;
@@ -136,9 +143,13 @@
 .atlas.is-filtered .nd.is-lit{opacity:1}
 
 .nd-head{display:flex; align-items:center; gap:8px; min-width:0; padding-right:24px}
+/* --nd-c, not currentColor: this element sets its own `color` for the digit,
+   and currentColor in a declaration resolves against that — which painted the
+   badge the same near-black as the number sitting on it. */
 .nd-num{flex:none; width:22px; height:22px; border-radius:50%; display:grid;
-  place-items:center; font:600 11.5px var(--f,sans-serif); color:#06101d;
-  background:currentColor; box-shadow:var(--atlas-glow-low) color-mix(in srgb, currentColor 60%, transparent)}
+  place-items:center; font:700 12px var(--f,sans-serif); color:#04101d;
+  background:var(--nd-c, #7fd0ff);
+  box-shadow:0 0 12px color-mix(in srgb, var(--nd-c, #7fd0ff) 55%, transparent)}
 .nd-name{font:600 13.5px/1.25 var(--f,sans-serif); color:var(--atlas-text);
   letter-spacing:-.008em; min-width:0}
 /* The mark sits in the corner rather than in the text row, so a long layer
@@ -150,14 +161,23 @@
 .atlas .nd.is-head .licon.nd-icon{width:24px; height:24px}
 .nd-sub{margin:0; font:400 10px/1.45 var(--f,sans-serif); color:var(--atlas-text-muted)}
 .nd-sub span{display:block}
-.nd.is-small{padding:7px 11px; gap:2px; justify-content:center}
+.nd.is-small{padding:8px 12px; gap:3px; justify-content:center}
 .nd.is-small .nd-head{padding-right:18px}
-.nd.is-small .nd-name{font-size:11.5px}
+.nd.is-small .nd-name{font-size:12.5px}
 .nd.is-small .nd-num{width:17px; height:17px; font-size:9.5px}
 .nd.is-small .nd-icon{width:16px; height:16px}
-.nd.is-small .nd-sub{font-size:8.5px; line-height:1.3}
+.nd.is-small .nd-sub{font-size:9.5px; line-height:1.35}
 .nd.is-head .nd-name{font-size:15px}
-.nd.is-head{background:linear-gradient(160deg, color-mix(in srgb, currentColor 22%, var(--atlas-surface)), var(--atlas-surface))}
+/* An enclosure holds other cards, so it must not paint over them: its header
+   sits at the top and the rest of it is a frame. */
+.nd.is-encl{justify-content:flex-start; padding:12px 14px;
+  background:color-mix(in srgb, currentColor 8%, rgba(6,18,32,.55));
+  border-width:1.5px; box-shadow:inset 0 0 34px color-mix(in srgb, currentColor 12%, transparent),
+  0 4px 22px rgba(0,0,0,.4)}
+.nd.is-encl::before{background:linear-gradient(180deg,
+  color-mix(in srgb, currentColor 16%, transparent), transparent 22%)}
+.nd.is-encl .nd-name{font-size:15px}
+.nd.is-encl .nd-icon{width:24px; height:24px}
 
 /* ── the planet ──────────────────────────────────────────────────────────── */
 .pw-label{fill:var(--atlas-text); font:600 17px/1 var(--f,sans-serif);
@@ -166,7 +186,16 @@
   letter-spacing:.1em; text-transform:uppercase}
 .pw-node{cursor:pointer}
 .pw-node:focus-visible{outline:none}
-.pw-node:focus-visible .pw-rim{stroke-width:3}
+.pw-halo{fill:none; stroke:var(--atlas-data); stroke-width:2; opacity:0;
+  transition:opacity var(--atlas-motion-normal) var(--atlas-ease)}
+.pw-rim{fill:transparent; stroke:var(--atlas-data); stroke-width:2; opacity:0;
+  transition:opacity var(--atlas-motion-normal) var(--atlas-ease)}
+.pw-node:hover .pw-rim,.pw-node:focus-visible .pw-rim,
+.pw-node.is-selected .pw-rim{opacity:.75}
+.pw-node:hover .pw-halo,.pw-node:focus-visible .pw-halo,
+.pw-node.is-selected .pw-halo{opacity:.3}
+.atlas.is-filtered .pw-label,.atlas.is-filtered .pw-sub{opacity:.28}
+.pw-node.is-lit .pw-label,.pw-node.is-lit .pw-sub{opacity:1}
 
 /* ── toolbar ─────────────────────────────────────────────────────────────── */
 .atlas-top{position:relative; z-index:3; display:flex; flex-wrap:wrap; gap:12px;
@@ -225,14 +254,6 @@
 .atlas-controls button:hover{color:var(--atlas-text); border-color:var(--atlas-text-muted)}
 .atlas-controls button:focus-visible{outline:2px solid var(--atlas-data); outline-offset:2px}
 
-.atlas-minimap{position:absolute; left:16px; bottom:16px; z-index:4; width:210px;
-  padding:10px 12px 12px; border-radius:12px; background:rgba(6,18,32,.86);
-  border:1px solid var(--atlas-border)}
-.atlas-minimap h4{margin:0 0 8px; font:600 9.5px var(--f,sans-serif);
-  letter-spacing:.14em; text-transform:uppercase; color:var(--atlas-text-dim)}
-.atlas-minimap svg{display:block; width:100%; height:auto; cursor:pointer}
-.mm-node{fill:currentColor; opacity:.85}
-.mm-view{fill:rgba(120,200,255,.1); stroke:var(--atlas-data); stroke-width:2; vector-effect:non-scaling-stroke}
 .atlas-hint{position:absolute; left:50%; bottom:18px; transform:translateX(-50%);
   z-index:4; font:400 11.5px var(--f,sans-serif); color:var(--atlas-text-dim);
   letter-spacing:.04em; pointer-events:none; white-space:nowrap}
@@ -252,8 +273,9 @@
 .pn-head{display:flex; align-items:flex-start; gap:12px; padding:16px 16px 12px;
   border-bottom:1px solid rgba(150,195,230,.16)}
 .pn-num{flex:none; width:36px; height:36px; border-radius:50%; display:grid;
-  place-items:center; font:600 16px var(--f,sans-serif); color:#06101d;
-  background:currentColor; box-shadow:var(--atlas-glow-low) currentColor}
+  place-items:center; font:700 17px var(--f,sans-serif); color:#04101d;
+  background:var(--nd-c, #7fd0ff);
+  box-shadow:0 0 14px color-mix(in srgb, var(--nd-c, #7fd0ff) 55%, transparent)}
 .pn-id{min-width:0; flex:1}
 .pn-id h4{margin:0; font:600 18px/1.25 var(--f,sans-serif); color:var(--atlas-text)}
 .pn-id p{margin:2px 0 0; font:400 12.5px var(--f,sans-serif); color:var(--atlas-text-muted)}
@@ -294,7 +316,6 @@
 
 /* ── responsive ──────────────────────────────────────────────────────────── */
 @media (max-width:1320px){
-  .atlas-minimap{display:none}
   .atlas-panel{width:min(460px,60%)}
 }
 @media (max-width:1080px){

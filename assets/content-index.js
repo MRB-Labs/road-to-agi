@@ -159,6 +159,7 @@ const ATLAS_CARDS={
  l1    :{t:'Energy, power and utilities',s:['Generation · grids · storage · PPAs','On-site power · cooling · water']},
  l2    :{t:'Raw and processed materials',s:['Mining · refining · electronic grade','Metals · magnets · batteries · fibre']},
  l3    :{t:'Semiconductor ecosystem',s:['EDA · equipment · wafers · foundry','Packaging · memory · sensors · test']},
+ l1p   :{t:'On-site electrical and thermal plant',s:['Substation · switchgear · UPS · busway','backup · liquid cooling · heat rejection']},
  l5    :{t:'AI data centre and cloud',s:['The enclosure housing central compute, data, models and cloud AI']},
  l4    :{t:'Central compute, memory and networking',s:['Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network']},
  l7    :{t:'Data and knowledge',s:['Databases · object storage · data lakes','Ingestion · curation · governance']},

@@ -28,9 +28,9 @@ regions = {m[0]: dict(x=num(m[1]), y=num(m[2]), w=num(m[3]), h=num(m[4]))
                r"\{key:'(\w+)',[^}]*?x:(-?\d+),\s+y:(\d+), w:(\d+), h:(\d+)\}",
                LAYOUT, re.S)}
 nodes = [dict(id=m[0], layer=num(m[1]), region=m[2], x=num(m[3]), y=num(m[4]),
-              w=num(m[5]), h=num(m[6]))
+              w=num(m[5]), h=num(m[6]), encl='encl' in m[7], sub='sub' in m[7])
          for m in re.findall(
-             r"\{id:'(\w+)',\s+layer:(\d+),\s+region:'(\w+)',\s+x:(\d+),\s+y:(\d+), w:(\d+), h:(\d+)",
+             r"\{id:'(\w+)',\s+layer:(\d+),\s+region:'(\w+)',\s+x:(\d+),\s+y:(\d+), w:(\d+), h:(\d+)(.*)",
              LAYOUT)]
 routes = re.findall(r"\{from:'(\w+)',\s+to:'(\w+)',\s+flow:'(\w+)'", LAYOUT)
 flows  = set(re.findall(r'^  (\w+): *\{label:', LAYOUT, re.M))
@@ -50,12 +50,26 @@ for n in nodes:
         bad.append('%s runs past the bottom of %s' % (n['id'], n['region']))
     if n['y'] < r['y'] + TITLE_BAND:
         bad.append('%s sits under the %s title' % (n['id'], n['region']))
+    if n['sub'] and not any(e['encl'] and e['region'] == n['region'] for e in nodes):
+        bad.append('%s is marked as a block inside an enclosure that does not exist' % n['id'])
+
+def inside(inner, outer):
+    return (outer['x'] <= inner['x'] and outer['y'] <= inner['y'] and
+            inner['x'] + inner['w'] <= outer['x'] + outer['w'] and
+            inner['y'] + inner['h'] <= outer['y'] + outer['h'])
 
 for i, a in enumerate(nodes):
     for b in nodes[i + 1:]:
-        if (a['x'] < b['x'] + b['w'] and b['x'] < a['x'] + a['w'] and
+        if not (a['x'] < b['x'] + b['w'] and b['x'] < a['x'] + a['w'] and
                 a['y'] < b['y'] + b['h'] and b['y'] < a['y'] + a['h']):
-            bad.append('%s and %s overlap' % (a['id'], b['id']))
+            continue
+        # an enclosure is meant to contain its region's blocks — but it has to
+        # contain them properly, not clip them
+        if a['encl'] and b['sub'] and a['region'] == b['region']:
+            if not inside(b, a):
+                bad.append('%s is not fully inside %s' % (b['id'], a['id']))
+            continue
+        bad.append('%s and %s overlap' % (a['id'], b['id']))
 
 # ── the regions themselves must not collide, or with the planet ──────────────
 rs = sorted(regions.items(), key=lambda kv: kv[1]['x'])

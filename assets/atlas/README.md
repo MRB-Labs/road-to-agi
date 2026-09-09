@@ -8,10 +8,11 @@ is now archived in `diagrams/archive/`.
 | File | Holds |
 |---|---|
 | `atlas-layout.js` | **Geometry only.** Region and card rectangles, the planet's circle, the flow families, and the routes between cards. Not one word of prose. |
-| `atlas-geometry.js` | Anchors, the orthogonal route builder, and the generated background art — stars, orbital arcs, the dotted world, the planet. |
+| `atlas-geometry.js` | Anchors and the orthogonal route builder. |
+| `space.jpg` | The background photograph: grid, dotted world, stars, orbital arcs and the planet, all in one asset. |
 | `atlas-data.js` | The adapter. The only file that knows how the report's tables are shaped. |
 | `atlas.js` | The component: builds the markup, then wires hover, focus, selection, filters, search, pan, zoom and the panel. |
-| `atlas-earth.js` | The continent and cloud paths, carried over from the previous schematic's globe. |
+| `atlas-earth.js` | The continent and cloud paths from the previous schematic's globe. Unused by the current background; kept for the dotted-world helper. |
 | `atlas.css` | Tokens and every rule, all scoped to `.atlas`. |
 
 ## Where to change things
@@ -23,9 +24,12 @@ is now archived in `diagrams/archive/`.
 - **Card labels, region names, the planet's caption, the two route labels** —
   `ATLAS_CARDS`, `ATLAS_REGIONS_TEXT`, `ATLAS_WORLD_TEXT` and
   `ATLAS_ROUTE_TEXT` in `assets/content.js`, like all other copy.
-- **The background** — `stars`, `arcs`, `worldDots` and `earth` in
-  `atlas-geometry.js`. All generated from a fixed seed, so the sky is the same
-  on every load; nothing is fetched.
+- **The background** — `space.jpg`, painted on `.atlas-world` so it pans and
+  zooms with the map. **The canvas shares the photograph's aspect exactly
+  (1672×941 → 1760×990)**, which is what makes the planet in the picture land
+  on `ATLAS_WORLD`'s coordinates at every size. Change the picture and you must
+  re-measure that centre and radius, or change the canvas to match. A blurred
+  900px copy, `space-wash.jpg`, sits behind the whole site on the dark theme.
 - **What the detail panel shows** — `AtlasData.detail`. It reads existing
   fields and returns `undefined` for any the report does not have; the panel
   renders only the sections that came back with something.
@@ -67,3 +71,12 @@ The report has no cybersecurity layer — security appears only as part of layer
 5's remit. Inventing one would have meant inventing content, so it is left out.
 It is the one thing in the reference that needs a product decision before it
 can be built.
+
+## The machine is an enclosure
+
+`l10` carries `encl:1` and is sized to hold the six blocks inside it — sensors,
+edge compute, local models, agent and control, actuators, battery and power.
+They are siblings in the DOM, drawn after it, so they take their own clicks
+while the frame behind them stays hoverable as layer 10.
+`check-atlas.py` allows that one overlap and instead asserts the blocks sit
+*fully* inside the frame.

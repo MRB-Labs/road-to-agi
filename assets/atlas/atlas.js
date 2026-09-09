@@ -36,9 +36,8 @@
   host.className = 'atlas';
   host.innerHTML = `
     <div class="atlas-bg" aria-hidden="true">
-      <div class="atlas-bg-base"></div>
-      <div class="atlas-bg-grid"></div>
-      <div class="atlas-bg-svg">${backdrop()}</div>
+      <div class="atlas-bg-photo"></div>
+      <div class="atlas-bg-tint"></div>
     </div>
     ${toolbar()}
     <div class="atlas-stage" id="atlas-stage">
@@ -58,9 +57,6 @@
       <button type="button" data-zoom="out"   aria-label="Zoom out">&minus;</button>
       <button type="button" data-zoom="reset" aria-label="Fit the whole map">&#9634;</button>
     </div>
-    <div class="atlas-minimap" aria-hidden="true">
-      <h4>Map overview</h4>${minimap()}
-    </div>
     <aside class="atlas-panel" id="atlas-panel" role="dialog" aria-modal="false"
            aria-labelledby="atlas-panel-title" hidden></aside>`;
 
@@ -77,18 +73,6 @@
   const canvas = host.querySelector('.atlas-canvas');
 
   /* ── background ────────────────────────────────────────────────────────── */
-  function backdrop() {
-    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <pattern id="atlasDots" width="9" height="9" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.15" fill="#4f9ad0" opacity=".5"/>
-        </pattern>
-      </defs>
-      ${AtlasGeom.worldDots(W, H)}
-      ${AtlasGeom.arcs(W, H)}
-      ${AtlasGeom.stars(W, H, 160)}
-    </svg>`;
-  }
 
   function defs() {
     const flows = Object.keys(ATLAS_FLOWS).map(k =>
@@ -124,15 +108,19 @@
     </defs>`;
   }
 
+  /* The planet is the one in the photograph — the canvas shares its aspect, so
+     it lands on these coordinates at every size. All that is drawn here is the
+     hit area, a rim that answers to hover, and the label. */
   function planet() {
     const t = (typeof ATLAS_WORLD_TEXT !== 'undefined') ? ATLAS_WORLD_TEXT
             : {t:'The physical world', s:''};
     const w = Object.assign({}, ATLAS_WORLD, {label:t.t, sub:t.s});
     return `<g class="pw-node" tabindex="0" role="button" data-node="world"
                aria-label="${esc(w.label)} — open it in the infrastructure">
-      ${AtlasGeom.earth(w.cx, w.cy, w.r)}
-      <text class="pw-label" x="${w.cx}" y="${w.cy - w.r - 42}" text-anchor="middle">${esc(w.label)}</text>
-      <text class="pw-sub"   x="${w.cx}" y="${w.cy - w.r - 22}" text-anchor="middle">${esc(w.sub)}</text>
+      <circle class="pw-halo" cx="${w.cx}" cy="${w.cy}" r="${w.r + 26}"/>
+      <circle class="pw-rim"  cx="${w.cx}" cy="${w.cy}" r="${w.r}"/>
+      <text class="pw-label" x="${w.cx}" y="${w.cy - w.r - 40}" text-anchor="middle">${esc(w.label)}</text>
+      <text class="pw-sub"   x="${w.cx}" y="${w.cy - w.r - 20}" text-anchor="middle">${esc(w.sub)}</text>
     </g>`;
   }
 
@@ -200,17 +188,17 @@
 
   function cards() {
     return ATLAS_REGIONS.map(r =>
-      `<p class="nd-region" aria-hidden="true">${esc(r.title)}</p>` +
+      `<p class="nd-region" aria-hidden="true">${esc(regionText(r.key).t)}</p>` +
       ATLAS_NODES.filter(n => n.region === r.key).map(card1).join('')).join('');
   }
 
   function card1(n) {
     return (function () {
       const c = AtlasData.card(n), small = !!n.sub;
-      return `<button type="button" class="nd${small ? ' is-small' : ''}${n.head ? ' is-head' : ''}"
+      return `<button type="button" class="nd${small ? ' is-small' : ''}${n.encl ? ' is-encl' : ''}"
         data-node="${n.id}" data-layer="${n.layer}"
         style="left:${n.x}px;top:${n.y}px;width:${n.w}px;height:${n.h}px;
-               color:var(--r-${n.region})"
+               color:var(--r-${n.region});--nd-c:var(--r-${n.region})"
         aria-label="${esc(c.title)} — layer ${n.layer}, open its detail">
         ${c.icon}
         <span class="nd-head">
@@ -223,20 +211,6 @@
     })();
   }
 
-  function minimap() {
-    const s = 186 / W;
-    const dots = ATLAS_NODES.map(n =>
-      `<circle class="mm-node" cx="${(n.x + n.w / 2) * s}" cy="${(n.y + n.h / 2) * s}" r="3.4"
-               style="color:var(--r-${n.region})"/>`).join('');
-    return `<svg viewBox="0 0 ${186} ${H * s}" id="atlas-mm">
-      ${ATLAS_REGIONS.map(r => `<rect x="${r.x * s}" y="${r.y * s}" width="${r.w * s}"
-        height="${r.h * s}" rx="3" fill="none" stroke="var(--r-${r.key})" stroke-opacity=".35"/>`).join('')}
-      ${dots}
-      <circle cx="${ATLAS_WORLD.cx * s}" cy="${ATLAS_WORLD.cy * s}" r="7"
-              fill="none" stroke="var(--atlas-data)" stroke-opacity=".7"/>
-      <rect class="mm-view" id="atlas-mm-view" x="0" y="0" width="186" height="${H * s}" rx="2"/>
-    </svg>`;
-  }
 
   function toolbar() {
     const fl = Object.entries(ATLAS_FLOWS).map(([k, f]) =>
@@ -245,10 +219,6 @@
          ${f.dash ? `<span class="fl-dash" style="background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 7px)"></span>`
                   : '<i></i>'}${esc(f.label)}</button>`).join('');
     return `<div class="atlas-top">
-      <div class="atlas-title">
-        <h3>AI infrastructure <em>atlas</em></h3>
-        <span class="atlas-live"><i></i>Ten layers &middot; live view</span>
-      </div>
       <div class="atlas-search">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke-width="2"/>
           <path d="M16.5 16.5 21 21" stroke-width="2" stroke-linecap="round"/></svg>
@@ -365,7 +335,7 @@
         ${d.metric.asOf ? `<em>As of ${esc(d.metric.asOf)}${d.metric.source ? ' &middot; ' + esc(d.metric.source) : ''}</em>` : ''}
       </div>` : '';
     return `
-      <header class="pn-head" style="color:var(--r-${region})">
+      <header class="pn-head" style="color:var(--r-${region});--nd-c:var(--r-${region})">
         <span class="pn-num">${d.n}</span>
         <span class="pn-id">
           <h4 id="atlas-panel-title">${esc(d.title)}</h4>
@@ -419,15 +389,6 @@
   function apply(anim) {
     world.classList.toggle('is-dragging', !anim);
     world.style.transform = `translate(${tx}px, ${ty}px) scale(${z})`;
-    const r = stage.getBoundingClientRect();
-    const mm = host.querySelector('#atlas-mm-view');
-    if (mm && r.width) {
-      const s = 186 / r.width;
-      mm.setAttribute('x', (-tx * s / z * z).toFixed(1));
-      mm.setAttribute('y', (-ty * s / z * z * (H / W) * (r.width / r.height) || 0).toFixed(1));
-      mm.setAttribute('width', (186 / z).toFixed(1));
-      mm.setAttribute('height', (186 * (H / W) / z).toFixed(1));
-    }
   }
   function setZoom(next, cx, cy) {
     const r = stage.getBoundingClientRect();
