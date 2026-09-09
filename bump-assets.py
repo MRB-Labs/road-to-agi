@@ -14,6 +14,7 @@ Two jobs, both about things that drift silently:
 
 Idempotent. Run it after changing style.css, script.js or the footer.
 """
+import datetime, sys
 import hashlib, re, glob, subprocess, pathlib
 
 ROOT = pathlib.Path(__file__).parent
@@ -21,16 +22,31 @@ ROOT = pathlib.Path(__file__).parent
 def h(p):
     return hashlib.sha256(open(p, 'rb').read()).hexdigest()[:8]
 
-def last_commit_date():
-    try:
-        out = subprocess.run(['git', 'log', '-1', '--format=%cs'],
-                             cwd=ROOT, capture_output=True, text=True, check=True)
-        y, m, d = out.stdout.strip().split('-')
-        month = ['January','February','March','April','May','June','July',
-                 'August','September','October','November','December'][int(m)-1]
-        return '%s %s %s' % (int(d), month, y)
-    except Exception:
-        return 'an undated working copy'
+MONTHS = ['January','February','March','April','May','June','July',
+          'August','September','October','November','December']
+UPDATED = ROOT / 'content' / 'UPDATED'
+
+
+def pretty(iso):
+    y, m, d = iso.split('-')
+    return '%s %s %s' % (int(d), MONTHS[int(m) - 1], y)
+
+
+def updated_date():
+    """The footer's date, read from content/UPDATED.
+
+    It used to come from the last commit, which made this script's output
+    depend on when it ran: the date changed the moment you committed, so CI
+    regenerated a different footer and the asset-hash guard failed on a commit
+    that had touched nothing. The date is recorded now, and moving it is a
+    deliberate act — `python3 bump-assets.py --today` — which is what a
+    "last updated" line should mean anyway.
+    """
+    if '--today' in sys.argv:
+        UPDATED.write_text(datetime.date.today().isoformat() + '\n')
+    if UPDATED.exists():
+        return pretty(UPDATED.read_text().strip())
+    return 'an undated working copy'
 
 ver = {'style.css': h('style.css'), 'script.js': h('script.js'),
        'assets/taxonomy.js': h('assets/taxonomy.js')}
@@ -43,7 +59,7 @@ for f in sorted(glob.glob('assets/atlas/*.css')) + sorted(glob.glob('assets/atla
     ver[f] = h(f)
 revision = (ROOT / 'content' / 'REVISION').read_text().strip()
 footer = (ROOT / 'content' / 'footer.html').read_text().strip()
-footer = footer.replace('{revision}', revision).replace('{updated}', last_commit_date())
+footer = footer.replace('{revision}', revision).replace('{updated}', updated_date())
 FOOTER_HTML = '<footer><div class="wrap">%s</div></footer>' % footer
 
 # The four workspace pages (index, stack, investor, projects) are fixed-viewport
@@ -64,4 +80,4 @@ for f in sorted(glob.glob('*.html')):
 
 print('stamped %d page(s): %s' % (pages, ', '.join('%s?v=%s' % (k, v) for k, v in ver.items())))
 print('footer: revision %s, updated %s — %d page(s) rewritten, %d app shells have none by design'
-      % (revision, last_commit_date(), feet, nofoot))
+      % (revision, updated_date(), feet, nofoot))

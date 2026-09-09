@@ -26,6 +26,7 @@ There is no build step for the site itself — the pages load `style.css` and
 python3 brand/build-companies.py     # company map, from brand/COMPANY_VALUE_CHAIN_DATABASE.md
 python3 build-content.py             # split the content per page, write the no-script summaries
 python3 bump-assets.py               # re-stamp cache-busting hashes — run this last, always
+python3 bump-assets.py --today       # …and move the footer's last-updated date
 ```
 
 ### Before pushing

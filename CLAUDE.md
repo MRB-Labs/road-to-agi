@@ -38,7 +38,7 @@ These came from Mark directly. They override convenience.
 |---|---|---|
 | the company block in `assets/content.js` | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` | `python3 brand/build-companies.py` |
 | `assets/content-<page>.js`, and each page's `<noscript>` summary | `assets/content.js` + `content/page-tables.json` | `python3 build-content.py` |
-| the footer on every page | `content/footer.html` + `content/REVISION` | `python3 bump-assets.py` |
+| the footer on every page | `content/footer.html` + `content/REVISION` + `content/UPDATED` | `python3 bump-assets.py` |
 | `?v=` hashes on every asset link | file contents | `python3 bump-assets.py` |
 | `assets/market/fundamentals.json` | Financial Modeling Prep | `.github/workflows/fundamentals.yml` |
 | `assets/images/social-card.png` | `style.css` palette | `python3 scripts/build-social-card.py` |
@@ -63,6 +63,11 @@ python3 bump-assets.py                    # re-stamp the hashes — always last
 
 `bump-assets.py` runs **last**, after any change to `style.css`, `script.js`,
 `assets/*.js` or the footer. Skipping it ships a page pointing at a stale hash.
+
+The footer's date lives in `content/UPDATED` and only moves when you pass
+`--today`. It used to come from the last commit, which meant the date changed
+the moment you committed — CI then regenerated a different footer and the
+asset-hash guard failed on a commit that had touched nothing.
 
 ---
 
