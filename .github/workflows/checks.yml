@@ -1,12 +1,23 @@
-name: Checks
+name: Checks and deploy
 
-# Everything that can silently rot has a guard. This runs them all, so drift
-# cannot reach main and cannot reach the published site.
+# Everything that can silently rot has a guard. The guards run first and the
+# site is published only if they all pass, so a broken commit cannot reach the
+# published page — the previous deploy simply stays live.
 on:
   push:
     branches: [main, preview]
   pull_request:
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time, and never cancel one half-way.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   guards:
@@ -22,18 +33,24 @@ jobs:
 
       - name: No arrow crosses another on the schematic
         run: python3 scripts/check-crossings.py
-      
+
       - name: Schematic is on its grid
-        run: python3 scripts/check-grid.py  
+        run: python3 scripts/check-grid.py
+
+      - name: Schematic geometry matches its snapshot
+        run: python3 scripts/check-geometry.py
 
       - name: Every layer mark has clear space around it
-        run: python3 scripts/check-marks.py  
+        run: python3 scripts/check-marks.py
 
       - name: Company map matches the value-chain database
         run: python3 brand/build-companies.py --check
 
       - name: Wording matches the approved baseline
         run: python3 check-content.py
+
+      - name: No new undated figures
+        run: python3 scripts/check-figures.py
 
       - name: Asset hashes are current
         run: |
@@ -46,3 +63,28 @@ jobs:
 
       - name: No remote asset loads
         run: python3 scripts/check-offline.py
+
+  deploy:
+    needs: guards
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/configure-pages@v5
+
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' \
+                --exclude='CLEAN' --exclude='.DS_Store' ./ _site/
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
