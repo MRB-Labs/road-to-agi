@@ -19,8 +19,8 @@
 <meta name="theme-color" content="#F6F7F9">
 <script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
 if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
-document.documentElement.setAttribute("data-theme",t);})();</script>
-<link rel="stylesheet" href="style.css?v=b8b1e7bb">
+document.documentElement.setAttribute("data-theme",t);/* the app views are fixed overlays; without this class the CSS stands them down so the no-script summary is reachable */document.documentElement.classList.add("js");})();</script>
+<link rel="stylesheet" href="style.css?v=7c9149ef">
 </head>
 <body class="doc">
 
@@ -124,11 +124,30 @@ document.documentElement.setAttribute("data-theme",t);})();</script>
   </div>
 </section>
 
+<!-- BEGIN no-script-summary -->
+<noscript>
+<div class="ns-summary">
+<p>This report draws its diagrams and tables with JavaScript. Here is the substance without it.</p>
+<ol class="ns-layers">
+<li><h3>Layer 1 &middot; Energy, power and utilities</h3><p>Generation, transmission, substations, electrical distribution gear and thermal management. An AI accelerator is a machine for converting electricity into inference — that is the whole business.</p><p><b>Binding constraint.</b> The chokepoint is <b>long-lead-time electrical equipment and turbine hot-section castings</b>, not generation. Global heavy-duty turbine capacity runs 60–70 GW a year against roughly 110 GW of outstanding orders, and the constraint is specialised foundries and skilled welders laid off during the lean 2010s.</p></li>
+<li><h3>Layer 2 &middot; Raw and processed materials</h3><p>Ore, brine, gas and by-product streams, and the refining, separation and transformation steps that turn them into something a fab, a transformer or a magnet can actually use.</p><p><b>Binding constraint.</b> For most of these materials the chokepoint is <b>refining, separation and qualification rather than reserves in the ground</b> — but not for all of them: high-purity quartz is geologically concentrated, and by-product metals like gallium and germanium cannot be produced to order at any price. Mining is geographically diverse; refining is not. China holds 86–90% of rare earth separation, 48% of copper smelting against 8% of copper mining, and two mines in one North Carolina district supply roughly 80% of the world’s high-purity quartz.</p></li>
+<li><h3>Layer 3 &middot; Semiconductor production ecosystem</h3><p>Design software and IP, wafer fabrication equipment, materials and chemicals, the foundry itself, and advanced packaging and test. Everything required to turn sand into a working advanced logic or memory die.</p><p><b>Binding constraint.</b> The bottleneck moved. For years it was lithography; it is now <b>advanced packaging</b> — bonding a logic die to twelve stacks of HBM on a silicon interposer. TSMC controls over 90% of global CoWoS output, and CoWoS allocation is effectively the revenue ceiling for every accelerator vendor.</p></li>
+<li><h3>Layer 4 &middot; Compute, memory and networking</h3><p>The accelerators, the memory that feeds them, and the networking that binds them into a single training fabric. Highest revenue growth in the infrastructure stack, and the shortest moat half-life.</p><p><b>Binding constraint.</b> Three separate chokepoints, and memory is currently the tightest. <b>The most profitable chip company in history is guiding margins down because its memory suppliers raised prices</b> — value transferring up the supply chain against the buyer’s wishes is what a genuine bottleneck looks like.</p></li>
+<li><h3>Layer 5 &middot; Data centres, cloud and edge</h3><p>The physical buildings and the operating businesses that sell capacity: hyperscale cloud, colocation and GPU-rental neoclouds. Four genuinely different business models that are routinely conflated.</p><p><b>Binding constraint.</b> This is no longer a technology sector. It is a <b>leveraged infrastructure sector wearing technology multiples</b>. Once the build-out is financed with debt, SPVs and depreciating collateral rather than operating cash flow, the right analytical toolkit is project finance, not software.</p></li>
+<li><h3>Layer 6 &middot; Connectivity and communications</h3><p>The communications layer that links racks, buildings, continents and machines. It was missing from the earlier map: optics sat inside compute silicon, carrier networks appeared nowhere, and the path between the data centre and the edge was drawn as an arrow.</p><p><b>Binding constraint.</b> The chokepoints are geographic rather than manufactured. Metro conduit sits on rights of way that would not be granted again, and three firms outside China can lay a transoceanic system. <b>Neither constraint is relieved by capital expenditure, which is precisely what makes them durable.</b></p></li>
+<li><h3>Layer 7 &middot; Data and knowledge infrastructure</h3><p>The data assets and the systems that govern them: ingestion, storage, cataloguing, cleaning, annotation, provenance and curation. It supports evaluation, retrieval and monitoring as much as training — and it was previously compressed into a single card inside the model layer.</p><p><b>Binding constraint.</b> The binding constraint here is legal rather than physical. Clear, transferable rights to train on third-party content are contested across several jurisdictions simultaneously, and lineage sufficient to evidence those rights <b>cannot be retrofitted once data is already mixed into a corpus.</b> That is a chokepoint with no lead time to shorten.</p></li>
+<li><h3>Layer 8 &middot; AI models and inference</h3><p>Frontier training, post-training and alignment, inference serving, and the data pipelines that feed all of it. Where capital expenditure is converted into capability.</p><p><b>Binding constraint.</b> There may not be one. <b>Model weights are a depreciating asset</b>; a fab is not. The durable assets at this layer are proprietary data and distribution, not the weights themselves — which is why the vertically integrated players look structurally stronger than the pure-play labs.</p></li>
+<li><h3>Layer 9 &middot; Agentic software and applications</h3><p>Orchestration frameworks, agent runtimes, vector and operational databases, observability, security, and the application software customers actually pay for.</p><p><b>Binding constraint.</b> Data gravity and systems of record. The scarce input is <b>context, not intelligence</b> — model capability is available to everyone at collapsing prices, but a company’s customer records, permission structures and process knowledge are not. Whoever owns the context owns the deployment.</p></li>
+<li><h3>Layer 10 &middot; Embodied AI and autonomous systems</h3><p>Robots, vehicles, drones and devices, plus the actuators, reducers, sensors and batteries beneath them. Three industries at three completely different stages of maturity, routinely conflated.</p><p><b>Binding constraint.</b> <b>The geography inverts here.</b> Layers 3 and 4 concentrate in the Netherlands, Taiwan, Japan and Korea. Layer 10 concentrates in China, which holds 63% of humanoid component supply and over 70% of rare earth magnet production. Adding this layer to a semiconductor-heavy portfolio adds a second, oppositely-directed geopolitical exposure — it does not diversify the first.</p></li>
+</ol>
+</div>
+</noscript>
+<!-- END no-script-summary -->
 </main>
 <footer><div class="wrap">Road to AGI — revision 10, last updated 9 September 2026. Figures are current as of that date and change rapidly; where a claim is time-sensitive its own date and source are given beside it. All diagrams and charts are drawn from the underlying data as inline vector graphics. The only imported images are company logos, vendored to identify the businesses named — each remains the trademark of its owner and appears for identification, not endorsement — and element photographs, credited on the Method page. Nothing here is investment advice.</div></footer>
 
 <script src="assets/taxonomy.js?v=b40c88ac"></script>
-<script src="assets/content.js?v=8eeedc1b"></script>
-<script src="script.js?v=34718daa"></script>
+<script src="assets/content-markets.js?v=b2a2a012"></script>
+<script src="script.js?v=28a3faf0"></script>
 </body>
 </html>

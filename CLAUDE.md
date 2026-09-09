@@ -38,6 +38,7 @@ These came from Mark directly. They override convenience.
 |---|---|---|
 | the `<svg id="mapsvg">` block in `index.html` | `diagrams/infrastructure-map.svg` | `python3 build-diagram.py` |
 | the company block in `assets/content.js` | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` | `python3 brand/build-companies.py` |
+| `assets/content-<page>.js`, and each page's `<noscript>` summary | `assets/content.js` + `content/page-tables.json` | `python3 build-content.py` |
 | the footer on every page | `content/footer.html` + `content/REVISION` | `python3 bump-assets.py` |
 | `?v=` hashes on every asset link | file contents | `python3 bump-assets.py` |
 | `assets/market/fundamentals.json` | Financial Modeling Prep | `.github/workflows/fundamentals.yml` |
@@ -53,6 +54,7 @@ to catch.
 
 ```bash
 python3 build-diagram.py --check          # the page matches the diagram source
+python3 build-content.py --check          # the per-page content files are current
 python3 scripts/check-grid.py             # the schematic is on its 8-unit grid
 python3 scripts/check-geometry.py         # nothing on the schematic moved by accident
 python3 scripts/check-crossings.py        # no arrow crosses another unbridged
@@ -83,7 +85,16 @@ python3 bump-assets.py                    # re-stamp the hashes — always last
 
 `assets/content.js` holds all prose and data tables; `script.js` holds logic
 only. Adding copy to `script.js` is how the wording guard lost eighteen strings
-once — put it in `content.js`.
+once — put it in `content.js`. It is the **source**, not what pages load: each
+page loads its own slice, generated from it.
+
+**A builder must gate itself on its own mount point.** There used to be a shim
+that made `getElementById` return a detached element for an absent id, so every
+builder ran on every page and wrote into the void. It silently disabled every
+`if(!el) return` in the file, and made every table load-bearing everywhere. Use
+`onPage('id')`, an early `if(!el) return`, or `put(id, html)` — never assume the
+element is there. Add a builder and you must also re-derive
+`content/page-tables.json`; see `scripts/probe-page-deps.md`.
 
 `CLEAN/` is gitignored. It holds the source databases the site was built from,
 kept for provenance, not loaded by anything.

@@ -108,7 +108,10 @@ def collect():
             for key, text in strings_in(src, m.start()):
                 snap[key_for(snap, '%s/%s/%s' % (path.name, t, key), text)] = text
 
-    tag = re.compile(r'<(script|style)\b.*?</\1>', re.S | re.I)
+    # The no-script summary is generated from LAYERS by build-content.py, so its
+    # words are already in the baseline at source. Counting them again would
+    # double every edit and make a one-line change look like two.
+    tag = re.compile(r'<(script|style|noscript)\b.*?</\1>', re.S | re.I)
     for page in PAGES:
         p = ROOT / page
         if not p.exists():

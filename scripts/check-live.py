@@ -18,8 +18,12 @@ STALE_DAYS = 4          # the fundamentals workflow runs daily; four days is a f
 
 PAGES = ['', 'stack.html', 'investor.html', 'markets.html',
          'environment.html', 'projects.html', 'method.html', 'sources.html']
-ASSETS = ['style.css', 'script.js', 'assets/content.js', 'assets/taxonomy.js',
-          'robots.txt', 'sitemap.xml', 'assets/images/social-card.png']
+# Each page loads its own slice of the content; the unsplit source is not
+# served to anyone, so checking it would prove nothing.
+ASSETS = (['style.css', 'script.js', 'assets/taxonomy.js', 'robots.txt',
+           'sitemap.xml', 'assets/images/social-card.png']
+          + ['assets/content-%s.js' % p[:-5] for p in PAGES
+             if p and p != 'sources.html'])          # sources carries no script
 # (page, what must appear, why it matters)
 CONTENT = [
     ('',            r'<svg id="mapsvg"',            'the infrastructure map'),
@@ -27,6 +31,7 @@ CONTENT = [
     ('stack.html',  r'id="rail"',                   'the layer rail'),
     ('investor.html', r'<h1[ >]',                   'a top-level heading'),
     ('method.html', r'<h1[ >]',                     'a top-level heading'),
+    ('stack.html',  r'<noscript>',                  'the no-script summary'),
 ]
 
 

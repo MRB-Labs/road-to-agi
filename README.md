@@ -25,6 +25,7 @@ There is no build step for the site itself — the pages load `style.css` and
 ```bash
 python3 brand/build-companies.py     # company map, from brand/COMPANY_VALUE_CHAIN_DATABASE.md
 python3 build-diagram.py             # inject diagrams/infrastructure-map.svg into index.html
+python3 build-content.py             # split the content per page, write the no-script summaries
 python3 bump-assets.py               # re-stamp cache-busting hashes — run this last, always
 ```
 
@@ -32,6 +33,7 @@ python3 bump-assets.py               # re-stamp cache-busting hashes — run thi
 
 ```bash
 python3 build-diagram.py --check         # the page matches the diagram source
+python3 build-content.py --check         # the per-page content files are current
 python3 scripts/check-grid.py            # the schematic is on its 8-unit grid
 python3 scripts/check-geometry.py        # nothing on the schematic moved unintentionally
 python3 scripts/check-crossings.py       # no arrow crosses another on the schematic
@@ -42,7 +44,7 @@ python3 scripts/check-figures.py         # no new figure lacks a date
 python3 scripts/check-offline.py         # no page fetches assets from another server
 ```
 
-All nine run in CI, and **the site is published only if they all pass** — the
+All ten run in CI, and **the site is published only if they all pass** — the
 deploy is a job in the same workflow, so a broken commit leaves the previous
 version live rather than replacing it. If a guard reports a change you
 intended, approve it with `--accept`.
@@ -81,6 +83,7 @@ guards there, which is the point of the branch.
 | The rules Claude Code works to here | `CLAUDE.md` |
 | What may be reused, and on what terms | `LICENSE` |
 | How many figures still lack a date | `content/figures-baseline.json` |
+| Which content tables each page needs | `content/page-tables.json`, derived per `scripts/probe-page-deps.md` |
 | What is deliberately not in the repo | `CLEAN/README.md` (local only) |
 | Open work | `TODO.md` |
 

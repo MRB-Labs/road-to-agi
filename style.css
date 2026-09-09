@@ -755,6 +755,24 @@ a,button,.tab,.layer-mode,.chapter-tab,.ptab,.chain-stage,.theme-toggle{transiti
    it is merely clicked through. */
 main{display:block}
 main:focus{outline:none}
+/* The app views are fixed overlays, which without scripts would cover the
+   summary entirely. The inline head script adds .js to <html>; its absence is
+   the only reliable signal that scripts did not run, so use it to let the
+   views flow in the document instead. The inline map on the overview is real
+   content and stays visible; only the layout changes. */
+html:not(.js) .main-view{position:static; inset:auto; overflow:visible; height:auto}
+html:not(.js) .main-view>.wrap{height:auto; min-height:0}
+html:not(.js) .main-view[hidden]{display:none}
+
+/* The no-script summary. Only ever painted when scripts are off, so it has to
+   stand on its own: the page around it is mostly empty in that case. */
+.ns-summary{max-width:760px; margin:0 auto; padding:48px 28px}
+.ns-summary>p{color:var(--muted); margin:0 0 28px}
+.ns-layers{margin:0; padding:0; list-style:none; counter-reset:nsl}
+.ns-layers li{padding:20px 0; border-top:1px solid var(--line)}
+.ns-layers h3{font-size:19px; margin:0 0 8px}
+.ns-layers p{margin:0 0 8px; color:var(--ink2)}
+.ns-layers p:last-child{color:var(--muted); font-size:14px}
 .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--accent);
   color:#fff; padding:10px 16px; border-radius:var(--r); font:600 14px var(--f); text-decoration:none}
 .skip-link:focus{top:10px}

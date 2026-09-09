@@ -1,10 +1,17 @@
 /* ══════════════════════════════════════════════════════════════════════════
    MULTI-PAGE GUARD
    The report is split across several pages, so any given page holds only a
-   subset of the mount points the builders below write into. Rather than guard
-   every call site, getElementById hands back a detached element when the id is
-   not on this page: writes to it are discarded and the rest of the script runs
-   unchanged.
+   subset of the mount points the builders below write into.
+
+   This used to be a shim that made getElementById return a detached element
+   for an absent id, so every builder could run everywhere and write into the
+   void. It had two costs. It silently disabled every `if(!el) return` guard in
+   this file — those lines could never fire, so each page ran all of the work
+   for all of the pages. And it made every table load-bearing on every page,
+   which is why one 480KB content file had to be shipped to all of them.
+
+   Builders now gate themselves on their own mount point, and `put` is there
+   for the one-line writes.
    ══════════════════════════════════════════════════════════════════════════ */
 
 /* Fetched fundamentals, populated further down once the JSON lands. Declared
@@ -14,10 +21,8 @@
    which every caller already handles. */
 let FUNDA=null, FUNDA_META=null;
 
-(function(){
-  const real=document.getElementById.bind(document);
-  document.getElementById=id=>real(id)||document.createElement('div');
-})();
+/* Is this page the one that carries that mount point? */
+const onPage=id=>!!document.getElementById(id);
 
 /* ══════════════════════════════════════════════════════════════════════════
    V4 — company reference data and per-layer value chains
@@ -844,6 +849,7 @@ const WORLD={t:'The physical world',n:0};
    breaks, which is the thing to read before any of the layer cases. Both pages
    keep the slot filled so the tab and panel indices stay aligned. */
 const IS_INVESTOR = MODES.includes('thesis') && !MODES.includes('how');
+if(rail&&panels){
 (function addLead(){
   const i=0, col = IS_INVESTOR ? 'var(--flag)' : 'var(--accent)';
   const b=document.createElement('button');
@@ -920,6 +926,8 @@ LAYERS.forEach((L,i0)=>{
 /* The tab a reader is on carries across layers: switching from Energy to
    Compute silicon while reading Layer thesis keeps you on Layer thesis, so the
    same view can be compared layer by layer. */
+}
+
 let CURRENT_MODE=MODES[0];
 function selectLayerMode(panel,mode,remember=true){
   if(remember) CURRENT_MODE=mode;
@@ -982,10 +990,12 @@ function sel(i,focus){
   fill();
 }
 
-document.getElementById('mats').innerHTML=MATS.map(m=>
- `<div class="mat" style="border-top:3px solid ${m.c}"><h4>${m.t}</h4><div class="big num" style="color:${m.c}">${m.big}</div><p>${m.d}</p><div class="src">${m.s}</div></div>`).join('');
-document.getElementById('mattable').innerHTML=tbl(MATTBL);
-document.getElementById('riskgrid').innerHTML=RISKS.map(r=>`<div class="risk"><h4>${r.t}</h4><p>${r.d}</p></div>`).join('');
+/* #mats, #mattable and #riskgrid were mount points on a page that no longer
+   exists — the shim meant nobody noticed the writes were going nowhere. MATS
+   and MATTBL are still used, by the layer 2 materials pane; RISKS by the
+   thesis preamble on the investor page. */
+
+if(onPage('gw-facts')){
 
 document.getElementById('gw-facts').innerHTML=factgrid(GW.facts);
 document.getElementById('gw-capex').innerHTML=bars(GW.capex);
@@ -1011,11 +1021,12 @@ document.getElementById('hu-co').innerHTML=cotbl(HU.co,7);
 const deepHTML=a=>a.map(d=>`<div><h5>${d[0]}</h5><p>${d[1]}</p></div>`).join('');
 document.getElementById('gw-deep').innerHTML=deepHTML(GW.deep);
 document.getElementById('hu-deep').innerHTML=deepHTML(HU.deep);
+}
 
 // Project tabs — each long report is split into viewport-sized chapters at runtime.
 const PROJECTS=['gw','hu'];
 PROJECTS.forEach((k,i)=>{
-  const b=document.getElementById('pt-'+k);
+  const b=document.getElementById('pt-'+k); if(!b) return;
   b.onclick=()=>selProject(i);
   b.onkeydown=e=>{
     if(['ArrowRight','ArrowDown'].includes(e.key)){e.preventDefault();selProject((i+1)%PROJECTS.length,1)}
@@ -1023,11 +1034,11 @@ PROJECTS.forEach((k,i)=>{
 });
 function selProject(i,focus){
   PROJECTS.forEach((k,j)=>{
-    document.getElementById('pt-'+k).setAttribute('aria-selected', i===j?'true':'false');
+    const t=document.getElementById('pt-'+k); if(t) t.setAttribute('aria-selected', i===j?'true':'false');
     const p=document.getElementById('pj-'+k);
-    p.classList.toggle('on', i===j); p.hidden=i!==j;
+    if(p){ p.classList.toggle('on', i===j); p.hidden=i!==j; }
   });
-  if(focus) document.getElementById('pt-'+PROJECTS[i]).focus();
+  const f=focus&&document.getElementById('pt-'+PROJECTS[i]); if(f) f.focus();
   fill();
 }
 
@@ -1036,6 +1047,7 @@ const CHAPTER_LABELS={
   hu:['Brief','Fleet stack','Bottleneck','Cost curve','Battery + edge','Data flywheel','Capital + energy','Timeline','Deployment','Failure cases','Sources']
 };
 function buildProjectChapters(panel,key){
+  if(!panel) return;                  // only the projects page carries these
   const nodes=[...panel.children], groups=[];
   let current={title:'Brief',nodes:[]};
   nodes.forEach(node=>{

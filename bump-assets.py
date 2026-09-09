@@ -33,8 +33,11 @@ def last_commit_date():
         return 'an undated working copy'
 
 ver = {'style.css': h('style.css'), 'script.js': h('script.js'),
-       'assets/taxonomy.js': h('assets/taxonomy.js'),
-       'assets/content.js': h('assets/content.js')}
+       'assets/taxonomy.js': h('assets/taxonomy.js')}
+# Each page loads its own slice of the content, so stamp them all; the source
+# file is not loaded by anything and needs no hash.
+for f in sorted(glob.glob('assets/content-*.js')):
+    ver[f] = h(f)
 revision = (ROOT / 'content' / 'REVISION').read_text().strip()
 footer = (ROOT / 'content' / 'footer.html').read_text().strip()
 footer = footer.replace('{revision}', revision).replace('{updated}', last_commit_date())
