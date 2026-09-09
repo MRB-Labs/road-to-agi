@@ -101,10 +101,43 @@ and the further right it rises.** Break that ordering and they intersect.
 
 ## 3 · Hover behaviour
 
-`data-from` on an arrow or label carries a **space-separated list** of the
-layers it belongs to, not a single layer. The sensors arrow belongs to both the
-physical world and the machine; each bridge arrow belongs to the layer at either
-end. Pointing at any one of them lights the arrow.
+Hovering is keyed on **box ids, not layer numbers**. A layer number cannot
+identify a box: layer 1 is drawn three times — the grid outside, the plant in
+the hall, the battery in the machine — and pointing at the battery used to
+light the power lane running off to connectivity.
+
+Three attributes carry it:
+
+| attribute | goes on | meaning |
+|---|---|---|
+| `data-node` | a box (`a.node`, `a.worldnode`) | its id: `l1`, `l1p`, `l1b`, `dc`, `mach`, `sens`, … |
+| `data-ends` | an arrow **or its label** | space-separated ids that light this element |
+| `data-link` | an arrow only | the arrow's two real ends, deciding which *boxes* light |
+
+`data-link` defaults to `data-ends` and is only written where a flow is shared.
+The power lane into connectivity is lit from the battery as well, so the lane
+reads whole — but its ends are energy and connectivity, so pointing at the
+battery must not drag connectivity into the highlight.
+
+Labels carry `data-ends` so they appear with their flow, and are ignored when
+working out which boxes to light: a label connects nothing. Every label is
+hidden at rest and shown only while its flow is highlighted, except `lb-a`,
+`lb-wf` and `lb-w` (sensors, actuators, and the two lines out of the globe),
+which are pinned visible in `style.css`.
+
+An enclosure draws no arrow of its own, so it names its sources directly with
+`data-neighbours` — that is how pointing at *Embodied AI* lights layers 1, 2
+and 3 without lighting the branch that peels off to connectivity.
+
+Where a lane feeds two places, draw **two whole paths** sharing the corridor,
+not one path plus a continuation from its midpoint. A continuation cannot be
+lit back to its source, and lighting the trunk would drag in the other
+destination's arrowhead.
+
+Arrows attach to the box they actually feed, on its centre line where the
+geometry allows; a pair running in opposite directions straddles that centre
+instead. Landing 6 units short of the edge is the convention — the arrowhead
+fills the gap.
 
 The reading panel is `#mapinfo`, filled from `LAYERS` in `script.js`.
 

@@ -1619,7 +1619,7 @@ fillAll();
 
 (function(){
   const svg=document.getElementById('mapsvg'), info=document.getElementById('mapinfo');
-  if(!svg||!info||!svg.querySelector('[data-from]')) return;
+  if(!svg||!info||!svg.querySelector('[data-ends]')) return;
 
   const WORLD_TEXT='Not a layer, but the ground the stack is drawn from: where energy is '+
     'captured, where materials are extracted, and where embodied machines eventually do the work. '+
@@ -1641,27 +1641,48 @@ fillAll();
       `<p class="mi-choke"><b>Binding constraint.</b> ${L.choke}</p>`;
   }
 
-  /* Filled in below, once the node list exists: hovering a layer should also
-     fade every box that is not that layer, so the eye keeps only the layer and
-     the arrows in and out of it. */
-  let dim=()=>{};
+  /* ── who lights up ────────────────────────────────────────────────────
+     Every box carries a data-node id and every arrow a data-ends list of the
+     ids that light it. Ids, not layer numbers: layer 1 is drawn three times —
+     the grid, the plant in the hall, the battery in the machine — and a layer
+     number cannot tell them apart, which is why pointing at the battery used
+     to light the power lane running off to connectivity.
 
-  function highlight(n){
-    svg.classList.toggle('hl', n!==null);
-    dim(n);
-    if(n!==null) svg.style.setProperty('--hlc', n===0?'var(--accent)':`var(--l${n})`);
-    /* data-from carries a list, not a single layer: the sensors arrow belongs
-       to both the physical world and the machine, and the bridge arrows belong
-       to the layer at each end. Hovering either end lights the arrow. */
-    svg.querySelectorAll('[data-from]').forEach(el=>{
-      const on = n!==null && el.dataset.from.split(/\s+/).includes(String(n));
-      el.classList.toggle('on', on);
-      /* The arrowhead keeps its own colour too — see the note in style.css. */
-    });
+     data-link is the arrow's real pair of ends, and decides which *boxes* light
+     up. It differs from data-ends wherever a flow is shared: the power lane
+     into connectivity is lit from the battery as well, so the lane still reads
+     whole, but its ends are energy and connectivity, so the battery does not
+     drag connectivity into the highlight. */
+  const arrows=[...svg.querySelectorAll('[data-ends]')];
+  const boxes=[...svg.querySelectorAll('[data-node]')];
+  const set=v=>new Set((v||'').split(/\s+/).filter(Boolean));
+
+  function highlight(id){
+    svg.classList.toggle('hl', id!==null);
+    const lit=new Set(), near=new Set();
+    if(id){
+      near.add(id);
+      arrows.forEach(el=>{
+        const ends=set(el.dataset.ends);
+        if(!ends.has(id)) return;
+        lit.add(el);
+        /* Only an arrow may name the boxes on its far side, and only from a
+           real end of it. A label carries the same data-ends so it appears
+           with the flow, but a label connects nothing. */
+        if(el.tagName!=='path') return;
+        const link=el.dataset.link?set(el.dataset.link):ends;
+        if(link.has(id)) link.forEach(x=>near.add(x));
+      });
+      /* An enclosure draws no arrow of its own, so it names its sources. */
+      const self=boxes.find(el=>el.dataset.node===id);
+      if(self) set(self.dataset.neighbours).forEach(x=>near.add(x));
+    }
+    arrows.forEach(el=>el.classList.toggle('on', lit.has(el)));
+    boxes.forEach(el=>el.classList.toggle('on', near.has(el.dataset.node)));
   }
 
   let pinned=null;
-  const show=n=>{ info.innerHTML=card(n); highlight(n); };
+  const show=(n,id)=>{ info.innerHTML=card(n); highlight(id); };
   const clear=()=>{ if(pinned!==null) return; info.innerHTML=REST; highlight(null); };
 
   /* Parse the layer out of the href properly. Taking the last character
@@ -1671,14 +1692,12 @@ fillAll();
   const nodes=[...svg.querySelectorAll('a.node')].map(a=>[a,layerOf(a)]).filter(p=>p[1]!==null);
   const world=svg.querySelector('.worldnode');
   if(world) nodes.push([world,0]);
-  /* A layer can hold several boxes — layer 1 is the grid, the on-site plant and
-     the machine's battery — so this matches on the layer number, not the node. */
-  dim=n=>nodes.forEach(([el,ln])=>el.classList.toggle('on', n!==null && ln===n));
 
   nodes.forEach(([el,n])=>{
-    el.addEventListener('mouseenter',()=>show(n));
+    const id=el.dataset.node||null;
+    el.addEventListener('mouseenter',()=>show(n,id));
     el.addEventListener('mouseleave',clear);
-    el.addEventListener('focusin',()=>{pinned=n; show(n);});
+    el.addEventListener('focusin',()=>{pinned=n; show(n,id);});
     el.addEventListener('focusout',()=>{pinned=null; clear();});
   });
   info.innerHTML=REST;

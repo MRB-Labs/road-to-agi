@@ -924,15 +924,18 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 /* superseded by .dia-shell */
 #mapsvg{width:100%; height:auto; min-height:0}
 
-#mapsvg path[data-from]{opacity:.72; transition:opacity .16s var(--ease), stroke-width .16s var(--ease)}
-#mapsvg text[data-from]{opacity:0; transition:opacity .16s var(--ease)}
-#mapsvg.hl path[data-from]:not(.on){opacity:.11}
+/* data-ends marks anything that belongs to a flow — the arrow and its label.
+   Labels stay hidden until their flow is highlighted, so the map reads clean
+   at rest; the few that are always on say so themselves further down. */
+#mapsvg path[data-ends]{opacity:.72; transition:opacity .16s var(--ease), stroke-width .16s var(--ease)}
+#mapsvg text[data-ends]{opacity:0; transition:opacity .16s var(--ease)}
+#mapsvg.hl path[data-ends]:not(.on){opacity:.11}
 /* Highlighting brightens and thickens an arrow; it must not repaint it. An
    arrow's colour says which family it belongs to — energy, material,
    semiconductor, data, model — and recolouring it to whichever layer happens
    to be under the cursor destroyed exactly the thing the colour encodes. */
-#mapsvg path[data-from].on{opacity:1; stroke-width:2.4}
-#mapsvg text[data-from].on{opacity:1}
+#mapsvg path[data-ends].on{opacity:1; stroke-width:2.4}
+#mapsvg text[data-ends].on{opacity:1}
 #mapsvg .worldnode{cursor:default}
 
 /* Hovering a layer fades every box that is not that layer, so what is left at
@@ -941,7 +944,7 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
    machine's battery); all of them stay lit. The fade is partial on purpose —
    the rest of the map still has to read as context, not disappear. */
 #mapsvg a.node,#mapsvg a.worldnode{transition:opacity .16s var(--ease)}
-#mapsvg.hl a.node:not(.on),#mapsvg.hl a.worldnode:not(.on){opacity:.3}
+#mapsvg.hl [data-node]:not(.on){opacity:.3}
 
 /* Layer marks in the rail and the layer head on the infrastructure page */
 .licon{fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; flex:none}
@@ -950,7 +953,7 @@ body.doc footer>.wrap{max-width:1280px; padding:0 30px}
 .head-icon{width:40px; height:40px}
 .layer-head-main{display:flex; align-items:center; gap:14px; min-width:0}
 @media (prefers-reduced-motion:reduce){
-  #mapsvg path[data-from],#mapsvg text[data-from],
+  #mapsvg path[data-ends],#mapsvg text[data-ends],
   #mapsvg a.node,#mapsvg a.worldnode{transition:none}
 }
 
@@ -1307,7 +1310,7 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
 #loopsvg .loop-node:focus-visible rect{stroke:var(--accent); stroke-width:2.6}
 
 /* Hover labels on the map punch through whatever they cross */
-#mapsvg text[data-from]{paint-order:stroke; stroke:var(--bg); stroke-width:3.6px;
+#mapsvg text[data-ends]{paint-order:stroke; stroke:var(--bg); stroke-width:3.6px;
   stroke-linejoin:round}
 
 @media (max-width:1000px){
@@ -1600,8 +1603,10 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 #mapsvg .ln-i{stroke:var(--line2); stroke-width:1.5; fill:none}
 #mapsvg .ln-d{stroke:var(--l7); stroke-width:1.6; fill:none; stroke-dasharray:5 4}
 #mapsvg .ln-m{stroke:var(--l8); stroke-width:1.6; fill:none; stroke-dasharray:5 4}
+#mapsvg .ln-g{stroke:var(--l9); stroke-width:1.6; fill:none; stroke-dasharray:5 4}
 #mapsvg .lb-d{fill:var(--l7); font:500 11.5px var(--f)}
 #mapsvg .lb-m2{fill:var(--l8); font:500 11.5px var(--f)}
+#mapsvg .lb-g{fill:var(--l9); font:500 11.5px var(--f)}
 
 /* the enclosure box must not swallow clicks meant for the cards inside it */
 #mapsvg a.encl{pointer-events:none}

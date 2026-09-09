@@ -20,7 +20,7 @@
           </defs>
 
           <!-- ══ the physical world ════════════════════════════════════════ -->
-          <a class="worldnode" href="stack.html#layer-0" data-layer="0" aria-label="The physical world — open it in the infrastructure">
+          <a class="worldnode" href="stack.html#layer-0" data-layer="0" data-node="w" aria-label="The physical world — open it in the infrastructure">
             <g class="globe" transform="translate(1585 8)">
               <circle class="g-sea" cx="0" cy="0" r="52"/>
               <g clip-path="url(#globeClip)">
@@ -51,16 +51,16 @@
 
           <!-- Two lines, each leaving the globe on its own. Nothing is bought
                at this step; it is captured or extracted, so both are dashed. -->
-          <path class="wl" data-from="0 1" d="M1549 -30 H200 V100" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-w" x="860" y="-38" text-anchor="middle">sun · wind · water · geothermal · fissile material</text>
-          <path class="wl2" data-from="0 2" d="M1533 8 H340 V100" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <text class="lb-w" x="860" y="30" text-anchor="middle">ores, minerals and geological resources</text>
+          <path class="wl" data-ends="w l1"  d="M1549 -30 H200 V100" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <text class="lb-w" data-ends="w l1" x="860" y="-38" text-anchor="middle">sun · wind · water · geothermal · fissile material</text>
+          <path class="wl2" data-ends="w l2"  d="M1533 8 H340 V100" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <text class="lb-w" data-ends="w l2" x="860" y="30" text-anchor="middle">ores, minerals and geological resources</text>
 
           <!-- ══ left: natural resources conversion ════════════════════════ -->
           <rect class="mg-box" x="24" y="104" width="440" height="268" rx="18"/>
           <text class="mg-label" x="46" y="132">Natural resources conversion</text>
 
-          <a class="node" href="stack.html#layer-1" aria-label="Layer 1, Energy, power and utilities — open this layer">
+          <a class="node" data-node="l1" href="stack.html#layer-1" aria-label="Layer 1, Energy, power and utilities — open this layer">
             <rect class="bx b1" x="96" y="148" width="348" height="92" rx="10"/>
             <circle cx="128" cy="182" r="13" class="d1"/><text class="bn" x="128" y="186" text-anchor="middle">1</text>
             <text class="bt" x="154" y="181">Energy, power and utilities</text>
@@ -69,7 +69,7 @@
             <g class="lic" data-icon="1" style="stroke:var(--l1)" transform="translate(398 166) scale(0.88)" aria-hidden="true"></g>
           </a>
 
-          <a class="node" href="stack.html#layer-2" aria-label="Layer 2, Raw and processed materials — open this layer">
+          <a class="node" data-node="l2" href="stack.html#layer-2" aria-label="Layer 2, Raw and processed materials — open this layer">
             <rect class="bx b2" x="96" y="262" width="348" height="92" rx="10"/>
             <circle cx="128" cy="296" r="13" class="d2"/><text class="bn" x="128" y="300" text-anchor="middle">2</text>
             <text class="bt" x="154" y="295">Raw and processed materials</text>
@@ -82,7 +82,7 @@
           <rect class="mg-box" x="24" y="396" width="440" height="176" rx="18"/>
           <text class="mg-label" x="46" y="424">Device manufacture</text>
 
-          <a class="node" href="stack.html#layer-3" aria-label="Layer 3, Semiconductor production ecosystem — open this layer">
+          <a class="node" data-node="l3" href="stack.html#layer-3" aria-label="Layer 3, Semiconductor production ecosystem — open this layer">
             <rect class="bx b3" x="96" y="444" width="348" height="92" rx="10"/>
             <circle cx="128" cy="478" r="13" class="d3"/><text class="bn" x="128" y="482" text-anchor="middle">3</text>
             <text class="bt" x="154" y="477">Semiconductor ecosystem</text>
@@ -101,22 +101,22 @@
           <circle class="d2" cx="50" cy="749" r="3.4"/><text class="bs" x="64" y="754">Replacement equipment and recycling</text>
 
           <!-- inside and between the two groups -->
-          <path class="pw" data-from="1 2" d="M250 240 V258" marker-end="url(#ahL1)"/>
-          <path class="mt2" data-from="1 2" d="M310 262 V244" marker-end="url(#ahL2)"/>
-          <path class="mt2" data-from="2 3" d="M270 354 V440" marker-end="url(#ahL2)"/>
-          <path class="pw" data-from="1 3" d="M96 200 H58 V468 H86" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-p" data-from="1 3" x="46" y="350" text-anchor="middle" transform="rotate(-90 46 350)">fabs run on firm power</text>
+          <path class="pw" data-ends="l1 l2" d="M240 240 V258" marker-end="url(#ahL1)"/>
+          <path class="mt2" data-ends="l1 l2" d="M300 262 V244" marker-end="url(#ahL2)"/>
+          <path class="mt2" data-ends="l2 l3" d="M270 354 V440" marker-end="url(#ahL2)"/>
+          <path class="pw" data-ends="l1 l3" d="M96 200 H58 V476 H90" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <text class="lb-p" data-ends="l1 l3"  x="46" y="350" text-anchor="middle" transform="rotate(-90 46 350)">fabs run on firm power</text>
 
           <!-- each supply arrow lands on what it actually feeds -->
-          <path class="pw" data-from="1 5" d="M444 232 H500 V290 H536" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <path class="mt2" data-from="2 5" d="M444 348 H496" marker-end="url(#ahL2)"/>
-          <path class="ln-s" data-from="3 4 5" d="M444 490 H512 V401 H536" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <path class="pw" data-ends="l1 l1p dc" data-link="l1 l1p" d="M444 194 H500 V290 H536" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <path class="mt2" data-ends="l2 dc" d="M444 308 H512" marker-end="url(#ahL2)"/>
+          <path class="ln-s" data-ends="l3 l4c dc" data-link="l3 l4c" d="M444 490 H506 V401 H536" marker-end="url(#ahL3)" stroke-linejoin="round"/>
 
           <!-- ══ centre: land, building, operations, security ══════════════ -->
           <rect class="mg-box" x="496" y="100" width="706" height="832" rx="20"/>
           <text class="mg-label" x="518" y="128">Land · building · operations · security</text>
 
-          <a class="node encl" href="stack.html#layer-5" aria-label="Layer 5, Data centres, cloud and edge — open this layer">
+          <a class="node encl" data-node="dc" data-neighbours="l1 l2 l3" href="stack.html#layer-5" aria-label="Layer 5, Data centres, cloud and edge — open this layer">
             <rect class="bx b5 encl-box" x="518" y="144" width="662" height="772" rx="18"/>
             <circle cx="554" cy="182" r="15" class="d5"/><text class="bn" x="554" y="186" text-anchor="middle">5</text>
             <text class="bt" x="582" y="180">AI data centre and cloud</text>
@@ -128,7 +128,7 @@
           <rect class="mg-sub" x="528" y="212" width="642" height="240" rx="14"/>
           <text class="mg-sublabel" x="550" y="238">Physical plant and machines</text>
 
-          <a class="node" href="stack.html#layer-1" aria-label="Layer 1 inside the data centre, the on-site electrical and thermal plant">
+          <a class="node" data-node="l1p" href="stack.html#layer-1" aria-label="Layer 1 inside the data centre, the on-site electrical and thermal plant">
             <rect class="bx b1" x="542" y="252" width="614" height="76" rx="10"/>
             <circle cx="572" cy="281" r="12" class="d1"/><text class="bn" x="572" y="285" text-anchor="middle">1</text>
             <text class="bt2" x="598" y="280">On-site electrical and thermal plant</text>
@@ -136,10 +136,10 @@
             <g class="lic" data-icon="1p" style="stroke:var(--l1)" transform="translate(1104 268) scale(0.76)" aria-hidden="true"></g>
           </a>
 
-          <path class="pw" data-from="1 4" d="M849 328 V352" marker-end="url(#ahL1)"/>
-          <text class="lb-p" data-from="1 4" x="866" y="346">power and cooling to the racks</text>
+          <path class="pw" data-ends="l1p l4c" d="M849 328 V352" marker-end="url(#ahL1)"/>
+          <text class="lb-p" data-ends="l1p l4c"  x="866" y="346">power and cooling to the racks</text>
 
-          <a class="node" href="stack.html#layer-4" aria-label="Layer 4 inside the data centre, central compute, memory and networking">
+          <a class="node" data-node="l4c" href="stack.html#layer-4" aria-label="Layer 4 inside the data centre, central compute, memory and networking">
             <rect class="bx b4" x="542" y="358" width="614" height="86" rx="10"/>
             <circle cx="572" cy="387" r="12" class="d4"/><text class="bn" x="572" y="391" text-anchor="middle">4</text>
             <text class="bt2" x="598" y="386">Central compute, memory and networking</text>
@@ -151,7 +151,7 @@
           <rect class="mg-sub" x="528" y="470" width="642" height="414" rx="14"/>
           <text class="mg-sublabel" x="550" y="496">Data, models and software</text>
 
-          <a class="node" href="stack.html#layer-7" aria-label="Layer 7 inside the data centre, data and knowledge infrastructure">
+          <a class="node" data-node="l7" href="stack.html#layer-7" aria-label="Layer 7 inside the data centre, data and knowledge infrastructure">
             <rect class="bx b7" x="542" y="510" width="298" height="132" rx="10"/>
             <circle cx="572" cy="539" r="12" class="d7"/><text class="bn" x="572" y="543" text-anchor="middle">7</text>
             <text class="bt2" x="598" y="538">Data and knowledge</text>
@@ -161,7 +161,7 @@
             <g class="lic" data-icon="7" style="stroke:var(--l7)" transform="translate(798 604) scale(0.76)" aria-hidden="true"></g>
           </a>
 
-          <a class="node" href="stack.html#layer-8" aria-label="Layer 8 inside the data centre, training and cloud inference">
+          <a class="node" data-node="l8c" href="stack.html#layer-8" aria-label="Layer 8 inside the data centre, training and cloud inference">
             <rect class="bx b8" x="858" y="510" width="298" height="132" rx="10"/>
             <circle cx="888" cy="539" r="12" class="d8"/><text class="bn" x="888" y="543" text-anchor="middle">8</text>
             <text class="bt2" x="914" y="538">Training and cloud inference</text>
@@ -171,7 +171,7 @@
             <g class="lic" data-icon="8" style="stroke:var(--l8)" transform="translate(1116 604) scale(0.71)" aria-hidden="true"></g>
           </a>
 
-          <a class="node" href="stack.html#layer-9" aria-label="Layer 9 inside the data centre, cloud agent services and applications">
+          <a class="node" data-node="l9c" href="stack.html#layer-9" aria-label="Layer 9 inside the data centre, cloud agent services and applications">
             <rect class="bx b9" x="542" y="672" width="614" height="84" rx="10"/>
             <circle cx="572" cy="701" r="12" class="d9"/><text class="bn" x="572" y="705" text-anchor="middle">9</text>
             <text class="bt2" x="598" y="700">Cloud agent services and applications</text>
@@ -186,18 +186,17 @@
           <text class="mg-note" x="566" y="850">The data centre trains; the edge senses, decides and acts in real time</text>
 
           <!-- ══ layer 6: internet and telecommunications ══════════════════ -->
-          <g class="mg-flows">
-            <text class="lb-m2" x="1316" y="236" text-anchor="middle">→ model and software updates</text>
-            <text class="lb-d" x="1316" y="254" text-anchor="middle">← sensor and experience data</text>
-            <text class="lb" x="1316" y="272" text-anchor="middle">↔ supervision and fleet control</text>
-            <text class="mg-note" x="1316" y="294" text-anchor="middle">Safety-critical control</text>
-            <text class="mg-note" x="1316" y="314" text-anchor="middle">must not depend on this</text>
-          </g>
+          <text class="lb-m2" data-ends="l6 l8e" x="1316" y="236" text-anchor="middle">→ model and software updates</text>
+          <text class="lb-d" data-ends="l9e l6" x="1316" y="254" text-anchor="middle">← sensor and experience data</text>
+          <text class="lb" data-ends="l6 l9e" x="1316" y="272" text-anchor="middle">↔ supervision and fleet control</text>
+          <text class="lb-g" data-ends="l9c l6" x="1316" y="290" text-anchor="middle">↔ cloud agents reaching the fleet</text>
+          <text class="mg-note" x="1316" y="314" text-anchor="middle">Safety-critical control</text>
+          <text class="mg-note" x="1316" y="334" text-anchor="middle">must not depend on this</text>
           <text class="mg-label" x="1316" y="342" text-anchor="middle">Internet ·</text>
           <text class="mg-label" x="1316" y="362" text-anchor="middle">telecommunications</text>
           <rect class="mg-box" x="1226" y="392" width="180" height="280" rx="16"/>
 
-          <a class="node" href="stack.html#layer-6" aria-label="Layer 6, Connectivity and communications — open this layer">
+          <a class="node" data-node="l6" href="stack.html#layer-6" aria-label="Layer 6, Connectivity and communications — open this layer">
             <rect class="bx b6" x="1244" y="416" width="144" height="232" rx="12"/>
             <circle cx="1316" cy="450" r="14" class="d6"/><text class="bn" x="1316" y="454" text-anchor="middle">6</text>
             <text class="bt2" x="1316" y="494" text-anchor="middle">Connectivity</text>
@@ -206,22 +205,27 @@
             <g class="lic" data-icon="6" style="stroke:var(--l6)" transform="translate(1298 564) scale(0.95)" aria-hidden="true"></g>
           </a>
 
-          <path class="ln-m" data-from="5 6 8" d="M1156 540 H1240" marker-end="url(#ahL8)"/>
-          <path class="ln-d" data-from="5 6 7" d="M1240 580 H1210 V656 H830 V648" marker-end="url(#ahL7)" stroke-linejoin="round"/>
-          <path class="ln-m" data-from="6 10 8" d="M1392 540 H1452" marker-end="url(#ahL8)"/>
-          <path class="ln-d" data-from="6 10 7" d="M1452 580 H1392" marker-end="url(#ahL7)"/>
+          <path class="ln-m" data-ends="l8c l6" d="M1156 576 H1240" marker-end="url(#ahL8)"/>
+          <path class="ln-d" data-ends="l6 l7" d="M1240 596 H1210 V660 H691 V648" marker-end="url(#ahL7)" stroke-linejoin="round"/>
+          <path class="ln-g" data-ends="l9c l6" d="M1156 714 H1222 V612 H1240" marker-end="url(#ahL9)" stroke-linejoin="round"/>
+
+          <!-- connectivity and the machine: updates down, experience up,
+               supervision across. Each lands on the block that owns it. -->
+          <path class="ln-m" data-ends="l6 l8e" d="M1392 466 H1464" marker-end="url(#ahL8)"/>
+          <path class="ln-i" data-ends="l6 l9e" d="M1392 554 H1464" marker-end="url(#ah)"/>
+          <path class="ln-d" data-ends="l9e l6" d="M1464 578 H1392" marker-end="url(#ahL7)"/>
 
           <!-- ══ right: deployed robots and smart devices ══════════════════ -->
           <rect class="mg-box" x="1440" y="100" width="290" height="832" rx="18"/>
           <text class="mg-label" x="1585" y="954" text-anchor="middle">Deployed robots</text>
           <text class="mg-label" x="1585" y="974" text-anchor="middle">and smart devices</text>
 
-          <path class="ln-a" data-from="10 0" d="M1551 144 V51" marker-end="url(#ahL10)"/>
-          <text class="lb-a" data-from="10 0" x="1545" y="112" text-anchor="end">actuators</text>
-          <path class="ln-w" data-from="0 10" d="M1619 51 V144" marker-end="url(#ahP)"/>
-          <text class="lb-wf" data-from="0 10" x="1625" y="112">sensors</text>
+          <path class="ln-a" data-ends="act w"  d="M1551 144 V51" marker-end="url(#ahL10)"/>
+          <text class="lb-a" data-ends="act w"  x="1545" y="112" text-anchor="end">actuators</text>
+          <path class="ln-w" data-ends="w sens"  d="M1619 51 V144" marker-end="url(#ahP)"/>
+          <text class="lb-wf" data-ends="w sens"  x="1625" y="112">sensors</text>
 
-          <a class="node encl" href="stack.html#layer-10" aria-label="Layer 10, Embodied AI and autonomous systems — open this layer">
+          <a class="node encl" data-node="mach" data-neighbours="l1 l2 l3" href="stack.html#layer-10" aria-label="Layer 10, Embodied AI and autonomous systems — open this layer">
             <rect class="bx b10 encl-box" x="1456" y="144" width="258" height="772" rx="18"/>
             <circle cx="1490" cy="182" r="15" class="d10"/><text class="bn" x="1490" y="186" text-anchor="middle">10</text>
             <text class="bt" x="1518" y="180">Embodied AI</text>
@@ -229,35 +233,35 @@
             <g class="lic" data-icon="10" style="stroke:var(--l10)" transform="translate(1668 160) scale(0.85)" aria-hidden="true"></g>
           </a>
 
-          <a class="node" href="stack.html#layer-10" aria-label="Sensors inside the embodied machine">
+          <a class="node" data-node="sens" href="stack.html#layer-10" aria-label="Sensors inside the embodied machine">
             <rect class="bx b10" x="1470" y="232" width="230" height="76" rx="9"/>
             <text class="bt3" x="1490" y="262">Sensors</text>
             <text class="bs2" x="1490" y="286">Vision · tactile · audio · proprioception</text>
           </a>
-          <a class="node" href="stack.html#layer-4" aria-label="Layer 4 inside the machine, edge compute">
+          <a class="node" data-node="l4e" href="stack.html#layer-4" aria-label="Layer 4 inside the machine, edge compute">
             <rect class="bx b4" x="1470" y="330" width="230" height="76" rx="9"/>
             <circle cx="1490" cy="356" r="11" class="d4"/><text class="bn2" x="1490" y="360" text-anchor="middle">4</text>
             <text class="bt3" x="1510" y="360">Edge compute</text>
             <text class="bs2" x="1490" y="384">SoC · memory · storage · real-time I/O</text>
           </a>
-          <a class="node" href="stack.html#layer-8" aria-label="Layer 8 inside the machine, local models">
+          <a class="node" data-node="l8e" href="stack.html#layer-8" aria-label="Layer 8 inside the machine, local models">
             <rect class="bx b8" x="1470" y="428" width="230" height="76" rx="9"/>
             <circle cx="1490" cy="454" r="11" class="d8"/><text class="bn2" x="1490" y="458" text-anchor="middle">8</text>
             <text class="bt3" x="1510" y="458">Local models</text>
             <text class="bs2" x="1490" y="482">Perception · world model · policy</text>
           </a>
-          <a class="node" href="stack.html#layer-9" aria-label="Layer 9 inside the machine, agent and control software">
+          <a class="node" data-node="l9e" href="stack.html#layer-9" aria-label="Layer 9 inside the machine, agent and control software">
             <rect class="bx b9" x="1470" y="526" width="230" height="76" rx="9"/>
             <circle cx="1490" cy="552" r="11" class="d9"/><text class="bn2" x="1490" y="556" text-anchor="middle">9</text>
             <text class="bt3" x="1510" y="556">Agent and control</text>
             <text class="bs2" x="1490" y="580">Planning · tools · safety · control</text>
           </a>
-          <a class="node" href="stack.html#layer-10" aria-label="Actuators inside the embodied machine">
+          <a class="node" data-node="act" href="stack.html#layer-10" aria-label="Actuators inside the embodied machine">
             <rect class="bx b10" x="1470" y="624" width="230" height="76" rx="9"/>
             <text class="bt3" x="1490" y="654">Actuators</text>
             <text class="bs2" x="1490" y="678">Motors · drives · joints · grippers</text>
           </a>
-          <a class="node" href="stack.html#layer-1" aria-label="Layer 1 inside the machine, battery, power and thermal system">
+          <a class="node" data-node="l1b" href="stack.html#layer-1" aria-label="Layer 1 inside the machine, battery, power and thermal system">
             <rect class="bx b1" x="1470" y="722" width="230" height="76" rx="9"/>
             <circle cx="1490" cy="748" r="11" class="d1"/><text class="bn2" x="1490" y="752" text-anchor="middle">1</text>
             <text class="bt3" x="1510" y="752">Battery · power</text>
@@ -266,21 +270,21 @@
           <text class="mg-note" x="1585" y="832" text-anchor="middle">Supports every</text>
           <text class="mg-note" x="1585" y="850" text-anchor="middle">block above</text>
 
-          <path class="ln-i" data-from="10" d="M1585 308 V324" marker-end="url(#ah)"/>
-          <path class="ln-i" data-from="10" d="M1585 406 V422" marker-end="url(#ah)"/>
-          <path class="ln-i" data-from="10" d="M1585 504 V520" marker-end="url(#ah)"/>
-          <path class="ln-i" data-from="10" d="M1585 602 V618" marker-end="url(#ah)"/>
+          <path class="ln-i" data-ends="sens l4e" d="M1585 308 V324" marker-end="url(#ah)"/>
+          <path class="ln-i" data-ends="l4e l8e" d="M1585 406 V422" marker-end="url(#ah)"/>
+          <path class="ln-i" data-ends="l8e l9e" d="M1585 504 V520" marker-end="url(#ah)"/>
+          <path class="ln-i" data-ends="l9e act" d="M1585 602 V618" marker-end="url(#ah)"/>
 
           <!-- ══ lanes: the base also feeds connectivity and the machine ═══
                Ordered so nothing crosses: the deeper the lane, the further
                left it leaves the group and the further right it rises. -->
-          <path class="pw" data-from="1 6 10" d="M96 170 H-50 V1010 H-33 A7 7 0 0 1 -19 1010 H-9 A7 7 0 0 1 5 1010 H1290 V654" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <path class="pw" data-from="1 10" d="M1290 1010 H1313 A7 7 0 0 1 1327 1010 H1343 A7 7 0 0 1 1357 1010 H1750 V760 H1706" marker-end="url(#ahL1)" stroke-linejoin="round"/>
-          <text class="lb-p" data-from="1 6 10" x="760" y="1002" text-anchor="middle">power for exchanges and cell sites, and the charging behind the fleet</text>
-          <path class="mt2" data-from="2 6 10" d="M96 330 H65 A7 7 0 0 0 51 330 H-26 V1042 H-9 A7 7 0 0 1 5 1042 H1320 V654" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <path class="mt2" data-from="2 10" d="M1320 1042 H1343 A7 7 0 0 1 1357 1042 H1766 V662 H1706" marker-end="url(#ahL2)" stroke-linejoin="round"/>
-          <text class="lb-m" data-from="2 6 10" x="760" y="1034" text-anchor="middle">silica and dopants for the network, structures and cells for the machine</text>
-          <path class="ln-s" data-from="3 4 6 10" d="M96 500 H-2 V1074 H1350 V654" marker-end="url(#ahL3)" stroke-linejoin="round"/>
-          <path class="ln-s" data-from="3 4 10" d="M1350 1074 H1782 V368 H1706" marker-end="url(#ahL3)" stroke-linejoin="round"/>
-          <text class="lb-s" data-from="3 4 6 10" x="760" y="1066" text-anchor="middle">switch, optical and edge silicon — both destinations need semiconductors</text>
+          <path class="pw" data-ends="l1 l6" d="M96 170 H-50 V1010 H-33 A7 7 0 0 1 -19 1010 H-9 A7 7 0 0 1 5 1010 H1290 V654" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <path class="pw" data-ends="l1 l1b mach" data-link="l1 l1b" d="M96 170 H-50 V1010 H-33 A7 7 0 0 1 -19 1010 H-9 A7 7 0 0 1 5 1010 H1313 A7 7 0 0 1 1327 1010 H1343 A7 7 0 0 1 1357 1010 H1750 V760 H1706" marker-end="url(#ahL1)" stroke-linejoin="round"/>
+          <text class="lb-p" data-ends="l1 l6 l1b mach" x="760" y="1002" text-anchor="middle">power for exchanges and cell sites, and the charging behind the fleet</text>
+          <path class="mt2" data-ends="l2 l6" d="M96 308 H65 A7 7 0 0 0 51 308 H-26 V1042 H-9 A7 7 0 0 1 5 1042 H1320 V654" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <path class="mt2" data-ends="l2 act mach" data-link="l2 act" d="M96 308 H65 A7 7 0 0 0 51 308 H-26 V1042 H-9 A7 7 0 0 1 5 1042 H1343 A7 7 0 0 1 1357 1042 H1766 V662 H1706" marker-end="url(#ahL2)" stroke-linejoin="round"/>
+          <text class="lb-m" data-ends="l2 l6 act mach" x="760" y="1034" text-anchor="middle">silica and dopants for the network, structures and cells for the machine</text>
+          <path class="ln-s" data-ends="l3 l6" d="M96 504 H-2 V1074 H1350 V654" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <path class="ln-s" data-ends="l3 l4e mach" data-link="l3 l4e" d="M96 504 H-2 V1074 H1782 V368 H1706" marker-end="url(#ahL3)" stroke-linejoin="round"/>
+          <text class="lb-s" data-ends="l3 l6 l4e mach" x="760" y="1066" text-anchor="middle">switch, optical and edge silicon — both destinations need semiconductors</text>
         </svg>
