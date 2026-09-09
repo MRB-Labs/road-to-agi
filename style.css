@@ -63,7 +63,7 @@ header{padding:calc(var(--nav-h) + 72px) 0 56px; border-bottom:1px solid var(--l
 
 section{padding:72px 0; border-bottom:1px solid var(--line)}
 .sec-head{max-width:70ch; margin-bottom:36px}
-.sec-head h2{font-size:clamp(28px,3.5vw,38px); letter-spacing:-.03em}
+.sec-head h1,.sec-head h2{font-size:clamp(28px,3.5vw,38px); letter-spacing:-.03em}
 .sec-head p{margin:14px 0 0; color:var(--ink2); font-size:16.5px}
 
 .stack{display:grid; grid-template-columns:300px minmax(0,1fr); gap:36px; align-items:start}
@@ -238,7 +238,8 @@ nav{height:var(--nav-h); box-shadow:0 1px 0 rgba(255,255,255,.65); background:rg
 #stack>.wrap{display:grid; grid-template-rows:auto minmax(0,1fr); gap:14px}
 #stack .sec-head,#projects>.wrap>.sec-head{display:flex; align-items:end; justify-content:space-between; gap:30px;
   max-width:none; margin:0; padding-bottom:12px; border-bottom:1px solid var(--line)}
-#stack .sec-head h2,#projects>.wrap>.sec-head h2{font-size:25px; white-space:nowrap}
+#stack .sec-head h1,#stack .sec-head h2,
+#projects>.wrap>.sec-head h1,#projects>.wrap>.sec-head h2{font-size:25px; white-space:nowrap}
 #stack .sec-head p,#projects>.wrap>.sec-head p{font-size:12.5px; max-width:85ch; margin:0; line-height:1.5; text-align:right}
 #stack .stack{height:100%; min-height:0; grid-template-columns:250px minmax(0,1fr); gap:16px}
 #stack .rail{height:100%; overflow-y:auto; border:1px solid var(--line); border-radius:12px; padding:8px;
@@ -737,7 +738,7 @@ nav{box-shadow:none; border-bottom:1px solid var(--line)}
 
 /* Typography: V2 scale, mono reserved for small technical labels */
 h1,h2,h3,h4,h5{letter-spacing:-.018em}
-#overview .dia h3,#stack h2,#projects h2{font-weight:600}
+#overview .dia h3,#stack h1,#stack h2,#projects h1,#projects h2{font-weight:600}
 .eyebrow,.chain-step,.co-share,.cs,.lb,.lb-a,.lb-p,.lb-s{font-feature-settings:'tnum' 1}
 .chain-step,.eyebrow{font-family:var(--f-mono); letter-spacing:.04em}
 .num,td.co-share,.cv,.bar .vl{font-variant-numeric:tabular-nums}
@@ -750,6 +751,10 @@ a,button,.tab,.layer-mode,.chapter-tab,.ptab,.chain-stage,.theme-toggle{transiti
 .bar .fl{transition:width .42s var(--ease)}
 
 /* Accessibility: skip link and a visible, high-contrast focus ring */
+/* The landmark takes focus from the skip link, but must not draw a ring when
+   it is merely clicked through. */
+main{display:block}
+main:focus{outline:none}
 .skip-link{position:absolute; left:12px; top:-60px; z-index:100; background:var(--accent);
   color:#fff; padding:10px 16px; border-radius:var(--r); font:600 14px var(--f); text-decoration:none}
 .skip-link:focus{top:10px}

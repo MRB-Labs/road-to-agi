@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · Road to AGI</title>
+<meta name="description" content="That page is not part of the report. The ten-layer map, the projects and the source register are all reachable from the front page.">
+<meta name="robots" content="noindex">
+<!-- Self-contained on purpose: a 404 can be served for any path, so it must
+     not depend on a stylesheet resolving relative to that path. -->
+<style>
+:root{color-scheme:light dark;
+  --bg:#EFEDE8; --ink:#23201B; --muted:#7C756A; --accent:#0E6B60; --line:#DAD5CC}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0F1319; --ink:#F1F4F7; --muted:#818D9C; --accent:#7DA2FF; --line:#2D3744}}
+*{box-sizing:border-box}
+body{margin:0; min-height:100vh; display:grid; place-items:center; padding:32px;
+  background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
+  font:400 16px/1.6 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif}
+main{max-width:44ch}
+p.eyebrow{margin:0 0 14px; font:600 13px/1 inherit; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent)}
+h1{margin:0 0 16px; font-size:clamp(28px,5vw,40px); font-weight:600; letter-spacing:-.03em; line-height:1.15}
+p{margin:0 0 20px; color:var(--muted)}
+ul{margin:0; padding:0; list-style:none; border-top:1px solid var(--line)}
+li{border-bottom:1px solid var(--line)}
+a{display:block; padding:11px 0; color:var(--ink); text-decoration:none; font-weight:500}
+a:hover,a:focus-visible{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">404</p>
+  <h1>That page is not part of the report</h1>
+  <p>The link may be out of date, or the section may have been renamed. Everything in the report is reachable from these:</p>
+  <ul>
+    <li><a href="/road-to-agi/">Overview — the AI infrastructure map</a></li>
+    <li><a href="/road-to-agi/stack.html">The infrastructure — ten layers</a></li>
+    <li><a href="/road-to-agi/investor.html">Investor space</a></li>
+    <li><a href="/road-to-agi/projects.html">Projects</a></li>
+    <li><a href="/road-to-agi/method.html">Method and sources</a></li>
+  </ul>
+</main>
+</body>
+</html>

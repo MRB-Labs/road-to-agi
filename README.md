@@ -32,6 +32,7 @@ python3 bump-assets.py               # re-stamp cache-busting hashes — run thi
 
 ```bash
 python3 build-diagram.py --check         # the page matches the diagram source
+python3 scripts/check-grid.py            # the schematic is on its 8-unit grid
 python3 scripts/check-crossings.py       # no arrow crosses another on the schematic
 python3 scripts/check-marks.py           # every layer mark has clear space around it
 python3 brand/build-companies.py --check # the company map matches its database
@@ -39,9 +40,21 @@ python3 check-content.py                 # wording matches the approved baseline
 python3 scripts/check-offline.py         # no page fetches assets from another server
 ```
 
-All six also run in CI on every push and pull request, so a stale generated
+All seven also run in CI on every push and pull request, so a stale generated
 block or an unapproved wording change cannot reach the published site. If
 `check-content.py` reports a change you intended, approve it with `--accept`.
+
+### Publishing a revision
+
+Pages serves `main` directly, so a push is a deploy. Tag each published
+revision so there is something to go back to:
+
+```bash
+git tag -a v10 -m "Revision 10" && git push --tags
+```
+
+Bump `content/REVISION` when the number changes; `bump-assets.py` writes it
+into the footer of every page.
 
 ### Branches
 
@@ -58,6 +71,8 @@ guards there, which is the point of the branch.
 | What the schematic asserts, and its rules | `diagrams/MAINTAINING-THE-SCHEMATIC.md` |
 | The exact wording of everything | `content/copy-snapshot.json` |
 | Company logos and their rights | `brand/README.md` |
+| The rules Claude Code works to here | `CLAUDE.md` |
+| What may be reused, and on what terms | `LICENSE` |
 | What is deliberately not in the repo | `CLEAN/README.md` (local only) |
 | Open work | `TODO.md` |
 
