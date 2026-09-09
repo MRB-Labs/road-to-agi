@@ -1,0 +1,21 @@
+name: Live site canary
+
+# Every other guard runs against the repository. This one runs against the
+# published page, which is the only thing that can tell you a deploy silently
+# half-worked, an asset 404s, or the daily market refresh quietly stopped.
+on:
+  schedule:
+    - cron: '40 6 * * *'      # 06:40 UTC, after the fundamentals run at 05:17
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: The published site is up and says what it should
+        run: python3 scripts/check-live.py
