@@ -828,7 +828,8 @@ a.chain-node.is-link:hover .chip-tick{color:var(--accent)}
 /* SVG type in the schematic, scaled up for the larger canvas */
 #overview .dia .bt{font-size:16px}
 #overview .dia .bs{font-size:12.5px}
-#overview .dia .lb,#overview .dia .lb-a,#overview .dia .lb-p,#overview .dia .lb-s{font-size:12px}
+#overview .dia .lb,#overview .dia .lb-a,#overview .dia .lb-wf,
+#overview .dia .lb-p,#overview .dia .lb-s{font-size:12px}
 #overview .dia .bn{font-size:12.5px}
 @media(max-width:900px){#overview .dia-grid{grid-template-columns:1fr}}
 
@@ -1773,7 +1774,7 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 
 /* primary-source lines: always legible, since nothing is bought here */
 #mapsvg .wl,#mapsvg .wl2{opacity:.6}
-#mapsvg .lb-w{fill:var(--muted); font:500 12px var(--f); opacity:1}
+#mapsvg .lb-w{fill:var(--muted); font:500 12px var(--f)}
 
 
 /* The map's reading panel gives width back to the drawing: the schematic is
@@ -1896,11 +1897,11 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 #mapsvg .ln-a{stroke:var(--l10); stroke-width:1.7; fill:none}
 #mapsvg .lb-a{fill:var(--l10)}
 #mapsvg .ln-w{stroke:var(--accent); stroke-width:1.7; fill:none}
-#mapsvg .lb-wf{fill:var(--accent)}
+#mapsvg .lb-wf{fill:var(--accent); font:500 11px var(--f)}
 
 /* The world's two exchanges with the machine stay legible without hovering:
    they are the loop the whole report is about, not a detail to discover. */
-#mapsvg text.lb-a,#mapsvg text.lb-wf,#mapsvg text.lb-w{opacity:1}
+#mapsvg text.lb-a,#mapsvg text.lb-wf{opacity:1}
 
 /* Sub-groups inside the data centre: what is made of metal, and what is made
    of information. Lighter than the outer group boxes so the hierarchy reads

@@ -121,9 +121,9 @@ battery must not drag connectivity into the highlight.
 
 Labels carry `data-ends` so they appear with their flow, and are ignored when
 working out which boxes to light: a label connects nothing. Every label is
-hidden at rest and shown only while its flow is highlighted, except `lb-a`,
-`lb-wf` and `lb-w` (sensors, actuators, and the two lines out of the globe),
-which are pinned visible in `style.css`.
+hidden at rest and shown only while its flow is highlighted, except `lb-a` and
+`lb-wf` — actuators and sensors — which are pinned visible in `style.css` and
+must stay the same size as each other.
 
 An enclosure draws no arrow of its own, so it names its sources directly with
 `data-neighbours` — that is how pointing at *Embodied AI* lights layers 1, 2
