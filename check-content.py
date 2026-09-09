@@ -28,7 +28,8 @@ SNAP = ROOT / 'content' / 'copy-snapshot.json'
 TABLES = ['LAYERS','CHAIN','HOWTO','TABINTRO','LAYER_MATERIALS','LAYER_RISKS',
           'LAYER_ELEMENTS','MOATWHY','SOURCES','PSOURCES','CONC','PROC','MATS',
           'MATTBL','RISKS','GW','HU','LOOPWHY','DEPLOY','ENVIRO','EL_CODES','BREAKS',
-          'CDESC','DESIGN_MODEL','COMETA','LAYER_METRICS','METRIC_FRAME']
+          'CDESC','DESIGN_MODEL','COMETA','LAYER_METRICS','METRIC_FRAME','ATLAS_CARDS','ATLAS_REGIONS_TEXT','ATLAS_WORLD_TEXT',
+          'ATLAS_ROUTE_TEXT']
 PAGES = ['index.html','stack.html','investor.html','markets.html','environment.html',
          'projects.html','method.html','sources.html','404.html']
 MIN_LEN = 4           # short enough to cover tab labels and buttons
@@ -39,7 +40,8 @@ GENERATED = re.compile(r'^Road to AGI — revision ')
 
 NOISE = re.compile(r'^(?:[\d.,%+\-$£€\s]+|[a-z0-9_-]+\.(?:js|css|png|svg|json|html)'
                    r'|https?://\S+|[A-Za-z]+:[A-Za-z0-9.\-]+|assets/\S+|var\(--\S+\)'
-                   r'|[a-z-]+(?: [a-z-]+)*\s*[:;{]\S*)$')
+                   r'|[a-z-]+(?: [a-z-]+)*\s*[:;{]\S*'
+                   r'|\w+>\w+)$')          # an atlas route key, not prose
 
 
 def strings_in(src, start):

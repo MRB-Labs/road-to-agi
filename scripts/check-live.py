@@ -26,7 +26,7 @@ ASSETS = (['style.css', 'script.js', 'assets/taxonomy.js', 'robots.txt',
              if p and p != 'sources.html'])          # sources carries no script
 # (page, what must appear, why it matters)
 CONTENT = [
-    ('',            r'<svg id="mapsvg"',            'the infrastructure map'),
+    ('',            r'id="atlas"',                  'the atlas mount'),
     ('',            r'The physical infrastructure', 'the headline'),
     ('stack.html',  r'id="rail"',                   'the layer rail'),
     ('investor.html', r'<h1[ >]',                   'a top-level heading'),

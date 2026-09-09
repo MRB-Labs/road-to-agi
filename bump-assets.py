@@ -38,6 +38,9 @@ ver = {'style.css': h('style.css'), 'script.js': h('script.js'),
 # file is not loaded by anything and needs no hash.
 for f in sorted(glob.glob('assets/content-*.js')):
     ver[f] = h(f)
+# the atlas ships as its own small set of files, stamped the same way
+for f in sorted(glob.glob('assets/atlas/*.css')) + sorted(glob.glob('assets/atlas/*.js')):
+    ver[f] = h(f)
 revision = (ROOT / 'content' / 'REVISION').read_text().strip()
 footer = (ROOT / 'content' / 'footer.html').read_text().strip()
 footer = footer.replace('{revision}', revision).replace('{updated}', last_commit_date())

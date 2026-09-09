@@ -1,17 +1,85 @@
 {
   "_note": "Which content tables each page actually needs. Derived by probing: each page is loaded with one table emptied, every tab, button and hoverable node is exercised, and the rendered result is compared with the untouched page. See scripts/probe-page-deps.md. Re-derive it after adding a builder; do not edit by guesswork.",
   "_derived": "2026-09-09",
-  "index.html":       ["LAYERS", "LAYER_ICONS", "MOATWHY", "LOOPWHY"],
-  "stack.html":       ["LAYERS", "LAYER_ICONS", "CDESC", "PROC", "CHAIN", "CT",
-                       "MARKET_MAP", "TVSYM", "LOGO", "MCAP", "MCAP_ASOF", "HOWTO",
-                       "METRIC_FRAME", "LAYER_METRICS", "TABINTRO", "MATS", "MATTBL",
-                       "LAYER_MATERIALS", "LAYER_ELEMENTS", "ELMAP", "CONC", "TICK"],
-  "investor.html":    ["LAYERS", "LAYER_ICONS", "TICK", "CT", "TVSYM", "LOGO", "MCAP",
-                       "MCAP_ASOF", "TABINTRO", "RISKS", "LAYER_MATERIALS", "LAYER_RISKS",
-                       "COMETA", "CDESC", "MOATWHY"],
-  "markets.html":     ["LAYERS", "DEPLOY", "LAYER_ICONS"],
-  "environment.html": ["LAYERS", "LAYER_ICONS", "ENVIRO"],
-  "projects.html":    ["LAYERS", "LAYER_ICONS", "CDESC", "TICK", "CT", "PSOURCES",
-                       "TVSYM", "LOGO", "MCAP", "MCAP_ASOF", "GW", "HU"],
-  "method.html":      ["LAYERS", "LAYER_ICONS", "SOURCES", "PSOURCES"]
+  "index.html": [
+    "LAYERS",
+    "LAYER_ICONS",
+    "MOATWHY",
+    "LOOPWHY",
+    "ATLAS_CARDS",
+    "ATLAS_REGIONS_TEXT",
+    "ATLAS_WORLD_TEXT",
+    "ATLAS_ROUTE_TEXT"
+  ],
+  "stack.html": [
+    "LAYERS",
+    "LAYER_ICONS",
+    "CDESC",
+    "PROC",
+    "CHAIN",
+    "CT",
+    "MARKET_MAP",
+    "TVSYM",
+    "LOGO",
+    "MCAP",
+    "MCAP_ASOF",
+    "HOWTO",
+    "METRIC_FRAME",
+    "LAYER_METRICS",
+    "TABINTRO",
+    "MATS",
+    "MATTBL",
+    "LAYER_MATERIALS",
+    "LAYER_ELEMENTS",
+    "ELMAP",
+    "CONC",
+    "TICK"
+  ],
+  "investor.html": [
+    "LAYERS",
+    "LAYER_ICONS",
+    "TICK",
+    "CT",
+    "TVSYM",
+    "LOGO",
+    "MCAP",
+    "MCAP_ASOF",
+    "TABINTRO",
+    "RISKS",
+    "LAYER_MATERIALS",
+    "LAYER_RISKS",
+    "COMETA",
+    "CDESC",
+    "MOATWHY"
+  ],
+  "markets.html": [
+    "LAYERS",
+    "DEPLOY",
+    "LAYER_ICONS"
+  ],
+  "environment.html": [
+    "LAYERS",
+    "LAYER_ICONS",
+    "ENVIRO"
+  ],
+  "projects.html": [
+    "LAYERS",
+    "LAYER_ICONS",
+    "CDESC",
+    "TICK",
+    "CT",
+    "PSOURCES",
+    "TVSYM",
+    "LOGO",
+    "MCAP",
+    "MCAP_ASOF",
+    "GW",
+    "HU"
+  ],
+  "method.html": [
+    "LAYERS",
+    "LAYER_ICONS",
+    "SOURCES",
+    "PSOURCES"
+  ]
 }

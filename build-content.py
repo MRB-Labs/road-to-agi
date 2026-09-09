@@ -88,7 +88,13 @@ def chunks(src):
 # Pages without a layer rail cannot render a layer panel, so they never touch
 # the heavy per-layer fields — only the handful the map card and the matrix
 # read. Trimming those four pages is where most of the weight goes.
-LITE_KEYS = {'n', 't', 'moat', 'mk', 'lede', 'choke', 'why', 'chart'}
+LITE_KEYS = {'n', 't', 'moat', 'mk', 'lede', 'choke', 'why', 'chart',
+             'facts', 'watch', 'co'}
+# Some of those are only wanted in part. The atlas panel reads a layer's
+# headline numbers, the signals to watch and the names of its companies — not
+# the paragraphs beside them — so those arrays are cut down rather than
+# dropped, which is the difference between an 11KB overview and a 47KB one.
+LITE_SLICE = {'facts': (4, None), 'watch': (4, 1), 'co': (8, 1)}
 
 
 def trim_layers(text, keep=LITE_KEYS):
@@ -117,11 +123,53 @@ def trim_layers(text, keep=LITE_KEYS):
                     v = j + m.end()
                     end = value_end(seg, v)
                     if k in keep:
-                        kept.append(seg[j:end])
+                        kept.append(slim(k, seg[j:end]) if k in LITE_SLICE
+                                    else seg[j:end])
                     j = end - 1
             j += 1
         out.append('{' + ','.join(x.strip().rstrip(',') for x in kept) + '}')
     return head + 'const LAYERS=[\n' + ',\n'.join(out) + '\n];\n'
+
+
+def slim(key, text):
+    """Keep the first N rows of an array field, and the first M columns of each
+       row. Everything cut is prose the atlas panel never reads."""
+    rows_max, cols_max = LITE_SLICE[key]
+    i = text.index('[')
+    rows = split_depth1(text[i:])
+    out = []
+    for row in rows[:rows_max]:
+        row = row.strip()
+        if cols_max and row.startswith('['):
+            cols = split_depth1(row)[:cols_max]
+            out.append('[' + ','.join(c.strip() for c in cols) + ']')
+        else:
+            out.append(row)
+    return text[:i] + '[' + ','.join(out) + ']'
+
+
+def split_depth1(text):
+    """The comma-separated items of the bracketed value starting at text[0]."""
+    items, depth, start, i = [], 0, 1, 1
+    while i < len(text):
+        c = text[i]
+        if c in '\'"`':
+            q, i = c, i + 1
+            while i < len(text) and text[i] != q:
+                i += 2 if text[i] == '\\' else 1
+        elif c in '[{(':
+            depth += 1
+        elif c in ')}':
+            depth -= 1
+        elif c == ']':
+            if depth == 0:
+                items.append(text[start:i]); return items
+            depth -= 1
+        elif c == ',' and depth == 0:
+            items.append(text[start:i]); start = i + 1
+        i += 1
+    items.append(text[start:])
+    return items
 
 
 def value_end(seg, i):

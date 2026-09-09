@@ -51,6 +51,8 @@ header{padding:calc(var(--nav-h) + 72px) 0 56px; border-bottom:1px solid var(--l
 .dia h3{font-size:20px; margin-bottom:7px}
 .dia .d-sub{font-size:14.5px; color:var(--ink2); margin:0 0 22px; max-width:52ch; line-height:1.55}
 .dia svg{width:100%; height:auto; display:block}
+/* the atlas sizes its own SVGs — see assets/atlas/atlas.css */
+.dia .atlas svg{width:auto; height:auto}
 .dia .d-cap{font-size:13.5px; color:var(--muted); margin-top:18px; line-height:1.6}
 .dia .d-cap b{color:var(--ink2); font-weight:500}
 .ln{fill:none; stroke:#C9C2B5; stroke-width:1.4}
@@ -226,7 +228,7 @@ nav{height:var(--nav-h); box-shadow:0 1px 0 rgba(255,255,255,.65); background:rg
   display:grid; grid-template-columns:minmax(0,1fr) minmax(230px,285px); gap:18px; align-items:stretch}
 #overview .dia{min-height:0; border:1px solid var(--line); border-radius:14px; background:rgba(252,251,249,.72); padding:16px 18px}
 #overview .dia:first-child{display:grid; grid-template-rows:auto auto minmax(0,1fr); box-shadow:0 14px 40px rgba(38,32,23,.06)}
-#overview .dia:first-child svg{height:100%; max-height:none; width:100%; min-height:0}
+#overview .dia:first-child>.dia-shell svg{height:100%; max-height:none; width:100%; min-height:0}
 #overview .dia:nth-child(2){display:flex; flex-direction:column}
 #overview .dia:nth-child(2) svg{margin:5px 0 8px}
 #overview .dia h3{font-size:16px}
@@ -398,7 +400,7 @@ dialog::backdrop{background:rgba(25,23,20,.56); backdrop-filter:blur(4px)}
   .main-view>.wrap{padding:0 14px; height:auto; min-height:100%}
   #overview>.wrap{display:flex; flex-direction:column}
   #overview .dia-grid{display:grid; grid-template-columns:1fr; height:auto}
-  #overview .dia:first-child svg{height:auto; min-height:650px}
+  #overview .dia:first-child>.dia-shell svg{height:auto; min-height:650px}
   #overview .strip{order:3}
   #stack>.wrap,#projects>.wrap{height:100%; min-height:620px}
   #stack .sec-head p,#projects>.wrap>.sec-head p{display:none}

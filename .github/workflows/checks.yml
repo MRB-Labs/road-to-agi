@@ -28,23 +28,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Diagram matches its source file
-        run: python3 build-diagram.py --check
-
       - name: Per-page content files are current
         run: python3 build-content.py --check
 
-      - name: No arrow crosses another on the schematic
-        run: python3 scripts/check-crossings.py
-
-      - name: Schematic is on its grid
-        run: python3 scripts/check-grid.py
-
-      - name: Schematic geometry matches its snapshot
-        run: python3 scripts/check-geometry.py
-
-      - name: Every layer mark has clear space around it
-        run: python3 scripts/check-marks.py
+      - name: Atlas layout is sound
+        run: python3 scripts/check-atlas.py
 
       - name: Company map matches the value-chain database
         run: python3 brand/build-companies.py --check

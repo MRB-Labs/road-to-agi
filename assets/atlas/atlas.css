@@ -1,0 +1,335 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   ATLAS — TOKENS AND STYLE
+   Scoped to .atlas so nothing here can leak into the rest of the report. The
+   atlas is deep-space in both site themes on purpose: it is a lit instrument,
+   like a photograph, and inverting it would cost the depth the whole design
+   rests on. Everything tunable — colour, glow, spacing, motion — is a token.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* The overview's figure styles size any <svg> inside it to 100% — written for
+   the schematic this replaced. The atlas owns several SVGs of its own at
+   different sizes, so it states them here, after the base sheet. */
+.atlas svg{width:auto; height:auto; max-width:none}
+.atlas .atlas-canvas,.atlas .atlas-bg-svg svg{width:100%; height:100%}
+.atlas .atlas-minimap svg{width:100%; height:auto}
+.atlas .atlas-search svg{width:15px; height:15px}
+
+.atlas{
+  --atlas-bg:#06101d;
+  --atlas-bg-2:#0a1b2e;
+  --atlas-surface:rgba(8,24,40,.88);
+  --atlas-surface-2:rgba(10,30,50,.72);
+  --atlas-border:rgba(150,195,230,.28);
+  --atlas-grid:rgba(120,180,225,.055);
+  --atlas-text:#eaf6ff;
+  --atlas-text-muted:#8faac1;
+  --atlas-text-dim:#5f7d97;
+
+  --atlas-energy:#ffbd4a;
+  --atlas-materials:#ff7185;
+  --atlas-compute:#9b78ff;
+  --atlas-data:#53cfff;
+  --atlas-intelligence:#48f1e5;
+  --atlas-control:#65f49a;
+
+  --r-foundations:var(--atlas-energy);
+  --r-silicon:var(--atlas-materials);
+  --r-compute:var(--atlas-compute);
+  --r-intelligence:var(--atlas-intelligence);
+  --r-network:var(--atlas-data);
+  --r-embodied:var(--atlas-control);
+
+  --atlas-glow-low:0 0 12px;
+  --atlas-glow-high:0 0 24px;
+  --atlas-motion-fast:160ms;
+  --atlas-motion-normal:240ms;
+  --atlas-ease:cubic-bezier(.4,.14,.3,1);
+  --atlas-radius:12px;
+
+  position:relative; isolation:isolate;
+  background:var(--atlas-bg);
+  border-radius:var(--r-lg,16px);
+  overflow:hidden;
+  color:var(--atlas-text);
+  font-family:var(--f,system-ui,sans-serif);
+  contain:paint;
+}
+
+/* ── background, in separately editable layers ───────────────────────────── */
+.atlas-bg{position:absolute; inset:0; pointer-events:none; z-index:0}
+.atlas-bg>*{position:absolute; inset:0}
+.atlas-bg-base{background:
+  radial-gradient(120% 90% at 82% 42%, #10304e 0%, rgba(8,22,38,0) 58%),
+  radial-gradient(90% 70% at 12% 20%, #0d2136 0%, rgba(6,16,29,0) 60%),
+  linear-gradient(180deg,#071426 0%, var(--atlas-bg) 55%, #050d18 100%)}
+.atlas-bg-grid{background-image:
+  linear-gradient(var(--atlas-grid) 1px, transparent 1px),
+  linear-gradient(90deg, var(--atlas-grid) 1px, transparent 1px);
+  background-size:48px 48px; mask-image:radial-gradient(130% 100% at 50% 40%,#000 55%,transparent 100%)}
+.atlas-bg-svg{width:100%; height:100%}
+.atlas-bg-svg svg{width:100%; height:100%; display:block}
+
+/* ── the stage: clips, and owns pan and zoom ─────────────────────────────── */
+.atlas-stage{position:relative; z-index:1; width:100%; aspect-ratio:1760/880;
+  overflow:hidden; cursor:grab; touch-action:pan-y}
+.atlas-stage.is-panning{cursor:grabbing}
+.atlas-world{position:absolute; inset:0; transform-origin:0 0;
+  transition:transform var(--atlas-motion-normal) var(--atlas-ease)}
+.atlas-world.is-dragging{transition:none}
+.atlas-canvas{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+
+/* ── macro-system regions ────────────────────────────────────────────────── */
+.rg-box{fill:rgba(10,26,44,.42); stroke:currentColor; stroke-width:1.2;
+  stroke-dasharray:9 8; rx:18; opacity:.62;
+  transition:opacity var(--atlas-motion-normal) var(--atlas-ease)}
+.rg-glow{fill:currentColor; opacity:.045; rx:18}
+.rg-title{fill:var(--atlas-text); font:600 17px/1 var(--f,sans-serif);
+  letter-spacing:.11em; text-transform:uppercase}
+.rg-sub{fill:var(--atlas-text-muted); font:500 9.5px/1 var(--f,sans-serif);
+  letter-spacing:.09em; text-transform:uppercase}
+.atlas.is-filtered .rg-box{opacity:.3}
+
+/* ── routes ──────────────────────────────────────────────────────────────── */
+.rt{fill:none; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;
+  opacity:.62; transition:opacity var(--atlas-motion-normal) var(--atlas-ease),
+  stroke-width var(--atlas-motion-fast) var(--atlas-ease)}
+.rt.is-core{opacity:.95; stroke-width:2.6}
+.rt-hit{fill:none; stroke:transparent; stroke-width:18; cursor:pointer}
+.atlas.is-filtered .rt{opacity:.09}
+.atlas.is-filtered .rt.is-lit{opacity:1; stroke-width:3.2}
+.rt.is-lit{opacity:1; stroke-width:3.2; filter:drop-shadow(0 0 7px currentColor)}
+.rt-label{font:600 10px var(--f,sans-serif); letter-spacing:.06em;
+  text-transform:uppercase; opacity:.75; paint-order:stroke;
+  stroke:var(--atlas-bg); stroke-width:4px; stroke-linejoin:round}
+.atlas.is-filtered .rt-label{opacity:.12}
+.rt-g:has(.rt.is-lit) .rt-label{opacity:1}
+.rt-dot{r:3; opacity:0}
+.rt-dot.is-on{opacity:.95; filter:drop-shadow(0 0 5px currentColor)}
+
+/* ── cards ───────────────────────────────────────────────────────────────── */
+/* The cards are laid out in canvas pixels and the whole layer is scaled, so
+   type shrinks with the drawing instead of staying 15px on a 70% map. */
+.nd-region{display:none}
+.atlas-nodes{position:absolute; left:0; top:0; width:var(--atlas-w,1760px);
+  height:var(--atlas-h,880px); transform-origin:0 0; transform:scale(var(--atlas-k,1))}
+.nd{position:absolute; display:flex; flex-direction:column; gap:6px;
+  text-align:left; padding:11px 13px;
+  background:var(--atlas-surface); color:var(--atlas-text);
+  border:1px solid color-mix(in srgb, currentColor 55%, transparent);
+  border-radius:var(--atlas-radius); cursor:pointer; overflow:hidden;
+  box-shadow:0 2px 14px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.045);
+  transition:transform var(--atlas-motion-fast) var(--atlas-ease),
+             box-shadow var(--atlas-motion-fast) var(--atlas-ease),
+             border-color var(--atlas-motion-fast) var(--atlas-ease),
+             opacity var(--atlas-motion-normal) var(--atlas-ease)}
+.nd::before{content:''; position:absolute; inset:0; border-radius:inherit;
+  background:linear-gradient(150deg, color-mix(in srgb, currentColor 16%, transparent), transparent 62%);
+  pointer-events:none}
+.nd:hover,.nd:focus-visible{transform:translateY(-3px);
+  border-color:currentColor; box-shadow:var(--atlas-glow-high) color-mix(in srgb, currentColor 34%, transparent),
+  0 8px 22px rgba(0,0,0,.5)}
+.nd:focus-visible{outline:2px solid var(--atlas-text); outline-offset:3px}
+.nd.is-selected{border-color:currentColor;
+  box-shadow:var(--atlas-glow-high) color-mix(in srgb, currentColor 52%, transparent),
+  0 10px 26px rgba(0,0,0,.55); background:var(--atlas-surface-2)}
+.atlas.is-filtered .nd{opacity:.2}
+.atlas.is-filtered .nd.is-lit{opacity:1}
+
+.nd-head{display:flex; align-items:center; gap:8px; min-width:0; padding-right:24px}
+.nd-num{flex:none; width:22px; height:22px; border-radius:50%; display:grid;
+  place-items:center; font:600 11.5px var(--f,sans-serif); color:#06101d;
+  background:currentColor; box-shadow:var(--atlas-glow-low) color-mix(in srgb, currentColor 60%, transparent)}
+.nd-name{font:600 13.5px/1.25 var(--f,sans-serif); color:var(--atlas-text);
+  letter-spacing:-.008em; min-width:0}
+/* The mark sits in the corner rather than in the text row, so a long layer
+   name gets the card's full width instead of wrapping around it. */
+.atlas .nd .licon.nd-icon{position:absolute; top:9px; right:10px;
+  width:20px; height:20px; opacity:.8; stroke:currentColor; fill:none;
+  stroke-width:2.2; pointer-events:none}
+.atlas .nd.is-small .licon.nd-icon{top:6px; right:8px; width:15px; height:15px}
+.atlas .nd.is-head .licon.nd-icon{width:24px; height:24px}
+.nd-sub{margin:0; font:400 10px/1.45 var(--f,sans-serif); color:var(--atlas-text-muted)}
+.nd-sub span{display:block}
+.nd.is-small{padding:7px 11px; gap:2px; justify-content:center}
+.nd.is-small .nd-head{padding-right:18px}
+.nd.is-small .nd-name{font-size:11.5px}
+.nd.is-small .nd-num{width:17px; height:17px; font-size:9.5px}
+.nd.is-small .nd-icon{width:16px; height:16px}
+.nd.is-small .nd-sub{font-size:8.5px; line-height:1.3}
+.nd.is-head .nd-name{font-size:15px}
+.nd.is-head{background:linear-gradient(160deg, color-mix(in srgb, currentColor 22%, var(--atlas-surface)), var(--atlas-surface))}
+
+/* ── the planet ──────────────────────────────────────────────────────────── */
+.pw-label{fill:var(--atlas-text); font:600 17px/1 var(--f,sans-serif);
+  letter-spacing:.14em; text-transform:uppercase}
+.pw-sub{fill:var(--atlas-text-muted); font:500 11px/1 var(--f,sans-serif);
+  letter-spacing:.1em; text-transform:uppercase}
+.pw-node{cursor:pointer}
+.pw-node:focus-visible{outline:none}
+.pw-node:focus-visible .pw-rim{stroke-width:3}
+
+/* ── toolbar ─────────────────────────────────────────────────────────────── */
+.atlas-top{position:relative; z-index:3; display:flex; flex-wrap:wrap; gap:12px;
+  align-items:center; padding:16px 20px 4px}
+.atlas-title{display:flex; align-items:baseline; gap:12px; margin-right:auto}
+.atlas-title h3{margin:0; font:600 19px/1 var(--f,sans-serif); letter-spacing:.1em;
+  text-transform:uppercase; color:var(--atlas-text)}
+.atlas-title h3 em{font-style:normal; color:var(--atlas-data)}
+.atlas-live{display:flex; align-items:center; gap:7px; font:600 10.5px var(--f,sans-serif);
+  letter-spacing:.11em; text-transform:uppercase; color:var(--atlas-text-dim)}
+.atlas-live i{width:7px; height:7px; border-radius:50%; background:var(--atlas-control);
+  box-shadow:0 0 8px var(--atlas-control); animation:atlasPulse 2.6s ease-in-out infinite}
+@keyframes atlasPulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+.atlas-filters{display:flex; flex-wrap:wrap; gap:8px; padding:4px 20px 14px;
+  position:relative; z-index:3}
+.fl-btn{display:inline-flex; align-items:center; gap:8px; padding:7px 15px;
+  border-radius:999px; border:1px solid var(--atlas-border);
+  background:rgba(10,28,46,.6); color:var(--atlas-text-muted);
+  font:600 11.5px var(--f,sans-serif); letter-spacing:.09em; text-transform:uppercase;
+  cursor:pointer; transition:all var(--atlas-motion-fast) var(--atlas-ease)}
+.fl-btn i{width:9px; height:9px; border-radius:50%; background:currentColor; flex:none}
+.fl-btn:hover{color:var(--atlas-text); border-color:color-mix(in srgb,var(--atlas-text) 40%,transparent)}
+.fl-btn[aria-pressed="true"]{color:var(--atlas-text); background:rgba(20,52,80,.85);
+  border-color:currentColor; box-shadow:var(--atlas-glow-low) color-mix(in srgb, currentColor 40%, transparent)}
+.fl-btn:focus-visible{outline:2px solid var(--atlas-text); outline-offset:2px}
+.fl-dash{width:16px; height:2px; background:currentColor; flex:none; border-radius:2px}
+
+.atlas-search{position:relative; display:flex; align-items:center}
+.atlas-search input{width:250px; max-width:44vw; padding:8px 14px 8px 34px;
+  border-radius:999px; border:1px solid var(--atlas-border);
+  background:rgba(8,22,38,.8); color:var(--atlas-text);
+  font:400 13px var(--f,sans-serif)}
+.atlas-search input::placeholder{color:var(--atlas-text-dim)}
+.atlas-search input:focus{outline:2px solid var(--atlas-data); outline-offset:1px}
+.atlas-search svg{position:absolute; left:11px; width:15px; height:15px;
+  stroke:var(--atlas-text-dim); fill:none; pointer-events:none}
+.atlas-results{position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:20;
+  margin:0; padding:6px; list-style:none; border-radius:12px; max-height:280px;
+  overflow:auto; background:#0b1e33; border:1px solid var(--atlas-border);
+  box-shadow:0 18px 40px rgba(0,0,0,.6)}
+.atlas-results:empty{display:none}
+.atlas-results button{display:block; width:100%; text-align:left; padding:8px 10px;
+  border:0; border-radius:8px; background:none; color:var(--atlas-text);
+  font:400 13px var(--f,sans-serif); cursor:pointer}
+.atlas-results button:hover,.atlas-results button:focus-visible{background:rgba(40,90,130,.5); outline:none}
+.atlas-results small{display:block; color:var(--atlas-text-dim); font-size:11px}
+
+/* ── controls and minimap ────────────────────────────────────────────────── */
+.atlas-controls{position:absolute; right:16px; bottom:16px; z-index:4;
+  display:flex; flex-direction:column; gap:6px}
+.atlas-controls button{width:34px; height:34px; border-radius:9px; cursor:pointer;
+  border:1px solid var(--atlas-border); background:rgba(8,22,38,.85);
+  color:var(--atlas-text-muted); font:600 15px var(--f,sans-serif); line-height:1;
+  display:grid; place-items:center}
+.atlas-controls button:hover{color:var(--atlas-text); border-color:var(--atlas-text-muted)}
+.atlas-controls button:focus-visible{outline:2px solid var(--atlas-data); outline-offset:2px}
+
+.atlas-minimap{position:absolute; left:16px; bottom:16px; z-index:4; width:210px;
+  padding:10px 12px 12px; border-radius:12px; background:rgba(6,18,32,.86);
+  border:1px solid var(--atlas-border)}
+.atlas-minimap h4{margin:0 0 8px; font:600 9.5px var(--f,sans-serif);
+  letter-spacing:.14em; text-transform:uppercase; color:var(--atlas-text-dim)}
+.atlas-minimap svg{display:block; width:100%; height:auto; cursor:pointer}
+.mm-node{fill:currentColor; opacity:.85}
+.mm-view{fill:rgba(120,200,255,.1); stroke:var(--atlas-data); stroke-width:2; vector-effect:non-scaling-stroke}
+.atlas-hint{position:absolute; left:50%; bottom:18px; transform:translateX(-50%);
+  z-index:4; font:400 11.5px var(--f,sans-serif); color:var(--atlas-text-dim);
+  letter-spacing:.04em; pointer-events:none; white-space:nowrap}
+
+/* ── the detail panel ────────────────────────────────────────────────────── */
+/* Docked bottom-right and deliberately short: the point is to read a layer
+   while still seeing where it sits, so the panel scrolls rather than growing
+   over the map. */
+.atlas-panel{position:absolute; right:16px; bottom:16px; z-index:6; width:min(500px,44%);
+  max-height:min(440px, calc(100% - 150px)); display:flex; flex-direction:column;
+  border-radius:14px; background:rgba(7,20,35,.96); border:1px solid var(--atlas-border);
+  box-shadow:0 24px 60px rgba(0,0,0,.66); overflow:hidden;
+  opacity:0; transform:translateY(14px) scale(.985); pointer-events:none;
+  transition:opacity var(--atlas-motion-normal) var(--atlas-ease),
+             transform var(--atlas-motion-normal) var(--atlas-ease)}
+.atlas-panel.is-open{opacity:1; transform:none; pointer-events:auto}
+.pn-head{display:flex; align-items:flex-start; gap:12px; padding:16px 16px 12px;
+  border-bottom:1px solid rgba(150,195,230,.16)}
+.pn-num{flex:none; width:36px; height:36px; border-radius:50%; display:grid;
+  place-items:center; font:600 16px var(--f,sans-serif); color:#06101d;
+  background:currentColor; box-shadow:var(--atlas-glow-low) currentColor}
+.pn-id{min-width:0; flex:1}
+.pn-id h4{margin:0; font:600 18px/1.25 var(--f,sans-serif); color:var(--atlas-text)}
+.pn-id p{margin:2px 0 0; font:400 12.5px var(--f,sans-serif); color:var(--atlas-text-muted)}
+.pn-moat{flex:none; align-self:center; padding:4px 10px; border-radius:999px;
+  font:600 10px var(--f,sans-serif); letter-spacing:.08em; text-transform:uppercase;
+  border:1px solid currentColor}
+.pn-close{flex:none; width:30px; height:30px; border-radius:8px; border:0; cursor:pointer;
+  background:rgba(255,255,255,.06); color:var(--atlas-text-muted); font-size:17px; line-height:1}
+.pn-close:hover{background:rgba(255,255,255,.13); color:var(--atlas-text)}
+.pn-close:focus-visible{outline:2px solid var(--atlas-data); outline-offset:2px}
+.pn-body{padding:14px 16px 18px; overflow:auto; overscroll-behavior:contain;
+  display:grid; gap:10px; grid-template-columns:1fr 1fr; align-content:start}
+.pn-sec{background:rgba(255,255,255,.032); border:1px solid rgba(150,195,230,.13);
+  border-radius:11px; padding:12px 13px}
+.pn-sec.is-wide{grid-column:1 / -1}
+.pn-sec h5{margin:0 0 7px; font:600 9.5px var(--f,sans-serif); letter-spacing:.14em;
+  text-transform:uppercase; color:var(--atlas-text-dim)}
+.pn-sec p{margin:0; font:400 12.5px/1.5 var(--f,sans-serif); color:var(--atlas-text)}
+.pn-sec p b{color:#fff}
+.pn-metric{display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
+.pn-metric b{font:600 22px/1 var(--f,sans-serif); color:currentColor;
+  letter-spacing:-.02em; text-shadow:0 0 18px color-mix(in srgb,currentColor 45%,transparent)}
+.pn-metric span{font:400 12px var(--f,sans-serif); color:var(--atlas-text-muted)}
+.pn-metric em{display:block; width:100%; font-style:normal; font-size:10.5px;
+  color:var(--atlas-text-dim); margin-top:3px}
+.pn-chips{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+.pn-chips li{padding:4px 9px; border-radius:8px; font:400 11.5px var(--f,sans-serif);
+  background:rgba(255,255,255,.055); border:1px solid rgba(150,195,230,.16);
+  color:var(--atlas-text)}
+.pn-more{margin:10px 0 0; font:400 12px var(--f,sans-serif)}
+.pn-more a{color:var(--atlas-data)}
+
+/* ── motion, and the promise to stop ─────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  .atlas *,.atlas *::before{transition-duration:1ms !important; animation:none !important}
+  .rt-dot{display:none}
+}
+
+/* ── responsive ──────────────────────────────────────────────────────────── */
+@media (max-width:1320px){
+  .atlas-minimap{display:none}
+  .atlas-panel{width:min(460px,60%)}
+}
+@media (max-width:1080px){
+  /* Below this the canvas cannot hold its labels, so the atlas reflows into
+     regions stacked in the same left-to-right order, read top to bottom. */
+  .atlas-stage{aspect-ratio:auto; height:auto; overflow:visible; cursor:default}
+  .atlas-world{position:static; transform:none !important}
+  /* .dia svg sets display:block at a higher specificity than a bare class,
+     so the canvas is named through .atlas to switch it off here. */
+  .atlas .atlas-canvas,.atlas .atlas-hint,.atlas .atlas-controls{display:none}
+  .atlas-nodes{position:static; display:grid; gap:10px; padding:4px 14px 18px;
+    width:auto; height:auto; transform:none !important}
+  /* relative, not static: .nd::before is an absolute overlay, and with no
+     positioned ancestor it stretches across the whole atlas as a coloured veil */
+  .nd{position:relative !important; left:auto !important; top:auto !important;
+    width:auto !important; height:auto !important; transform:none !important;
+    min-height:0}
+  .nd-region{display:block; margin:14px 0 2px; font:600 11px var(--f,sans-serif); letter-spacing:.14em;
+    text-transform:uppercase; color:var(--atlas-text-dim)}
+  /* contain:paint makes .atlas the containing block for position:fixed, which
+     would strand the sheet halfway down a very tall page. */
+  .atlas{contain:none}
+  .atlas-panel{position:fixed; inset:auto 0 0 0; width:auto; max-height:76vh;
+    border-radius:16px 16px 0 0; transform:translateY(100%);
+    /* a sheet over the page has to be opaque, not the 96% a docked panel can
+       afford over its own background */
+    background:#081a2e; box-shadow:0 -18px 50px rgba(0,0,0,.7)}
+  .atlas-panel.is-open{transform:none}
+  .pn-body{grid-template-columns:1fr}
+  .atlas-search input{width:100%; max-width:none}
+  .atlas-top{padding:14px 14px 4px}
+}
+
+/* Before the script runs, and if it never does. */
+.atlas.is-loading{min-height:120px; display:grid; place-items:center}
+.atlas-fallback{margin:0; padding:28px; color:var(--atlas-text-muted,#8faac1);
+  font:400 14px var(--f,sans-serif); text-align:center}
+.atlas:not(.is-loading) .atlas-fallback{display:none}

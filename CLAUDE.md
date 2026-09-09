@@ -36,7 +36,6 @@ These came from Mark directly. They override convenience.
 
 | Generated | Canonical source | Regenerate with |
 |---|---|---|
-| the `<svg id="mapsvg">` block in `index.html` | `diagrams/infrastructure-map.svg` | `python3 build-diagram.py` |
 | the company block in `assets/content.js` | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` | `python3 brand/build-companies.py` |
 | `assets/content-<page>.js`, and each page's `<noscript>` summary | `assets/content.js` + `content/page-tables.json` | `python3 build-content.py` |
 | the footer on every page | `content/footer.html` + `content/REVISION` | `python3 bump-assets.py` |
@@ -53,12 +52,8 @@ to catch.
 ## Before every push
 
 ```bash
-python3 build-diagram.py --check          # the page matches the diagram source
 python3 build-content.py --check          # the per-page content files are current
-python3 scripts/check-grid.py             # the schematic is on its 8-unit grid
-python3 scripts/check-geometry.py         # nothing on the schematic moved by accident
-python3 scripts/check-crossings.py        # no arrow crosses another unbridged
-python3 scripts/check-marks.py            # every layer mark has clear space
+python3 scripts/check-atlas.py            # the atlas layout is sound
 python3 brand/build-companies.py --check  # the company map matches its database
 python3 check-content.py                  # wording matches the approved baseline
 python3 scripts/check-figures.py          # no new figure lacks a date
@@ -78,7 +73,8 @@ python3 bump-assets.py                    # re-stamp the hashes — always last
 | What the ten layers are and what colour each is | `assets/taxonomy.js` |
 | Which companies appear at each value-chain stage | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` |
 | Where a database position maps to a site stage | `brand/stage_map.py` |
-| What the schematic asserts, and every rule for drawing it | `diagrams/MAINTAINING-THE-SCHEMATIC.md` |
+| How the atlas is built, and where to change it | `assets/atlas/README.md` |
+| Which content tables each page needs | `content/page-tables.json` |
 | The exact wording of everything | `content/copy-snapshot.json` |
 | Logos, their rights and what is still missing | `brand/README.md` |
 | Open work and known gaps | `TODO.md` |
@@ -100,6 +96,22 @@ element is there. Add a builder and you must also re-derive
 kept for provenance, not loaded by anything.
 
 ---
+
+## The atlas
+
+The overview's map is `assets/atlas/` — geometry, adapter, renderer and styles
+in separate files. Read its README before changing it. Two rules from it are
+worth repeating here:
+
+- **Geometry and prose stay apart.** `atlas-layout.js` holds rectangles and
+  routes; every word is in `assets/content.js` like all other copy.
+- **Anything the markup template calls must be a function declaration.** A
+  `const` arrow is unreachable before its own line, and the template runs
+  partway down the file.
+
+The hand-drawn schematic it replaced is archived in `diagrams/archive/`, with
+its generator and its four guards retired. `scripts/check-atlas.py` guards what
+replaced them.
 
 ## Things that have gone wrong here before
 

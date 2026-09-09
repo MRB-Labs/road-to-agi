@@ -2811,3 +2811,40 @@ const ENVIRO={
   ['End-of-life recovery','Recovery rates for magnets, cells and accelerator packages, and whether a refresh cycle measured in years can support a recycling industry at all.'],
  ],
 };
+
+/* The atlas card labels. These are the schematic's own short titles and
+   descriptor lines, carried over from diagrams/infrastructure-map.svg when the
+   atlas replaced it on the overview — the same words, in a table the renderer
+   can read. The full layer names live in LAYERS; these are the diagram forms. */
+const ATLAS_CARDS={
+ l1    :{t:'Energy, power and utilities',s:['Generation · grids · storage · PPAs','On-site power · cooling · water']},
+ l2    :{t:'Raw and processed materials',s:['Mining · refining · electronic grade','Metals · magnets · batteries · fibre']},
+ l3    :{t:'Semiconductor ecosystem',s:['EDA · equipment · wafers · foundry','Packaging · memory · sensors · test']},
+ l5    :{t:'AI data centre and cloud',s:['The enclosure housing central compute, data, models and cloud AI']},
+ l4    :{t:'Central compute, memory and networking',s:['Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network']},
+ l7    :{t:'Data and knowledge',s:['Databases · object storage · data lakes','Ingestion · curation · governance']},
+ l8    :{t:'Training and cloud inference',s:['Pre-training · post-training · evaluation','Model serving · routing · optimisation']},
+ l9    :{t:'Cloud agent services and applications',s:['Retrieval · memory · tools · orchestration · identity · observability']},
+ l6    :{t:'Connectivity',s:['Fibre · 5G · subsea','Wi-Fi · satellite']},
+ l10   :{t:'Embodied AI',s:['Robot · vehicle · drone']},
+ sens  :{t:'Sensors',s:['Vision · tactile · audio · proprioception']},
+ l4e   :{t:'Edge compute',s:['SoC · memory · storage · real-time I/O']},
+ l8e   :{t:'Local models',s:['Perception · world model · policy']},
+ l9e   :{t:'Agent and control',s:['Planning · tools · safety · control']},
+ act   :{t:'Actuators',s:['Motors · drives · joints · grippers']},
+ l1b   :{t:'Battery · power',s:['Thermal system']},
+};
+
+/* The atlas region names and the labels on the two flows between the machine
+   and the world. Prose belongs here, not in the layout file — that one holds
+   geometry only, so a wording change never touches a coordinate. */
+const ATLAS_REGIONS_TEXT={
+ foundations :{t:'Foundations',  s:['Natural resources conversion']},
+ silicon     :{t:'Silicon',      s:['Device manufacture']},
+ compute     :{t:'Compute',      s:['Land · building · operations']},
+ intelligence:{t:'Intelligence', s:['Data, models and software']},
+ network     :{t:'Network',      s:['Internet · telecommunications']},
+ embodied    :{t:'Embodied AI',  s:['Deployed robots and smart devices']},
+};
+const ATLAS_WORLD_TEXT={t:'The physical world', s:'People · industry · planet'};
+const ATLAS_ROUTE_TEXT={'act>world':'actuators', 'world>sens':'sensors'};

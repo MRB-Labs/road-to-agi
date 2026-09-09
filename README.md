@@ -8,7 +8,7 @@ value. Published with GitHub Pages from `main`.
 
 | Page | What it holds |
 |---|---|
-| `index.html` | The architecture map, the loop, and the chokepoint-and-moat scatter |
+| `index.html` | The interactive AI infrastructure atlas, the loop, and the chokepoint-and-moat scatter |
 | `stack.html` | The ten layers: description, value chain and materials for each |
 | `investor.html` | Thesis, companies and risks for each layer, and the general risk case |
 | `markets.html` | Deployment, integration and end markets — the commercial system |
@@ -24,7 +24,6 @@ There is no build step for the site itself — the pages load `style.css` and
 
 ```bash
 python3 brand/build-companies.py     # company map, from brand/COMPANY_VALUE_CHAIN_DATABASE.md
-python3 build-diagram.py             # inject diagrams/infrastructure-map.svg into index.html
 python3 build-content.py             # split the content per page, write the no-script summaries
 python3 bump-assets.py               # re-stamp cache-busting hashes — run this last, always
 ```
@@ -32,19 +31,15 @@ python3 bump-assets.py               # re-stamp cache-busting hashes — run thi
 ### Before pushing
 
 ```bash
-python3 build-diagram.py --check         # the page matches the diagram source
 python3 build-content.py --check         # the per-page content files are current
-python3 scripts/check-grid.py            # the schematic is on its 8-unit grid
-python3 scripts/check-geometry.py        # nothing on the schematic moved unintentionally
-python3 scripts/check-crossings.py       # no arrow crosses another on the schematic
-python3 scripts/check-marks.py           # every layer mark has clear space around it
+python3 scripts/check-atlas.py           # the atlas layout is sound
 python3 brand/build-companies.py --check # the company map matches its database
 python3 check-content.py                 # wording matches the approved baseline
 python3 scripts/check-figures.py         # no new figure lacks a date
 python3 scripts/check-offline.py         # no page fetches assets from another server
 ```
 
-All ten run in CI, and **the site is published only if they all pass** — the
+All six run in CI, and **the site is published only if they all pass** — the
 deploy is a job in the same workflow, so a broken commit leaves the previous
 version live rather than replacing it. If a guard reports a change you
 intended, approve it with `--accept`.
@@ -77,7 +72,7 @@ guards there, which is the point of the branch.
 | What the ten layers are, and why | `assets/taxonomy.js`, and each layer's own description |
 | Which companies appear at each stage | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` |
 | Where a database position maps to | `brand/stage_map.py` |
-| What the schematic asserts, and its rules | `diagrams/MAINTAINING-THE-SCHEMATIC.md` |
+| How the overview's atlas is built | `assets/atlas/README.md` |
 | The exact wording of everything | `content/copy-snapshot.json` |
 | Company logos and their rights | `brand/README.md` |
 | The rules Claude Code works to here | `CLAUDE.md` |
