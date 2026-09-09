@@ -18,6 +18,10 @@
   ATLAS_NODES.forEach(n => N[n.id] = n);
   N.world = {id:'world', layer:0, x:ATLAS_WORLD.cx - ATLAS_WORLD.r,
              y:ATLAS_WORLD.cy - ATLAS_WORLD.r, w:ATLAS_WORLD.r * 2, h:ATLAS_WORLD.r * 2};
+  /* A route may aim at a whole macro-system, written '#key'. The two lines out
+     of the physical world do: what they feed is the group that turns nature
+     into supply, not one card inside it. */
+  ATLAS_REGIONS.forEach(g => N['#' + g.key] = Object.assign({id:'#' + g.key}, g));
   const regionOf = k => ATLAS_REGIONS.find(r => r.key === k);
 
   /* Route paths are derived before the markup is built, because the markup
@@ -159,12 +163,15 @@
 
   function routes() {
     return ROUTES.map(r => `
-      <g class="rt-g" data-flow="${r.flow}" data-from="${r.from}" data-to="${r.to}">
+      <g class="rt-g" data-flow="${r.flow}" data-from="${r.from}" data-to="${r.to}"
+         data-ends="${esc([r.from, r.to, r.ends || ''].join(' ').trim())}"
+         ${r.core ? 'data-core="1"' : ''}>
         <path class="rt-hit" d="${r.d}"/>
         ${routeLabel(r)}
         <path class="rt${r.core ? ' is-core' : ''}" d="${r.d}"
               stroke="var(--atlas-${r.flow})"
-              ${ATLAS_FLOWS[r.flow].dash ? `stroke-dasharray="${ATLAS_FLOWS[r.flow].dash}"` : ''}
+              ${(r.dash || ATLAS_FLOWS[r.flow].dash)
+                  ? `stroke-dasharray="${r.dash || ATLAS_FLOWS[r.flow].dash}"` : ''}
               marker-end="url(#atlasArrow-${r.flow})"/>
         <circle class="rt-dot" fill="var(--atlas-${r.flow})" r="3"/>
       </g>`).join('');
@@ -247,7 +254,7 @@
   const allTargets = nodeEls.concat(worldEl ? [worldEl] : []);
   let selected = null, activeFilter = 'all';
 
-  const touches = (r, id) => r.dataset.from === id || r.dataset.to === id;
+  const touches = (r, id) => (r.dataset.ends || '').split(' ').includes(id);
   const farEnd  = (r, id) => r.dataset.from === id ? r.dataset.to : r.dataset.from;
 
   function lightFor(id) {
@@ -257,6 +264,12 @@
                  (activeFilter === 'all' || r.dataset.flow === activeFilter);
       if (on) { lit.add(r); near.add(farEnd(r, id)); }
     });
+    /* An enclosure holds other cards: pointing at the machine or the data
+       centre lights everything inside it, which no arrow can say. */
+    const node = id && N[id];
+    if (node && node.encl)
+      ATLAS_NODES.filter(n => n.region === node.region && n.id !== id)
+                 .forEach(n => near.add(n.id));
     return {lit, near};
   }
 
@@ -432,7 +445,13 @@
   /* ── particles: one loop, only on lit routes, stopped when unseen ──────── */
   let raf = null, lengths = new WeakMap();
   function runDots() {
-    const lit = routeEls.filter(r => r.querySelector('.rt').classList.contains('is-lit'));
+    /* At rest the core sequence keeps moving, so the map reads as something
+       running rather than something drawn. Point at anything and the particles
+       move to what is lit instead: never everything at once. */
+    const anyLit = routeEls.some(r => r.querySelector('.rt').classList.contains('is-lit'));
+    const lit = routeEls.filter(r => anyLit
+      ? r.querySelector('.rt').classList.contains('is-lit')
+      : r.dataset.core === '1');
     routeEls.forEach(r => r.querySelector('.rt-dot').classList.remove('is-on'));
     if (raf) { cancelAnimationFrame(raf); raf = null; }
     if (!lit.length || reduced.matches || document.hidden) return;

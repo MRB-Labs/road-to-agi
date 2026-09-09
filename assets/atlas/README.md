@@ -18,7 +18,11 @@ is now archived in `diagrams/archive/`.
 ## Where to change things
 
 - **Move a card, resize a region, add a route** — `atlas-layout.js`. The routes
-  re-derive from the card edges, so nothing else needs touching.
+  re-derive from the card edges, so nothing else needs touching. Run
+  `scripts/check-atlas.py` afterwards: it replays the router in Python and
+  fails if any route now runs through a card. A line through a name is the one
+  flaw that makes a diagram unreadable, and it is easy to introduce by moving
+  something innocent.
 - **Colours, glow, spacing, motion** — the token block at the top of
   `atlas.css`. Nothing else in the atlas carries a literal colour.
 - **Card labels, region names, the planet's caption, the two route labels** —
@@ -80,3 +84,23 @@ They are siblings in the DOM, drawn after it, so they take their own clicks
 while the frame behind them stays hoverable as layer 10.
 `check-atlas.py` allows that one overlap and instead asserts the blocks sit
 *fully* inside the frame.
+
+## Route options
+
+| key | meaning |
+|---|---|
+| `side` | which edge to leave and which to arrive on |
+| `dx` / `dy` | offset the departure / arrival along that edge |
+| `tx` | the arrival offset, named for routes aiming at a whole group |
+| `via` | guides in order: `{x:…}` turns the run vertical there, `{y:…}` horizontal |
+| `core` | part of the main sequence: bright at rest, and carries a moving particle |
+| `ends` | extra cards that light this route, beyond its two ends |
+| `dash` | override the flow family's dash pattern |
+
+A route may aim at a whole macro-system, written `#key` — the two lines out of
+the physical world do, because what they feed is the group that turns nature
+into supply, not one card inside it.
+
+Particles run on the `core` routes at rest and move to whatever is lit when
+something is hovered or filtered — never on everything at once, and never while
+the tab is hidden or reduced motion is asked for.

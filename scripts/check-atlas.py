@@ -32,7 +32,7 @@ nodes = [dict(id=m[0], layer=num(m[1]), region=m[2], x=num(m[3]), y=num(m[4]),
          for m in re.findall(
              r"\{id:'(\w+)',\s+layer:(\d+),\s+region:'(\w+)',\s+x:(\d+),\s+y:(\d+), w:(\d+), h:(\d+)(.*)",
              LAYOUT)]
-routes = re.findall(r"\{from:'(\w+)',\s+to:'(\w+)',\s+flow:'(\w+)'", LAYOUT)
+routes = re.findall(r"\{from:'([#\w]+)',\s+to:'([#\w]+)',\s+flow:'(\w+)'", LAYOUT)
 flows  = set(re.findall(r'^  (\w+): *\{label:', LAYOUT, re.M))
 world  = re.search(r'ATLAS_WORLD = \{cx:(\d+), cy:(\d+), r:(\d+)', LAYOUT)
 wx, wy, wr = num(world.group(1)), num(world.group(2)), num(world.group(3))
@@ -83,7 +83,8 @@ if wx + wr > W or wy + wr > H:
     bad.append('the planet falls outside the canvas')
 
 # ── routes must connect things that exist, and name a real flow ──────────────
-ids = {n['id'] for n in nodes} | {'world'}
+# a route may aim at a whole macro-system, written '#key'
+ids = {n['id'] for n in nodes} | {'world'} | {'#' + k for k in regions}
 for f, t, flow in routes:
     for end in (f, t):
         if end not in ids:
@@ -109,8 +110,105 @@ for n in nodes:
     if n['id'] not in labelled:
         bad.append('%s has no entry in ATLAS_CARDS' % n['id'])
 
-print('atlas: %d regions, %d cards, %d routes, %d flows, canvas %dx%d'
-      % (len(regions), len(nodes), len(routes), len(flows), W, H))
+# ── no route may run through a card ──────────────────────────────────────────
+# The router in atlas-geometry.js is deterministic — anchors, guides, one elbow
+# — so it can be replayed here and tested against every card. This is the guard
+# the previous schematic had as check-crossings.py: a line through a name is the
+# one flaw that makes a diagram unreadable.
+STUB = 18
+CLEAR = 4          # a route may graze a card's edge, never cross into it
+
+by_id = {n['id']: n for n in nodes}
+by_id['world'] = dict(id='world', x=wx - wr, y=wy - wr, w=wr * 2, h=wr * 2)
+for _k, _g in regions.items():
+    by_id['#' + _k] = dict(id='#' + _k, **_g)
+
+
+def anchor(n, side, off):
+    if side == 'left':  return (n['x'], n['y'] + n['h'] / 2 + off), (-1, 0)
+    if side == 'right': return (n['x'] + n['w'], n['y'] + n['h'] / 2 + off), (1, 0)
+    if side == 'top':   return (n['x'] + n['w'] / 2 + off, n['y']), (0, -1)
+    return (n['x'] + n['w'] / 2 + off, n['y'] + n['h']), (0, 1)
+
+
+def replay(spec):
+    a, b = by_id[spec['from']], by_id[spec['to']]
+    sa, sb = spec.get('side', ['right', 'left'])
+    A, na = anchor(a, sa, spec.get('dx', 0))
+    B, nb = anchor(b, sb, spec.get('tx', spec.get('dy', 0)))
+    pts = [A, (A[0] + na[0] * STUB, A[1] + na[1] * STUB)]
+    for g in spec.get('via', []):
+        cur = pts[-1]
+        pts.append((g['x'], cur[1]) if 'x' in g else (cur[0], g['y']))
+    Bo = (B[0] + nb[0] * STUB, B[1] + nb[1] * STUB)
+    cur = pts[-1]
+    if cur[0] != Bo[0] and cur[1] != Bo[1]:
+        pts.append((cur[0], Bo[1]) if nb[0] != 0 else (Bo[0], cur[1]))
+    return pts + [Bo, B]
+
+
+def spec_of(text):
+    out = {'from': re.search(r"from:'([#\w]+)'", text).group(1),
+           'to':   re.search(r"to:'([#\w]+)'", text).group(1)}
+    m = re.search(r"side:\['(\w+)','(\w+)'\]", text)
+    if m:
+        out['side'] = [m.group(1), m.group(2)]
+    for k in ('dx', 'dy', 'tx'):
+        m = re.search(r"\b%s:(-?\d+)" % k, text)
+        if m:
+            out[k] = num(m.group(1))
+    out['via'] = [({'x': num(v)} if ax == 'x' else {'y': num(v)})
+                  for ax, v in re.findall(r"\{([xy]):(-?\d+)\}", text)]
+    return out
+
+
+def hits(seg, r):
+    (x1, y1), (x2, y2) = seg
+    lo, hi = sorted((x1, x2))
+    tlo, thi = sorted((y1, y2))
+    return (lo < r['x'] + r['w'] - CLEAR and r['x'] + CLEAR < hi and
+            tlo < r['y'] + r['h'] - CLEAR and r['y'] + CLEAR < thi)
+
+
+def route_specs(text):
+    """Each route object, whole. A regex cannot do this: `via` contains its own
+       braces, so any non-greedy match stops at the first one."""
+    out, i = [], 0
+    while True:
+        i = text.find("{from:'", i)
+        if i < 0:
+            return out
+        depth, j = 0, i
+        while j < len(text):
+            if text[j] == '{':
+                depth += 1
+            elif text[j] == '}':
+                depth -= 1
+                if depth == 0:
+                    out.append(text[i:j + 1]); i = j + 1; break
+            j += 1
+        else:
+            return out
+
+
+_body = LAYOUT[LAYOUT.index('const ATLAS_ROUTES'):]
+_checked = 0
+for _text in route_specs(_body):
+    _spec = spec_of(_text)
+    _pts = replay(_spec)
+    _checked += 1
+    _ends = {_spec['from'], _spec['to']}
+    for _i in range(len(_pts) - 1):
+        _seg = (_pts[_i], _pts[_i + 1])
+        for _n in nodes:
+            if _n['id'] in _ends or _n['encl']:
+                continue
+            if hits(_seg, _n):
+                bad.append('the %s route runs through %s'
+                           % (_spec['from'] + ' to ' + _spec['to'], _n['id']))
+
+print('atlas: %d regions, %d cards, %d routes replayed, %d flows, canvas %dx%d'
+      % (len(regions), len(nodes), _checked, len(flows), W, H))
 if bad:
     for b in sorted(set(bad)):
         print('  ' + b)

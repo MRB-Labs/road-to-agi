@@ -27,7 +27,10 @@ const AtlasGeom = (() => {
   function route(a, b, opts) {
     const o = opts || {};
     const side = o.side || ['right', 'left'];
-    const A = anchor(a, side[0], o.dx), B = anchor(b, side[1], o.dy);
+    /* dx offsets the departure along its own edge; dy the arrival. tx is the
+       same as dy but named for routes that aim at a group rather than a card,
+       where "along the edge" is the only way to say where. */
+    const A = anchor(a, side[0], o.dx), B = anchor(b, side[1], o.tx || o.dy);
     const pts = [A.p.slice()];
     let cur = [A.p[0] + A.n[0] * STUB, A.p[1] + A.n[1] * STUB];
     pts.push(cur.slice());
