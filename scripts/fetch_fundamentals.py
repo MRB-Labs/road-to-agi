@@ -226,9 +226,33 @@ if __name__ == '__main__':
     if not key:
         print('::error::FMP_API_KEY is not set'); raise SystemExit(1)
     payload, stats = refresh(key, Budget(a.budget, a.seconds), retry_all=a.retry_all)
+
+    # A run that returns nothing must be loud. Writing an empty file and exiting
+    # green is indistinguishable from a quiet week, so a change to FMP's terms
+    # or a revoked key would look like normal operation for months.
+    kept = len(payload.get('companies') or {})
+    if not kept:
+        print('::error::No company data came back — refusing to overwrite '
+              'the published file with an empty one. Check FMP_API_KEY and '
+              'the plan; the previous data stays live.')
+        raise SystemExit(1)
+    was = 0
+    if os.path.exists(OUT):
+        try:
+            with open(OUT) as f:
+                was = len(json.load(f).get('companies') or {})
+        except (OSError, ValueError):
+            was = 0
+    if was and kept < was * 0.8:
+        print(f'::error::Coverage collapsed from {was} to {kept} companies. '
+              f'That is a data-source failure, not a refresh; keeping the '
+              f'previous file. Re-run with a wider budget if it is genuine.')
+        raise SystemExit(1)
+
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w') as f:
         json.dump(payload, f, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
+    print(f'wrote {kept} companies (was {was})')
     if stats['stopped']:
         print(f"::notice::Run ended early — {stats['stopped']}. Progress is saved; the next run continues.")
     print(f"calls={stats['calls']} quotes={stats['quotes']}/{stats['total']} "

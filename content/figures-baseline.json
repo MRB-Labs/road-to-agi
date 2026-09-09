@@ -1,0 +1,21 @@
+{
+ "total": 229,
+ "undated": {
+  "BREAKS": 1,
+  "CHAIN": 1,
+  "COMETA": 35,
+  "CONC": 5,
+  "GW": 58,
+  "HOWTO": 13,
+  "HU": 58,
+  "LAYERS": 10,
+  "LAYER_MATERIALS": 19,
+  "LAYER_METRICS": 22,
+  "LAYER_RISKS": 2,
+  "MATS": 1,
+  "METRIC_FRAME": 1,
+  "PSOURCES": 1,
+  "RISKS": 1,
+  "SOURCES": 1
+ }
+}

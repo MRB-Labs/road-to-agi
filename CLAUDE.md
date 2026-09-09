@@ -54,10 +54,12 @@ to catch.
 ```bash
 python3 build-diagram.py --check          # the page matches the diagram source
 python3 scripts/check-grid.py             # the schematic is on its 8-unit grid
+python3 scripts/check-geometry.py         # nothing on the schematic moved by accident
 python3 scripts/check-crossings.py        # no arrow crosses another unbridged
 python3 scripts/check-marks.py            # every layer mark has clear space
 python3 brand/build-companies.py --check  # the company map matches its database
 python3 check-content.py                  # wording matches the approved baseline
+python3 scripts/check-figures.py          # no new figure lacks a date
 python3 scripts/check-offline.py          # no page fetches from another server
 python3 bump-assets.py                    # re-stamp the hashes — always last
 ```
@@ -113,12 +115,21 @@ Written down because each cost real time.
 
 ---
 
+## The two ratchets
+
+`check-figures.py` and `check-content.py` both hold a baseline that you may
+only improve. A figure without a date is not a fact, and dating one means
+verifying it — so the guard fails when the count of undated figures *rises*,
+never merely because it is high. Never `--accept` a worse number to get past
+it: date the figure or leave the prose alone.
+
 ## Publishing
 
-GitHub Pages serves `main` directly, so a push is a deploy and CI reports
-*after* the fact. Tag each published revision (`git tag v10 && git push --tags`)
-so there is something to go back to, and bump `content/REVISION` when the
-revision number changes.
+The guards and the deploy are one workflow: the site is published only if every
+guard passes, so a broken commit leaves the previous version live. Tag each
+published revision (`git tag -a v10 -m "Revision 10" && git push --tags`) so
+there is something to go back to, and bump `content/REVISION` when the number
+changes.
 
 The token in use **cannot write to `.github/workflows/`**. Any workflow change
 has to be pasted by Mark through the GitHub web editor — give him the numbered

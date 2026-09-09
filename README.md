@@ -33,16 +33,23 @@ python3 bump-assets.py               # re-stamp cache-busting hashes — run thi
 ```bash
 python3 build-diagram.py --check         # the page matches the diagram source
 python3 scripts/check-grid.py            # the schematic is on its 8-unit grid
+python3 scripts/check-geometry.py        # nothing on the schematic moved unintentionally
 python3 scripts/check-crossings.py       # no arrow crosses another on the schematic
 python3 scripts/check-marks.py           # every layer mark has clear space around it
 python3 brand/build-companies.py --check # the company map matches its database
 python3 check-content.py                 # wording matches the approved baseline
+python3 scripts/check-figures.py         # no new figure lacks a date
 python3 scripts/check-offline.py         # no page fetches assets from another server
 ```
 
-All seven also run in CI on every push and pull request, so a stale generated
-block or an unapproved wording change cannot reach the published site. If
-`check-content.py` reports a change you intended, approve it with `--accept`.
+All nine run in CI, and **the site is published only if they all pass** — the
+deploy is a job in the same workflow, so a broken commit leaves the previous
+version live rather than replacing it. If a guard reports a change you
+intended, approve it with `--accept`.
+
+`scripts/check-live.py` runs on a daily schedule against the published page: it
+is the only guard that can catch a deploy that half-worked, an asset that
+404s, or the market refresh quietly stopping.
 
 ### Publishing a revision
 
@@ -73,6 +80,7 @@ guards there, which is the point of the branch.
 | Company logos and their rights | `brand/README.md` |
 | The rules Claude Code works to here | `CLAUDE.md` |
 | What may be reused, and on what terms | `LICENSE` |
+| How many figures still lack a date | `content/figures-baseline.json` |
 | What is deliberately not in the repo | `CLEAN/README.md` (local only) |
 | Open work | `TODO.md` |
 

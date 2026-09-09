@@ -21,11 +21,15 @@ Closed items move to the bottom with the commit that closed them.
 
 ## Sourcing
 
-- [ ] **Dates on time-sensitive figures.** The 35 chokepoints carry the full
-      qualification the audit asked for. Figures in the thesis prose do not
-      carry a per-claim date, only the layer-level as-of line. Each one needs a
-      source and a date before it gets one — do not date a figure that has not
-      been checked.
+- [ ] **Dates on time-sensitive figures — 229 to go.** `python3
+      scripts/check-figures.py --list` prints them, grouped by table; the two
+      project models (`GW`, `HU`) hold 116 between them and the company
+      metadata (`COMETA`) another 35. The guard is a ratchet: it fails only if
+      the count rises, so the backlog can be worked down at any pace. Date one
+      by putting a year or "as of" in the string, or an `as_of` field beside it
+      — but only after checking it, never to clear the counter.
+      The 35 chokepoints already carry the full qualification the audit asked
+      for; the thesis prose carries only the layer-level as-of line.
 - [ ] **Refresh cadence.** `AUDIT/` and `brand/COMPANY_VALUE_CHAIN_DATABASE.md`
       are both 2026-09-07 snapshots and are now load-bearing for the taxonomy
       and the company map. Set a review date and record it in each file.
