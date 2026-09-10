@@ -163,7 +163,7 @@
   box-shadow:var(--atlas-glow-high) color-mix(in srgb, currentColor 52%, transparent),
   0 10px 26px rgba(0,0,0,.55); background:var(--atlas-surface-2)}
 .atlas.is-filtered .nd{opacity:.2}
-.atlas.is-filtered .nd.is-lit{opacity:1}
+.atlas.is-filtered .nd.is-lit,.atlas.is-filtered .nd.is-selected{opacity:1}
 
 .nd-head{display:flex; align-items:center; gap:8px; min-width:0; padding-right:24px}
 /* --nd-c, not currentColor: this element sets its own `color` for the digit,
@@ -231,7 +231,7 @@
 .pw-node.is-lit .pw-label,.pw-node.is-lit .pw-sub{opacity:1}
 
 /* ── toolbar ─────────────────────────────────────────────────────────────── */
-.atlas-top{position:relative; z-index:3; display:flex; flex-wrap:wrap; gap:12px;
+.atlas-top{position:relative; z-index:7; display:flex; flex-wrap:wrap; gap:12px;
   align-items:center; justify-content:flex-end; padding:16px 20px 4px}
 .atlas-title{display:flex; align-items:baseline; gap:12px; margin-right:auto}
 .atlas-title h3{margin:0; font:600 19px/1 var(--f,sans-serif); letter-spacing:.1em;
@@ -278,7 +278,7 @@
 .atlas-search input:focus{outline:2px solid var(--atlas-data); outline-offset:1px}
 .atlas-search svg{position:absolute; left:11px; width:15px; height:15px;
   stroke:var(--atlas-text-dim); fill:none; pointer-events:none}
-.atlas-results{position:absolute; top:calc(100% + 6px); right:0; min-width:100%; z-index:20;
+.atlas-results{position:absolute; top:calc(100% + 6px); right:0; min-width:100%; z-index:30;
   margin:0; padding:6px; list-style:none; border-radius:12px; max-height:280px;
   overflow:auto; background:#0b1e33; border:1px solid var(--atlas-border);
   box-shadow:0 18px 40px rgba(0,0,0,.6)}

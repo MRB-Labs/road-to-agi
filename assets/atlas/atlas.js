@@ -291,6 +291,10 @@
   const touches = (r, id) => r.dataset.from === id || r.dataset.to === id ||
     (r.dataset.ends || '').split(' ').includes(id);
   const farEnd  = (r, id) => r.dataset.from === id ? r.dataset.to : r.dataset.from;
+  const restorePaint = () => {
+    if (searchSelection.length && !selected) paintSearch(searchSelection);
+    else paint(selected);
+  };
 
   /* What counts as "this box". An enclosure stands for everything inside it,
      so pointing at the machine lights every run in and out of its blocks —
@@ -334,18 +338,26 @@
     host.classList.toggle('is-filtered', filtering);
     routeEls.forEach(r => {
       const byFilter = activeFilter !== 'all' && r.dataset.flow === activeFilter;
-      r.querySelector('.rt').classList.toggle('is-lit', lit.has(r) || (!id && byFilter));
+      r.querySelector('.rt').classList.toggle('is-lit', lit.has(r) || (!ids.length && byFilter));
     });
     allTargets().forEach(el => {
       const nid = el.dataset.node;
       const onFilter = activeFilter !== 'all' &&
         routeEls.some(r => r.dataset.flow === activeFilter && touches(r, nid));
-      el.classList.toggle('is-lit', id ? near.has(nid) : onFilter);
+      el.classList.toggle('is-lit', ids.length ? near.has(nid) : onFilter);
     });
     runDots();
   }
 
-  const hoverOff = () => paint(selected || searchSelection);
+  function paintSearch(ids) {
+    const set = new Set(ids);
+    host.classList.toggle('is-filtered', set.size > 0 || activeFilter !== 'all');
+    routeEls.forEach(r => r.querySelector('.rt').classList.remove('is-lit'));
+    allTargets().forEach(el => el.classList.toggle('is-lit', set.has(el.dataset.node)));
+    runDots();
+  }
+
+  const hoverOff = restorePaint;
   allTargets().forEach(el => {
     el.addEventListener('mouseenter', () => paint(el.dataset.node));
     el.addEventListener('mouseleave', hoverOff);
@@ -365,7 +377,7 @@
     activeFilter = (activeFilter === b.dataset.filter) ? 'all' : b.dataset.filter;
     host.querySelectorAll('[data-filter]').forEach(o =>
       o.setAttribute('aria-pressed', String(o.dataset.filter === activeFilter)));
-    paint(selected || searchSelection);
+    restorePaint();
   }));
 
   /* ── the detail panel ──────────────────────────────────────────────────── */
@@ -469,15 +481,17 @@
         </button></li>`).join('');
     q.setAttribute('aria-expanded', String(hits.length > 0));
   });
-  function applySearchResult(b) {
+  function applySearchResult(b, clear = true) {
     if (!b) return;
-    results.innerHTML = ''; q.value = ''; q.setAttribute('aria-expanded', 'false');
     searchSelection = b.dataset.go.split(/\s+/).filter(Boolean);
     selected = null; hidePanel();
     allTargets().forEach(e => e.classList.toggle('is-selected', searchSelection.includes(e.dataset.node)));
     const el = allTargets().find(x => x.dataset.node === searchSelection[0]);
     if (el && el.scrollIntoView) el.scrollIntoView({block:'nearest', inline:'nearest'});
-    paint(searchSelection);
+    paintSearch(searchSelection);
+    if (clear) {
+      results.innerHTML = ''; q.value = ''; q.setAttribute('aria-expanded', 'false');
+    }
   }
   q.addEventListener('keydown', e => {
     if (e.key !== 'Enter') return;
@@ -489,6 +503,11 @@
   results.addEventListener('click', e => {
     const b = e.target.closest('[data-go]'); if (!b) return;
     applySearchResult(b);
+  });
+  results.addEventListener('pointerdown', e => {
+    const b = e.target.closest('[data-go]'); if (!b) return;
+    e.preventDefault();
+    applySearchResult(b, false);
   });
   document.addEventListener('click', e => {
     if (!e.target.closest('.atlas-search')) results.innerHTML = '';
