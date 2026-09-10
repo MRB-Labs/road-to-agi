@@ -20,7 +20,7 @@
 <script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
 if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
 document.documentElement.setAttribute("data-theme",t);/* the app views are fixed overlays; without this class the CSS stands them down so the no-script summary is reachable */document.documentElement.classList.add("js");})();</script>
-<link rel="stylesheet" href="style.css?v=bee8f052">
+<link rel="stylesheet" href="style.css?v=84519d2b">
 <link rel="stylesheet" href="assets/atlas/atlas.css?v=6fb32dbc">
 </head>
 <body>
@@ -81,33 +81,44 @@ document.documentElement.setAttribute("data-theme",t);/* the app views are fixed
         <p class="d-sub">Read as a chain, the infrastructure stack is a value chain. Close it — actuators change the world, sensors observe the change — and it becomes a flywheel. That is the road to AGI, and it is what makes the thesis compound rather than merely grow.</p>
         <div class="dia-shell is-loop">
         <div class="dia-chart">
-        <svg id="loopsvg" viewBox="0 0 440 300" role="group" aria-labelledby="d2t d2d">
+        <svg id="loopsvg" viewBox="0 0 620 360" role="group" aria-labelledby="d2t d2d">
           <title id="d2t">The compounding loop</title>
           <desc id="d2d">A four-stage cycle: observe, learn, act, change, returning to observe.</desc>
+          <defs>
+            <marker id="loopArrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+              <path d="M1 1 L8 4.5 L1 8 Z" fill="currentColor"/>
+            </marker>
+          </defs>
+          <path class="loop-orbit" d="M160 102 C246 34 374 34 460 102 C532 164 532 244 460 306 C374 374 246 374 160 306 C88 244 88 164 160 102 Z"/>
+          <path class="loop-route r-observe" d="M214 86 C270 48 350 48 406 86" marker-end="url(#loopArrow)"/>
+          <path class="loop-route r-learn" d="M470 126 C520 172 520 220 470 266" marker-end="url(#loopArrow)"/>
+          <path class="loop-route r-act" d="M406 306 C350 338 270 338 214 306" marker-end="url(#loopArrow)"/>
+          <path class="loop-route r-change" d="M150 266 C100 220 100 172 150 126" marker-end="url(#loopArrow)"/>
           <g class="loop-node" data-stage="observe" tabindex="0" role="button" aria-label="Observe">
-          <rect x="30" y="26" width="160" height="62" rx="8" class="bx b10"/>
-          <text class="bt" x="110" y="52" text-anchor="middle">Observe</text>
-          <text class="bs" x="110" y="70" text-anchor="middle">Sensors capture reality</text>
+          <rect x="82" y="58" width="170" height="76" rx="14" class="bx b10"/>
+          <text class="bt" x="167" y="90" text-anchor="middle">Observe</text>
+          <text class="bs" x="167" y="112" text-anchor="middle">Sensors capture reality</text>
           </g>
           <g class="loop-node" data-stage="learn" tabindex="0" role="button" aria-label="Learn">
-          <rect x="250" y="26" width="160" height="62" rx="8" class="bx b8"/>
-          <text class="bt" x="330" y="52" text-anchor="middle">Learn</text>
-          <text class="bs" x="330" y="70" text-anchor="middle">Data becomes models</text>
+          <rect x="368" y="58" width="170" height="76" rx="14" class="bx b8"/>
+          <text class="bt" x="453" y="90" text-anchor="middle">Learn</text>
+          <text class="bs" x="453" y="112" text-anchor="middle">Data becomes models</text>
           </g>
           <g class="loop-node" data-stage="act" tabindex="0" role="button" aria-label="Act">
-          <rect x="250" y="212" width="160" height="62" rx="8" class="bx b9"/>
-          <text class="bt" x="330" y="238" text-anchor="middle">Act</text>
-          <text class="bs" x="330" y="256" text-anchor="middle">Robots and agents work</text>
+          <rect x="368" y="226" width="170" height="76" rx="14" class="bx b9"/>
+          <text class="bt" x="453" y="258" text-anchor="middle">Act</text>
+          <text class="bs" x="453" y="280" text-anchor="middle">Robots and agents work</text>
           </g>
           <g class="loop-node" data-stage="change" tabindex="0" role="button" aria-label="Change">
-          <rect x="30" y="212" width="160" height="62" rx="8" class="bx b10"/>
-          <text class="bt" x="110" y="238" text-anchor="middle">Change</text>
-          <text class="bs" x="110" y="256" text-anchor="middle">New state, new data</text>
+          <rect x="82" y="226" width="170" height="76" rx="14" class="bx b10"/>
+          <text class="bt" x="167" y="258" text-anchor="middle">Change</text>
+          <text class="bs" x="167" y="280" text-anchor="middle">New state, new data</text>
           </g>
-          <path class="ln-a" d="M190 57 H244" marker-end="url(#ahA)"/>
-          <path class="ln-a" d="M330 88 V206" marker-end="url(#ahA)"/>
-          <path class="ln-a" d="M250 243 H196" marker-end="url(#ahA)"/>
-          <path class="ln-a" d="M110 212 V94" marker-end="url(#ahA)"/>
+          <g class="loop-core" aria-hidden="true">
+            <circle cx="310" cy="180" r="37"/>
+            <path d="M294 174 H319 L309 163"/>
+            <path d="M326 186 H301 L311 197"/>
+          </g>
         </svg>
         </div>
         <aside class="dia-info" id="loopinfo" aria-live="polite"></aside>
@@ -144,12 +155,12 @@ document.documentElement.setAttribute("data-theme",t);/* the app views are fixed
 <!-- END no-script-summary -->
 </main>
 <script src="assets/taxonomy.js?v=2e052f10"></script>
-<script src="assets/content-index.js?v=a7861fd6"></script>
+<script src="assets/content-index.js?v=04a9d2a9"></script>
 <script src="assets/atlas/atlas-earth.js?v=f115b31e"></script>
 <script src="assets/atlas/atlas-layout.js?v=cc7dcef7"></script>
 <script src="assets/atlas/atlas-geometry.js?v=210a4f1a"></script>
 <script src="assets/atlas/atlas-data.js?v=e6a8274a"></script>
 <script src="script.js?v=5b3c9113"></script>
-<script src="assets/atlas/atlas.js?v=1327460f"></script>
+<script src="assets/atlas/atlas.js?v=1ce0fb44"></script>
 </body>
 </html>

@@ -186,7 +186,7 @@ const ATLAS_REGIONS_TEXT={
  network     :{t:'Network',      s:['Internet · telecommunications']},
  embodied    :{t:'Embodied AI',  s:['Deployed robots and smart devices']},
 };
-const ATLAS_WORLD_TEXT={t:'The physical world', s:'People · industry · planet',
+const ATLAS_WORLD_TEXT={t:'The physical world', s:'Energy, materials, cities, human infrastructure',
  lede:'Not a layer, but the ground the stack is drawn from: where energy is captured, where materials are extracted, and where embodied machines eventually do the work. It feeds the base pair and takes the fleet’s work back.',
  reach:['Energy and raw materials out, into the foundations','Sensors in, actuators out, through the machine at the edge']};
 const ATLAS_ROUTE_TEXT={'act>world':'actuators', 'world>sens':'sensors'};
