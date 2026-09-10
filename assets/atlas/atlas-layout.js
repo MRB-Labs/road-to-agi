@@ -74,7 +74,7 @@ const ATLAS_NODES = [
   {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:160, h:76, sub:1},
   {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:160, h:76, sub:1},
   {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:160, h:76, sub:1},
-  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:160, h:76, sub:1},
+  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:160, h:76, sub:1, icon:'1p'},
 ];
 
 /* Flow families. `dash` carries the meaning a second time, so a route never
@@ -171,15 +171,17 @@ const ATLAS_ROUTES = [
      itself and its containment says the rest; `ends` keeps the block each one
      feeds able to light its own supply. */
   {from:'l1',  to:'l6',   flow:'energy',    side:['left','bottom'],
-   via:[{x:40},{y:844}], trunk:'l1-west'},
-  {from:'l1',  to:'l10',  flow:'energy',    side:['left','bottom'], tx:-60,
-   via:[{x:40},{y:844}], trunk:'l1-west', ends:'l1b'},
-  {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
-   via:[{x:24},{y:876}], ends:'act'},
-  {from:'l3',  to:'l10',  flow:'compute',   side:['left','bottom'], tx:60,
-   via:[{x:8},{y:908}],  ends:'l4e'},
+   via:[{x:40},{y:844}]},
+  {from:'l1',  to:'l10',  flow:'energy',    side:['right','left'], tx:-42,
+   via:[{x:300},{y:814},{x:1170}], ends:'l1b'},
+  {from:'l2',  to:'l10',  flow:'materials', side:['right','left'],
+   via:[{x:272},{y:846},{x:1178}], ends:'act'},
+  {from:'l3',  to:'l10',  flow:'compute',   side:['right','left'], tx:42,
+   via:[{x:504},{y:878},{x:1186}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
-  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32},
-  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40},
+  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32,
+   labelAt:.34, labelDy:-14},
+  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40,
+   labelAt:.62, labelDy:-18},
 ];

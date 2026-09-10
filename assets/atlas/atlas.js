@@ -144,13 +144,19 @@
     const t = (typeof ATLAS_WORLD_TEXT !== 'undefined') ? ATLAS_WORLD_TEXT
             : {t:'The physical world', s:''};
     const w = Object.assign({}, ATLAS_WORLD, {label:t.t, sub:t.s});
+    const subParts = String(w.sub || '').split(',').map(s => s.trim()).filter(Boolean);
+    const subLines = subParts.length >= 4
+      ? [`${subParts[0]}, ${subParts[1]},`, `${subParts[2]}, ${subParts.slice(3).join(', ')}`]
+      : [w.sub];
+    const subText = subLines.map((line, i) =>
+      `<tspan x="${w.cx}" ${i ? 'dy="14"' : ''}>${esc(line)}</tspan>`).join('');
     return `<g class="pw-node" tabindex="0" role="button" data-node="world"
                aria-label="${esc(w.label)} — open it in the infrastructure">
       <circle class="pw-hit"  cx="${w.cx}" cy="${w.cy}" r="${w.r + 18}"/>
       <circle class="pw-halo" cx="${w.cx}" cy="${w.cy}" r="${w.r + 26}"/>
       <circle class="pw-rim"  cx="${w.cx}" cy="${w.cy}" r="${w.r}"/>
       <text class="pw-label" x="${w.cx}" y="${w.cy + w.r + 44}" text-anchor="middle">${esc(w.label)}</text>
-      <text class="pw-sub"   x="${w.cx}" y="${w.cy + w.r + 66}" text-anchor="middle">${esc(w.sub)}</text>
+      <text class="pw-sub"   x="${w.cx}" y="${w.cy + w.r + 66}" text-anchor="middle">${subText}</text>
     </g>`;
   }
 
@@ -214,8 +220,9 @@
     if (!txt) return '';
     const p = document.createElementNS(svgNS, 'path');
     p.setAttribute('d', r.d);
-    const m = p.getTotalLength() / 2, pt = p.getPointAtLength(m);
-    return `<text class="rt-label" x="${pt.x.toFixed(0)}" y="${(pt.y - 9).toFixed(0)}"
+    const m = p.getTotalLength() * (r.labelAt == null ? .5 : r.labelAt);
+    const pt = p.getPointAtLength(m);
+    return `<text class="rt-label" x="${(pt.x + (r.labelDx || 0)).toFixed(0)}" y="${(pt.y - 9 + (r.labelDy || 0)).toFixed(0)}"
              text-anchor="middle" fill="currentColor">${esc(txt)}</text>`;
   }
 
