@@ -38,6 +38,23 @@
   --r-network:var(--atlas-data);
   --r-embodied:var(--atlas-control);
 
+  /* Per-layer colours. A card is coloured by the layer it opens, not by the
+     macro-system it sits in: layer 1 is amber wherever it appears — the grid,
+     the plant in the hall, the battery in the machine — which is how the hand-
+     drawn schematic read it. These are the report's own dark-theme layer hues
+     from style.css, pulled apart a little where two sat too close to tell
+     apart at card size (7 against 8, 9 against the network). */
+  --atlas-l1:#F0B45D;
+  --atlas-l2:#C98A5A;
+  --atlas-l3:#E0798F;
+  --atlas-l4:#B69AE8;
+  --atlas-l5:#7DA2FF;
+  --atlas-l6:#55BAD2;
+  --atlas-l7:#7FC98C;
+  --atlas-l8:#4FD0D8;
+  --atlas-l9:#A9B6E0;
+  --atlas-l10:#7FC07A;
+
   --atlas-glow-low:0 0 12px;
   --atlas-glow-high:0 0 24px;
   --atlas-motion-fast:160ms;
@@ -117,9 +134,10 @@
 /* The cards are laid out in canvas pixels and the whole layer is scaled, so
    type shrinks with the drawing instead of staying 15px on a 70% map. */
 .nd-region{display:none}
-.atlas-nodes{position:absolute; left:0; top:0; width:var(--atlas-w,1760px);
+.atlas-nodes{position:absolute; left:0; top:0; pointer-events:none;
+  width:var(--atlas-w,1760px);
   height:var(--atlas-h,880px); transform-origin:0 0; transform:scale(var(--atlas-k,1))}
-.nd{position:absolute; display:flex; flex-direction:column; gap:6px;
+.nd{position:absolute; pointer-events:auto; display:flex; flex-direction:column; gap:6px;
   text-align:left; padding:11px 13px;
   background:var(--atlas-surface); color:var(--atlas-text);
   border:1px solid color-mix(in srgb, currentColor 55%, transparent);
@@ -185,6 +203,9 @@
 .pw-sub{fill:var(--atlas-text-muted); font:500 11px/1 var(--f,sans-serif);
   letter-spacing:.1em; text-transform:uppercase}
 .pw-node{cursor:pointer}
+/* fill:none is not hit-testable; a transparent fill is. This disc is the
+   planet's whole hit area — the rings around it only ever draw. */
+.pw-hit{fill:transparent}
 .pw-node:focus-visible{outline:none}
 .pw-halo{fill:none; stroke:var(--atlas-data); stroke-width:2; opacity:0;
   transition:opacity var(--atlas-motion-normal) var(--atlas-ease)}

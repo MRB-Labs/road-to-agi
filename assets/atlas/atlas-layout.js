@@ -76,8 +76,8 @@ const ATLAS_FLOWS = {
    vertical at that column, {y:…} horizontal at that row. `core` marks the main
    sequence, which stays bright at rest while the rest are drawn quietly.
 
-   Corridors, all 16 apart and nested so nothing crosses: 0 / 16 / 32 down the
-   left, lanes at y 828 / 860 / 892 beneath the stack, and 1436 / 1452 / 1468
+   Corridors, nested so nothing crosses: columns 40 / 24 / 16 / 8 down the left,
+   each dropping to its own lane at y 796 / 828 / 860 / 892 beneath the stack, and 1436 / 1452 / 1468
    rising into the machine down its right-hand side, clear of the planet.
 
    `tx` offsets the arrival along the target's own edge, the way `dx` offsets
@@ -123,16 +123,16 @@ const ATLAS_ROUTES = [
 
   /* the base also feeds the network and the machine, along the lower lanes */
   {from:'l1',  to:'l6',   flow:'energy',    side:['left','bottom'],
-   via:[{x:32},{y:828},{x:1064}]},
+   via:[{x:40},{y:796},{x:1064}]},
   /* There is no room to thread these between the planet and the machine, so
      they land on the machine itself and its containment says the rest. `ends`
      keeps the block each one feeds able to light its own supply. */
   {from:'l1',  to:'l10',  flow:'energy',    side:['left','bottom'], tx:-60,
-   via:[{x:32},{y:828}], ends:'l1b'},
+   via:[{x:24},{y:828}], ends:'l1b'},
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
    via:[{x:16},{y:860}], ends:'act'},
   {from:'l3',  to:'l10',  flow:'compute',   side:['left','bottom'], tx:60,
-   via:[{x:0},{y:892}], ends:'l4e'},
+   via:[{x:8},{y:892}], ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
   {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32,  via:[{x:1424}]},

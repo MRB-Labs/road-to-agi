@@ -82,6 +82,45 @@ const AtlasGeom = (() => {
   }
   const round = v => Math.round(v * 100) / 100;
 
+
+  /* ── fanning ───────────────────────────────────────────────────────────── */
+  /* Centring an arrow on its card only reads well when there is one arrow. Two
+     leaving the same edge from the same point are indistinguishable, so every
+     route end on a given (card, side) is collected here and spread evenly about
+     the centre. The order is by where the far end sits across that edge, which
+     is what keeps a fan from crossing itself. An explicit dx/tx in the layout
+     still wins: it is written there because that run had to clear something.
+     32 is the grid step; it narrows only when the edge is too short to hold it. */
+  function fan(nodes, routes) {
+    const by = {}, off = routes.map(() => ({}));
+    routes.forEach((r, i) => {
+      const s = r.side || ['right', 'left'];
+      [[r.from, s[0], 'dx'], [r.to, s[1], 'tx']].forEach(([id, side, prop]) => {
+        const k = id + '|' + side;
+        (by[k] = by[k] || []).push({i, prop, id, side});
+      });
+    });
+    Object.keys(by).forEach(k => {
+      const list = by[k], host = nodes[list[0].id];
+      if (!host || list.length < 2) return;
+      const vert = list[0].side === 'left' || list[0].side === 'right';
+      const across = e => {
+        const r = routes[e.i], far = nodes[e.prop === 'dx' ? r.to : r.from];
+        return far ? (vert ? far.y + far.h / 2 : far.x + far.w / 2) : 0;
+      };
+      list.sort((p, q) => across(p) - across(q) || p.i - q.i);
+      const n = list.length, extent = vert ? host.h : host.w;
+      const step = Math.min(32, Math.max(12, (extent - 28) / (n - 1)));
+      list.forEach((e, j) => {
+        const given = e.prop === 'dx' ? routes[e.i].dx
+                    : (routes[e.i].tx !== undefined ? routes[e.i].tx : routes[e.i].dy);
+        off[e.i][e.prop] = given !== undefined ? given
+                         : Math.round((j - (n - 1) / 2) * step);
+      });
+    });
+    return off;
+  }
+
   /* ── background art, all generated, all local ──────────────────────────── */
   /* A fixed seed, so the sky is the same on every load and in every snapshot. */
   function rng(seed) {
@@ -162,5 +201,5 @@ const AtlasGeom = (() => {
     </g>`;
   }
 
-  return {anchor, route, stars, arcs, worldDots, earth, rng};
+  return {anchor, route, fan, stars, arcs, worldDots, earth, rng};
 })();

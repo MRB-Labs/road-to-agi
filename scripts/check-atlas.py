@@ -147,6 +147,41 @@ def replay(spec):
     return pts + [Bo, B]
 
 
+
+def fan(specs):
+    """The mirror of AtlasGeom.fan. Route ends sharing a (card, side) are spread
+       evenly about its centre, ordered by where the far end sits across that
+       edge. If this drifts from the JavaScript the guard checks a diagram that
+       is not the one that ships, so the two are written to match line for line."""
+    by, off = {}, [dict() for _ in specs]
+    for i, sp in enumerate(specs):
+        sa, sb = sp.get('side', ['right', 'left'])
+        for ident, side, prop in ((sp['from'], sa, 'dx'), (sp['to'], sb, 'tx')):
+            by.setdefault((ident, side), []).append((i, prop, ident, side))
+    for (ident, side), lst in by.items():
+        host = by_id.get(ident)
+        if host is None or len(lst) < 2:
+            continue
+        vert = side in ('left', 'right')
+
+        def across(e):
+            sp = specs[e[0]]
+            far = by_id.get(sp['to'] if e[1] == 'dx' else sp['from'])
+            if far is None:
+                return 0
+            return far['y'] + far['h'] / 2 if vert else far['x'] + far['w'] / 2
+
+        lst.sort(key=lambda e: (across(e), e[0]))
+        n, extent = len(lst), (host['h'] if vert else host['w'])
+        step = min(32, max(12, (extent - 28) / (n - 1)))
+        for j, e in enumerate(lst):
+            sp = specs[e[0]]
+            given = sp.get('dx') if e[1] == 'dx' else sp.get('tx', sp.get('dy'))
+            off[e[0]][e[1]] = given if given is not None \
+                else round((j - (n - 1) / 2) * step)
+    return off
+
+
 def spec_of(text):
     out = {'from': re.search(r"from:'([#\w]+)'", text).group(1),
            'to':   re.search(r"to:'([#\w]+)'", text).group(1)}
@@ -192,10 +227,14 @@ def route_specs(text):
 
 
 _body = LAYOUT[LAYOUT.index('const ATLAS_ROUTES'):]
+_specs = [spec_of(t) for t in route_specs(_body)]
+_off = fan(_specs)
 _checked = 0
-for _text in route_specs(_body):
-    _spec = spec_of(_text)
-    _pts = replay(_spec)
+_paths = []
+for _spec, _o in zip(_specs, _off):
+    _spec = dict(_spec, **_o)
+    _pts = [(round(x, 2), round(y, 2)) for x, y in replay(_spec)]
+    _paths.append((_spec['from'] + ' to ' + _spec['to'], _pts))
     _checked += 1
     _ends = {_spec['from'], _spec['to']}
     for _i in range(len(_pts) - 1):
@@ -206,6 +245,42 @@ for _text in route_specs(_body):
             if hits(_seg, _n):
                 bad.append('the %s route runs through %s'
                            % (_spec['from'] + ' to ' + _spec['to'], _n['id']))
+
+# ── two arrows must not leave, arrive, or travel on the same line ────────────
+# Centring an arrow on its card reads well until a second one lands on the same
+# point, and then neither can be followed. Coincident ends are exact; a shared
+# lane is two runs on the same row or column overlapping far enough to look
+# like one line. OVERLAP is generous, because short shared stubs are normal.
+OVERLAP = 40
+
+_starts, _arrivals = {}, {}
+for _name, _pts in _paths:
+    _starts.setdefault(_pts[0], []).append(_name)
+    _arrivals.setdefault(_pts[-1], []).append(_name)
+for _where, _table in (('leave from', _starts), ('arrive at', _arrivals)):
+    for _pt, _who in _table.items():
+        if len(_who) > 1:
+            bad.append('%s %s the same point' % (' and '.join(sorted(_who)), _where))
+
+
+def segments(pts):
+    for i in range(len(pts) - 1):
+        (x1, y1), (x2, y2) = pts[i], pts[i + 1]
+        if x1 == x2 and y1 != y2:
+            yield ('v', x1, min(y1, y2), max(y1, y2))
+        elif y1 == y2 and x1 != x2:
+            yield ('h', y1, min(x1, x2), max(x1, x2))
+
+
+for _i in range(len(_paths)):
+    for _j in range(_i + 1, len(_paths)):
+        _na, _nb = _paths[_i][0], _paths[_j][0]
+        for _a in segments(_paths[_i][1]):
+            for _b in segments(_paths[_j][1]):
+                if _a[0] != _b[0] or _a[1] != _b[1]:
+                    continue
+                if min(_a[3], _b[3]) - max(_a[2], _b[2]) > OVERLAP:
+                    bad.append('%s and %s share a lane' % (_na, _nb))
 
 print('atlas: %d regions, %d cards, %d routes replayed, %d flows, canvas %dx%d'
       % (len(regions), len(nodes), _checked, len(flows), W, H))

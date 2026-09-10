@@ -64,9 +64,29 @@ actually reads, which is the difference between an 11KB overview and a 47KB one.
   photograph; inverting it would cost the depth the design rests on.
 - Routes carry their meaning twice — colour *and* dash pattern — so the map
   never depends on colour alone.
+- **An arrow is centred on its card only when it is the only arrow.** Two on
+  one edge leaving from the same point cannot be told apart, so `AtlasGeom.fan`
+  spreads every route end sharing a (card, side) evenly about the centre,
+  ordered by where the far end sits across that edge — which is what stops a
+  fan crossing itself. A `dx` or `tx` written into the layout still wins; it is
+  there because that run had to clear something. Nothing in the layout needs to
+  be offset by hand any more just to separate two arrows.
+- **A card is coloured by the layer it opens, not by the region it sits in.**
+  Layer 1 is amber wherever it appears — the grid, the plant in the hall, the
+  battery in the machine — the way the hand-drawn schematic read it. The ten
+  hues are `--atlas-l1` … `--atlas-l10` in `atlas.css`; regions keep their own
+  `--r-*` for their frame and title.
+- **`fill:none` cannot be hit; `fill:transparent` can.** The planet's rings are
+  unfilled, so it carries a `.pw-hit` disc of its own. And `.atlas-nodes` is a
+  full-canvas div sitting over the SVG: it must stay `pointer-events:none`
+  with the cards themselves `auto`, or it swallows every click on the planet.
 - `scripts/check-atlas.py` guards the layout: cards inside their regions, no
   overlaps, nothing under a region title, every route endpoint real, every
-  layer present, every card labelled.
+  layer present, every card labelled — and, by replaying the router, that no
+  route crosses a card, that no two arrows share a departure or arrival point,
+  and that no two run far enough along the same row or column to read as one
+  line. The replay includes its own copy of `fan`; if the two drift, the guard
+  is checking a diagram that is not the one that ships.
 
 ## Not implemented, and why
 
@@ -90,7 +110,7 @@ while the frame behind them stays hoverable as layer 10.
 | key | meaning |
 |---|---|
 | `side` | which edge to leave and which to arrive on |
-| `dx` / `dy` | offset the departure / arrival along that edge |
+| `dx` / `dy` | offset the departure / arrival along that edge, overriding the fan |
 | `tx` | the arrival offset, named for routes aiming at a whole group |
 | `via` | guides in order: `{x:…}` turns the run vertical there, `{y:…}` horizontal |
 | `core` | part of the main sequence: bright at rest, and carries a moving particle |

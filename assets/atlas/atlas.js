@@ -26,9 +26,14 @@
 
   /* Route paths are derived before the markup is built, because the markup
      asks for them: a `const` read ahead of its declaration throws. */
+  /* Departures and arrivals are fanned out along each edge first — see
+     AtlasGeom.fan — so two arrows never leave a card from the same point. */
+  const SPREAD = AtlasGeom.fan(N, ATLAS_ROUTES);
   const ROUTES = ATLAS_ROUTES.map((r, i) => {
     const a = N[r.from], b = N[r.to];
-    return a && b ? Object.assign({}, r, {i, d: AtlasGeom.route(a, b, r)}) : null;
+    if (!a || !b) return null;
+    const o = Object.assign({}, r, SPREAD[i], {i});
+    return Object.assign(o, {d: AtlasGeom.route(a, b, o)});
   }).filter(Boolean);
 
   /* ── markup ──────────────────────────────────────────────────────────────
@@ -46,10 +51,10 @@
     ${toolbar()}
     <div class="atlas-stage" id="atlas-stage">
       <div class="atlas-world" id="atlas-world">
-        <svg class="atlas-canvas" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+        <svg class="atlas-canvas" viewBox="0 0 ${W} ${H}">
           ${defs()}
-          <g class="atlas-regions">${regions()}</g>
-          <g class="atlas-routes">${routes()}</g>
+          <g class="atlas-regions" aria-hidden="true">${regions()}</g>
+          <g class="atlas-routes" aria-hidden="true">${routes()}</g>
           ${planet()}
         </svg>
         <div class="atlas-nodes" id="atlas-nodes">${cards()}</div>
@@ -121,6 +126,7 @@
     const w = Object.assign({}, ATLAS_WORLD, {label:t.t, sub:t.s});
     return `<g class="pw-node" tabindex="0" role="button" data-node="world"
                aria-label="${esc(w.label)} — open it in the infrastructure">
+      <circle class="pw-hit"  cx="${w.cx}" cy="${w.cy}" r="${w.r + 18}"/>
       <circle class="pw-halo" cx="${w.cx}" cy="${w.cy}" r="${w.r + 26}"/>
       <circle class="pw-rim"  cx="${w.cx}" cy="${w.cy}" r="${w.r}"/>
       <text class="pw-label" x="${w.cx}" y="${w.cy - w.r - 40}" text-anchor="middle">${esc(w.label)}</text>
@@ -205,7 +211,7 @@
       return `<button type="button" class="nd${small ? ' is-small' : ''}${n.encl ? ' is-encl' : ''}"
         data-node="${n.id}" data-layer="${n.layer}"
         style="left:${n.x}px;top:${n.y}px;width:${n.w}px;height:${n.h}px;
-               color:var(--r-${n.region});--nd-c:var(--r-${n.region})"
+               color:var(--atlas-l${n.layer});--nd-c:var(--atlas-l${n.layer})"
         aria-label="${esc(c.title)} — layer ${n.layer}, open its detail">
         ${c.icon}
         <span class="nd-head">
@@ -317,7 +323,10 @@
     allTargets.forEach(e => e.classList.toggle('is-selected', e === el));
     const layer = id === 'world' ? 0 : N[id].layer;
     const d = AtlasData.detail(layer);
-    if (!d) { closePanel(); return; }
+    /* The physical world is not a layer, so there is no detail to open. The
+       click still selects it: the highlight stays put while you read what it
+       reaches, and Escape clears it like any other selection. */
+    if (!d) { hidePanel(); paint(id); return; }
     panel.innerHTML = panelHTML(d, N[id] ? N[id].region : 'network');
     panel.hidden = false;
     /* A forced reflow, not requestAnimationFrame: rAF does not fire while the
@@ -328,13 +337,17 @@
     paint(id);
   }
 
-  function closePanel() {
+  function hidePanel() {
     panel.classList.remove('is-open');
+    setTimeout(() => { panel.hidden = true; panel.innerHTML = ''; }, 240);
+  }
+
+  function closePanel() {
     const el = allTargets.find(e => e.dataset.node === selected);
     selected = null;
     allTargets.forEach(e => e.classList.remove('is-selected'));
+    hidePanel();
     paint(null);
-    setTimeout(() => { panel.hidden = true; panel.innerHTML = ''; }, 240);
     if (el) el.focus();
   }
 
