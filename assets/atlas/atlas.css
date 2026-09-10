@@ -54,6 +54,8 @@
   --atlas-l8:#4FD0D8;
   --atlas-l9:#A9B6E0;
   --atlas-l10:#7FC07A;
+  /* The planet is not a layer; this is what its own runs are drawn in. */
+  --atlas-world:var(--atlas-data);
 
   --atlas-glow-low:0 0 12px;
   --atlas-glow-high:0 0 24px;
@@ -119,13 +121,16 @@
   stroke-width var(--atlas-motion-fast) var(--atlas-ease)}
 .rt.is-core{opacity:.95; stroke-width:2.6}
 .rt-hit{fill:none; stroke:transparent; stroke-width:18; cursor:pointer}
-.atlas.is-filtered .rt{opacity:.09}
+/* Unlit runs have to fall far enough back that the geometry they leave behind
+   does not read as a shape of its own. At .09 the amber corridors round the
+   foundations drew a pale rectangle that looked deliberate. */
+.atlas.is-filtered .rt{opacity:.045}
 .atlas.is-filtered .rt.is-lit{opacity:1; stroke-width:3.2}
 .rt.is-lit{opacity:1; stroke-width:3.2; filter:drop-shadow(0 0 7px currentColor)}
 .rt-label{font:600 10px var(--f,sans-serif); letter-spacing:.06em;
   text-transform:uppercase; opacity:.75; paint-order:stroke;
   stroke:var(--atlas-bg); stroke-width:4px; stroke-linejoin:round}
-.atlas.is-filtered .rt-label{opacity:.12}
+.atlas.is-filtered .rt-label{opacity:.07}
 .rt-g:has(.rt.is-lit) .rt-label{opacity:1}
 .rt-dot{r:3; opacity:0}
 .rt-dot.is-on{opacity:.95; filter:drop-shadow(0 0 5px currentColor)}
@@ -220,7 +225,7 @@
 
 /* ── toolbar ─────────────────────────────────────────────────────────────── */
 .atlas-top{position:relative; z-index:3; display:flex; flex-wrap:wrap; gap:12px;
-  align-items:center; padding:16px 20px 4px}
+  align-items:center; justify-content:flex-end; padding:16px 20px 4px}
 .atlas-title{display:flex; align-items:baseline; gap:12px; margin-right:auto}
 .atlas-title h3{margin:0; font:600 19px/1 var(--f,sans-serif); letter-spacing:.1em;
   text-transform:uppercase; color:var(--atlas-text)}
@@ -254,7 +259,7 @@
 .atlas-search input:focus{outline:2px solid var(--atlas-data); outline-offset:1px}
 .atlas-search svg{position:absolute; left:11px; width:15px; height:15px;
   stroke:var(--atlas-text-dim); fill:none; pointer-events:none}
-.atlas-results{position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:20;
+.atlas-results{position:absolute; top:calc(100% + 6px); right:0; min-width:100%; z-index:20;
   margin:0; padding:6px; list-style:none; border-radius:12px; max-height:280px;
   overflow:auto; background:#0b1e33; border:1px solid var(--atlas-border);
   box-shadow:0 18px 40px rgba(0,0,0,.6)}
@@ -264,6 +269,7 @@
   font:400 13px var(--f,sans-serif); cursor:pointer}
 .atlas-results button:hover,.atlas-results button:focus-visible{background:rgba(40,90,130,.5); outline:none}
 .atlas-results small{display:block; color:var(--atlas-text-dim); font-size:11px}
+.atlas-results small b{color:var(--atlas-data); font-weight:700; letter-spacing:.04em}
 
 /* ── controls and minimap ────────────────────────────────────────────────── */
 .atlas-controls{position:absolute; right:16px; bottom:16px; z-index:4;
@@ -303,7 +309,7 @@
   place-items:center; border:1.5px solid var(--atlas-data);
   background:color-mix(in srgb, var(--atlas-data) 14%, transparent);
   box-shadow:0 0 14px color-mix(in srgb, var(--atlas-data) 40%, transparent)}
-.pn-globe .licon{width:22px; height:22px; stroke:var(--atlas-data); fill:none;
+.pn-globe .licon{width:22px; height:22px; stroke:var(--atlas-data) !important; fill:none;
   stroke-width:2.4; stroke-linecap:round}
 /* The world's own colour, for a panel opened from the planet rather than a card. */
 .atlas{--r-world:var(--atlas-data)}
@@ -376,6 +382,7 @@
     background:#081a2e; box-shadow:0 -18px 50px rgba(0,0,0,.7)}
   .atlas-panel.is-open{transform:none}
   .pn-body{grid-template-columns:1fr}
+  .atlas-search{flex:1}
   .atlas-search input{width:100%; max-width:none}
   .atlas-top{padding:14px 14px 4px}
 }

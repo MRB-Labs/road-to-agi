@@ -29,10 +29,23 @@
   /* Departures and arrivals are fanned out along each edge first — see
      AtlasGeom.fan — so two arrows never leave a card from the same point. */
   const SPREAD = AtlasGeom.fan(N, ATLAS_ROUTES);
+  /* An arrow is coloured by the box it leaves, not by what it carries: energy
+     out of the grid is the grid's amber, materials out of layer 2 its brown.
+     What it carries is still said — by the dash pattern, which is the flow's.
+     `tone` in the layout overrides it, for the two runs out of the planet:
+     they are the supply of layers 1 and 2 and must be told apart, and the
+     world has only one colour of its own. */
+  function routeTone(r) {
+    if (r.tone) return r.tone;
+    const a = N[r.from];
+    if (!a || a.id === 'world') return 'world';
+    return a.layer ? 'l' + a.layer : 'world';
+  }
+
   const ROUTES = ATLAS_ROUTES.map((r, i) => {
     const a = N[r.from], b = N[r.to];
     if (!a || !b) return null;
-    const o = Object.assign({}, r, SPREAD[i], {i});
+    const o = Object.assign({}, r, SPREAD[i], {i, tone: routeTone(r)});
     return Object.assign(o, {d: AtlasGeom.route(a, b, o)});
   }).filter(Boolean);
 
@@ -84,7 +97,10 @@
   /* ── background ────────────────────────────────────────────────────────── */
 
   function defs() {
-    const flows = Object.keys(ATLAS_FLOWS).map(k =>
+    /* One arrowhead per colour actually used. A marker cannot inherit the
+       colour of the path that references it, so each tone needs its own. */
+    const tones = [...new Set(ROUTES.map(r => r.tone))];
+    const flows = tones.map(k =>
       `<marker id="atlasArrow-${k}" viewBox="0 0 10 10" refX="8" refY="5"
                markerWidth="5" markerHeight="5" orient="auto-start-reverse">
          <path d="M1 1.5 L8 5 L1 8.5" fill="none" stroke="var(--atlas-${k})"
@@ -175,15 +191,15 @@
     return ROUTES.map(r => `
       <g class="rt-g" data-flow="${r.flow}" data-from="${r.from}" data-to="${r.to}"
          data-ends="${esc([r.from, r.to, r.ends || ''].join(' ').trim())}"
+         style="color:var(--atlas-${r.tone})"
          ${r.core ? 'data-core="1"' : ''}>
         <path class="rt-hit" d="${r.d}"/>
         ${routeLabel(r)}
-        <path class="rt${r.core ? ' is-core' : ''}" d="${r.d}"
-              stroke="var(--atlas-${r.flow})"
+        <path class="rt${r.core ? ' is-core' : ''}" d="${r.d}" stroke="currentColor"
               ${(r.dash || ATLAS_FLOWS[r.flow].dash)
                   ? `stroke-dasharray="${r.dash || ATLAS_FLOWS[r.flow].dash}"` : ''}
-              marker-end="url(#atlasArrow-${r.flow})"/>
-        <circle class="rt-dot" fill="var(--atlas-${r.flow})" r="3"/>
+              marker-end="url(#atlasArrow-${r.tone})"/>
+        <circle class="rt-dot" fill="currentColor" r="3"/>
       </g>`).join('');
   }
 
@@ -200,7 +216,7 @@
     p.setAttribute('d', r.d);
     const m = p.getTotalLength() / 2, pt = p.getPointAtLength(m);
     return `<text class="rt-label" x="${pt.x.toFixed(0)}" y="${(pt.y - 9).toFixed(0)}"
-             text-anchor="middle" fill="var(--atlas-${r.flow})">${esc(txt)}</text>`;
+             text-anchor="middle" fill="currentColor">${esc(txt)}</text>`;
   }
 
   function cards() {
@@ -230,18 +246,23 @@
 
 
   function toolbar() {
+    /* The swatch shows the dash pattern, not a colour: since an arrow takes
+       the colour of the box it leaves, the dash is the only thing that still
+       says what is flowing. */
+    const swatch = d => `<span class="fl-dash" style="background:${d
+      ? `repeating-linear-gradient(90deg,currentColor 0 ${d.split(' ')[0]}px,transparent 0 ${
+          (+d.split(' ')[0]) + (+d.split(' ')[1])}px)`
+      : 'currentColor'}"></span>`;
     const fl = Object.entries(ATLAS_FLOWS).map(([k, f]) =>
-      `<button type="button" class="fl-btn" data-filter="${k}" aria-pressed="false"
-               style="color:var(--atlas-${k})">
-         ${f.dash ? `<span class="fl-dash" style="background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 7px)"></span>`
-                  : '<i></i>'}${esc(f.label)}</button>`).join('');
+      `<button type="button" class="fl-btn" data-filter="${k}" aria-pressed="false">
+         ${swatch(f.dash)}${esc(f.label)}</button>`).join('');
     return `<div class="atlas-top">
       <div class="atlas-search">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke-width="2"/>
           <path d="M16.5 16.5 21 21" stroke-width="2" stroke-linecap="round"/></svg>
         <input type="search" id="atlas-q" autocomplete="off" role="combobox"
                aria-expanded="false" aria-controls="atlas-results"
-               placeholder="Search layers, components, companies…" aria-label="Search the atlas">
+               placeholder="Search tickers or company names" aria-label="Search tickers or company names">
         <ul class="atlas-results" id="atlas-results" role="listbox"></ul>
       </div>
     </div>
@@ -267,19 +288,29 @@
   const touches = (r, id) => (r.dataset.ends || '').split(' ').includes(id);
   const farEnd  = (r, id) => r.dataset.from === id ? r.dataset.to : r.dataset.from;
 
-  function lightFor(id) {
-    const lit = new Set(), near = new Set(id ? [id] : []);
-    routeEls.forEach(r => {
-      const on = id && touches(r, id) &&
-                 (activeFilter === 'all' || r.dataset.flow === activeFilter);
-      if (on) { lit.add(r); near.add(farEnd(r, id)); }
-    });
-    /* An enclosure holds other cards: pointing at the machine or the data
-       centre lights everything inside it, which no arrow can say. */
+  /* What counts as "this box". An enclosure stands for everything inside it,
+     so pointing at the machine lights every run in and out of its blocks —
+     not only the two or three that name the frame itself. */
+  function selfIds(id) {
+    const out = new Set(id ? [id] : []);
     const node = id && N[id];
     if (node && node.encl)
       ATLAS_NODES.filter(n => n.region === node.region && n.id !== id)
-                 .forEach(n => near.add(n.id));
+                 .forEach(n => out.add(n.id));
+    return out;
+  }
+
+  function lightFor(id) {
+    const self = selfIds(id), lit = new Set(), near = new Set(self);
+    routeEls.forEach(r => {
+      if (activeFilter !== 'all' && r.dataset.flow !== activeFilter) return;
+      const end = [...self].find(s => touches(r, s));
+      if (!end) return;
+      lit.add(r);
+      /* the box at the other end — unless it is also inside this enclosure,
+         in which case the run is internal and lights nothing new */
+      near.add(farEnd(r, end));
+    });
     return {lit, near};
   }
 
@@ -314,9 +345,12 @@
 
   /* ── filters ───────────────────────────────────────────────────────────── */
   host.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', () => {
-    activeFilter = b.dataset.filter;
+    /* A pressed filter unpresses: clicking the flow you are already on puts
+       the whole map back, so the chips work as switches rather than a
+       one-way choice you have to undo through "All flows". */
+    activeFilter = (activeFilter === b.dataset.filter) ? 'all' : b.dataset.filter;
     host.querySelectorAll('[data-filter]').forEach(o =>
-      o.setAttribute('aria-pressed', String(o === b)));
+      o.setAttribute('aria-pressed', String(o.dataset.filter === activeFilter)));
     paint(selected);
   }));
 
@@ -411,10 +445,14 @@
   q.addEventListener('input', () => {
     const v = q.value.trim().toLowerCase();
     if (v.length < 2) { results.innerHTML = ''; q.setAttribute('aria-expanded', 'false'); return; }
-    const hits = index.filter(r => r.label.toLowerCase().includes(v)).slice(0, 8);
+    /* A ticker matches from the front — typing NV should find NVDA, not every
+       company with an n and a v in its name. */
+    const hits = index.filter(r => r.label.toLowerCase().includes(v) ||
+                                   r.ticker.toLowerCase().startsWith(v)).slice(0, 8);
     results.innerHTML = hits.map(r =>
       `<li role="option"><button type="button" data-go="${esc(r.node)}">${esc(r.label)}
-        <small>${esc(r.hint)}</small></button></li>`).join('');
+        <small>${r.ticker ? '<b>' + esc(r.ticker) + '</b> &middot; ' : ''}${esc(r.hint)}</small>
+        </button></li>`).join('');
     q.setAttribute('aria-expanded', String(hits.length > 0));
   });
   results.addEventListener('click', e => {

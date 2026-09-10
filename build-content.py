@@ -247,6 +247,39 @@ def layer_summary(src):
             + '\n'.join(rows) + '\n</ol>\n</div>\n</noscript>')
 
 
+# ── the atlas ticker index ───────────────────────────────────────────────────
+# The overview's map has a search, and it looks for companies by name and by
+# ticker. It cannot read the tables that hold them: CHAIN is 72KB and TVSYM
+# 10KB, and neither belongs on a page that only needs the lookup. So the lookup
+# is built here instead — one row per company the site places anywhere, with
+# its symbol when the site knows one — and shipped as ATLAS_TICKERS.
+def ticker_index(src):
+    """[name, ticker, layer] for every company CHAIN places, symbol if known."""
+    sym = {}
+    m = re.search(r'const TVSYM=\{(.*?)\n\};', src, re.S)
+    for name, listing in re.findall(r'"((?:[^"\\]|\\.)*)" *: *"([^"]+)"', m.group(1)):
+        sym[name] = listing.split(':')[-1]
+
+    body = src[src.index('const CHAIN='):src.index('const TICK=')]
+    rows, seen = [], set()
+    layer = None
+    for m in re.finditer(r"^(\d+):\{lead:|n:\[([^\]]*)\]", body, re.M):
+        if m.group(1):
+            layer = int(m.group(1))
+            continue
+        for name in re.findall(r"'((?:[^'\\]|\\.)*)'", m.group(2)):
+            key = (name, layer)
+            if key in seen:
+                continue
+            seen.add(key)
+            rows.append((name, sym.get(name, ''), layer))
+    rows.sort(key=lambda r: (r[1] == '', r[0]))
+    return ('\n/* GENERATED: the atlas search index — company, ticker, layer. */\n'
+            'const ATLAS_TICKERS=[' +
+            ','.join('["%s","%s",%d]' % (n.replace('"', '\\"'), t, l)
+                     for n, t, l in rows) + '];\n')
+
+
 def main():
     check = '--check' in sys.argv
     src = SRC.read_text()
@@ -270,6 +303,8 @@ def main():
                 parts.append(trim_layers(ch[n]))
             else:
                 parts.append(ch[n])
+        if page == 'index.html':
+            parts.append(ticker_index(src))
         out = ROOT / 'assets' / ('content-%s.js' % page[:-5])
         text = ''.join(parts)
         if check:

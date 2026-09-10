@@ -98,6 +98,10 @@ const ATLAS_FLOWS = {
    keep the same anchor (the fan leaves them alone) and take the same first
    guides, so the overlap is deliberate and the guard allows it.
 
+   `tone` overrides the colour, which otherwise comes from the box the run
+   leaves. Only the two runs out of the planet use it: they are the supply of
+   layers 1 and 2 and have to be told apart, and the planet has one colour.
+
    `tx` offsets the arrival along the target's own edge, the way `dx` offsets
    the departure. Any offset written here overrides the automatic fan, which is
    what spreads everything else apart. `ends` names extra cards that light the
@@ -108,9 +112,9 @@ const ATLAS_ROUTES = [
      extracted. They land on the group, not on a card, because that is what
      they feed. `ends` lights them from either layer inside it as well. */
   {from:'world', to:'#foundations', flow:'materials', side:['top','top'], dx:-16, tx:96,
-   via:[{y:48}], ends:'l2', dash:'6 6', core:true},
+   via:[{y:48}], ends:'l2', dash:'6 6', tone:'l2', core:true},
   {from:'world', to:'#foundations', flow:'energy',    side:['top','top'], dx:-56, tx:-40,
-   via:[{y:80}], ends:'l1', dash:'6 6', core:true},
+   via:[{y:80}], ends:'l1', dash:'6 6', tone:'l1', core:true},
 
   /* the base pair */
   {from:'l1',  to:'l2',   flow:'energy',    side:['bottom','top'], dx:-32, tx:-32},
