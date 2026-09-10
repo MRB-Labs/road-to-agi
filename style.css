@@ -2043,10 +2043,48 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .fml-u{font:500 11.5px var(--f-mono); color:var(--accent); flex:none}
 .fml code sub{font-size:.72em; opacity:.85}
 
+.eq-read{display:grid; gap:10px; margin:12px 0 0}
+.eq-card{border:1px solid color-mix(in srgb,var(--stage) 34%,var(--line));
+  border-radius:10px; background:linear-gradient(180deg,
+  color-mix(in srgb,var(--stage) 8%,var(--surface2)),var(--surface2));
+  padding:11px 12px}
+.eq-label{margin:0 0 8px; font:650 10.5px var(--f-mono); letter-spacing:.08em;
+  text-transform:uppercase; color:var(--stage)}
+.eq-frac{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  gap:10px; align-items:stretch}
+.eq-frac>div{border:1px solid var(--line); border-radius:8px; padding:9px 10px;
+  background:color-mix(in srgb,var(--surface) 78%,transparent)}
+.eq-frac span{display:block; margin:0 0 5px; font-size:11.5px; line-height:1.35;
+  color:var(--muted)}
+.eq-frac b{align-self:center; color:var(--ink2); font:600 11px var(--f-mono);
+  letter-spacing:.06em; text-transform:uppercase}
+.eq-card code,.eq-frac code{font:500 12px var(--f-mono); color:var(--ink);
+  background:transparent; border:0; padding:0; line-height:1.55; overflow-wrap:anywhere}
+
 .mtr-worked{margin:16px 0 0; background:var(--surface2); border:1px solid var(--line);
   border-left:3px solid var(--stage); border-radius:9px; padding:13px 16px}
+.mtr-worked h5{font-size:15px; font-weight:650; letter-spacing:-.01em; color:var(--ink);
+  margin:0 0 12px}
+.mtr-worked h5 span{display:inline-flex; margin-left:8px; vertical-align:middle;
+  font:600 10px var(--f-mono); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--stage); border:1px solid color-mix(in srgb,var(--stage) 38%,var(--line));
+  border-radius:999px; padding:3px 7px}
+.calc-inputs{border:1px solid var(--line); border-radius:9px; padding:10px 12px;
+  background:var(--surface); margin:0 0 12px}
 .mtr-worked ul{margin:0; padding-left:18px}
 .mtr-worked li{font-size:13px; line-height:1.55; color:var(--ink2); margin-bottom:3px}
+.calc-steps{list-style:none; counter-reset:calc; margin:0; padding:0; display:grid; gap:8px}
+.calc-steps li{counter-increment:calc; display:grid; grid-template-columns:auto minmax(0,1fr);
+  gap:6px 10px; align-items:start; border:1px solid var(--line); border-radius:9px;
+  background:color-mix(in srgb,var(--surface) 78%,transparent); padding:10px 11px}
+.calc-steps li::before{content:counter(calc); display:grid; place-items:center;
+  width:24px; height:24px; border-radius:999px; background:var(--stage); color:var(--bg);
+  font:700 12px var(--f-mono)}
+.calc-steps span{font-size:12.5px; font-weight:650; color:var(--ink)}
+.calc-steps code{grid-column:2; width:max-content; max-width:100%;
+  font:500 12.5px var(--f-mono); color:var(--ink); background:var(--surface2);
+  border:1px solid var(--line); border-radius:7px; padding:6px 8px; overflow-wrap:anywhere}
+.calc-steps em{grid-column:2; color:var(--muted); font-size:12.5px; line-height:1.45}
 .mtr-r{margin:10px 0 0; font:500 13px var(--f-mono); color:var(--ink);
   background:var(--surface); border:1px solid var(--line); border-radius:7px;
   padding:9px 12px; overflow-wrap:anywhere}
@@ -2067,6 +2105,10 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 .mfr-warn{margin:14px 0 0; font-size:13px; line-height:1.58; color:var(--ink2);
   background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--amber);
   border-radius:7px; padding:10px 13px}
+@media(max-width:720px){
+  .eq-frac{grid-template-columns:1fr}
+  .eq-frac b{text-align:left}
+}
 
 /* The headline is short enough to hold one line at any width the report is
    read at, so it should not break where a browser happens to choose. */

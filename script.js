@@ -435,6 +435,34 @@ function tabIntro(mode,col,layerTitle){
     <h4>${_esc(t[0])}</h4><p>${_esc(t[1])}</p></div>`;
 }
 
+function didacticFormula(f){
+  const pieces=String(f).split(/\s*&nbsp;·&nbsp;\s*/);
+  return pieces.map((piece,i)=>{
+    const parts=piece.split(/\s*÷\s*/);
+    if(parts.length<2) return `<div class="eq-card"><p class="eq-label">${i?'Related formula':'Equation'}</p><code>${piece}</code></div>`;
+    return `<div class="eq-card">
+      <p class="eq-label">${i?'Related formula':'Read the equation'}</p>
+      <div class="eq-frac">
+        <div><span>What counts as useful output</span><code>${parts[0]}</code></div>
+        <b>divided by</b>
+        <div><span>What it consumed or cost</span><code>${parts.slice(1).join(' ÷ ')}</code></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function workedSteps(w){
+  if(!w) return '';
+  const inputs = w.s&&w.s.length ? `<div class="calc-inputs">
+    <p class="mtr-eyebrow">Inputs</p>
+    <ul>${w.s.map(x=>`<li>${_esc(x)}</li>`).join('')}</ul>
+  </div>` : '';
+  const calc = w.calc&&w.calc.length ? `<ol class="calc-steps">
+    ${w.calc.map(x=>`<li><span>${_esc(x[0])}</span><code>${x[1]}</code>${x[2]?`<em>${_esc(x[2])}</em>`:''}</li>`).join('')}
+  </ol>` : '';
+  return `${inputs}${calc}`;
+}
+
 /* How a layer is measured: the ratio that matters, the formula behind it, the
    KPIs that diagnose it, and a worked number. The framework is the same for
    all ten — accepted useful output over what it cost — so it is stated once,
@@ -462,11 +490,12 @@ function metricsBlock(n, col){
 
   return `<section class="mtr">
     <h4 class="mini-h">How this layer is measured</h4>
-    <p class="sub">The ratio that decides whether the layer is getting better, what it is made of, and a worked number. Every figure below needs its functional unit, boundary, quality threshold, workload, geography and period stated with it — a ratio without those is not a measurement.</p>
+    <p class="sub">Read the metric as a sentence: useful output on top, full cost or input underneath. The layer improves when the same boundary produces more accepted output for the same money, energy, time or material. Every figure below still needs its functional unit, boundary, quality threshold, workload, geography and period stated with it — a ratio without those is not a measurement.</p>
     <div class="mtr-primary" style="--stage:${col}">
       <p class="mtr-eyebrow">Primary metric</p>
       <h5>${_esc(m.primary.n)}</h5>
       <div class="fml is-lead"><code>${m.primary.f}</code><span class="fml-u">${_esc(m.primary.u)}</span></div>
+      <div class="eq-read">${didacticFormula(m.primary.f)}</div>
       <p class="mtr-w">${m.primary.w}</p>
     </div>
     <h5 class="mtr-h">What diagnoses it</h5>
@@ -474,8 +503,9 @@ function metricsBlock(n, col){
       ${m.kpis.map(k=>`<tr><td><b>${_esc(k[0])}</b></td><td><code>${k[1]}</code></td><td>${_esc(k[2])}</td></tr>`).join('')}
     </tbody></table></div>
     <div class="mtr-worked" style="--stage:${col}">
-      <p class="mtr-eyebrow">Worked through</p>
-      <ul>${m.worked.s.map(x=>`<li>${_esc(x)}</li>`).join('')}</ul>
+      <p class="mtr-eyebrow">Worked example</p>
+      <h5>${_esc(m.worked.t||'One complete calculation')}${m.worked.as_of?` <span>${_esc(m.worked.as_of)}</span>`:''}</h5>
+      ${workedSteps(m.worked)}
       <p class="mtr-r">${m.worked.r}</p>
     </div>
     ${frame}
