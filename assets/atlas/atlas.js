@@ -246,15 +246,17 @@
 
 
   function toolbar() {
-    /* The swatch shows the dash pattern, not a colour: since an arrow takes
-       the colour of the box it leaves, the dash is the only thing that still
-       says what is flowing. */
+    /* The swatch shows the dash pattern *and* the colour of the layer the flow
+       stands for — energy is layer 1's amber, control layer 9's — so the legend
+       reads in the same colours as the map. The dash is what tells two flows
+       apart when they leave the same card. */
     const swatch = d => `<span class="fl-dash" style="background:${d
-      ? `repeating-linear-gradient(90deg,currentColor 0 ${d.split(' ')[0]}px,transparent 0 ${
+      ? `repeating-linear-gradient(90deg,var(--fl-c) 0 ${d.split(' ')[0]}px,transparent 0 ${
           (+d.split(' ')[0]) + (+d.split(' ')[1])}px)`
-      : 'currentColor'}"></span>`;
+      : 'var(--fl-c)'}"></span>`;
     const fl = Object.entries(ATLAS_FLOWS).map(([k, f]) =>
-      `<button type="button" class="fl-btn" data-filter="${k}" aria-pressed="false">
+      `<button type="button" class="fl-btn" data-filter="${k}" aria-pressed="false"
+               style="--fl-c:var(--atlas-l${f.layer})">
          ${swatch(f.dash)}${esc(f.label)}</button>`).join('');
     return `<div class="atlas-top">
       <div class="atlas-search">
@@ -307,9 +309,15 @@
       const end = [...self].find(s => touches(r, s));
       if (!end) return;
       lit.add(r);
-      /* the box at the other end — unless it is also inside this enclosure,
-         in which case the run is internal and lights nothing new */
-      near.add(farEnd(r, end));
+      const far = farEnd(r, end);
+      if (far && far[0] !== '#') { near.add(far); return; }
+      /* The far end is a whole macro-system, not a card — the two runs out of
+         the planet land on the dashed foundations group. Light what they
+         actually feed, named in `ends`, or the planet's own click leaves that
+         column a field of empty boxes. */
+      (r.dataset.ends || '').split(' ').forEach(x => {
+        if (x && x[0] !== '#' && x !== end && N[x]) near.add(x);
+      });
     });
     return {lit, near};
   }

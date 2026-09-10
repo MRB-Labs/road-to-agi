@@ -71,6 +71,10 @@ actually reads, which is the difference between an 11KB overview and a 47KB one.
 - **An enclosure stands for everything inside it.** Pointing at the machine
   lights every run in and out of its six blocks, not only the ones that name the
   frame. `selfIds()` is where that is decided.
+- **Fork as late as possible.** A fork drawn at the card is two long parallel
+  lines; drawn where the branches actually part it is one line with a stub. The
+  energy run out of the grid stays single all the way under the map and splits
+  only beneath the network, at x 1052.
 - **A fork is one line that branches, never two lines side by side.** Two runs
   leaving the same card on the same side for the same reason carry the same
   `trunk` key: they keep one anchor between them, take the same first guides,
@@ -108,6 +112,14 @@ actually reads, which is the difference between an 11KB overview and a 47KB one.
   the globe mark where a layer would show its number. Its label hangs below the
   planet: above it, the two dashed lines leaving the top ran through their own
   caption.
+- **A focused SVG `<g tabindex>` is outlined around its whole bounding box** by
+  Safari and Firefox — for the planet that is a white rectangle enclosing the
+  halo and the caption. Chromium draws nothing, which is why it survived three
+  rounds of looking. `.pw-node{outline:none}` kills it; the rim and halo are the
+  focus indicator.
+- **A route that ends on a `#region` lights the cards named in `ends`.** The two
+  runs out of the planet land on the foundations group, not on a card, so
+  without this the planet's own click left that column a field of empty boxes.
 - **`fill:none` cannot be hit; `fill:transparent` can.** The planet's rings are
   unfilled, so it carries a `.pw-hit` disc of its own. And `.atlas-nodes` is a
   full-canvas div sitting over the SVG: it must stay `pointer-events:none`

@@ -207,7 +207,14 @@
   letter-spacing:.14em; text-transform:uppercase}
 .pw-sub{fill:var(--atlas-text-muted); font:500 11px/1 var(--f,sans-serif);
   letter-spacing:.1em; text-transform:uppercase}
-.pw-node{cursor:pointer}
+/* The planet is a <g tabindex="0">, and a focused SVG group is outlined by the
+   browser around its whole bounding box — halo and caption included. That is
+   the white rectangle that appeared on clicking it in Safari and Firefox;
+   Chromium never drew it, which is why it took three goes to find. The rim and
+   halo below are the focus indicator instead. */
+.pw-node{cursor:pointer; outline:none}
+.pw-node:focus,.pw-node:focus .pw-rim{opacity:.75}
+.pw-node:focus .pw-halo{opacity:.3}
 /* fill:none is not hit-testable; a transparent fill is. This disc is the
    planet's whole hit area — the rings around it only ever draw. */
 .pw-hit{fill:transparent}
@@ -243,7 +250,7 @@
   background:rgba(10,28,46,.6); color:var(--atlas-text-muted);
   font:600 11.5px var(--f,sans-serif); letter-spacing:.09em; text-transform:uppercase;
   cursor:pointer; transition:all var(--atlas-motion-fast) var(--atlas-ease)}
-.fl-btn i{width:9px; height:9px; border-radius:50%; background:currentColor; flex:none}
+.fl-btn i{width:9px; height:9px; border-radius:50%; background:var(--fl-c,currentColor); flex:none}
 .fl-btn:hover{color:var(--atlas-text); border-color:color-mix(in srgb,var(--atlas-text) 40%,transparent)}
 .fl-btn[aria-pressed="true"]{color:var(--atlas-text); background:rgba(20,52,80,.85);
   border-color:currentColor; box-shadow:var(--atlas-glow-low) color-mix(in srgb, currentColor 40%, transparent)}

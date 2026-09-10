@@ -79,13 +79,16 @@ const ATLAS_NODES = [
 
 /* Flow families. `dash` carries the meaning a second time, so a route never
    depends on colour alone to say what it is. */
+/* `layer` is the layer the flow stands for — energy is layer 1's, control is
+   layer 9's — and it is what the chip in the toolbar is drawn in, so the legend
+   is in the same colours as the map. */
 const ATLAS_FLOWS = {
-  energy:       {label:'Energy',       dash:null},
-  materials:    {label:'Materials',    dash:null},
-  compute:      {label:'Compute',      dash:null},
-  data:         {label:'Data',         dash:'7 6'},
-  intelligence: {label:'Intelligence', dash:'16 6'},
-  control:      {label:'Control',      dash:'2 6'},
+  energy:       {label:'Energy',       dash:null,   layer:1},
+  materials:    {label:'Materials',    dash:null,   layer:2},
+  compute:      {label:'Compute',      dash:null,   layer:4},
+  data:         {label:'Data',         dash:'7 6',  layer:7},
+  intelligence: {label:'Intelligence', dash:'16 6', layer:8},
+  control:      {label:'Control',      dash:'2 6',  layer:9},
 };
 
 /* Routes. `via` threads the run through guides in order: {x:…} turns it
@@ -159,19 +162,22 @@ const ATLAS_ROUTES = [
   {from:'l9e', to:'l6',   flow:'data',      side:['left','top'],   via:[{x:1184},{y:236}]},
 
   /* The base feeds the network and the machine along the lanes under the map.
-     Energy leaves the grid once and forks: off at the first lane for the
-     network, on to the second for the machine. There is no room to thread the
+     Energy leaves the grid once and stays one line the whole way: down the
+     outermost column, along the lane, splitting only where the branches
+     actually part — under the network, where one turns up and the other
+     carries on to the machine. A fork drawn early is two long parallel lines;
+     drawn late it is one. There is no room to thread the
      other two between the planet and the machine, so they land on the machine
      itself and its containment says the rest; `ends` keeps the block each one
      feeds able to light its own supply. */
   {from:'l1',  to:'l6',   flow:'energy',    side:['left','bottom'],
    via:[{x:40},{y:844}], trunk:'l1-west'},
   {from:'l1',  to:'l10',  flow:'energy',    side:['left','bottom'], tx:-60,
-   via:[{x:40},{y:872}], trunk:'l1-west', ends:'l1b'},
+   via:[{x:40},{y:844}], trunk:'l1-west', ends:'l1b'},
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
-   via:[{x:24},{y:900}], ends:'act'},
+   via:[{x:24},{y:876}], ends:'act'},
   {from:'l3',  to:'l10',  flow:'compute',   side:['left','bottom'], tx:60,
-   via:[{x:8},{y:928}],  ends:'l4e'},
+   via:[{x:8},{y:908}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
   {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32},
