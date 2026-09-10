@@ -269,7 +269,7 @@
       </div>
     </div>
     <div class="atlas-filters" role="group" aria-label="Filter by flow">
-      <button type="button" class="fl-btn" data-filter="all" aria-pressed="true">All flows</button>
+      <button type="button" class="fl-btn fl-all" data-filter="all" aria-pressed="true">All flows</button>
       ${fl}
     </div>`;
   }
