@@ -160,7 +160,7 @@ def fan(specs):
             by.setdefault((ident, side), []).append((i, prop, ident, side))
     for (ident, side), lst in by.items():
         host = by_id.get(ident)
-        if host is None or len(lst) < 2:
+        if host is None:
             continue
         vert = side in ('left', 'right')
 
@@ -171,20 +171,43 @@ def fan(specs):
                 return 0
             return far['y'] + far['h'] / 2 if vert else far['x'] + far['w'] / 2
 
-        lst.sort(key=lambda e: (across(e), e[0]))
-        n, extent = len(lst), (host['h'] if vert else host['w'])
-        step = min(32, max(12, (extent - 28) / (n - 1)))
-        for j, e in enumerate(lst):
+        def keep(e, auto=None):
             sp = specs[e[0]]
             given = sp.get('dx') if e[1] == 'dx' else sp.get('tx', sp.get('dy'))
-            off[e[0]][e[1]] = given if given is not None \
-                else round((j - (n - 1) / 2) * step)
+            v = given if given is not None else auto
+            if v is not None:
+                off[e[0]][e[1]] = v
+
+        # a fork takes one slot, not one per branch
+        slots, seen = [], {}
+        for e in lst:
+            t = specs[e[0]].get('trunk') if e[1] == 'dx' else None
+            if t is not None and t in seen:
+                slots[seen[t]].append(e); continue
+            if t is not None:
+                seen[t] = len(slots)
+            slots.append([e])
+        if len(slots) < 2:
+            for sl in slots:
+                for e in sl:
+                    keep(e)
+            continue
+        slots.sort(key=lambda sl: (sum(across(e) for e in sl) / len(sl), sl[0][0]))
+        n, extent = len(slots), (host['h'] if vert else host['w'])
+        step = min(40, max(12, (extent - 40) / (n - 1)))
+        for j, sl in enumerate(slots):
+            for e in sl:
+                keep(e, round((j - (n - 1) / 2) * step))
     return off
 
 
 def spec_of(text):
     out = {'from': re.search(r"from:'([#\w]+)'", text).group(1),
-           'to':   re.search(r"to:'([#\w]+)'", text).group(1)}
+           'to':   re.search(r"to:'([#\w]+)'", text).group(1),
+           'flow': re.search(r"flow:'(\w+)'", text).group(1)}
+    m = re.search(r"trunk:'([\w-]+)'", text)
+    if m:
+        out['trunk'] = m.group(1)
     m = re.search(r"side:\['(\w+)','(\w+)'\]", text)
     if m:
         out['side'] = [m.group(1), m.group(2)]
@@ -253,14 +276,31 @@ for _spec, _o in zip(_specs, _off):
 # like one line. OVERLAP is generous, because short shared stubs are normal.
 OVERLAP = 40
 
+# A fork is the one place two runs are meant to coincide. Trunk-mates must
+# agree on where they leave and why, or the shared line would be a lie about
+# what is flowing along it.
+_trunks = {}
+for _s in _specs:
+    if _s.get('trunk'):
+        _trunks.setdefault(_s['trunk'], []).append(_s)
+for _t, _mates in _trunks.items():
+    if len({(m['from'], tuple(m.get('side', ['right', 'left'])[:1]), m['flow'])
+            for m in _mates}) > 1:
+        bad.append('the %s fork joins runs that do not leave the same card, '
+                   'side and flow' % _t)
+    if len(_mates) < 2:
+        bad.append('the %s fork has only one branch' % _t)
+
 _starts, _arrivals = {}, {}
-for _name, _pts in _paths:
-    _starts.setdefault(_pts[0], []).append(_name)
-    _arrivals.setdefault(_pts[-1], []).append(_name)
+for _i, (_name, _pts) in enumerate(_paths):
+    _starts.setdefault(_pts[0], []).append(_i)
+    _arrivals.setdefault(_pts[-1], []).append(_i)
 for _where, _table in (('leave from', _starts), ('arrive at', _arrivals)):
     for _pt, _who in _table.items():
+        _who = [i for i in _who if _where == 'arrive at' or not _specs[i].get('trunk')]
         if len(_who) > 1:
-            bad.append('%s %s the same point' % (' and '.join(sorted(_who)), _where))
+            bad.append('%s %s the same point'
+                       % (' and '.join(sorted(_paths[i][0] for i in _who)), _where))
 
 
 def segments(pts):
@@ -275,6 +315,9 @@ def segments(pts):
 for _i in range(len(_paths)):
     for _j in range(_i + 1, len(_paths)):
         _na, _nb = _paths[_i][0], _paths[_j][0]
+        _ta, _tb = _specs[_i].get('trunk'), _specs[_j].get('trunk')
+        if _ta is not None and _ta == _tb:
+            continue                      # a fork: the shared run is the point
         for _a in segments(_paths[_i][1]):
             for _b in segments(_paths[_j][1]):
                 if _a[0] != _b[0] or _a[1] != _b[1]:

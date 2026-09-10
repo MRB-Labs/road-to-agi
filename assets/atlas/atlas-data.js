@@ -24,7 +24,8 @@ const AtlasData = (() => {
       lines: c ? c.s : [],
       /* the report already knows how to draw a layer mark — use its own
          renderer rather than a second copy that would drift from it */
-      icon: (typeof layerIcon === 'function') ? layerIcon(node.layer, 'nd-icon') : '',
+      icon: (typeof layerIcon === 'function')
+        ? layerIcon(node.icon || node.layer, 'nd-icon', node.layer) : '',
       moat: L ? L.moat : undefined,
       mark: L ? L.mk : undefined,
     };
@@ -59,6 +60,19 @@ const AtlasData = (() => {
     };
   }
 
+  /* The physical world is not a layer, so it has no row in LAYERS. Its panel
+     is built from the same shape as any other, out of ATLAS_WORLD_TEXT — the
+     only place its words live. */
+  function worldDetail() {
+    const t = (typeof ATLAS_WORLD_TEXT !== 'undefined') ? ATLAS_WORLD_TEXT : null;
+    if (!t) return null;
+    return {
+      n: 0, title: t.t, moat: t.s, role: t.lede,
+      icon: (typeof layerIcon === 'function') ? layerIcon(0, 'pn-mark', 0) : '',
+      facts: [], companies: [], watch: t.reach || [],
+    };
+  }
+
   /* Everything a search can match, drawn only from data already present. */
   function searchIndex(nodes) {
     const out = [];
@@ -80,5 +94,5 @@ const AtlasData = (() => {
     });
   }
 
-  return {card, detail, searchIndex, layerOf, ready: () => LAYERS_T().length > 0, have};
+  return {card, detail, worldDetail, searchIndex, layerOf, ready: () => LAYERS_T().length > 0, have};
 })();

@@ -119,7 +119,11 @@
 
   /* The planet is the one in the photograph — the canvas shares its aspect, so
      it lands on these coordinates at every size. All that is drawn here is the
-     hit area, a rim that answers to hover, and the label. */
+     hit area, a rim that answers to hover, and the label.
+
+     The label hangs below the planet, not above it: the two dashed lines that
+     leave the top of the world for the foundations used to run straight
+     through their own caption. */
   function planet() {
     const t = (typeof ATLAS_WORLD_TEXT !== 'undefined') ? ATLAS_WORLD_TEXT
             : {t:'The physical world', s:''};
@@ -129,8 +133,8 @@
       <circle class="pw-hit"  cx="${w.cx}" cy="${w.cy}" r="${w.r + 18}"/>
       <circle class="pw-halo" cx="${w.cx}" cy="${w.cy}" r="${w.r + 26}"/>
       <circle class="pw-rim"  cx="${w.cx}" cy="${w.cy}" r="${w.r}"/>
-      <text class="pw-label" x="${w.cx}" y="${w.cy - w.r - 40}" text-anchor="middle">${esc(w.label)}</text>
-      <text class="pw-sub"   x="${w.cx}" y="${w.cy - w.r - 20}" text-anchor="middle">${esc(w.sub)}</text>
+      <text class="pw-label" x="${w.cx}" y="${w.cy + w.r + 44}" text-anchor="middle">${esc(w.label)}</text>
+      <text class="pw-sub"   x="${w.cx}" y="${w.cy + w.r + 66}" text-anchor="middle">${esc(w.sub)}</text>
     </g>`;
   }
 
@@ -321,19 +325,16 @@
     const el = allTargets.find(e => e.dataset.node === id);
     selected = id;
     allTargets.forEach(e => e.classList.toggle('is-selected', e === el));
-    const layer = id === 'world' ? 0 : N[id].layer;
-    const d = AtlasData.detail(layer);
-    /* The physical world is not a layer, so there is no detail to open. The
-       click still selects it: the highlight stays put while you read what it
-       reaches, and Escape clears it like any other selection. */
+    const d = id === 'world' ? AtlasData.worldDetail()
+                            : AtlasData.detail(N[id].layer);
     if (!d) { hidePanel(); paint(id); return; }
-    panel.innerHTML = panelHTML(d, N[id] ? N[id].region : 'network');
+    panel.innerHTML = panelHTML(d, N[id] ? N[id].region : 'world');
     panel.hidden = false;
     /* A forced reflow, not requestAnimationFrame: rAF does not fire while the
        tab is hidden, and the panel would then never get its open state. */
     void panel.offsetWidth;
     panel.classList.add('is-open');
-    panel.querySelector('.pn-close').addEventListener('click', closePanel);
+    panel.querySelector('.pn-close').addEventListener('click', () => closePanel(true));
     paint(id);
   }
 
@@ -342,14 +343,32 @@
     setTimeout(() => { panel.hidden = true; panel.innerHTML = ''; }, 240);
   }
 
-  function closePanel() {
+  function closePanel(restoreFocus) {
     const el = allTargets.find(e => e.dataset.node === selected);
     selected = null;
     allTargets.forEach(e => e.classList.remove('is-selected'));
     hidePanel();
     paint(null);
-    if (el) el.focus();
+    if (restoreFocus && el) el.focus();
   }
+
+  /* Three ways out, and they must all work: the close button, Escape, and a
+     click anywhere that is not the panel or a card. The last one is measured
+     against where the pointer went down, so dragging the map shut is not a
+     thing that can happen by accident. */
+  let downAt = null;
+  host.addEventListener('pointerdown', e => { downAt = [e.clientX, e.clientY, e.target]; });
+  host.addEventListener('pointerup', e => {
+    if (!selected || !downAt) return;
+    const moved = Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]);
+    const onChrome = t => t instanceof Element &&
+      t.closest('.nd, .pw-node, .atlas-panel, .atlas-top, .atlas-filters, .atlas-controls');
+    if (moved < 5 && !onChrome(downAt[2]) && !onChrome(e.target)) closePanel(false);
+    downAt = null;
+  });
+  document.addEventListener('pointerdown', e => {
+    if (selected && !host.contains(e.target)) closePanel(false);
+  });
 
   function panelHTML(d, region) {
     const sec = (title, body, wide) => body
@@ -362,7 +381,7 @@
       </div>` : '';
     return `
       <header class="pn-head" style="color:var(--r-${region});--nd-c:var(--r-${region})">
-        <span class="pn-num">${d.n}</span>
+        ${d.n ? `<span class="pn-num">${d.n}</span>` : `<span class="pn-globe">${d.icon || ''}</span>`}
         <span class="pn-id">
           <h4 id="atlas-panel-title">${esc(d.title)}</h4>
           ${d.moat ? `<p>${esc(d.moat)}</p>` : ''}
@@ -373,17 +392,17 @@
         ${sec('Role', d.role ? `<p>${d.role}</p>` : '', true)}
         ${sec('Core metric', metric)}
         ${sec('Binding constraint', d.choke ? `<p>${d.choke}</p>` : '')}
-        ${sec('What to watch', chips(d.watch))}
+        ${sec(d.n ? 'What to watch' : 'What it reaches', chips(d.watch))}
         ${sec('Key companies', chips(d.companies))}
         ${d.facts.length ? sec('Also measured',
           `<ul class="pn-chips">${d.facts.map(f =>
             `<li><b>${esc(f.value)}</b> &nbsp;${esc(f.label)}</li>`).join('')}</ul>`, true) : ''}
-        <p class="pn-more"><a href="stack.html#layer-${d.n}">Open layer ${d.n} in full &rarr;</a></p>
+        ${d.n ? `<p class="pn-more"><a href="stack.html#layer-${d.n}">Open layer ${d.n} in full &rarr;</a></p>` : ''}
       </div>`;
   }
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && selected) { e.stopPropagation(); closePanel(); }
+    if (e.key === 'Escape' && selected) { e.stopPropagation(); closePanel(true); }
   });
 
   /* ── search ────────────────────────────────────────────────────────────── */

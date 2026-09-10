@@ -64,6 +64,12 @@ actually reads, which is the difference between an 11KB overview and a 47KB one.
   photograph; inverting it would cost the depth the design rests on.
 - Routes carry their meaning twice — colour *and* dash pattern — so the map
   never depends on colour alone.
+- **A fork is one line that branches, never two lines side by side.** Two runs
+  leaving the same card on the same side for the same reason carry the same
+  `trunk` key: they keep one anchor between them, take the same first guides,
+  and split where they part company. Trunk-mates must agree on card, side and
+  flow — a shared line whose branches carry different things would be a lie
+  about what flows along it, and `check-atlas.py` refuses it.
 - **An arrow is centred on its card only when it is the only arrow.** Two on
   one edge leaving from the same point cannot be told apart, so `AtlasGeom.fan`
   spreads every route end sharing a (card, side) evenly about the centre,
@@ -76,6 +82,15 @@ actually reads, which is the difference between an 11KB overview and a 47KB one.
   battery in the machine — the way the hand-drawn schematic read it. The ten
   hues are `--atlas-l1` … `--atlas-l10` in `atlas.css`; regions keep their own
   `--r-*` for their frame and title.
+- **The panel closes three ways** — its own button, Escape, and a click that is
+  neither on it nor on a card. The last is measured from where the pointer went
+  down, so dragging the map never closes it, and it does not pull focus back to
+  the card, which would scroll the page.
+- **The physical world is not a layer**, so it has no row in `LAYERS`. Its panel
+  comes from `AtlasData.worldDetail()`, out of `ATLAS_WORLD_TEXT`, and carries
+  the globe mark where a layer would show its number. Its label hangs below the
+  planet: above it, the two dashed lines leaving the top ran through their own
+  caption.
 - **`fill:none` cannot be hit; `fill:transparent` can.** The planet's rings are
   unfilled, so it carries a `.pw-hit` disc of its own. And `.atlas-nodes` is a
   full-canvas div sitting over the SVG: it must stay `pointer-events:none`
@@ -113,6 +128,8 @@ while the frame behind them stays hoverable as layer 10.
 | `dx` / `dy` | offset the departure / arrival along that edge, overriding the fan |
 | `tx` | the arrival offset, named for routes aiming at a whole group |
 | `via` | guides in order: `{x:…}` turns the run vertical there, `{y:…}` horizontal |
+| `trunk` | a fork: runs sharing a key leave as one line and branch where they part |
+| `icon` | (on a card) draw a different mark than its layer's — `'1p'` is the plant |
 | `core` | part of the main sequence: bright at rest, and carries a moving particle |
 | `ends` | extra cards that light this route, beyond its two ends |
 | `dash` | override the flow family's dash pattern |

@@ -297,6 +297,16 @@
   place-items:center; font:700 17px var(--f,sans-serif); color:#04101d;
   background:var(--nd-c, #7fd0ff);
   box-shadow:0 0 14px color-mix(in srgb, var(--nd-c, #7fd0ff) 55%, transparent)}
+/* The world has no number, so its badge carries the globe mark instead. Same
+   circle, drawn rather than set. */
+.pn-globe{flex:none; width:36px; height:36px; border-radius:50%; display:grid;
+  place-items:center; border:1.5px solid var(--atlas-data);
+  background:color-mix(in srgb, var(--atlas-data) 14%, transparent);
+  box-shadow:0 0 14px color-mix(in srgb, var(--atlas-data) 40%, transparent)}
+.pn-globe .licon{width:22px; height:22px; stroke:var(--atlas-data); fill:none;
+  stroke-width:2.4; stroke-linecap:round}
+/* The world's own colour, for a panel opened from the planet rather than a card. */
+.atlas{--r-world:var(--atlas-data)}
 .pn-id{min-width:0; flex:1}
 .pn-id h4{margin:0; font:600 18px/1.25 var(--f,sans-serif); color:var(--atlas-text)}
 .pn-id p{margin:2px 0 0; font:400 12.5px var(--f,sans-serif); color:var(--atlas-text-muted)}

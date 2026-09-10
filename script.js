@@ -580,10 +580,13 @@ function worldPane(){
 
 /* A standalone mark. `wafer` is why each copy needs its own clip id. */
 let __icn=0;
-function layerIcon(n,cls){
+/* `n` picks the drawing, `tone` the colour. They differ for exactly one mark:
+   the on-site plant is key '1p' — layer 1 indoors, drawn as a bolt — and there
+   is no --l1p to colour it with. */
+function layerIcon(n,cls,tone){
   const id='wc'+(++__icn);
   const body=LAYER_ICONS[n].replace('url(#waferClip)','url(#'+id+')');
-  return `<svg class="licon ${cls||''}" viewBox="0 0 44 44" aria-hidden="true" style="stroke:var(--l${n})">`+
+  return `<svg class="licon ${cls||''}" viewBox="0 0 44 44" aria-hidden="true" style="stroke:var(--l${tone==null?n:tone})">`+
     `<defs><clipPath id="${id}"><circle cx="22" cy="22" r="13.6"/></clipPath></defs>${body}</svg>`;
 }
 

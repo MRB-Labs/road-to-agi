@@ -90,7 +90,9 @@ const AtlasGeom = (() => {
      the centre. The order is by where the far end sits across that edge, which
      is what keeps a fan from crossing itself. An explicit dx/tx in the layout
      still wins: it is written there because that run had to clear something.
-     32 is the grid step; it narrows only when the edge is too short to hold it. */
+     40 is the widest step it will use; it narrows when the edge is too short.
+     Routes marked with the same `trunk` are a fork, not two arrows: they share
+     one slot, so they leave from the same point on purpose. */
   function fan(nodes, routes) {
     const by = {}, off = routes.map(() => ({}));
     routes.forEach((r, i) => {
@@ -102,21 +104,34 @@ const AtlasGeom = (() => {
     });
     Object.keys(by).forEach(k => {
       const list = by[k], host = nodes[list[0].id];
-      if (!host || list.length < 2) return;
+      if (!host) return;
       const vert = list[0].side === 'left' || list[0].side === 'right';
       const across = e => {
         const r = routes[e.i], far = nodes[e.prop === 'dx' ? r.to : r.from];
         return far ? (vert ? far.y + far.h / 2 : far.x + far.w / 2) : 0;
       };
-      list.sort((p, q) => across(p) - across(q) || p.i - q.i);
-      const n = list.length, extent = vert ? host.h : host.w;
-      const step = Math.min(32, Math.max(12, (extent - 28) / (n - 1)));
-      list.forEach((e, j) => {
-        const given = e.prop === 'dx' ? routes[e.i].dx
-                    : (routes[e.i].tx !== undefined ? routes[e.i].tx : routes[e.i].dy);
-        off[e.i][e.prop] = given !== undefined ? given
-                         : Math.round((j - (n - 1) / 2) * step);
+      /* A fork takes one slot, not one per branch: trunk-mates leave together
+         and are meant to sit on top of each other until they part. */
+      const slots = [], seen = {};
+      list.forEach(e => {
+        const t = e.prop === 'dx' && routes[e.i].trunk;
+        if (t && seen[t] !== undefined) { slots[seen[t]].push(e); return; }
+        if (t) seen[t] = slots.length;
+        slots.push([e]);
       });
+      if (slots.length < 2) { slots.forEach(sl => sl.forEach(e => keep(e))); return; }
+      const at = sl => sl.reduce((a, e) => a + across(e), 0) / sl.length;
+      slots.sort((p, q) => at(p) - at(q) || p[0].i - q[0].i);
+      const n = slots.length, extent = vert ? host.h : host.w;
+      const step = Math.min(40, Math.max(12, (extent - 40) / (n - 1)));
+      slots.forEach((sl, j) => sl.forEach(e => keep(e, Math.round((j - (n - 1) / 2) * step))));
+
+      function keep(e, auto) {
+        const r = routes[e.i];
+        const given = e.prop === 'dx' ? r.dx : (r.tx !== undefined ? r.tx : r.dy);
+        const v = given !== undefined ? given : auto;
+        if (v !== undefined) off[e.i][e.prop] = v;
+      }
     });
     return off;
   }
