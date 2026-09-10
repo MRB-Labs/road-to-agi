@@ -202,9 +202,7 @@
 .nd.is-encl::before{background:linear-gradient(180deg,
   color-mix(in srgb, currentColor 16%, transparent), transparent 22%)}
 .nd.is-encl .nd-name{font-size:15px}
-.atlas .nd.is-encl .licon.nd-icon{top:16px; right:14px; width:30px; height:30px; transform:none}
-.nd.is-encl>.nd-head{padding-right:42px}
-.nd.is-encl>.nd-sub{max-width:150px; padding-right:0; font-size:8.8px; line-height:1.28}
+.nd.is-encl .nd-icon{top:29px; width:34px; height:34px; transform:none}
 
 /* ── the planet ──────────────────────────────────────────────────────────── */
 .pw-label{fill:var(--atlas-text); font:600 17px/1 var(--f,sans-serif);

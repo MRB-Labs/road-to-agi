@@ -2809,7 +2809,7 @@ const ATLAS_CARDS={
  l3    :{t:'Semiconductor ecosystem',s:['EDA · equipment · wafers · foundry','Packaging · memory · sensors · test']},
  l1p   :{t:'On-site electrical and thermal plant',s:['Substation · switchgear · UPS · busway','backup · liquid cooling · heat rejection']},
  l5    :{t:'AI data centre and cloud',s:['The enclosure housing central compute, data, models and cloud AI']},
- l4    :{t:'Compute, memory and networking',s:['Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network']},
+ l4    :{t:'Central compute, memory and networking',s:['Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network']},
  l7    :{t:'Data and knowledge',s:['Databases · object storage · data lakes','Ingestion · curation · governance']},
  l8    :{t:'Training and cloud inference',s:['Pre-training · post-training · evaluation','Model serving · routing · optimisation']},
  l9    :{t:'Cloud agent services and applications',s:['Retrieval · memory · tools · orchestration · identity · observability']},
@@ -2834,7 +2834,7 @@ const ATLAS_REGIONS_TEXT={
  network     :{t:'Network',      s:['Internet · telecommunications']},
  embodied    :{t:'Embodied AI',  s:['Deployed robots and smart devices']},
 };
-const ATLAS_WORLD_TEXT={t:'The physical world', s:'Energy, materials, cities, human infrastructure',
+const ATLAS_WORLD_TEXT={t:'The physical world', s:'People · industry · planet',
  lede:'Not a layer, but the ground the stack is drawn from: where energy is captured, where materials are extracted, and where embodied machines eventually do the work. It feeds the base pair and takes the fleet’s work back.',
  reach:['Energy and raw materials out, into the foundations','Sensors in, actuators out, through the machine at the edge']};
 const ATLAS_ROUTE_TEXT={'act>world':'actuators', 'world>sens':'sensors'};

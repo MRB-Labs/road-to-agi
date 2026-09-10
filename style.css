@@ -2231,62 +2231,6 @@ nav{
   background:color-mix(in srgb,var(--surface2) 58%,transparent);
   padding:10px 12px;
 }
-#overview .dia-shell.is-loop{
-  grid-template-columns:minmax(560px,.92fr) minmax(320px,1fr);
-  align-items:stretch;
-}
-#overview .dia-shell.is-loop .dia-chart{
-  border:1px solid var(--chrome-line); border-radius:16px; padding:16px;
-  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
-  box-shadow:var(--shadow-sm); overflow:hidden;
-}
-#loopsvg{
-  width:100%; min-height:330px; display:block;
-  color:var(--accent);
-}
-#loopsvg .loop-orbit{
-  fill:color-mix(in srgb,var(--accent-soft) 24%,transparent);
-  stroke:color-mix(in srgb,var(--accent) 34%,transparent);
-  stroke-width:1.2; stroke-dasharray:6 8;
-}
-#loopsvg .loop-route{
-  fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round;
-  opacity:.82; filter:drop-shadow(0 0 8px currentColor);
-}
-#loopsvg .r-observe{color:var(--l6)}
-#loopsvg .r-learn{color:var(--l7)}
-#loopsvg .r-act{color:var(--l10)}
-#loopsvg .r-change{color:var(--l1)}
-#loopsvg .loop-node .bx{
-  fill:color-mix(in srgb,var(--surface2) 76%,transparent);
-  stroke:currentColor; stroke-width:1.7;
-  filter:drop-shadow(0 0 12px color-mix(in srgb,currentColor 32%,transparent));
-}
-#loopsvg .loop-node .b10{color:var(--l10)}
-#loopsvg .loop-node .b8{color:var(--l7)}
-#loopsvg .loop-node .b9{color:var(--l8)}
-#loopsvg .loop-node .bt{
-  fill:var(--ink); font-size:17px; font-weight:760; letter-spacing:0;
-}
-#loopsvg .loop-node .bs{
-  fill:var(--ink2); font-size:12.5px; font-weight:520;
-}
-#loopsvg .loop-core{
-  fill:none; stroke:var(--accent); stroke-width:2.2; opacity:.78;
-  filter:drop-shadow(0 0 10px var(--accent));
-}
-#loopsvg.mx-hl .loop-node:not(.on) rect,
-#loopsvg.mx-hl .loop-node:not(.on) text,
-#loopsvg.mx-hl .loop-route{opacity:.28}
-#loopsvg.mx-hl .loop-node.on rect{stroke-width:2.8}
-:root[data-theme="dark"] #overview .dia-shell.is-loop .dia-chart{
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 0 34px rgba(85,186,210,.08);
-}
-:root[data-theme="dark"] #loopsvg .loop-node .bx{
-  fill:color-mix(in srgb,var(--surface2) 62%,transparent);
-}
-:root[data-theme="dark"] #loopsvg .loop-node .bt{fill:var(--ink)}
-:root[data-theme="dark"] #loopsvg .loop-node .bs{fill:var(--ink2)}
 
 #stack>.wrap,#projects>.wrap{gap:18px}
 #stack .sec-head,#projects>.wrap>.sec-head{
@@ -2406,7 +2350,6 @@ footer{
   .landing-rail{padding:20px; border-radius:18px}
   #overview .dia{padding:16px}
   #overview #cx-matrix .dia-shell{grid-template-columns:1fr}
-  #overview .dia-shell.is-loop{grid-template-columns:1fr}
   #stack .stack{grid-template-columns:1fr}
   #stack .rail{border-radius:14px}
   #stack .tab{min-height:46px}
