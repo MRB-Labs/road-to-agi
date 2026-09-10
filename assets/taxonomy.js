@@ -18,10 +18,10 @@ const TAXONOMY = [
   {n:3,  key:'semis',        name:'Semiconductor production ecosystem'},
   {n:4,  key:'compute',      name:'Compute, memory and networking'},
   {n:5,  key:'datacentres',  name:'Data centres, cloud and edge'},
-  {n:6,  key:'connectivity', name:'Connectivity and communications'},
-  {n:7,  key:'data',         name:'Data and knowledge infrastructure'},
-  {n:8,  key:'models',       name:'AI models and inference'},
-  {n:9,  key:'agents',       name:'Agentic software and applications'},
+  {n:6,  key:'data',         name:'Data and knowledge infrastructure'},
+  {n:7,  key:'models',       name:'AI models and inference'},
+  {n:8,  key:'agents',       name:'Agentic software and applications'},
+  {n:9,  key:'connectivity', name:'Connectivity and communications'},
   {n:10, key:'embodied',     name:'Embodied AI and autonomous systems'},
 ];
 

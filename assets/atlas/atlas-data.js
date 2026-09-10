@@ -101,16 +101,32 @@ const AtlasData = (() => {
             .filter(r => r[0]).map(r => [r[0], '', primary[k].layer]);
         });
 
-    const out = [], seen = new Set();
+    const atlasSearchLayerOverrides = {
+      'tesla|tsla': [1, 10],
+    };
+
+    const grouped = new Map();
     rows.forEach(([name, ticker, layer]) => {
       const node = primary[layer];
       if (!node) return;
-      const key = node.id + '|' + name.toLowerCase();
-      if (seen.has(key)) return;
-      seen.add(key);
-      out.push({node: node.id, label: name, ticker: ticker || '', hint: title[layer]});
+      const key = name.toLowerCase();
+      if (!grouped.has(key))
+        grouped.set(key, {nodes: [], layers: [], label: name, ticker: ticker || ''});
+      const rec = grouped.get(key);
+      if (!rec.ticker && ticker) rec.ticker = ticker;
+      if (!rec.nodes.includes(node.id)) rec.nodes.push(node.id);
+      if (!rec.layers.includes(layer)) rec.layers.push(layer);
     });
-    return out;
+    return [...grouped.values()].map(rec => {
+      const override = atlasSearchLayerOverrides[`${rec.label.toLowerCase()}|${rec.ticker.toLowerCase()}`];
+      if (override) {
+        rec.layers = override.filter(layer => primary[layer]);
+        rec.nodes = rec.layers.map(layer => primary[layer].id);
+      }
+      rec.layers.sort((a, b) => a - b);
+      rec.hint = rec.layers.map(layer => title[layer]).filter(Boolean).join(' · ');
+      return rec;
+    });
   }
 
   return {card, detail, worldDetail, searchIndex, layerOf, ready: () => LAYERS_T().length > 0, have};

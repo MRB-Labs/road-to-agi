@@ -21,14 +21,14 @@ const ATLAS_CANVAS = {w: 1760, h: 990};
      496..512   16   silicon into the hall
      744..760   16   the fork out of central compute
      952..992   40   two arrivals into the network, kept 16 apart
-     1160..1208 48   three runs between the network and the machine */
+     1160..1188 28   three runs between the network and the machine */
 const ATLAS_REGIONS = [
   {key:'foundations',   x:48,   y:112, w:208, h:676},
   {key:'silicon',       x:288,  y:112, w:208, h:676},
   {key:'compute',       x:512,  y:112, w:232, h:676},
   {key:'intelligence',  x:760,  y:112, w:192, h:676},
   {key:'network',       x:992,  y:112, w:168, h:676},
-  {key:'embodied',      x:1208, y:112, w:228, h:676},
+  {key:'embodied',      x:1188, y:112, w:220, h:676},
 ];
 
 /* Not a region: the planet in the background photograph. These are its measured
@@ -36,7 +36,7 @@ const ATLAS_REGIONS = [
    Nothing is drawn here; the picture supplies it. Its label and hit area are in
    ATLAS_WORLD_TEXT and the renderer. The label hangs *below* the planet, so the
    two dashed lines leaving the top of it never cross their own caption. */
-const ATLAS_WORLD = {cx:1591, cy:439, r:146};
+const ATLAS_WORLD = {cx:1591, cy:439, r:124};
 
 /* One entry per card. `layer` is the site layer it opens — several cards share
    one, which is the point: layer 1 is the grid, the plant in the hall and the
@@ -58,37 +58,37 @@ const ATLAS_NODES = [
   {id:'l1p',   layer:1,  region:'compute',      x:540,  y:284, w:176, h:160, sub:1, icon:'1p'},
   {id:'l4',    layer:4,  region:'compute',      x:540,  y:492, w:176, h:184, sub:1},
 
-  {id:'l7',    layer:7,  region:'intelligence', x:776,  y:208, w:160, h:136},
-  {id:'l8',    layer:8,  region:'intelligence', x:776,  y:384, w:160, h:144},
-  {id:'l9',    layer:9,  region:'intelligence', x:776,  y:572, w:160, h:160},
+  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:208, w:160, h:136},
+  {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144},
+  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160},
 
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:6,  region:'network',      x:1008, y:272, w:136, h:296},
+  {id:'l6',    layer:9,  region:'network',      x:1008, y:272, w:136, h:296},
 
   /* the machine, and everything inside it */
-  {id:'l10',   layer:10, region:'embodied',     x:1224, y:196, w:196, h:584, encl:1},
-  {id:'sens',  layer:10, region:'embodied',     x:1236, y:272, w:172, h:76, sub:1},
-  {id:'l4e',   layer:4,  region:'embodied',     x:1236, y:356, w:172, h:76, sub:1},
-  {id:'l8e',   layer:8,  region:'embodied',     x:1236, y:440, w:172, h:76, sub:1},
-  {id:'l9e',   layer:9,  region:'embodied',     x:1236, y:524, w:172, h:76, sub:1},
-  {id:'act',   layer:10, region:'embodied',     x:1236, y:608, w:172, h:76, sub:1},
-  {id:'l1b',   layer:1,  region:'embodied',     x:1236, y:692, w:172, h:76, sub:1},
+  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:584, encl:1},
+  {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:160, h:76, sub:1},
+  {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:160, h:76, sub:1},
+  {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:160, h:76, sub:1},
+  {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:160, h:76, sub:1},
+  {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:160, h:76, sub:1},
+  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:160, h:76, sub:1},
 ];
 
 /* Flow families. `dash` carries the meaning a second time, so a route never
    depends on colour alone to say what it is. */
 /* `layer` is the layer the flow stands for — energy is layer 1's, control is
-   layer 9's — and it is what the chip in the toolbar is drawn in, so the legend
+   layer 8's — and it is what the chip in the toolbar is drawn in, so the legend
    is in the same colours as the map. */
 const ATLAS_FLOWS = {
   energy:       {label:'Energy',       dash:null,   layer:1},
   materials:    {label:'Materials',    dash:null,   layer:2},
   compute:      {label:'Compute',      dash:null,   layer:4},
-  data:         {label:'Data',         dash:'7 6',  layer:7},
-  intelligence: {label:'Intelligence', dash:'16 6', layer:8},
-  control:      {label:'Control',      dash:'2 6',  layer:9},
+  data:         {label:'Data',         dash:'7 6',  layer:6},
+  intelligence: {label:'Intelligence', dash:'16 6', layer:7},
+  control:      {label:'Control',      dash:'2 6',  layer:8},
 };
 
 /* Routes. `via` threads the run through guides in order: {x:…} turns it
@@ -114,9 +114,9 @@ const ATLAS_ROUTES = [
      supply — dashed, because nothing is bought at this step; it is captured or
      extracted. They land on the group, not on a card, because that is what
      they feed. `ends` lights them from either layer inside it as well. */
-  {from:'world', to:'#foundations', flow:'materials', side:['top','top'], dx:-16, tx:96,
+  {from:'world', to:'#foundations', flow:'materials', side:['top','top'], dx:24, tx:36,
    via:[{y:48}], ends:'l2', dash:'6 6', tone:'l2', core:true},
-  {from:'world', to:'#foundations', flow:'energy',    side:['top','top'], dx:-56, tx:-40,
+  {from:'world', to:'#foundations', flow:'energy',    side:['top','top'], dx:-24, tx:-36,
    via:[{y:80}], ends:'l1', dash:'6 6', tone:'l1', core:true},
 
   /* the base pair */

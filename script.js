@@ -425,7 +425,7 @@ function chainPane(n,col){
     <p class="vc-top-wrap"><button type="button" class="vc-top">Back to the stage index &uarr;</button></p>
     ${proc}
     ${chainDiagrams(d,col)}
-    <p class="tnote">Companies are named for structural completeness of the chain, not as recommendations, and several are private, Chinese-listed or embedded inside much larger groups. Position within a stage does not imply ranking. A company can appear in more than one stage, more than one chain or more than one layer &mdash; layers 4, 8 and 9 deliberately appear in both the data centre and the machine at the edge. Product and platform names resolve to the parent listing, so Google TPU opens Alphabet and NVIDIA Jetson opens NVIDIA. Entities without a ticker are private, state-held, generic categories, or not separately listed.</p>`;
+    <p class="tnote">Companies are named for structural completeness of the chain, not as recommendations, and several are private, Chinese-listed or embedded inside much larger groups. Position within a stage does not imply ranking. A company can appear in more than one stage, more than one chain or more than one layer &mdash; layers 4, 7 and 8 deliberately appear in both the data centre and the machine at the edge. Product and platform names resolve to the parent listing, so Google TPU opens Alphabet and NVIDIA Jetson opens NVIDIA. Entities without a ticker are private, state-held, generic categories, or not separately listed.</p>`;
 }
 
 
@@ -677,7 +677,7 @@ const EL_LAYERS=(()=>{
 
 
 /* Layers 7 to 9 have no element cards to hang their constraint commentary on,
-   so it sits with the dependencies instead — layer 7's usage-rights note in
+   so it sits with the dependencies instead — layer 6's usage-rights note in
    particular is the binding constraint on the whole layer. */
 function inheritNotes(n){
   const items=(((typeof LAYER_MATERIALS!=='undefined'&&LAYER_MATERIALS[n])||{}).items)||[];
@@ -824,7 +824,7 @@ const BREAKS={
  title:'The verdict',
  body:[
   'The loop is real. Cloud revenue is accelerating at three companies simultaneously, physical bottlenecks in power and packaging are genuine, and monopoly pricing is holding at the chokepoints. This is not a narrative in search of numbers. <b>But the loop is not equally investable at every point.</b>',
-  'Layers 1, 2 and 3 hold durable chokepoints. Layer 4 has the highest growth and the shortest moat half-life. Layer 5 is where the leverage sits. Layer 6 splits in two: the routes are among the most durable assets in the report and the equipment is among the least. Layer 7 turns on a legal question rather than a technical one. Layer 8 is the least investable and the most important to monitor. Layer 9 is where the thesis inverts and AI destroys incumbent value. Layer 10 flips the geopolitics against a Western portfolio, and is a diagnostic rather than a holding.',
+  'Layers 1, 2 and 3 hold durable chokepoints. Layer 4 has the highest growth and the shortest moat half-life. Layer 5 is where the leverage sits. Layer 9 splits in two: the routes are among the most durable assets in the report and the equipment is among the least. Layer 6 turns on a legal question rather than a technical one. Layer 7 is the least investable and the most important to monitor. Layer 8 is where the thesis inverts and AI destroys incumbent value. Layer 10 flips the geopolitics against a Western portfolio, and is a diagnostic rather than a holding.',
   '<b>The deepest risk runs through every layer:</b> a portfolio holding ASML, TSMC, Nvidia, Micron, Vertiv and Constellation feels diversified across six industries. It is one bet. If hyperscaler capex disappoints, all six correlate to one.',
   'The asymmetry that defines the report: a $2bn campus can sit idle waiting on a $40m transformer. A supplier of a 2% cost item that gates 100% of the project has extraordinary pricing power, and that is not a temporary condition.',
  ],
@@ -1535,7 +1535,7 @@ window.addEventListener('hashchange',()=>setTimeout(fillAll,60));
      `<text class="cs" x="${-(T+ph/2)}" y="12" transform="rotate(-90)" text-anchor="middle">moat durability →</text>`;
 
   const REST=`<p class="mx-eyebrow">The heuristic</p><h5>Where a physical chokepoint exists, a moat tends to exist above it</h5>`+
-    `<p class="mx-lede">Layers 8 and 9 have no material chokepoint and the weakest moats. Layers 1, 2 and 3 have the strongest of both. `+
+    `<p class="mx-lede">Layers 7 and 8 have no material chokepoint and the weakest moats. Layers 1, 2 and 3 have the strongest of both. `+
     `Materials sits high on chokepoint but below semiconductors on moat, because a refining monopoly can be rebuilt in three to eight years while accumulated engineering cannot. `+
     `Two layers sit awkwardly on this axis: connectivity, whose hardest constraints are geographic rather than material, and data, whose binding constraint is legal. `+
     `Both are plotted on materials alone, so both are understated here.</p>`+
@@ -1641,8 +1641,8 @@ fillAll();
     'It feeds the base pair and takes the fleet’s work back.';
   const REST='<p class="mi-eyebrow">The map</p><h4>Where each capability physically lives</h4>'+
     '<p class="mi-lede">Not a single queue. An industrial supply base feeds two physical enclosures: '+
-    'the data centre, and the machine at the edge. Layers 4, 8 and 9 appear inside both, because the '+
-    'same capability class runs at two scales. Layer 6 is the only path between them.</p>'+
+    'the data centre, and the machine at the edge. Layers 4, 7 and 8 appear inside both, because the '+
+    'same capability class runs at two scales. Layer 9 is the only path between them.</p>'+
     '<p class="mi-hint">Point at any layer to read it here and light up the arrows in and out of it. '+
     'Click the layer itself to open it in full.</p>';
 

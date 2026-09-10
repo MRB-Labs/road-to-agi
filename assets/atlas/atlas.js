@@ -284,10 +284,12 @@
   const nodeEls  = [...host.querySelectorAll('.nd')];
   const worldEl  = host.querySelector('.pw-node');
   const routeEls = [...host.querySelectorAll('.rt-g')];
-  const allTargets = nodeEls.concat(worldEl ? [worldEl] : []);
-  let selected = null, activeFilter = 'all';
+  const allTargets = () => [...host.querySelectorAll('.nd')]
+    .concat(worldEl ? [worldEl] : []);
+  let selected = null, searchSelection = [], activeFilter = 'all';
 
-  const touches = (r, id) => (r.dataset.ends || '').split(' ').includes(id);
+  const touches = (r, id) => r.dataset.from === id || r.dataset.to === id ||
+    (r.dataset.ends || '').split(' ').includes(id);
   const farEnd  = (r, id) => r.dataset.from === id ? r.dataset.to : r.dataset.from;
 
   /* What counts as "this box". An enclosure stands for everything inside it,
@@ -302,8 +304,11 @@
     return out;
   }
 
-  function lightFor(id) {
-    const self = selfIds(id), lit = new Set(), near = new Set(self);
+  function lightFor(ids) {
+    const self = new Set();
+    (Array.isArray(ids) ? ids : [ids]).filter(Boolean)
+      .forEach(id => selfIds(id).forEach(x => self.add(x)));
+    const lit = new Set(), near = new Set(self);
     routeEls.forEach(r => {
       if (activeFilter !== 'all' && r.dataset.flow !== activeFilter) return;
       const end = [...self].find(s => touches(r, s));
@@ -323,14 +328,15 @@
   }
 
   function paint(id) {
-    const {lit, near} = id ? lightFor(id) : {lit:new Set(), near:new Set()};
-    const filtering = activeFilter !== 'all' || !!id;
+    const ids = Array.isArray(id) ? id : (id ? [id] : []);
+    const {lit, near} = ids.length ? lightFor(ids) : {lit:new Set(), near:new Set()};
+    const filtering = activeFilter !== 'all' || ids.length > 0;
     host.classList.toggle('is-filtered', filtering);
     routeEls.forEach(r => {
       const byFilter = activeFilter !== 'all' && r.dataset.flow === activeFilter;
       r.querySelector('.rt').classList.toggle('is-lit', lit.has(r) || (!id && byFilter));
     });
-    allTargets.forEach(el => {
+    allTargets().forEach(el => {
       const nid = el.dataset.node;
       const onFilter = activeFilter !== 'all' &&
         routeEls.some(r => r.dataset.flow === activeFilter && touches(r, nid));
@@ -339,13 +345,13 @@
     runDots();
   }
 
-  const hoverOff = () => paint(selected);
-  allTargets.forEach(el => {
+  const hoverOff = () => paint(selected || searchSelection);
+  allTargets().forEach(el => {
     el.addEventListener('mouseenter', () => paint(el.dataset.node));
     el.addEventListener('mouseleave', hoverOff);
     el.addEventListener('focus', () => paint(el.dataset.node));
     el.addEventListener('blur', hoverOff);
-    el.addEventListener('click', e => { e.preventDefault(); select(el.dataset.node); });
+    el.addEventListener('click', e => { e.preventDefault(); searchSelection = []; select(el.dataset.node); });
     if (el === worldEl) el.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select('world'); }
     });
@@ -359,14 +365,14 @@
     activeFilter = (activeFilter === b.dataset.filter) ? 'all' : b.dataset.filter;
     host.querySelectorAll('[data-filter]').forEach(o =>
       o.setAttribute('aria-pressed', String(o.dataset.filter === activeFilter)));
-    paint(selected);
+    paint(selected || searchSelection);
   }));
 
   /* ── the detail panel ──────────────────────────────────────────────────── */
   function select(id) {
-    const el = allTargets.find(e => e.dataset.node === id);
+    const el = allTargets().find(e => e.dataset.node === id);
     selected = id;
-    allTargets.forEach(e => e.classList.toggle('is-selected', e === el));
+    allTargets().forEach(e => e.classList.toggle('is-selected', e === el));
     const d = id === 'world' ? AtlasData.worldDetail()
                             : AtlasData.detail(N[id].layer);
     if (!d) { hidePanel(); paint(id); return; }
@@ -386,9 +392,9 @@
   }
 
   function closePanel(restoreFocus) {
-    const el = allTargets.find(e => e.dataset.node === selected);
+    const el = allTargets().find(e => e.dataset.node === selected);
     selected = null;
-    allTargets.forEach(e => e.classList.remove('is-selected'));
+    allTargets().forEach(e => e.classList.remove('is-selected'));
     hidePanel();
     paint(null);
     if (restoreFocus && el) el.focus();
@@ -458,17 +464,31 @@
     const hits = index.filter(r => r.label.toLowerCase().includes(v) ||
                                    r.ticker.toLowerCase().startsWith(v)).slice(0, 8);
     results.innerHTML = hits.map(r =>
-      `<li role="option"><button type="button" data-go="${esc(r.node)}">${esc(r.label)}
+      `<li role="option"><button type="button" data-go="${esc(r.nodes.join(' '))}">${esc(r.label)}
         <small>${r.ticker ? '<b>' + esc(r.ticker) + '</b> &middot; ' : ''}${esc(r.hint)}</small>
         </button></li>`).join('');
     q.setAttribute('aria-expanded', String(hits.length > 0));
   });
+  function applySearchResult(b) {
+    if (!b) return;
+    results.innerHTML = ''; q.value = ''; q.setAttribute('aria-expanded', 'false');
+    searchSelection = b.dataset.go.split(/\s+/).filter(Boolean);
+    selected = null; hidePanel();
+    allTargets().forEach(e => e.classList.toggle('is-selected', searchSelection.includes(e.dataset.node)));
+    const el = allTargets().find(x => x.dataset.node === searchSelection[0]);
+    if (el && el.scrollIntoView) el.scrollIntoView({block:'nearest', inline:'nearest'});
+    paint(searchSelection);
+  }
+  q.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const b = results.querySelector('[data-go]');
+    if (!b) return;
+    e.preventDefault();
+    applySearchResult(b);
+  });
   results.addEventListener('click', e => {
     const b = e.target.closest('[data-go]'); if (!b) return;
-    results.innerHTML = ''; q.value = ''; q.setAttribute('aria-expanded', 'false');
-    const el = allTargets.find(x => x.dataset.node === b.dataset.go);
-    if (el && el.scrollIntoView) el.scrollIntoView({block:'nearest', inline:'nearest'});
-    select(b.dataset.go);
+    applySearchResult(b);
   });
   document.addEventListener('click', e => {
     if (!e.target.closest('.atlas-search')) results.innerHTML = '';

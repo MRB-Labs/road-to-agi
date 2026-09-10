@@ -49,10 +49,10 @@
   --atlas-l3:#E0798F;
   --atlas-l4:#B69AE8;
   --atlas-l5:#7DA2FF;
-  --atlas-l6:#55BAD2;
-  --atlas-l7:#7FC98C;
-  --atlas-l8:#4FD0D8;
-  --atlas-l9:#A9B6E0;
+  --atlas-l6:#7FC98C;
+  --atlas-l7:#4FD0D8;
+  --atlas-l8:#A9B6E0;
+  --atlas-l9:#55BAD2;
   --atlas-l10:#7FC07A;
   /* The planet is not a layer; this is what its own runs are drawn in. */
   --atlas-world:var(--atlas-data);

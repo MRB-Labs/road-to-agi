@@ -684,17 +684,17 @@ table.co td.co-n,table.co td.co-geo{white-space:normal}
   --warn-ink:#96292C;
   /* the ten layers — palette per the AUDIT brief, matched to the
      architecture diagram: amber energy, orange materials, rose semis,
-     purple compute, blue enclosure, then the cyan-to-teal information
-     band (connectivity, data, models), slate software, green embodied. */
+     purple compute, blue enclosure, then the green-to-teal information
+     band (data, models, software), cyan connectivity, green embodied. */
   --l1:#A46100;  --l1s:#FFF0CF;
   --l2:#B4552E;  --l2s:#FBE9E0;
   --l3:#B03A52;  --l3s:#FBE6EB;
   --l4:#7B61B7;  --l4s:#EEE9F8;
   --l5:#2457D6;  --l5s:#E7EDFF;
-  --l6:#1573A8;  --l6s:#E2F0F7;
-  --l7:#2E7F6E;  --l7s:#E4F1ED;
-  --l8:#0E9488;  --l8s:#DEF4F1;
-  --l9:#60758A;  --l9s:#EAEEF2;
+  --l6:#2E7F6E;  --l6s:#E4F1ED;
+  --l7:#0E9488;  --l7s:#DEF4F1;
+  --l8:#60758A;  --l8s:#EAEEF2;
+  --l9:#1573A8;  --l9s:#E2F0F7;
   --l10:#3F7D3C; --l10s:#E4F2E2;
   --on-layer:#FFFFFF;
   /* surfaces and depth */
@@ -728,10 +728,10 @@ table.co td.co-n,table.co td.co-geo{white-space:normal}
   --l3:#E0798F;  --l3s:#3A1F26;
   --l4:#B69AE8;  --l4s:#282141;
   --l5:#7DA2FF;  --l5s:#1D2D55;
-  --l6:#55BAD2;  --l6s:#123340;
-  --l7:#66BEA8;  --l7s:#17332C;
-  --l8:#50CFC3;  --l8s:#103330;
-  --l9:#9AABBA;  --l9s:#242C34;
+  --l6:#66BEA8;  --l6s:#17332C;
+  --l7:#50CFC3;  --l7s:#103330;
+  --l8:#9AABBA;  --l8s:#242C34;
+  --l9:#55BAD2;  --l9s:#123340;
   --l10:#7FC07A; --l10s:#1C3320;
   --on-layer:#0F1319;
   --invert-bg:#080B10; --invert-fg:#F1F4F7; --invert-fg2:#AEB8C5;
