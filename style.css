@@ -2189,6 +2189,48 @@ nav{
   border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
   border-radius:12px; padding:12px 14px; margin-top:12px;
 }
+#overview #cx-matrix{
+  padding:20px 22px 22px;
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--surface) 92%,transparent),
+      color-mix(in srgb,var(--surface2) 78%,transparent));
+}
+#overview #cx-matrix .dia-shell{
+  grid-template-columns:minmax(360px,1.08fr) minmax(320px,.92fr);
+  gap:22px; align-items:stretch;
+}
+#overview #cx-matrix .dia-chart{
+  border:1px solid var(--chrome-line); border-radius:16px; padding:14px;
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.42);
+}
+:root[data-theme="dark"] #overview #cx-matrix .dia-chart{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 0 34px rgba(85,186,210,.08);
+}
+#overview #cx-matrix svg .gr{stroke:color-mix(in srgb,var(--line2) 42%,transparent)}
+#overview #cx-matrix .mx-dot{
+  filter:drop-shadow(0 0 10px color-mix(in srgb,var(--mxc,var(--accent)) 42%,transparent));
+  stroke:color-mix(in srgb,var(--surface) 82%,transparent); stroke-width:2;
+}
+#overview #cx-matrix .mx-pt.on .mx-dot{
+  filter:drop-shadow(0 0 14px var(--mxc,var(--accent)));
+  stroke:var(--ink);
+}
+#overview #cx-matrix .dia-info{
+  border-color:var(--chrome-line); border-radius:16px;
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-sm);
+}
+#overview #cx-matrix .mx-scores span{
+  border-color:var(--chrome-line);
+  background:color-mix(in srgb,var(--surface2) 72%,transparent);
+  border-radius:999px;
+}
+#overview #cx-matrix .mx-watch{
+  border-radius:0 12px 12px 0;
+  background:color-mix(in srgb,var(--surface2) 58%,transparent);
+  padding:10px 12px;
+}
 
 #stack>.wrap,#projects>.wrap{gap:18px}
 #stack .sec-head,#projects>.wrap>.sec-head{
@@ -2307,6 +2349,7 @@ footer{
   .main-view{inset:116px 0 0; padding:14px 0}
   .landing-rail{padding:20px; border-radius:18px}
   #overview .dia{padding:16px}
+  #overview #cx-matrix .dia-shell{grid-template-columns:1fr}
   #stack .stack{grid-template-columns:1fr}
   #stack .rail{border-radius:14px}
   #stack .tab{min-height:46px}

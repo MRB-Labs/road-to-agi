@@ -165,7 +165,7 @@
 .atlas.is-filtered .nd{opacity:.2}
 .atlas.is-filtered .nd.is-lit,.atlas.is-filtered .nd.is-selected{opacity:1}
 
-.nd-head{display:flex; align-items:center; gap:8px; min-width:0; padding-right:24px}
+.nd-head{display:flex; align-items:center; gap:8px; min-width:0; padding-right:44px}
 /* --nd-c, not currentColor: this element sets its own `color` for the digit,
    and currentColor in a declaration resolves against that — which painted the
    badge the same near-black as the number sitting on it. */
@@ -177,19 +177,21 @@
   letter-spacing:-.008em; min-width:0}
 /* The mark sits in the corner rather than in the text row, so a long layer
    name gets the card's full width instead of wrapping around it. */
-.atlas .nd .licon.nd-icon{position:absolute; top:9px; right:10px;
-  width:20px; height:20px; opacity:.8; stroke:currentColor; fill:none;
-  stroke-width:2.2; pointer-events:none}
-.atlas .nd.is-small .licon.nd-icon{top:6px; right:8px; width:15px; height:15px}
-.atlas .nd.is-head .licon.nd-icon{width:24px; height:24px}
-.nd-sub{margin:0; font:400 10px/1.45 var(--f,sans-serif); color:var(--atlas-text-muted)}
+.atlas .nd .licon.nd-icon{position:absolute; top:50%; right:12px;
+  width:34px; height:34px; opacity:.86; stroke:currentColor; fill:none;
+  stroke-width:1.85; stroke-linecap:round; stroke-linejoin:round;
+  transform:translateY(-50%); pointer-events:none;
+  filter:drop-shadow(0 0 7px color-mix(in srgb,currentColor 42%,transparent))}
+.atlas .nd.is-small .licon.nd-icon{right:8px; width:24px; height:24px}
+.atlas .nd.is-head .licon.nd-icon{width:36px; height:36px}
+.nd-sub{margin:0; padding-right:42px; font:400 10px/1.45 var(--f,sans-serif); color:var(--atlas-text-muted)}
 .nd-sub span{display:block}
 .nd.is-small{padding:8px 12px; gap:3px; justify-content:center}
-.nd.is-small .nd-head{padding-right:18px}
+.nd.is-small .nd-head{padding-right:30px}
 .nd.is-small .nd-name{font-size:12.5px}
 .nd.is-small .nd-num{width:17px; height:17px; font-size:9.5px}
-.nd.is-small .nd-icon{width:16px; height:16px}
-.nd.is-small .nd-sub{font-size:9.5px; line-height:1.35}
+.nd.is-small .nd-icon{width:24px; height:24px}
+.nd.is-small .nd-sub{font-size:9.5px; line-height:1.35; padding-right:30px}
 .nd.is-head .nd-name{font-size:15px}
 /* An enclosure holds other cards, so it must not paint over them: its header
    sits at the top and the rest of it is a frame. */
@@ -200,7 +202,7 @@
 .nd.is-encl::before{background:linear-gradient(180deg,
   color-mix(in srgb, currentColor 16%, transparent), transparent 22%)}
 .nd.is-encl .nd-name{font-size:15px}
-.nd.is-encl .nd-icon{width:24px; height:24px}
+.nd.is-encl .nd-icon{top:29px; width:34px; height:34px; transform:none}
 
 /* ── the planet ──────────────────────────────────────────────────────────── */
 .pw-label{fill:var(--atlas-text); font:600 17px/1 var(--f,sans-serif);

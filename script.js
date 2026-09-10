@@ -1510,15 +1510,19 @@ window.addEventListener('hashchange',()=>setTimeout(fillAll,60));
 
 (function(){
   const el=document.getElementById('cx-matrix'); if(!el) return;
-  const W=320,H=330,L=34,R=12,T=24,B=42, pw=W-L-R, ph=H-T-B;
+  const W=390,H=330,L=42,R=18,T=24,B=42, pw=W-L-R, ph=H-T-B;
   /* Ten layers now. Connectivity enters mid-field — its chokepoints are real
      but geographic rather than material — and data enters low on the x axis
      because its binding constraint is legal, which this axis does not measure. */
   const P=[[1,.62,.82,'Energy',0],[2,.86,.62,'Materials',0],[3,.94,.95,'Semis',0],[4,.58,.46,'Compute',0],
-           [5,.32,.22,'Data centres',0],[6,.50,.62,'Connectivity',0],[7,.16,.52,'Data',0],
-           [8,.05,.13,'Models',0],[9,.05,.37,'Software',0],[10,.78,.44,'Embodiment',0]];
+           [5,.32,.22,'Data centres',0],[6,.16,.52,'Data',0],[7,.05,.13,'Models',0],
+           [8,.05,.37,'Software',0],[9,.50,.62,'Connectivity',0],[10,.78,.44,'Embodiment',0]];
   const px=v=>L+v*pw, py=v=>T+ph-v*ph;
-  let g=`<rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="var(--surface2)" rx="6"/>`;
+  let g=`<defs><linearGradient id="mx-bg" x1="0" x2="1" y1="1" y2="0">`+
+    `<stop offset="0" stop-color="var(--surface2)"/><stop offset=".58" stop-color="var(--surface)"/>`+
+    `<stop offset="1" stop-color="var(--accent-soft)"/></linearGradient></defs>`+
+    `<rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="url(#mx-bg)" rx="14"/>`+
+    `<rect x="${L+8}" y="${T+8}" width="${pw-16}" height="${ph-16}" fill="none" stroke="var(--line)" rx="10" opacity=".55"/>`;
   g+=`<line class="gr" x1="${L+pw/2}" y1="${T}" x2="${L+pw/2}" y2="${T+ph}"/>`+
      `<line class="gr" x1="${L}" y1="${T+ph/2}" x2="${L+pw}" y2="${T+ph/2}"/>`;
   P.forEach(([n,x,y,lab,dy])=>{

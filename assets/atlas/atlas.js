@@ -350,11 +350,18 @@
   }
 
   function paintSearch(ids) {
+    paint(ids);
     const set = new Set(ids);
-    host.classList.toggle('is-filtered', set.size > 0 || activeFilter !== 'all');
-    routeEls.forEach(r => r.querySelector('.rt').classList.remove('is-lit'));
-    allTargets().forEach(el => el.classList.toggle('is-lit', set.has(el.dataset.node)));
-    runDots();
+    allTargets().forEach(el => el.classList.toggle('is-selected', set.has(el.dataset.node)));
+  }
+
+  function clearSearch() {
+    if (!searchSelection.length) return;
+    searchSelection = [];
+    if (results) results.innerHTML = '';
+    if (q) q.setAttribute('aria-expanded', 'false');
+    allTargets().forEach(e => e.classList.remove('is-selected'));
+    paint(null);
   }
 
   const hoverOff = restorePaint;
@@ -382,6 +389,7 @@
 
   /* ── the detail panel ──────────────────────────────────────────────────── */
   function select(id) {
+    searchSelection = [];
     const el = allTargets().find(e => e.dataset.node === id);
     selected = id;
     allTargets().forEach(e => e.classList.toggle('is-selected', e === el));
@@ -419,15 +427,19 @@
   let downAt = null;
   host.addEventListener('pointerdown', e => { downAt = [e.clientX, e.clientY, e.target]; });
   host.addEventListener('pointerup', e => {
-    if (!selected || !downAt) return;
+    if ((!selected && !searchSelection.length) || !downAt) return;
     const moved = Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]);
     const onChrome = t => t instanceof Element &&
-      t.closest('.nd, .pw-node, .atlas-panel, .atlas-top, .atlas-filters, .atlas-controls');
-    if (moved < 5 && !onChrome(downAt[2]) && !onChrome(e.target)) closePanel(false);
+      t.closest('.nd, .pw-node, .atlas-panel, .atlas-top, .atlas-search, .atlas-filters, .atlas-controls');
+    if (moved < 5 && !onChrome(downAt[2]) && !onChrome(e.target)) {
+      if (selected) closePanel(false);
+      else clearSearch();
+    }
     downAt = null;
   });
   document.addEventListener('pointerdown', e => {
     if (selected && !host.contains(e.target)) closePanel(false);
+    else if (searchSelection.length && !host.contains(e.target)) clearSearch();
   });
 
   function panelHTML(d, region) {
@@ -462,7 +474,9 @@
   }
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && selected) { e.stopPropagation(); closePanel(true); }
+    if (e.key !== 'Escape') return;
+    if (selected) { e.stopPropagation(); closePanel(true); }
+    else if (searchSelection.length) { e.stopPropagation(); clearSearch(); }
   });
 
   /* ── search ────────────────────────────────────────────────────────────── */
@@ -485,7 +499,6 @@
     if (!b) return;
     searchSelection = b.dataset.go.split(/\s+/).filter(Boolean);
     selected = null; hidePanel();
-    allTargets().forEach(e => e.classList.toggle('is-selected', searchSelection.includes(e.dataset.node)));
     const el = allTargets().find(x => x.dataset.node === searchSelection[0]);
     if (el && el.scrollIntoView) el.scrollIntoView({block:'nearest', inline:'nearest'});
     paintSearch(searchSelection);
@@ -502,15 +515,19 @@
   });
   results.addEventListener('click', e => {
     const b = e.target.closest('[data-go]'); if (!b) return;
+    e.stopPropagation();
     applySearchResult(b);
   });
   results.addEventListener('pointerdown', e => {
     const b = e.target.closest('[data-go]'); if (!b) return;
+    e.stopPropagation();
     e.preventDefault();
     applySearchResult(b, false);
   });
   document.addEventListener('click', e => {
-    if (!e.target.closest('.atlas-search')) results.innerHTML = '';
+    if (e.target.closest('.atlas-search')) return;
+    results.innerHTML = '';
+    if (searchSelection.length && !e.target.closest('.atlas')) clearSearch();
   });
 
   /* ── pan and zoom ──────────────────────────────────────────────────────── */
