@@ -2047,3 +2047,276 @@ button.chain-node:focus-visible,button.vr-name:focus-visible,button.co-name:focu
 /* only the chosen chain's stages are in the document flow */
 .chain-branch{display:none}
 .chain-branch.is-on{display:block}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   V10 — site-wide visual upgrade, aligned to the atlas
+   The atlas now sets the standard: deep technical atmosphere, luminous layer
+   colour, dense working surfaces and restrained glass. This final layer pulls
+   the older report chrome into that same visual system without changing copy.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  color-scheme:light;
+  --nav-h:68px;
+  --bg:#EAF0F6; --surface:#F8FAFC; --surface2:#EDF3F8; --surface3:#E1E9F1;
+  --ink:#0E1824; --ink2:#405065; --muted:#69798B;
+  --line:#C9D4E0; --line2:#9BAFC2;
+  --accent:#2D6BFF; --accent-d:#174FDC; --accent-soft:#DFE9FF;
+  --panel-a:rgba(248,250,252,.78);
+  --glass:rgba(248,250,252,.72);
+  --glass-strong:rgba(255,255,255,.88);
+  --chrome:rgba(234,240,246,.82);
+  --chrome-line:rgba(92,115,140,.28);
+  --shadow-sm:0 1px 0 rgba(255,255,255,.72) inset, 0 12px 34px rgba(32,49,72,.08);
+  --shadow-lg:0 1px 0 rgba(255,255,255,.62) inset, 0 28px 90px rgba(20,34,54,.16);
+  --track:rgba(14,24,36,.085);
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#05101B; --surface:#0B1825; --surface2:#102435; --surface3:#173348;
+  --ink:#EFF7FF; --ink2:#B9C9D8; --muted:#8194A8;
+  --line:#1F3A51; --line2:#3C607B;
+  --accent:#6ECFFF; --accent-d:#9BE1FF; --accent-soft:#0D3447;
+  --panel-a:rgba(8,20,32,.78);
+  --glass:rgba(8,20,32,.68);
+  --glass-strong:rgba(12,28,43,.88);
+  --chrome:rgba(5,16,27,.82);
+  --chrome-line:rgba(125,207,255,.22);
+  --shadow-sm:0 1px 0 rgba(255,255,255,.055) inset, 0 14px 42px rgba(0,0,0,.28);
+  --shadow-lg:0 1px 0 rgba(255,255,255,.07) inset, 0 34px 110px rgba(0,0,0,.48);
+  --track:rgba(239,247,255,.10);
+}
+
+html{background:var(--bg)}
+body{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,0) 260px),
+    linear-gradient(135deg,rgba(45,107,255,.11),rgba(46,127,110,.07) 38%,rgba(164,97,0,.08) 78%,rgba(45,107,255,.04)),
+    var(--bg);
+}
+:root[data-theme="dark"] body{
+  background:
+    linear-gradient(180deg,rgba(5,16,27,.16),rgba(5,16,27,.82) 360px,var(--bg)),
+    linear-gradient(135deg,rgba(110,207,255,.12),rgba(240,180,93,.06) 45%,rgba(127,192,122,.08)),
+    var(--bg);
+}
+:root[data-theme="dark"] body::before{opacity:.38; filter:saturate(.95) contrast(1.06)}
+:root[data-theme="dark"] body::after{background:linear-gradient(180deg,
+  rgba(5,16,27,.16) 0%, rgba(5,16,27,.54) 42%, var(--bg) 100%)}
+
+nav{
+  height:68px; background:var(--chrome); border-bottom:1px solid var(--chrome-line);
+  backdrop-filter:blur(22px) saturate(1.24);
+}
+.nav-in{padding:0 28px; gap:16px}
+.brand{
+  align-items:center; gap:10px; height:38px; padding:0 13px 0 10px;
+  border:1px solid var(--chrome-line); border-radius:999px;
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-sm); font-weight:650; letter-spacing:.08em;
+  text-transform:uppercase; font-size:12px;
+}
+.brand i{
+  width:10px; height:10px; background:linear-gradient(135deg,var(--l1),var(--accent));
+  box-shadow:0 0 18px color-mix(in srgb,var(--accent) 42%,transparent);
+}
+.navlinks{
+  flex:1; justify-content:center; gap:4px; padding:5px;
+  border-color:var(--chrome-line); border-radius:999px;
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-sm);
+}
+.navlinks a,.navlinks button{
+  border-radius:999px; padding:8px 14px; font-size:12.5px; font-weight:650;
+  letter-spacing:.015em; color:var(--ink2);
+}
+.navlinks a:hover,.navlinks button:hover{
+  background:color-mix(in srgb,var(--accent-soft) 58%,transparent); color:var(--ink);
+}
+.navlinks a[aria-current="page"],.navlinks button[aria-selected="true"]{
+  color:var(--on-layer); background:linear-gradient(135deg,var(--accent),var(--l9));
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 34%,transparent),
+    0 10px 26px color-mix(in srgb,var(--accent) 22%,transparent);
+}
+:root[data-theme="dark"] .navlinks a[aria-current="page"],
+:root[data-theme="dark"] .navlinks button[aria-selected="true"]{color:#03101B}
+.theme-toggle{
+  height:38px; border-radius:999px; border-color:var(--chrome-line);
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-sm); color:var(--ink2); font-weight:650;
+}
+.theme-toggle:hover{color:var(--ink); border-color:color-mix(in srgb,var(--accent) 58%,var(--line))}
+
+.main-view{inset:68px 0 0; padding:24px 0}
+.main-view>.wrap{max-width:1680px}
+.landing-rail{
+  border:1px solid var(--chrome-line); border-radius:22px; padding:24px 28px;
+  background:linear-gradient(135deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-lg); margin-bottom:22px; position:relative; overflow:hidden;
+}
+.landing-rail::after{
+  content:""; position:absolute; inset:auto 22px 0 22px; height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),var(--l1),transparent);
+  opacity:.55;
+}
+.landing-rail h1{
+  max-width:none; font-size:clamp(34px,4.2vw,68px); line-height:.96;
+  letter-spacing:-.05em;
+}
+.landing-rail .lede{font-size:17px; max-width:70ch; color:var(--ink2); margin-top:2px}
+
+#overview .dia-grid{gap:22px}
+#overview .dia,#overview #cx-matrix,.card,.project-chapters,#stack .rail,.tw,.cw,.figwrap,
+.block,.verdict,.chain-stage,.material-hero,.risk-scorecard,.risk-item,.env-bd,.env-fc,
+.env-layer,.env-open li,.mkt,.mtr-primary,.mtr-worked,.mfr{
+  border-color:var(--chrome-line);
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-sm);
+}
+#overview .dia:first-child{
+  padding:18px 20px 20px; box-shadow:var(--shadow-lg);
+  background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(248,250,252,.70));
+}
+:root[data-theme="dark"] #overview .dia:first-child{
+  background:linear-gradient(180deg,rgba(10,25,39,.86),rgba(8,20,32,.68));
+}
+#overview .dia h3,#overview #cx-matrix h4{
+  font-size:22px; letter-spacing:-.026em; color:var(--ink);
+}
+#overview .dia .d-sub,#overview .dia .d-cap,#overview #cx-matrix .cq,
+#overview #cx-matrix figcaption{color:var(--ink2)}
+#overview .dia .d-cap{
+  background:color-mix(in srgb,var(--surface2) 58%,transparent);
+  border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+  border-radius:12px; padding:12px 14px; margin-top:12px;
+}
+
+#stack>.wrap,#projects>.wrap{gap:18px}
+#stack .sec-head,#projects>.wrap>.sec-head{
+  border:1px solid var(--chrome-line); border-radius:18px; padding:18px 20px;
+  background:linear-gradient(135deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-sm); align-items:center;
+}
+#stack .sec-head h1,#stack .sec-head h2,#projects>.wrap>.sec-head h1,
+#projects>.wrap>.sec-head h2{
+  font-size:clamp(24px,2.2vw,34px); letter-spacing:-.034em; white-space:normal;
+}
+#stack .sec-head p,#projects>.wrap>.sec-head p{font-size:13.5px; color:var(--ink2)}
+#stack .stack{gap:18px; grid-template-columns:282px minmax(0,1fr)}
+#stack .rail{
+  padding:10px; border-radius:18px; background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+}
+#stack .tab{
+  border:1px solid transparent; border-left:4px solid transparent; border-radius:12px;
+  padding:13px 12px; min-height:52px; color:var(--ink2);
+}
+#stack .tab:hover{background:color-mix(in srgb,var(--surface3) 55%,transparent); color:var(--ink)}
+#stack .tab[aria-selected="true"]{
+  background:linear-gradient(135deg,var(--surface),var(--surface2));
+  border-color:var(--chrome-line); box-shadow:0 10px 26px rgba(0,0,0,.08);
+}
+:root[data-theme="dark"] #stack .tab[aria-selected="true"]{box-shadow:0 12px 34px rgba(0,0,0,.26)}
+#stack .card{
+  border-radius:18px; border-color:var(--chrome-line);
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-lg);
+}
+.layer-head{
+  padding:22px 26px 16px; border-bottom:1px solid color-mix(in srgb,var(--line) 64%,transparent);
+}
+.layer-index,.mtr-eyebrow,.mfr>summary,.chain-step,.env-ch{letter-spacing:.055em}
+.layer-headline h3{font-size:clamp(22px,2vw,30px); letter-spacing:-.03em}
+.layer-score{
+  background:color-mix(in srgb,var(--surface2) 78%,transparent);
+  border-color:var(--chrome-line); border-radius:999px; padding:9px 13px;
+}
+.layer-modes{
+  padding:0 24px; background:color-mix(in srgb,var(--surface2) 42%,transparent);
+}
+.layer-mode{padding:11px 13px 12px; border-bottom-width:3px; font-size:13px}
+.layer-pane{padding:22px 26px 30px}
+.overview-lede{gap:22px}
+.choke-card,.tab-intro,.material-note,.cod-nodata,.elc-note,.env-bad,.mfr-warn{
+  border-color:var(--chrome-line); background:color-mix(in srgb,var(--surface2) 72%,transparent);
+}
+
+.facts,.material-stats{
+  gap:0; border-color:var(--chrome-line); background:var(--chrome-line);
+  border-radius:14px; box-shadow:var(--shadow-sm);
+}
+.facts div,.material-stats div{
+  background:linear-gradient(180deg,var(--surface),var(--surface2)); padding:16px 18px;
+}
+.facts b,.material-stats b{font-size:22px; letter-spacing:-.04em}
+.chip,.micro-chip,.chain-node,a.tick,.mkt-n,.eld-c-layer{
+  border-color:var(--chrome-line); background:color-mix(in srgb,var(--surface2) 78%,transparent);
+  border-radius:999px;
+}
+
+th{
+  background:linear-gradient(180deg,var(--surface2),var(--surface3));
+  color:var(--ink2); font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+}
+td{background:color-mix(in srgb,var(--surface) 74%,transparent)}
+tbody tr:hover td{background:color-mix(in srgb,var(--accent-soft) 42%,var(--surface))}
+.tw{overflow:auto; scrollbar-width:thin}
+
+.chain-flow{gap:30px}
+.chain-stage{
+  border-radius:16px; padding:16px; background:linear-gradient(180deg,var(--surface),var(--surface2));
+}
+.chain-stage.is-choke{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--amber-soft) 62%,var(--surface)),
+    color-mix(in srgb,var(--flag-soft) 36%,var(--surface2)));
+}
+.cs-num{border-radius:9px; box-shadow:0 0 18px color-mix(in srgb,var(--stage) 32%,transparent)}
+.chain-node{border-radius:10px}
+.vj-group{
+  border-color:var(--chrome-line); border-radius:14px;
+  background:color-mix(in srgb,var(--surface2) 54%,transparent);
+}
+.vj-group.is-on{background:linear-gradient(180deg,var(--surface),var(--surface2))}
+
+body.doc section{padding:42px 0 68px}
+body.doc section>.wrap,body.doc footer>.wrap{max-width:1360px}
+body.doc .sec-head{
+  max-width:none; border:1px solid var(--chrome-line); border-radius:20px;
+  padding:24px 28px; margin-bottom:28px;
+  background:linear-gradient(135deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-lg);
+}
+body.doc .sec-head h1{font-size:clamp(34px,4vw,58px); letter-spacing:-.05em}
+body.doc .sec-head p{font-size:17px; color:var(--ink2); max-width:86ch}
+.blockhead{font-size:clamp(22px,2vw,30px); margin-top:52px}
+.blocksub{font-size:16px; color:var(--ink2)}
+.verdict{
+  color:var(--invert-fg2); border-color:color-mix(in srgb,var(--accent) 22%,var(--line));
+  background:linear-gradient(135deg,var(--invert-bg),color-mix(in srgb,var(--invert-bg) 76%,var(--accent)));
+}
+.verdict h3{font-size:24px}
+
+footer{
+  border-top:1px solid var(--chrome-line);
+  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--surface2) 58%,transparent));
+}
+
+@media(max-width:900px){
+  :root{--nav-h:116px}
+  nav{height:auto; min-height:64px}
+  .nav-in{padding:10px 14px; flex-wrap:wrap}
+  .navlinks{order:3; flex-basis:100%; justify-content:flex-start; border-radius:16px}
+  .main-view{inset:116px 0 0; padding:14px 0}
+  .landing-rail{padding:20px; border-radius:18px}
+  #overview .dia{padding:16px}
+  #stack .stack{grid-template-columns:1fr}
+  #stack .rail{border-radius:14px}
+  #stack .tab{min-height:46px}
+  body.doc .sec-head{padding:20px}
+}
+@media(max-width:640px){
+  :root{--nav-h:110px}
+  .main-view{inset:110px 0 0}
+  .navlinks a,.navlinks button{font-size:11.5px; padding:7px 10px}
+  .landing-rail h1,body.doc .sec-head h1{letter-spacing:-.035em}
+  #overview .dia .d-cap{font-size:13px}
+  .facts div,.material-stats div{padding:13px 14px}
+}
