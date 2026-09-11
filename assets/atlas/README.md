@@ -9,10 +9,10 @@ is now archived in `diagrams/archive/`.
 |---|---|
 | `atlas-layout.js` | **Geometry only.** Region and card rectangles, the planet's circle, the flow families, and the routes between cards. Not one word of prose. |
 | `atlas-geometry.js` | Anchors and the orthogonal route builder. |
-| `space.jpg` | The background photograph: grid, dotted world, stars, orbital arcs and the planet, all in one asset. |
+| `earth.png` | The independent transparent Earth asset. The background is CSS, not a photograph. |
 | `atlas-data.js` | The adapter. The only file that knows how the report's tables are shaped. |
 | `atlas.js` | The component: builds the markup, then wires hover, focus, selection, filters, search, pan, zoom and the panel. |
-| `atlas-earth.js` | The continent and cloud paths from the previous schematic's globe. Unused by the current background; kept for the dotted-world helper. |
+| `atlas-earth.js` | The continent and cloud paths from the previous schematic's globe. Kept as the vector fallback. |
 | `atlas.css` | Tokens and every rule, all scoped to `.atlas`. |
 
 ## Where to change things
@@ -28,12 +28,10 @@ is now archived in `diagrams/archive/`.
 - **Card labels, region names, the planet's caption, the two route labels** —
   `ATLAS_CARDS`, `ATLAS_REGIONS_TEXT`, `ATLAS_WORLD_TEXT` and
   `ATLAS_ROUTE_TEXT` in `assets/content.js`, like all other copy.
-- **The background** — `space.jpg`, painted on `.atlas-world` so it pans and
-  zooms with the map. **The canvas shares the photograph's aspect exactly
-  (1672×941 → 1760×990)**, which is what makes the planet in the picture land
-  on `ATLAS_WORLD`'s coordinates at every size. Change the picture and you must
-  re-measure that centre and radius, or change the canvas to match. A blurred
-  900px copy, `space-wash.jpg`, sits behind the whole site on the dark theme.
+- **The background** — CSS layers in `atlas.css`: theme wash, grid, star
+  points and orbital arcs. The Earth is `earth.png`, drawn independently at
+  `ATLAS_WORLD`'s coordinates. Change the image size or composition and
+  re-check `cx`, `cy` and `r` so routes still land on the planet.
 - **What the detail panel shows** — `AtlasData.detail`. It reads existing
   fields and returns `undefined` for any the report does not have; the panel
   renders only the sections that came back with something.

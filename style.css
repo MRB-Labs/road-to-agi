@@ -13,12 +13,18 @@ html{scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 16px)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important; transition:none!important}}
 body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--f);
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; font-feature-settings:'tnum' 1}
-/* The atlas photograph, fixed and very far back, so the dark theme carries the
-   same sky as the map. Light theme keeps its paper. Behind everything, never
-   under text directly: every surface above it is opaque. */
+/* A theme-native sky for dark mode. The atlas no longer carries a full raster
+   background, so the page uses CSS light, grid and grain instead. Behind
+   everything, never under text directly: every surface above it is opaque. */
 [data-theme="dark"] body::before{content:''; position:fixed; inset:0; z-index:-1;
-  pointer-events:none; background:url("assets/atlas/space-wash.jpg") center/cover no-repeat;
-  opacity:.30; filter:saturate(.75)}
+  pointer-events:none; background:
+    radial-gradient(circle at 82% 16%, rgba(85,186,210,.18), transparent 22%),
+    radial-gradient(circle at 18% 4%, rgba(125,162,255,.13), transparent 28%),
+    linear-gradient(rgba(120,180,225,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,180,225,.035) 1px, transparent 1px),
+    linear-gradient(135deg, #07101c 0%, #081928 46%, var(--bg) 100%);
+  background-size:100% 100%, 100% 100%, 48px 48px, 48px 48px, 100% 100%;
+  opacity:.82}
 [data-theme="dark"] body::after{content:''; position:fixed; inset:0; z-index:-1;
   pointer-events:none; background:linear-gradient(180deg,
     rgba(8,19,31,.55) 0%, rgba(8,19,31,.86) 42%, var(--bg) 100%)}
@@ -1432,7 +1438,7 @@ svg.mx-hl .mx-pt:not(.on) text{opacity:.4}
   .dia-shell.is-loop{grid-template-columns:1fr}
 }
 
-/* The photographic globe replaces the drawn one when assets/earth.png exists;
+/* The photographic globe replaces the drawn one when the Earth image exists;
    the vector globe underneath remains the fallback. */
 #mapsvg .earth{pointer-events:none}
 
