@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Road to AGI">
+  <rect width="64" height="64" rx="14" fill="#06101d"/>
+  <path d="M12 44h40" stroke="#7DA2FF" stroke-width="4" stroke-linecap="round"/>
+  <path d="M18 44 32 14 46 44" fill="none" stroke="#53CFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32" cy="14" r="5" fill="#65F49A"/>
+  <circle cx="18" cy="44" r="4" fill="#F0B45D"/>
+  <circle cx="46" cy="44" r="4" fill="#E0798F"/>
+</svg>

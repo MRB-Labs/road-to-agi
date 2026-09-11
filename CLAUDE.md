@@ -58,6 +58,12 @@ python3 brand/build-companies.py --check  # the company map matches its database
 python3 check-content.py                  # wording matches the approved baseline
 python3 scripts/check-figures.py          # no new figure lacks a date
 python3 scripts/check-offline.py          # no page fetches from another server
+python3 scripts/check-site-links.py       # local links, anchors and assets resolve
+python3 scripts/check-metadata.py         # metadata, social card and favicon are present
+python3 scripts/check-a11y.py             # basic accessibility shell is sound
+python3 scripts/check-visual-contract.py  # load-bearing visual selectors exist
+python3 scripts/check-performance.py      # size budgets are respected
+python3 scripts/check-public-surface.py   # local editor/tools stay out of deploy
 python3 bump-assets.py                    # re-stamp the hashes — always last
 ```
 
@@ -83,6 +89,8 @@ asset-hash guard failed on a commit that had touched nothing.
 | The exact wording of everything | `content/copy-snapshot.json` |
 | Logos, their rights and what is still missing | `brand/README.md` |
 | Open work and known gaps | `TODO.md` |
+| Release checklist and publishing rules | `docs/RELEASE.md`, `docs/PUBLISHING.md` |
+| Atlas/data model and visual QA | `docs/ATLAS_DATA_MODEL.md`, `docs/VISUAL_QA.md` |
 
 `assets/content.js` holds all prose and data tables; `script.js` holds logic
 only. Adding copy to `script.js` is how the wording guard lost eighteen strings

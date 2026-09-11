@@ -55,6 +55,24 @@ jobs:
       - name: No remote asset loads
         run: python3 scripts/check-offline.py
 
+      - name: Local links and assets resolve
+        run: python3 scripts/check-site-links.py
+
+      - name: Metadata and social card are complete
+        run: python3 scripts/check-metadata.py
+
+      - name: Basic accessibility shell is sound
+        run: python3 scripts/check-a11y.py
+
+      - name: Visual selectors and theme tokens are present
+        run: python3 scripts/check-visual-contract.py
+
+      - name: Performance budgets are respected
+        run: python3 scripts/check-performance.py
+
+      - name: Public deploy surface excludes local tools
+        run: python3 scripts/check-public-surface.py
+
   deploy:
     needs: guards
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'

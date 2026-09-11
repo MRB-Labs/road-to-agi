@@ -38,9 +38,15 @@ python3 brand/build-companies.py --check # the company map matches its database
 python3 check-content.py                 # wording matches the approved baseline
 python3 scripts/check-figures.py         # no new figure lacks a date
 python3 scripts/check-offline.py         # no page fetches assets from another server
+python3 scripts/check-site-links.py      # local links, anchors and assets resolve
+python3 scripts/check-metadata.py        # SEO/social metadata and icons are present
+python3 scripts/check-a11y.py            # basic accessibility shell is sound
+python3 scripts/check-visual-contract.py # load-bearing visual selectors exist
+python3 scripts/check-performance.py     # size budgets are respected
+python3 scripts/check-public-surface.py  # local editor/tools stay out of deploy
 ```
 
-All six run in CI, and **the site is published only if they all pass** — the
+All guards run in CI, and **the site is published only if they all pass** — the
 deploy is a job in the same workflow, so a broken commit leaves the previous
 version live rather than replacing it. If a guard reports a change you
 intended, approve it with `--accept`.
@@ -48,6 +54,10 @@ intended, approve it with `--accept`.
 `scripts/check-live.py` runs on a daily schedule against the published page: it
 is the only guard that can catch a deploy that half-worked, an asset that
 404s, or the market refresh quietly stopping.
+
+`scripts/check-links.py` is the slower external citation checker. It is useful
+for link-rot reviews, but is not part of the deploy gate because source sites
+can block robots or be temporarily unreachable.
 
 ### Publishing a revision
 
@@ -74,6 +84,11 @@ guards there, which is the point of the branch.
 | Which companies appear at each stage | `brand/COMPANY_VALUE_CHAIN_DATABASE.md` |
 | Where a database position maps to | `brand/stage_map.py` |
 | How the overview's atlas is built | `assets/atlas/README.md` |
+| The atlas/data model in one page | `docs/ATLAS_DATA_MODEL.md` |
+| The public release checklist | `docs/RELEASE.md` |
+| Publishing and deployment rules | `docs/PUBLISHING.md` |
+| Ongoing maintenance routine | `docs/MAINTENANCE.md` |
+| Manual visual QA checklist | `docs/VISUAL_QA.md` |
 | The exact wording of everything | `content/copy-snapshot.json` |
 | Company logos and their rights | `brand/README.md` |
 | The rules Claude Code works to here | `CLAUDE.md` |
