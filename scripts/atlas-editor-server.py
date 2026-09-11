@@ -266,6 +266,19 @@ def _git(args: list[str], check: bool = True) -> subprocess.CompletedProcess[str
     return result
 
 
+def _run_guard(args: list[str]) -> None:
+    result = subprocess.run(
+        args,
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode:
+        message = result.stderr.strip() or result.stdout.strip() or "guard failed"
+        raise ValueError(message)
+
+
 def commit_and_push() -> dict:
     result = subprocess.run(
         ["python3", "bump-assets.py"],
@@ -277,6 +290,12 @@ def commit_and_push() -> dict:
     if result.returncode:
         message = result.stderr.strip() or result.stdout.strip() or "bump-assets.py failed"
         raise ValueError(message)
+    _run_guard(["python3", "build-content.py", "--check"])
+    _run_guard(["python3", "scripts/check-atlas.py"])
+    _run_guard(["python3", "brand/build-companies.py", "--check"])
+    _run_guard(["python3", "check-content.py"])
+    _run_guard(["python3", "scripts/check-figures.py"])
+    _run_guard(["python3", "scripts/check-offline.py"])
     _git(["add", "--", *COMMIT_FILES])
     staged = _git(["diff", "--cached", "--quiet", "--", *COMMIT_FILES], check=False)
     if staged.returncode == 0:
