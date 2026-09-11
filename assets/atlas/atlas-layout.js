@@ -49,13 +49,13 @@ const ATLAS_NODES = [
   {id:'l2',    layer:2,  region:'foundations',  x:64,   y:368, w:176, h:144},
 
   /* Silicon carries one card, so it gets the width its own name needs. */
-  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:456, w:176, h:168, iy:-32, iz:120},
+  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:200, w:176, h:192, iy:-32, iz:120},
 
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
   {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:544, encl:1, iy:-232},
-  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:160, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
+  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:336, w:176, h:160, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
   {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:192, sub:1, ix:-8, iy:-64, iz:150},
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
@@ -65,7 +65,7 @@ const ATLAS_NODES = [
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:296, w:144, h:168, iy:-32, iz:120},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:200, w:144, h:168, iy:-32, iz:120},
 
   /* the machine, and everything inside it */
   {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
