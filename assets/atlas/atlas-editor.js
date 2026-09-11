@@ -700,6 +700,9 @@
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Save failed');
+      if (!data.git) {
+        throw new Error('Files were saved, but this editor server is old and cannot commit. Stop it with Ctrl+C, start it again, then click Save + GitHub.');
+      }
       dirtyRoutes.clear();
       textDirty = false;
       host.querySelectorAll('.ed-dirty').forEach(x => x.classList.remove('ed-dirty'));
@@ -718,9 +721,10 @@
   async function pingServer() {
     try {
       const res = await fetch('/__atlas_editor/ping', {cache:'no-store'});
-      serverReady = res.ok;
+      const data = res.ok ? await res.json() : {};
+      serverReady = res.ok && Array.isArray(data.features) && data.features.includes('git-push');
       if (serverReady) setStatus('Editor server connected. Drag items, edit text, then Save + GitHub.', 'ok');
-      else setStatus('Open through scripts/atlas-editor-server.py to enable saving.', 'bad');
+      else setStatus('Restart the editor server with python3 scripts/atlas-editor-server.py --port 8766 so Save + GitHub is enabled.', 'bad');
     } catch (err) {
       serverReady = false;
       setStatus('Open through scripts/atlas-editor-server.py to enable saving.', 'bad');

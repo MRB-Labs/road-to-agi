@@ -28,7 +28,7 @@ const ATLAS_REGIONS = [
   {key:'compute',       x:512,  y:112, w:232, h:676},
   {key:'intelligence',  x:760,  y:112, w:192, h:676},
   {key:'network',       x:984,  y:112, w:176, h:672},
-  {key:'embodied',      x:1188, y:112, w:208, h:672},
+  {key:'embodied',      x:1188, y:112, w:208, h:680},
 ];
 
 /* Not a region: the planet in the background photograph. These are its measured
@@ -54,21 +54,21 @@ const ATLAS_NODES = [
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
-  {id:'l5',    layer:5,  region:'compute',      x:528,  y:196, w:200, h:496, encl:1},
+  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:496, encl:1},
   {id:'l1p',   layer:1,  region:'compute',      x:540,  y:284, w:176, h:160, sub:1, icon:'1p'},
   {id:'l4',    layer:4,  region:'compute',      x:540,  y:492, w:176, h:184, sub:1},
 
-  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:208, w:160, h:136},
+  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152},
   {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144},
   {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160},
 
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1008, y:272, w:136, h:296},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:272, w:144, h:296},
 
   /* the machine, and everything inside it */
-  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:576, encl:1},
+  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:584, encl:1},
   {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:160, h:76, sub:1},
   {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:160, h:76, sub:1},
   {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:160, h:76, sub:1},

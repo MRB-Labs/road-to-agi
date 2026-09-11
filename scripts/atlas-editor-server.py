@@ -293,7 +293,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/__atlas_editor/ping":
-            self._json({"ok": True})
+            self._json({"ok": True, "features": ["git-push"]})
             return
         super().do_GET()
 
