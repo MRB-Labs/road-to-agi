@@ -165,7 +165,7 @@ const ATLAS_CARDS={
  l7    :{t:'Data and knowledge',s:['Databases · object storage · data lakes','Ingestion · curation · governance']},
  l8    :{t:'Training and cloud inference',s:['Pre-training · post-training · evaluation','Model serving · routing · optimisation']},
  l9    :{t:'Cloud agent services and applications',s:['Retrieval · memory · tools · orchestration · identity · observability']},
- l6    :{t:'Connectivity',s:['Fibre · 5G · subsea','Wi-Fi · satellite']},
+ l6    :{t:'Connectivity',s:['Fibre · 5G · Subsea cables ','Wi-Fi · Satellite']},
  l10   :{t:'Embodied AI',s:['Robot · vehicle · drone']},
  sens  :{t:'Sensors',s:['Vision · tactile · audio · proprioception']},
  l4e   :{t:'Edge compute',s:['SoC · memory · storage · real-time I/O']},
@@ -186,7 +186,7 @@ const ATLAS_REGIONS_TEXT={
  network     :{t:'Network',      s:['Internet · telecommunications']},
  embodied    :{t:'Embodied AI',  s:['Deployed robots · smart devices']},
 };
-const ATLAS_WORLD_TEXT={t:'The physical world', s:'Energy, materials, cities, human infrastructure',
+const ATLAS_WORLD_TEXT={t:'The physical world', s:'Energy, materials, human infrastructure',
  lede:'Not a layer, but the ground the stack is drawn from: where energy is captured, where materials are extracted, and where embodied machines eventually do the work. It feeds the base pair and takes the fleet’s work back.',
  reach:['Energy and raw materials out, into the foundations','Sensors in, actuators out, through the machine at the edge']};
 const ATLAS_ROUTE_TEXT={};

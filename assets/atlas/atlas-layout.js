@@ -65,7 +65,7 @@ const ATLAS_NODES = [
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:272, w:144, h:296, iy:-88, iz:120},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:296, w:144, h:168, iy:-32, iz:120},
 
   /* the machine, and everything inside it */
   {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
