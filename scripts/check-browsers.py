@@ -34,7 +34,8 @@ from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ['index.html', 'stack.html', 'markets.html', 'environment.html',
-         'investor.html', 'projects.html', 'method.html', 'sources.html']
+         'investor.html', 'projects.html', 'method.html', 'sources.html',
+    'about.html', 'disclaimer.html', 'privacy.html']
 BASELINE = ROOT / 'content' / 'a11y-baseline.json'
 DESKTOP = {'width': 1440, 'height': 950}
 PHONE = {'width': 390, 'height': 844}

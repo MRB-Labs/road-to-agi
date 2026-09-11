@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = [
     'index.html', 'stack.html', 'markets.html', 'environment.html',
     'investor.html', 'projects.html', 'method.html', 'sources.html',
-]
+    'about.html', 'disclaimer.html', 'privacy.html']
 BASE = 'https://mrb-labs.github.io/road-to-agi/'
 SOCIAL = ROOT / 'assets' / 'images' / 'social-card.png'
 FAVICON = ROOT / 'assets' / 'images' / 'favicon.svg'
@@ -64,6 +64,12 @@ def png_size(path):
 
 
 def main():
+    # A <mark data-todo> is a gap only Mark can fill; a page carrying one is a draft.
+    for _n in PUBLIC:
+        _t = (ROOT / _n).read_text()
+        if 'data-todo' in _t:
+            print('%s is a draft: %d gap(s) still marked data-todo' % (_n, _t.count('data-todo')))
+            return 1
     bad = []
     if not SOCIAL.exists():
         bad.append('assets/images/social-card.png is missing')

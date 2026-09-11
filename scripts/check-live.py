@@ -17,7 +17,8 @@ BASE = 'https://mrb-labs.github.io/road-to-agi/'
 STALE_DAYS = 4          # the fundamentals workflow runs daily; four days is a fault
 
 PAGES = ['', 'stack.html', 'investor.html', 'markets.html',
-         'environment.html', 'projects.html', 'method.html', 'sources.html']
+         'environment.html', 'projects.html', 'method.html', 'sources.html',
+    'about.html', 'disclaimer.html', 'privacy.html']
 # Each page loads its own slice of the content; the unsplit source is not
 # served to anyone, so checking it would prove nothing.
 ASSETS = (['style.css', 'script.js', 'assets/taxonomy.js', 'robots.txt',

@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = [
     'index.html', 'stack.html', 'markets.html', 'environment.html',
     'investor.html', 'projects.html', 'method.html', 'sources.html',
-]
+    'about.html', 'disclaimer.html', 'privacy.html']
 
 
 class Parser(HTMLParser):
