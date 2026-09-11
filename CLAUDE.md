@@ -176,6 +176,7 @@ published revision (`git tag -a v10 -m "Revision 10" && git push --tags`) so
 there is something to go back to, and bump `content/REVISION` when the number
 changes.
 
-The token in use **cannot write to `.github/workflows/`**. Any workflow change
-has to be pasted by Mark through the GitHub web editor — give him the numbered
-steps and the exact block.
+The token in use **can write to `.github/workflows/`** — it was given the
+`workflow` scope on 2026-09-09, and the deploy's staging step was changed from
+here on 2026-09-11. A workflow change still ships the site, so run the guards
+first and check the next deploy went green.
