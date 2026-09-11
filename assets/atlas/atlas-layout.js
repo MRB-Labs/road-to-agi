@@ -54,7 +54,7 @@ const ATLAS_NODES = [
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
-  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:488, encl:1, iy:-232},
+  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:488, encl:1, iy:-216},
   {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:144, sub:1, icon:'1p', ix:-8, iy:-48, iz:145},
   {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:136, sub:1, ix:-8, iy:-40, iz:150},
 
@@ -179,6 +179,6 @@ const ATLAS_ROUTES = [
    via:[{x:392},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
-  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1440}]},
-  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1440}]},
+  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
+  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1432}]},
 ];
