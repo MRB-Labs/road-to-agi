@@ -106,8 +106,10 @@ builder ran on every page and wrote into the void. It silently disabled every
 element is there. Add a builder and you must also re-derive
 `content/page-tables.json`; see `scripts/probe-page-deps.md`.
 
-`CLEAN/` is gitignored. It holds the source databases the site was built from,
-kept for provenance, not loaded by anything.
+`CLEAN/` — the source databases the site was built from — was moved out of
+the repository on 2026-09-11 and is kept outside it by Mark, for provenance.
+Nothing loads it; the `.gitignore` and deploy excludes for it stay as a guard
+against it being copied back in.
 
 ---
 

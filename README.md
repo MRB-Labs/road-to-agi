@@ -95,7 +95,7 @@ guards there, which is the point of the branch.
 | What may be reused, and on what terms | `LICENSE` |
 | How many figures still lack a date | `content/figures-baseline.json` |
 | Which content tables each page needs | `content/page-tables.json`, derived per `scripts/probe-page-deps.md` |
-| What is deliberately not in the repo | `CLEAN/README.md` (local only) |
+| What is deliberately not in the repo | the source databases, kept outside the repository |
 | Open work | `TODO.md` |
 
 ## Data and rights

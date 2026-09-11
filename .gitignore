@@ -6,5 +6,5 @@ Periodic_Elements/
 # macOS Finder metadata
 .DS_Store
 
-# Files kept locally but not part of the site. See CLEAN/README.md.
+# The source databases now live outside the repository; this keeps them out if copied back.
 CLEAN/

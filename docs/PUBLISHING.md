@@ -16,7 +16,8 @@ The deploy workflow stages a clean `_site` directory and excludes:
 - `.git/`
 - `.github/`
 - `_site/`
-- `CLEAN/`
+- `CLEAN/` (the source databases now live outside the repository; the exclude
+  stays in case they are ever copied back)
 - `.DS_Store`
 - `atlas-editor.*`
 - `*.py`
