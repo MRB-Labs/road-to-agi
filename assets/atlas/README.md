@@ -38,6 +38,30 @@ is now archived in `diagrams/archive/`.
   fields and returns `undefined` for any the report does not have; the panel
   renders only the sections that came back with something.
 
+## Editing visually
+
+For moving things rather than rewiring them, use the editor instead of typing
+coordinates:
+
+```bash
+python3 scripts/atlas-editor-server.py --port 8766
+```
+
+then open `http://127.0.0.1:8766/atlas-editor.html`. It is the live atlas with
+handles: drag a card, a column, a card's icon, a route's bend or the Earth; drag
+a corner to resize; edit the map's text in the side panel. Grid and snap are on
+by default. **Save + GitHub** writes the numbers back into `atlas-layout.js`
+(and the `ATLAS_*` text into `content.js`), runs every guard, and commits and
+pushes only if they all pass.
+
+What it can change: `x y w h` on cards and regions, a card's icon offset and
+size (`ix iy iz`), route `via` guides, the planet's `cx cy r`, and the map's
+words. What it cannot: add or remove cards or routes, change `side`, `trunk`,
+`flow` or `ends` — those are still edits to this file by hand.
+
+The page, its CSS and JS (`atlas-editor.*`) and the server are local-only and
+are excluded from the published site.
+
 ## How the report's data reaches the map
 
 ```

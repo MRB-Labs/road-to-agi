@@ -118,6 +118,17 @@ The hand-drawn schematic it replaced is archived in `diagrams/archive/`, with
 its generator and its four guards retired. `scripts/check-atlas.py` guards what
 replaced them.
 
+**Mark edits the layout visually.** `python3 scripts/atlas-editor-server.py`
+serves `atlas-editor.html` on `127.0.0.1:8766`: drag cards, columns, icons,
+route bends and the Earth, or edit the map's text, then **Save + GitHub**. The
+server writes `atlas-layout.js` and the `ATLAS_*` tables in `content.js`, runs
+every guard, commits and pushes. It approves only the map's own words
+(`check-content.py --accept-only=content.js/ATLAS_`), so an unrelated pending
+wording change still fails the save. Commits titled "Update atlas layout from
+visual editor" are these saves — expect coordinates to move under you, and
+re-read `atlas-layout.js` before editing it. The editor is local-only and is
+excluded from the deploy.
+
 ## Things that have gone wrong here before
 
 Written down because each cost real time.
@@ -138,6 +149,12 @@ Written down because each cost real time.
   which is the physical world. Parse with a regex.
 - **A selector is dead if *any* class it requires is never emitted**, not only
   if its first class is unused.
+- **The layers were renumbered on 2026-09-10**: 6 is now Data, 7 Models,
+  8 Agents, 9 Connectivity (they had been 7, 8, 9, 6). Names, colours and the
+  company mapping all moved with them. The atlas card ids did not: `l6` is layer
+  9, `l7` is layer 6, `l8e` is 7 and `l9e` is 8. Go by a card's `layer:`, never
+  by its id. Charts in `script.js` that pick a colour with `LC(n)` now draw the
+  new layer's colour.
 - **zsh does not word-split an unquoted `$c`** — a loop running guard commands
   reported five false failures until each was `eval`'d.
 

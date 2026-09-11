@@ -69,8 +69,11 @@ jobs:
       - name: Stage the site
         run: |
           mkdir -p _site
+          # atlas-editor.* is the local-only layout editor, and *.py are the
+          # build scripts and guards: none of it is part of the public site.
           rsync -a --exclude='.git' --exclude='.github' --exclude='_site' \
-                --exclude='CLEAN' --exclude='.DS_Store' ./ _site/
+                --exclude='CLEAN' --exclude='.DS_Store' \
+                --exclude='atlas-editor.*' --exclude='*.py' ./ _site/
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3

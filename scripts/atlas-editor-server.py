@@ -281,7 +281,10 @@ def _run_guard(args: list[str]) -> None:
 
 
 def commit_and_push() -> dict:
-    _run_guard(["python3", "check-content.py", "--accept"])
+    # Approve the map's own words only — the ATLAS_* tables the editor writes.
+    # The full wording check below then fails on any other pending change, so
+    # a save can never accept an edit nobody meant to make.
+    _run_guard(["python3", "check-content.py", "--accept-only=content.js/ATLAS_"])
     result = subprocess.run(
         ["python3", "bump-assets.py"],
         cwd=ROOT,

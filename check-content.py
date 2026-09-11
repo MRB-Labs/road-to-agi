@@ -6,6 +6,8 @@ each box on every page — is extracted into content/copy-snapshot.json. That
 file is the record of what the report currently says.
 
     python3 check-content.py            report anything that has changed
+    python3 check-content.py --accept-only=content.js/ATLAS_
+                                        approve only strings under a prefix
     python3 check-content.py --accept   approve the current wording as the new
                                         baseline (do this when a change is
                                         intended, and only then)
@@ -154,6 +156,24 @@ def pair_edits(was, now, added, removed):
 
 def main():
     now = collect()
+    # Accept only the strings under the given group prefixes, and leave every
+    # other string held to the old baseline. The atlas editor uses this: a
+    # save may approve the map's own words — the user just typed them — but
+    # must never wave through an unrelated edit that happens to be pending.
+    only = [a.split('=', 1)[1] for a in sys.argv if a.startswith('--accept-only=')]
+    if only:
+        prefixes = tuple(p for arg in only for p in arg.split(',') if p)
+        if not SNAP.exists():
+            print('no baseline yet. Run: python3 check-content.py --accept')
+            return 1
+        was = json.loads(SNAP.read_text())
+        merged = {k: v for k, v in was.items() if not k.startswith(prefixes)}
+        mine = {k: v for k, v in now.items() if k.startswith(prefixes)}
+        merged.update(mine)
+        SNAP.write_text(json.dumps(merged, indent=1, ensure_ascii=False, sort_keys=True) + '\n')
+        print('accepted %d strings under %s; everything else still checked'
+              % (len(mine), ', '.join(prefixes)))
+        return 0
     if '--accept' in sys.argv:
         SNAP.parent.mkdir(exist_ok=True)
         SNAP.write_text(json.dumps(now, indent=1, ensure_ascii=False, sort_keys=True) + '\n')

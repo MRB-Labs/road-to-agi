@@ -21,7 +21,7 @@ Closed items move to the bottom with the commit that closed them.
 
 ## Sourcing
 
-- [ ] **Dates on time-sensitive figures — 229 to go.** `python3
+- [ ] **Dates on time-sensitive figures — 231 to go.** `python3
       scripts/check-figures.py --list` prints them, grouped by table; the two
       project models (`GW`, `HU`) hold 116 between them and the company
       metadata (`COMETA`) another 35. The guard is a ratchet: it fails only if
@@ -44,6 +44,21 @@ Closed items move to the bottom with the commit that closed them.
       layer numbers out. Renumbering again would need a prose sweep.
 - [ ] **`script.js` size.** Content tables are split out; the remaining file is
       still large and mixes rendering with per-page controllers.
+
+- [ ] **Worked examples count as undated figures.** The measurement framework's
+      calculation examples (`LAYER_METRICS`, "600 gross dies × 80% yield…") are
+      illustrations, not claims, but `check-figures.py` counts them — which is
+      why the baseline rose from 229 to 231. Teach it to skip the `s:` and
+      `calc:` rows of a worked example, then lower the baseline.
+- [ ] **Atlas card ids predate the renumbering.** `l6` is layer 9, `l7` layer 6,
+      `l8e` 7, `l9e` 8. Rename them to match (layout, `ATLAS_CARDS`,
+      `ATLAS_ROUTE_TEXT`, the guard) in one sweep, or leave them — everything
+      goes by `layer:`, not by id.
+- [ ] **Chart colours after the renumbering.** About twenty charts in
+      `script.js` choose a colour with `LC(6)`–`LC(9)`, and now draw the new
+      layer's hue (the humanoid-fleet charts went from slate to cyan). Look
+      at each: keep it if the colour was arbitrary, change the number if it
+      meant a particular layer.
 
 ## Closed
 
