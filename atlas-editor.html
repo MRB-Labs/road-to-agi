@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas visual editor</title>
+<meta name="robots" content="noindex">
+<script>(function(){document.documentElement.setAttribute("data-theme","dark");document.documentElement.classList.add("js");})();</script>
+<link rel="stylesheet" href="style.css?v=25245e3d">
+<link rel="stylesheet" href="assets/atlas/atlas.css?v=6fb32dbc">
+<link rel="stylesheet" href="assets/atlas/atlas-editor.css">
+</head>
+<body class="atlas-editor-page">
+<main class="atlas-editor-shell" id="main">
+  <header class="atlas-editor-bar">
+    <div>
+      <p>Visual layout editor</p>
+      <h1>AI infrastructure map</h1>
+    </div>
+    <div class="atlas-editor-actions">
+      <button type="button" class="ed-btn" data-ed-action="toggle-grid" aria-pressed="true">Grid</button>
+      <label class="ed-toggle"><input type="checkbox" data-ed-snap checked> Snap</label>
+      <button type="button" class="ed-btn" data-ed-action="reset-view">Fit</button>
+      <button type="button" class="ed-btn is-primary" data-ed-action="save">Save layout</button>
+    </div>
+  </header>
+
+  <section class="atlas-editor-workbench">
+    <div class="atlas-editor-atlas">
+      <div id="atlas" class="atlas is-loading"><p class="atlas-fallback">The editor needs JavaScript.</p></div>
+    </div>
+    <aside class="atlas-editor-panel" aria-live="polite">
+      <h2>Selection</h2>
+      <p class="ed-help">Drag cards, columns, or Earth. Use arrow keys to nudge the selected item. Hold Shift for 10-unit nudges.</p>
+      <div class="ed-fields" data-ed-fields>
+        <p class="ed-empty">Select something on the map.</p>
+      </div>
+      <div class="ed-status" data-ed-status>Starting editor...</div>
+      <details class="ed-notes">
+        <summary>How saving works</summary>
+        <p>Run this page through <code>python3 scripts/atlas-editor-server.py --port 8766</code>. The Save button updates only coordinates and sizes in <code>assets/atlas/atlas-layout.js</code>.</p>
+      </details>
+    </aside>
+  </section>
+</main>
+
+<script src="assets/taxonomy.js?v=2e052f10"></script>
+<script src="assets/content-index.js?v=04a9d2a9"></script>
+<script src="assets/atlas/atlas-earth.js?v=f115b31e"></script>
+<script src="assets/atlas/atlas-layout.js?v=c2721117"></script>
+<script src="assets/atlas/atlas-geometry.js?v=210a4f1a"></script>
+<script src="assets/atlas/atlas-data.js?v=e6a8274a"></script>
+<script src="script.js?v=ef647eff"></script>
+<script src="assets/atlas/atlas.js?v=1ce0fb44"></script>
+<script src="assets/atlas/atlas-editor.js"></script>
+</body>
+</html>
