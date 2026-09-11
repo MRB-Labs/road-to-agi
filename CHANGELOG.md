@@ -40,6 +40,11 @@ step in `docs/RELEASE.md`.
   Counterpoint's Q2 2026 figures: SK hynix ≈50%, Micron ≈18%. Constellation's
   nuclear fleet is ≈22 GW. The gas-turbine shares, which no source supported,
   are replaced by what Global Energy Monitor measures.
+- The second batch: cloud shares follow Synergy's Q2 2026 figures (Amazon ≈28%,
+  Microsoft ≈20%, Google ≈15%). ASE's share is restated as ≈45% of the top ten
+  OSATs, which is what TrendForce publishes. Equinix's colocation share, whose
+  only source was from 2013, and Arista's switching share, for which no public
+  source exists, give way to what can be shown.
 
 ### The site
 

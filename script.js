@@ -2019,7 +2019,7 @@ function tvTheme(){
       `Quote, chart and financials by <a href="https://www.tradingview.com/symbols/${_esc(sym.replace(':','-'))}/" target="_blank" rel="noopener noreferrer">TradingView</a>`+
       `${ct&&ct[1]?` &middot; <a href="${SA}${ct[1]}/" target="_blank" rel="noopener noreferrer">full profile on Stock Analysis</a>`:''}`+
       `${(FUNDA&&FUNDA[name]&&FUNDA[name].site)?` &middot; <a href="${FUNDA[name].site}" target="_blank" rel="noopener noreferrer">investor site</a>`:''}`+
-      `<br>Market data is delayed and shown for reference. Nothing here is a recommendation.`;
+      `<br>Market data is delayed and shown for reference. Nothing here is investment advice &mdash; see the <a href="disclaimer.html">disclaimer</a>.`;
     dlg.setAttribute('aria-label', name+' — market information');
     dlg.showModal();
   }
