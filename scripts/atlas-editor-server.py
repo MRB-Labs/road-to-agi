@@ -24,6 +24,8 @@ COMMIT_FILES = [
     "assets/atlas/atlas-layout.js",
     "assets/content.js",
     "assets/content-index.js",
+    "atlas-editor.html",
+    "index.html",
 ]
 NUMBER = r"-?\d+(?:\.\d+)?"
 
@@ -265,6 +267,16 @@ def _git(args: list[str], check: bool = True) -> subprocess.CompletedProcess[str
 
 
 def commit_and_push() -> dict:
+    result = subprocess.run(
+        ["python3", "bump-assets.py"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode:
+        message = result.stderr.strip() or result.stdout.strip() or "bump-assets.py failed"
+        raise ValueError(message)
     _git(["add", "--", *COMMIT_FILES])
     staged = _git(["diff", "--cached", "--quiet", "--", *COMMIT_FILES], check=False)
     if staged.returncode == 0:
