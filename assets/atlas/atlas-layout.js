@@ -153,13 +153,14 @@ const ATLAS_ROUTES = [
      and fed from below: four sides, so no side carries more than two. */
   {from:'l8',  to:'l6',   flow:'intelligence', side:['right','left'], via:[{x:960}], core:true},
   {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:976}]},
-  {from:'l6',  to:'l7',   flow:'data',      side:['bottom','left'], tx:20,
-   via:[{y:812},{x:752}]},
+  {from:'l6',  to:'l7',   flow:'data',      side:['left','right'],
+   via:[{x:968}]},
 
   /* the network and the machine */
   {from:'l6',  to:'l8e',  flow:'intelligence', side:['right','left'], via:[{x:1168}], core:true},
   {from:'l6',  to:'l9e',  flow:'control',   side:['right','left'], via:[{x:1200}]},
-  {from:'l9e', to:'l6',   flow:'data',      side:['left','top'],   via:[{x:1184},{y:236}]},
+  {from:'l9e', to:'l6',   flow:'data',      side:['left','right'],
+   via:[{x:1178}]},
 
   /* The base feeds the network and the machine along the lanes under the map.
      Energy leaves the grid once and stays one line the whole way: down the
