@@ -45,8 +45,8 @@ const ATLAS_WORLD = {cx:1592, cy:440, r:124};
    `icon` overrides which mark is drawn, for a layer that appears twice in two
    different guises — the plant indoors is layer 1, but drawn as a bolt. */
 const ATLAS_NODES = [
-  {id:'l1',    layer:1,  region:'foundations',  x:64,   y:192, w:176, h:136},
-  {id:'l2',    layer:2,  region:'foundations',  x:64,   y:416, w:176, h:144},
+  {id:'l1',    layer:1,  region:'foundations',  x:64,   y:192, w:176, h:176},
+  {id:'l2',    layer:2,  region:'foundations',  x:64,   y:464, w:176, h:144},
 
   /* Silicon carries one card, so it gets the width its own name needs. */
   {id:'l3',    layer:3,  region:'silicon',      x:304,  y:192, w:176, h:216, iy:-32, iz:120},
@@ -65,7 +65,7 @@ const ATLAS_NODES = [
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:192, w:144, h:152, iy:-32, iz:120},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:192, w:144, h:152, iy:-16, iz:120},
 
   /* the machine, and everything inside it */
   {id:'l10',   layer:10, region:'embodied',     x:1200, y:192, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
@@ -120,8 +120,8 @@ const ATLAS_ROUTES = [
    via:[{y:80}], ends:'l1', dash:'6 6', tone:'l1', core:true},
 
   /* the base pair */
-  {from:'l1',  to:'l2',   flow:'energy',    side:['bottom','top'], dx:-32, tx:-32},
-  {from:'l2',  to:'l1',   flow:'materials', side:['top','bottom'], dx:32,  tx:32},
+  {from:'l1',  to:'l2',   flow:'energy',    side:['bottom','top'], dx:-32, tx:-32, via:[{y:408}]},
+  {from:'l2',  to:'l1',   flow:'materials', side:['top','bottom'], dx:32,  tx:32, via:[{y:408}]},
 
   /* One line leaves the grid and forks: up into the hall's own plant, down
      into device manufacture. Likewise one line of materials, forking into the
@@ -176,7 +176,7 @@ const ATLAS_ROUTES = [
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
    via:[{x:24},{y:864}], ends:'act'},
   {from:'l3',  to:'l10',  flow:'compute',   side:['bottom','bottom'], tx:60,
-   via:[{x:496},{y:888}],  ends:'l4e'},
+   via:[{x:8},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
   {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
