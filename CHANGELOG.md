@@ -32,6 +32,15 @@ step in `docs/RELEASE.md`.
   9 Connectivity and communications. They were 7, 8, 9 and 6.
 - The measurement framework in each layer description is clarified.
 
+### Figures
+
+- Market shares in the company tables are being re-checked against current
+  sources and dated, a batch at a time. The first ten are done. TSMC's share
+  of foundry revenue is ≈72%, not ≈65% (Q2 2026, TrendForce). HBM shares follow
+  Counterpoint's Q2 2026 figures: SK hynix ≈50%, Micron ≈18%. Constellation's
+  nuclear fleet is ≈22 GW. The gas-turbine shares, which no source supported,
+  are replaced by what Global Energy Monitor measures.
+
 ### The site
 
 - A refreshed visual theme across every page.
