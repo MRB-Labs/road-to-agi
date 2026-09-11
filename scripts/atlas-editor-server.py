@@ -42,7 +42,7 @@ def _update_object(src: str, ident_prop: str, ident_value: str, values: dict[str
     block = match.group(0)
     changed = 0
     for prop, value in values.items():
-        if prop in {"ix", "iy"} and int(value) == 0:
+        if (prop in {"ix", "iy"} and int(value) == 0) or (prop == "iz" and int(value) == 100):
             if not re.search(rf"\b{prop}:", block):
                 continue
             block = re.sub(rf",\s*{prop}:{NUMBER}", "", block, count=1)
@@ -211,7 +211,7 @@ def save_layout(payload: dict) -> int:
 
     for node in payload.get("nodes", []):
         node_id = str(node.get("id", ""))
-        values = {k: int(round(float(node[k]))) for k in ("x", "y", "w", "h", "ix", "iy") if k in node}
+        values = {k: int(round(float(node[k]))) for k in ("x", "y", "w", "h", "ix", "iy", "iz") if k in node}
         if node_id and values:
             src, changed = _update_object(src, "id", node_id, values)
             total += changed

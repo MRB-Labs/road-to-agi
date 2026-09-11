@@ -114,13 +114,29 @@
 
   function geometryFields(data) {
     const props = selected.type === 'world' ? ['cx', 'cy', 'r']
-      : selected.type === 'icon' ? ['ix', 'iy']
+      : selected.type === 'icon' ? ['ix', 'iy', 'iz']
       : selected.type === 'route' ? (data.x !== undefined ? ['x'] : ['y'])
       : ['x', 'y', 'w', 'h'];
-    return props.map(p => `<div class="ed-field">
-      <label for="ed-${p}">${p}</label>
-      <input id="ed-${p}" data-ed-prop="${p}" type="number" step="1" value="${Math.round(data[p] || 0)}">
-    </div>`).join('');
+    return props.map(p => fieldForProp(data, p)).join('');
+  }
+
+  function fieldForProp(data, p) {
+    const labels = {
+      x:'X', y:'Y', w:'Width', h:'Height', cx:'Center X', cy:'Center Y', r:'Radius',
+      ix:'Move X', iy:'Move Y', iz:'Icon size'
+    };
+    const value = p === 'iz' ? Math.round(data[p] || 100) : Math.round(data[p] || 0);
+    if (p === 'iz') {
+      return `<div class="ed-field is-range">
+        <label for="ed-${p}">${labels[p]}</label>
+        <input id="ed-${p}" data-ed-prop="${p}" type="range" min="60" max="170" step="5" value="${value}">
+        <output>${value}%</output>
+      </div>`;
+    }
+    return `<div class="ed-field">
+      <label for="ed-${p}">${labels[p] || p}</label>
+      <input id="ed-${p}" data-ed-prop="${p}" type="number" step="1" value="${value}">
+    </div>`;
   }
 
   function textFields() {
@@ -166,6 +182,8 @@
         data[input.dataset.edProp] = value;
         markDirty(selected);
         applySelected(false);
+        const out = input.parentElement?.querySelector('output');
+        if (out && input.dataset.edProp === 'iz') out.textContent = `${Math.round(value)}%`;
       });
     });
   }
@@ -289,6 +307,7 @@
     el.style.top = `${n.y}px`;
     el.style.width = `${n.w}px`;
     el.style.height = `${n.h}px`;
+    applyNodeResizeHandle(n);
   }
 
   function applyIcon(n) {
@@ -297,13 +316,14 @@
     if (!el) return;
     el.style.setProperty('--nd-ix', `${n.ix || 0}px`);
     el.style.setProperty('--nd-iy', `${n.iy || 0}px`);
+    el.style.setProperty('--nd-is', `${(n.iz || 100) / 100}`);
   }
 
   function applyRegion(r) {
     if (!r) return;
     const el = canvas.querySelector(`.rg[data-region="${cssEscape(r.key)}"]`);
     if (!el) return;
-    el.querySelectorAll('rect').forEach(rect => {
+    el.querySelectorAll('.rg-hit, .rg-box').forEach(rect => {
       rect.setAttribute('x', r.x);
       rect.setAttribute('y', r.y);
       rect.setAttribute('width', r.w);
@@ -315,6 +335,7 @@
       sub.setAttribute('x', r.x + 20);
       sub.setAttribute('y', r.y + 60 + i * 13);
     });
+    applyRegionResizeHandle(r);
   }
 
   function applyWorld() {
@@ -458,6 +479,46 @@
     canvas.appendChild(g);
   }
 
+  function addNodeResizeHandle(el) {
+    if (el.querySelector(':scope > .ed-resize-handle')) return;
+    const handle = document.createElement('span');
+    handle.className = 'ed-resize-handle';
+    handle.setAttribute('aria-hidden', 'true');
+    el.appendChild(handle);
+    handle.addEventListener('pointerdown', e =>
+      startDrag(e, 'resize-node', {id:el.dataset.node}, el), true);
+  }
+
+  function applyNodeResizeHandle(n) {
+    const el = host.querySelector(`.nd[data-node="${cssEscape(n.id)}"]`);
+    const handle = el?.querySelector(':scope > .ed-resize-handle');
+    if (!handle) return;
+    handle.style.transform = 'none';
+  }
+
+  function addRegionResizeHandle(r) {
+    const el = canvas.querySelector(`.rg[data-region="${cssEscape(r.key)}"]`);
+    if (!el || el.querySelector(':scope > .ed-region-resize')) return;
+    const handle = document.createElementNS(svgNS, 'rect');
+    handle.classList.add('ed-region-resize');
+    handle.setAttribute('width', 16);
+    handle.setAttribute('height', 16);
+    handle.setAttribute('rx', 4);
+    handle.setAttribute('aria-hidden', 'true');
+    handle.addEventListener('pointerdown', e =>
+      startDrag(e, 'resize-region', {key:r.key}, el), true);
+    el.appendChild(handle);
+    applyRegionResizeHandle(r);
+  }
+
+  function applyRegionResizeHandle(r) {
+    const el = canvas.querySelector(`.rg[data-region="${cssEscape(r.key)}"]`);
+    const handle = el?.querySelector(':scope > .ed-region-resize');
+    if (!handle) return;
+    handle.setAttribute('x', r.x + r.w - 18);
+    handle.setAttribute('y', r.y + r.h - 18);
+  }
+
   function applyRouteHandle(routeIndex, guideIndex) {
     const nodes = routeNodes();
     const spread = AtlasGeom.fan(nodes, ATLAS_ROUTES);
@@ -470,7 +531,10 @@
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
-    select(type, data, el);
+    const selectType = type === 'resize-node' ? 'node'
+      : type === 'resize-region' ? 'region'
+      : type;
+    select(selectType, data, el);
     const d = selectedData();
     if (!d) return;
     drag = {
@@ -484,6 +548,8 @@
       cy:d.cy || 0,
       ix:d.ix || 0,
       iy:d.iy || 0,
+      w:d.w || 0,
+      h:d.h || 0,
       moved:false
     };
     el.setPointerCapture?.(e.pointerId);
@@ -526,6 +592,12 @@
     } else if (drag.type === 'icon') {
       data.ix = snap(drag.ix + dx);
       data.iy = snap(drag.iy + dy);
+    } else if (drag.type === 'resize-node') {
+      data.w = Math.max(72, snap(drag.w + dx));
+      data.h = Math.max(44, snap(drag.h + dy));
+    } else if (drag.type === 'resize-region') {
+      data.w = Math.max(120, snap(drag.w + dx));
+      data.h = Math.max(140, snap(drag.h + dy));
     } else {
       data.x = snap(drag.x + dx);
       data.y = snap(drag.y + dy);
@@ -543,7 +615,11 @@
   }
 
   host.querySelectorAll('.nd[data-node]').forEach(el => {
-    el.addEventListener('pointerdown', e => startDrag(e, 'node', {id:el.dataset.node}, el), true);
+    addNodeResizeHandle(el);
+    el.addEventListener('pointerdown', e => {
+      if (e.target.closest('.nd-icon, .ed-resize-handle')) return;
+      startDrag(e, 'node', {id:el.dataset.node}, el);
+    }, true);
   });
   host.querySelectorAll('.nd[data-node] .nd-icon').forEach(icon => {
     icon.style.pointerEvents = 'auto';
@@ -551,7 +627,11 @@
     icon.addEventListener('pointerdown', e => startDrag(e, 'icon', {id:node.dataset.node}, node), true);
   });
   host.querySelectorAll('.rg[data-region]').forEach(el => {
-    el.addEventListener('pointerdown', e => startDrag(e, 'region', {key:el.dataset.region}, el), true);
+    addRegionResizeHandle(regionByKey(el.dataset.region));
+    el.addEventListener('pointerdown', e => {
+      if (e.target.closest('.ed-region-resize')) return;
+      startDrag(e, 'region', {key:el.dataset.region}, el);
+    }, true);
   });
   const worldNode = host.querySelector('.pw-node');
   if (worldNode) {
@@ -650,7 +730,8 @@
       w:Math.round(n.w),
       h:Math.round(n.h),
       ix:Math.round(n.ix || 0),
-      iy:Math.round(n.iy || 0)
+      iy:Math.round(n.iy || 0),
+      iz:Math.round(n.iz || 100)
     };
   }
 

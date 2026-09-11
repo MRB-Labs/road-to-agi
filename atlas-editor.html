@@ -31,14 +31,14 @@
     </div>
     <aside class="atlas-editor-panel" aria-live="polite">
       <h2>Selection</h2>
-      <p class="ed-help">Drag cards, columns, or Earth. Use arrow keys to nudge the selected item. Hold Shift for 10-unit nudges.</p>
+      <p class="ed-help">Drag cards, columns, symbols, arrows, or Earth. Drag a corner handle to resize a box; select a symbol to change its size.</p>
       <div class="ed-fields" data-ed-fields>
         <p class="ed-empty">Select something on the map.</p>
       </div>
       <div class="ed-status" data-ed-status>Starting editor...</div>
       <details class="ed-notes">
         <summary>How saving works</summary>
-        <p>Run this page through <code>python3 scripts/atlas-editor-server.py --port 8766</code>. The Save button updates only coordinates and sizes in <code>assets/atlas/atlas-layout.js</code>.</p>
+        <p>Run this page through <code>python3 scripts/atlas-editor-server.py --port 8766</code>. The Save button updates layout, text, route bends, and symbol sizes in the source files.</p>
       </details>
     </aside>
   </section>

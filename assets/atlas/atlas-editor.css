@@ -131,9 +131,13 @@
 
 .ed-field{
   display:grid;
-  grid-template-columns:54px 1fr;
+  grid-template-columns:72px 1fr;
   align-items:center;
   gap:10px;
+}
+
+.ed-field.is-range{
+  grid-template-columns:72px 1fr 42px;
 }
 
 .ed-field label{
@@ -153,6 +157,18 @@
   color:#f3fbff;
   padding:7px 9px;
   font:600 13px/1 var(--f,system-ui,sans-serif);
+}
+
+.ed-field input[type="range"]{
+  min-height:28px;
+  padding:0;
+  accent-color:#53cfff;
+}
+
+.ed-field output{
+  color:#dbeeff;
+  font:700 11px/1 var(--f,system-ui,sans-serif);
+  text-align:right;
 }
 
 .ed-text-fields{
@@ -237,6 +253,10 @@
   cursor:move;
 }
 
+.atlas.is-editing .nd-icon{
+  cursor:move;
+}
+
 .atlas.is-editing .atlas-panel,
 .atlas.is-editing .atlas-search,
 .atlas.is-editing .atlas-filters{
@@ -261,6 +281,38 @@
 
 .atlas.is-editing .ed-dirty{
   box-shadow:0 0 22px color-mix(in srgb, currentColor 34%, transparent), 0 2px 14px rgba(0,0,0,.45);
+}
+
+.ed-resize-handle{
+  position:absolute;
+  right:-5px;
+  bottom:-5px;
+  z-index:4;
+  width:14px;
+  height:14px;
+  border:2px solid #eaf6ff;
+  border-radius:4px;
+  background:rgba(3,11,22,.94);
+  box-shadow:0 0 10px color-mix(in srgb, currentColor 58%, transparent);
+  cursor:nwse-resize;
+}
+
+.ed-resize-handle::before{
+  content:"";
+  position:absolute;
+  inset:3px 2px 2px 3px;
+  border-right:1px solid currentColor;
+  border-bottom:1px solid currentColor;
+  opacity:.78;
+}
+
+.ed-region-resize{
+  fill:rgba(3,11,22,.94);
+  stroke:#eaf6ff;
+  stroke-width:2;
+  cursor:nwse-resize;
+  pointer-events:auto;
+  filter:drop-shadow(0 0 7px currentColor);
 }
 
 .ed-route-handle{

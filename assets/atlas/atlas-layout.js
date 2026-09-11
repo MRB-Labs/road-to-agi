@@ -27,8 +27,8 @@ const ATLAS_REGIONS = [
   {key:'silicon',       x:288,  y:112, w:208, h:676},
   {key:'compute',       x:512,  y:112, w:232, h:676},
   {key:'intelligence',  x:760,  y:112, w:192, h:676},
-  {key:'network',       x:992,  y:112, w:168, h:676},
-  {key:'embodied',      x:1188, y:112, w:220, h:676},
+  {key:'network',       x:984,  y:112, w:176, h:672},
+  {key:'embodied',      x:1188, y:112, w:208, h:672},
 ];
 
 /* Not a region: the planet in the background photograph. These are its measured
@@ -140,9 +140,9 @@ const ATLAS_ROUTES = [
   {from:'l3',  to:'l4',   flow:'compute',   side:['right','left'], via:[{x:504}], core:true},
 
   /* and one line out of central compute, forking into the two things it runs */
-  {from:'l4',  to:'l7',   flow:'compute',   side:['right','left'], via:[{x:740}], tx:-20,
+  {from:'l4',  to:'l7',   flow:'compute',   side:['right','left'], via:[{x:752}], tx:-20,
    trunk:'l4-east'},
-  {from:'l4',  to:'l8',   flow:'compute',   side:['right','left'], via:[{x:740}],
+  {from:'l4',  to:'l8',   flow:'compute',   side:['right','left'], via:[{x:752}],
    trunk:'l4-east', core:true},
 
   /* the software column */
@@ -156,7 +156,7 @@ const ATLAS_ROUTES = [
   {from:'l6',  to:'l7',   flow:'data',      side:['left','right']},
 
   /* the network and the machine */
-  {from:'l6',  to:'l8e',  flow:'intelligence', side:['right','left'], via:[{x:1168}], core:true},
+  {from:'l6',  to:'l8e',  flow:'intelligence', side:['right','left'], via:[{x:1184}], core:true},
   {from:'l6',  to:'l9e',  flow:'control',   side:['right','left']},
   {from:'l9e', to:'l6',   flow:'data',      side:['left','right']},
 
@@ -174,9 +174,9 @@ const ATLAS_ROUTES = [
   {from:'l1',  to:'l10',  flow:'energy',    side:['left','bottom'], tx:-60,
    via:[{x:40},{y:844}], trunk:'l1-west', ends:'l1b'},
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
-   via:[{x:24},{y:876}], ends:'act'},
+   via:[{x:24},{y:864}], ends:'act'},
   {from:'l3',  to:'l10',  flow:'compute',   side:['left','bottom'], tx:60,
-   via:[{x:8},{y:908}],  ends:'l4e'},
+   via:[{x:8},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
   {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32},
