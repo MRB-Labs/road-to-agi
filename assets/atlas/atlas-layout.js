@@ -26,7 +26,7 @@ const ATLAS_REGIONS = [
   {key:'foundations',   x:48,   y:112, w:208, h:680},
   {key:'silicon',       x:288,  y:112, w:208, h:680},
   {key:'compute',       x:512,  y:112, w:232, h:680},
-  {key:'intelligence',  x:760,  y:112, w:192, h:680},
+  {key:'intelligence',  x:760,  y:112, w:200, h:680},
   {key:'network',       x:984,  y:112, w:176, h:680},
   {key:'embodied',      x:1192, y:112, w:232, h:680},
 ];
@@ -58,9 +58,9 @@ const ATLAS_NODES = [
   {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:144, sub:1, icon:'1p', ix:-8, iy:-48, iz:145},
   {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:136, sub:1, ix:-8, iy:-40, iz:150},
 
-  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
-  {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144, ix:8, iy:-48},
-  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160, iy:-56},
+  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:168, h:152, ix:8, iy:-56},
+  {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:168, h:152, ix:8, iy:-48},
+  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:168, h:184, iy:-56},
 
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
@@ -153,7 +153,7 @@ const ATLAS_ROUTES = [
      and fed from below: four sides, so no side carries more than two. */
   {from:'l8',  to:'l6',   flow:'intelligence', side:['right','left'], via:[{x:968}], core:true},
   {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:976}]},
-  {from:'l6',  to:'l7',   flow:'data',      side:['left','right'], via:[{x:968}]},
+  {from:'l6',  to:'l7',   flow:'data',      side:['left','right'], via:[{x:976}]},
 
   /* the network and the machine */
   {from:'l6',  to:'l8e',  flow:'intelligence', side:['right','left'], via:[{x:1184}], core:true},
@@ -170,13 +170,13 @@ const ATLAS_ROUTES = [
      itself and its containment says the rest; `ends` keeps the block each one
      feeds able to light its own supply. */
   {from:'l1',  to:'l6',   flow:'energy',    side:['left','bottom'],
-   via:[{x:24},{y:844}], trunk:'l1-west'},
+   via:[{x:40},{y:844}], trunk:'l1-west'},
   {from:'l1',  to:'l10',  flow:'energy',    side:['left','bottom'], tx:-60,
-   via:[{x:24},{y:844}], trunk:'l1-west', ends:'l1b'},
+   via:[{x:40},{y:844}], trunk:'l1-west', ends:'l1b'},
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
-   via:[{x:40},{y:864}], ends:'act'},
+   via:[{x:24},{y:864}], ends:'act'},
   {from:'l3',  to:'l10',  flow:'compute',   side:['bottom','bottom'], tx:60,
-   via:[{x:392},{y:888}],  ends:'l4e'},
+   via:[{x:8},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
   {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},

@@ -2866,7 +2866,7 @@ const ATLAS_CARDS={
  l4    :{t:'Central compute, memory and networking',s:['Accelerator racks · CPUs · HBM · storage · scale-up fabric · scale-out network']},
  l7    :{t:'Data and knowledge',s:['Databases · object storage · data lakes','Ingestion · curation · governance']},
  l8    :{t:'Training and cloud inference',s:['Pre-training · post-training · evaluation','Model serving · routing · optimisation']},
- l9    :{t:'Cloud agent services and applications',s:['Retrieval · memory · tools · orchestration · identity · observability']},
+ l9    :{t:'Cloud agents and applications',s:['Retrieval · memory · tools · orchestration · identity · observability']},
  l6    :{t:'Connectivity',s:['Fibre · 5G · Subsea cables ','Wi-Fi · Satellite']},
  l10   :{t:'Embodied AI',s:['Robot · vehicle · drone']},
  sens  :{t:'Sensors',s:['Vision · tactile · audio · proprioception']},
