@@ -94,9 +94,11 @@
     fields.innerHTML = [
       `<p class="ed-empty"><b>${escapeHTML(selectedLabel())}</b> selected</p>`,
       geometryFields(data),
+      routeFields(),
       textFields(),
     ].filter(Boolean).join('');
     bindGeometryFields();
+    bindRouteFields();
     bindTextFields();
   }
 
@@ -173,6 +175,17 @@
     return '';
   }
 
+  function routeFields() {
+    if (selected.type !== 'route') return '';
+    const r = ATLAS_ROUTES[selected.routeIndex];
+    const count = (r.via || []).length;
+    return `<div class="ed-route-fields">
+      <button type="button" data-ed-route="add-x">Add vertical bend</button>
+      <button type="button" data-ed-route="add-y">Add horizontal bend</button>
+      <button type="button" data-ed-route="remove"${count < 2 ? ' disabled' : ''}>Remove this bend</button>
+    </div>`;
+  }
+
   function bindGeometryFields() {
     fields.querySelectorAll('[data-ed-prop]').forEach(input => {
       input.addEventListener('input', () => {
@@ -184,6 +197,17 @@
         applySelected(false);
         const out = input.parentElement?.querySelector('output');
         if (out && input.dataset.edProp === 'iz') out.textContent = `${Math.round(value)}%`;
+      });
+    });
+  }
+
+  function bindRouteFields() {
+    fields.querySelectorAll('[data-ed-route]').forEach(button => {
+      button.addEventListener('click', () => {
+        const action = button.dataset.edRoute;
+        if (!selected || selected.type !== 'route') return;
+        if (action === 'remove') removeSelectedRouteGuide();
+        else addRouteGuide(action === 'add-x' ? 'x' : 'y');
       });
     });
   }
@@ -439,6 +463,12 @@
     return {x:cur[0], y:cur[1]};
   }
 
+  function routePointAtGuide(routeIndex, guideIndex) {
+    const nodes = routeNodes();
+    const spread = AtlasGeom.fan(nodes, ATLAS_ROUTES);
+    return routeGuidePoint(nodes, ATLAS_ROUTES[routeIndex], spread[routeIndex], guideIndex);
+  }
+
   function renderRouteHandles() {
     canvas.querySelectorAll('.ed-route-handle').forEach(el => el.remove());
     const nodes = routeNodes();
@@ -477,6 +507,36 @@
     g.innerHTML = '<circle r="9"/><path d="M-4 0H4M0 -4V4"/>';
     g.addEventListener('pointerdown', e => startRouteDrag(e, routeIndex, guideIndex, g), true);
     canvas.appendChild(g);
+  }
+
+  function addRouteGuide(axis) {
+    const r = ATLAS_ROUTES[selected.routeIndex];
+    r.via = r.via || [];
+    const current = routePointAtGuide(selected.routeIndex, selected.guideIndex) || {x:ATLAS_CANVAS.w / 2, y:ATLAS_CANVAS.h / 2};
+    const guide = axis === 'x'
+      ? {x:clamp(snap(current.x + 48), 8, ATLAS_CANVAS.w - 8)}
+      : {y:clamp(snap(current.y + 48), 8, ATLAS_CANVAS.h - 8)};
+    r.via.splice(selected.guideIndex + 1, 0, guide);
+    selected.guideIndex += 1;
+    dirtyRoutes.add(selected.routeIndex);
+    r._editorVirtualVia = false;
+    setStatus('Added a bend. Drag its handle to shape the arrow.', 'ok');
+    refreshRoutes();
+    const el = canvas.querySelector(`.ed-route-handle[data-route-index="${selected.routeIndex}"][data-guide-index="${selected.guideIndex}"]`);
+    select('route', {routeIndex:selected.routeIndex, guideIndex:selected.guideIndex}, el);
+  }
+
+  function removeSelectedRouteGuide() {
+    const r = ATLAS_ROUTES[selected.routeIndex];
+    if (!r.via || r.via.length < 2) return;
+    r.via.splice(selected.guideIndex, 1);
+    selected.guideIndex = Math.max(0, Math.min(selected.guideIndex, r.via.length - 1));
+    dirtyRoutes.add(selected.routeIndex);
+    r._editorVirtualVia = false;
+    setStatus('Removed that bend. Press Save + GitHub when it looks right.', 'ok');
+    refreshRoutes();
+    const el = canvas.querySelector(`.ed-route-handle[data-route-index="${selected.routeIndex}"][data-guide-index="${selected.guideIndex}"]`);
+    select('route', {routeIndex:selected.routeIndex, guideIndex:selected.guideIndex}, el);
   }
 
   function addNodeResizeHandle(el) {
@@ -584,8 +644,8 @@
     const before = JSON.stringify(data);
     if (Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) > 2) drag.moved = true;
     if (drag.type === 'route') {
-      if (data.x !== undefined) data.x = snap(drag.x + dx);
-      if (data.y !== undefined) data.y = snap(drag.y + dy);
+      if (data.x !== undefined) data.x = clamp(snap(drag.x + dx), 8, ATLAS_CANVAS.w - 8);
+      if (data.y !== undefined) data.y = clamp(snap(drag.y + dy), 8, ATLAS_CANVAS.h - 8);
     } else if (drag.type === 'world') {
       data.cx = snap(drag.cx + dx);
       data.cy = snap(drag.cy + dy);
@@ -605,6 +665,10 @@
     if (JSON.stringify(data) === before) return;
     markDirty(selected);
     applySelected();
+  }
+
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
   }
 
   function endDrag(e) {

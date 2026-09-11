@@ -179,6 +179,38 @@
   border-top:1px solid rgba(126,208,255,.16);
 }
 
+.ed-route-fields{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:2px;
+  padding-top:12px;
+  border-top:1px solid rgba(126,208,255,.16);
+}
+
+.ed-route-fields button{
+  width:100%;
+  min-height:34px;
+  border:1px solid rgba(126,208,255,.28);
+  border-radius:9px;
+  background:rgba(10,27,46,.74);
+  color:#dbeeff;
+  cursor:pointer;
+  font:700 11px/1 var(--f,system-ui,sans-serif);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.ed-route-fields button:hover:not(:disabled){
+  border-color:#79d8ff;
+  box-shadow:0 0 16px rgba(83,207,255,.18);
+}
+
+.ed-route-fields button:disabled{
+  cursor:not-allowed;
+  opacity:.42;
+}
+
 .ed-text-fields label{
   display:grid;
   gap:6px;
