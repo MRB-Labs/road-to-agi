@@ -60,8 +60,23 @@ Closed items move to the bottom with the commit that closed them.
       at each: keep it if the colour was arbitrary, change the number if it
       meant a particular layer.
 
+## Accessibility
+
+- [ ] **Colour contrast — 32 elements** below WCAG AA: 25 on the Method page,
+      6 on Projects, 1 on Investor space. Fixing them means changing colours,
+      which is a design decision rather than a mechanical one.
+      `scripts/check-browsers.py` holds the count and fails if it rises; after
+      a fix, lower it with `--accept-a11y`.
+- [ ] **Heading levels — 15 places** where a heading skips a level (an h2
+      followed by an h4, say), on seven pages. Screen-reader users navigate by
+      heading, so the outline should not jump; the fix is usually a tag change
+      plus a CSS rule so nothing looks different.
+
 ## Closed
 
 - [x] Guards run in CI on every push and pull request — `checks.yml`.
+- [x] Every page tested in Chromium, Firefox and WebKit before each deploy,
+      with an accessibility ratchet — `scripts/check-browsers.py`.
+- [x] Dead external links checked weekly into one issue — `links.yml`.
 - [x] Root `README.md` explaining the project and the build sequence.
 - [x] `check-offline.py` proves no page fetches assets from another server.

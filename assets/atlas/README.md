@@ -9,7 +9,7 @@ is now archived in `diagrams/archive/`.
 |---|---|
 | `atlas-layout.js` | **Geometry only.** Region and card rectangles, the planet's circle, the flow families, and the routes between cards. Not one word of prose. |
 | `atlas-geometry.js` | Anchors and the orthogonal route builder. |
-| `earth.png` | The independent transparent Earth asset. The background is CSS, not a photograph. |
+| `earth.webp` | The independent transparent Earth asset. The background is CSS, not a photograph. |
 | `atlas-data.js` | The adapter. The only file that knows how the report's tables are shaped. |
 | `atlas.js` | The component: builds the markup, then wires hover, focus, selection, filters, search, pan, zoom and the panel. |
 | `atlas-earth.js` | The continent and cloud paths from the previous schematic's globe. Kept as the vector fallback. |
@@ -29,7 +29,7 @@ is now archived in `diagrams/archive/`.
   `ATLAS_CARDS`, `ATLAS_REGIONS_TEXT`, `ATLAS_WORLD_TEXT` and
   `ATLAS_ROUTE_TEXT` in `assets/content.js`, like all other copy.
 - **The background** — CSS layers in `atlas.css`: theme wash, grid, star
-  points and orbital arcs. The Earth is `earth.png`, drawn independently at
+  points and orbital arcs. The Earth is `earth.webp`, drawn independently at
   `ATLAS_WORLD`'s coordinates. Change the image size or composition and
   re-check `cx`, `cy` and `r` so routes still land on the planet.
 - **What the detail panel shows** — `AtlasData.detail`. It reads existing

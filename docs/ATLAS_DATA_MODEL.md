@@ -43,7 +43,7 @@ panel behavior.
 
 `assets/atlas/atlas.css`
 
-Owns the visual system. The Earth is `assets/atlas/earth.png`; the rest of the
+Owns the visual system. The Earth is `assets/atlas/earth.webp`; the rest of the
 atlas background is CSS.
 
 ## Visual editor

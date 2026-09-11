@@ -40,8 +40,13 @@ human pass before publishing important changes.
   the design depends on.
 - `scripts/check-a11y.py` protects basic shell accessibility.
 - `scripts/check-performance.py` prevents accidental heavy assets.
-- `scripts/check-links.py` prevents broken local links/assets.
+- `scripts/check-site-links.py` prevents broken local links/assets.
+- `scripts/check-browsers.py` (run in CI) loads every public page in Chromium,
+  Firefox and WebKit at 1440 and 390 wide. It fails on script errors, failed or
+  remote requests, a page wider than a phone, an atlas that does not draw, and
+  a planet that does not open, close or that shows a focus rectangle. It also
+  runs axe-core against `content/a11y-baseline.json`, which may only improve.
 
-These are not screenshot diffs. A future upgrade should add browser screenshot
-comparison once the project adopts a browser test dependency.
+None of these are screenshot diffs. Now that CI has a browser dependency,
+screenshot comparison is the natural next step.
 

@@ -1,0 +1,29 @@
+{
+ "environment.html": {
+  "heading-order": 3
+ },
+ "index.html": {
+  "heading-order": 2
+ },
+ "investor.html": {
+  "color-contrast": 1,
+  "heading-order": 1
+ },
+ "markets.html": {
+  "heading-order": 4
+ },
+ "method.html": {
+  "color-contrast": 25,
+  "heading-order": 1
+ },
+ "projects.html": {
+  "color-contrast": 6,
+  "heading-order": 1
+ },
+ "sources.html": {
+  "heading-order": 2
+ },
+ "stack.html": {
+  "heading-order": 1
+ }
+}

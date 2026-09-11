@@ -64,6 +64,7 @@ python3 scripts/check-a11y.py             # basic accessibility shell is sound
 python3 scripts/check-visual-contract.py  # load-bearing visual selectors exist
 python3 scripts/check-performance.py      # size budgets are respected
 python3 scripts/check-public-surface.py   # local editor/tools stay out of deploy
+python3 scripts/check-browsers.py         # three engines + axe; needs Playwright, CI always runs it
 python3 bump-assets.py                    # re-stamp the hashes — always last
 ```
 
@@ -170,8 +171,8 @@ Written down because each cost real time.
 
 ## The two ratchets
 
-`check-figures.py` and `check-content.py` both hold a baseline that you may
-only improve. A figure without a date is not a fact, and dating one means
+`check-figures.py`, `check-content.py` and the axe audit in
+`check-browsers.py` each hold a baseline that you may only improve. A figure without a date is not a fact, and dating one means
 verifying it — so the guard fails when the count of undated figures *rises*,
 never merely because it is high. Never `--accept` a worse number to get past
 it: date the figure or leave the prose alone.
@@ -179,7 +180,13 @@ it: date the figure or leave the prose alone.
 ## Publishing
 
 The guards and the deploy are one workflow: the site is published only if every
-guard passes, so a broken commit leaves the previous version live. Tag each
+guard passes, so a broken commit leaves the previous version live.
+The browser job (`check-browsers.py`) gates the deploy too: every page in
+Chromium, Firefox and WebKit, plus an axe audit held to
+`content/a11y-baseline.json`. External citations are checked every Monday by
+`links.yml`, which keeps one "Dead source links" issue open while any is dead.
+`CHANGELOG.md` is written for readers: add to **Unreleased** when a change is
+visible, and move it under the revision's heading when one is published. Tag each
 published revision (`git tag -a v10 -m "Revision 10" && git push --tags`) so
 there is something to go back to, and bump `content/REVISION` when the number
 changes.

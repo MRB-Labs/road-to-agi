@@ -1,0 +1,48 @@
+name: Dead source links
+
+# Sources move. Nothing on the site breaks when a cited page disappears, so
+# once a week every external link is checked, and the result is kept in one
+# GitHub issue: opened when something is dead, commented on while it stays
+# dead, closed when everything resolves again. Sites that refuse robots are
+# listed in the report but never counted as dead.
+on:
+  schedule:
+    - cron: '0 6 * * 1'        # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Check every external citation
+        id: check
+        run: |
+          set +e
+          python3 scripts/check-links.py --report report.md
+          code=$?
+          # 1 means something is dead; anything else above 0 is a crash
+          if [ "$code" -eq 1 ]; then echo "dead=1" >> "$GITHUB_OUTPUT"
+          elif [ "$code" -ne 0 ]; then exit "$code"; fi
+
+      - name: Open, update or close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Dead source links"
+          num=$(gh issue list --state open --search "\"$title\" in:title" \
+                --json number --jq '.[0].number // empty')
+          if [ "${{ steps.check.outputs.dead }}" = "1" ]; then
+            if [ -n "$num" ]; then gh issue comment "$num" --body-file report.md
+            else gh issue create --title "$title" --body-file report.md; fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "Every cited link resolves again as of this week's check."
+          fi

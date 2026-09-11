@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LIMITS = {
     'style.css': 190 * 1024,
     'script.js': 190 * 1024,
-    'assets/atlas/earth.png': 360 * 1024,
+    'assets/atlas/earth.webp': 80 * 1024,
     'assets/images/social-card.png': 420 * 1024,
 }
 TOTAL_ASSETS_LIMIT = 24 * 1024 * 1024

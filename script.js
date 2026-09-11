@@ -904,13 +904,13 @@ if(rail&&panels){
       <div class="layer-head-main">${layerIcon(0,'head-icon')}<div><div class="layer-index">Before the layer cases</div>
       <div class="layer-headline"><h3>How this breaks</h3><span class="chip warn">Attack it first</span></div></div></div>
     </div>
-    <div class="layer-body world-body"><div class="layer-pane on">${breaksPane()}</div></div>
+    <div class="layer-body world-body" tabindex="0"><div class="layer-pane on">${breaksPane()}</div></div>
   </div>` : `<div class="card" style="border-top-color:${col}">
     <div class="layer-head">
       <div class="layer-head-main">${layerIcon(0,'head-icon')}<div><div class="layer-index">Not a layer · the ground the stack stands on</div>
       <div class="layer-headline"><h3>The physical world</h3><span class="chip">Context, not an allocation</span></div></div></div>
     </div>
-    <div class="layer-body world-body"><div class="layer-pane on">${worldPane()}</div></div>
+    <div class="layer-body world-body" tabindex="0"><div class="layer-pane on">${worldPane()}</div></div>
   </div>`;
   panels.insertBefore(p,panels.firstChild);
 })();
@@ -1096,10 +1096,10 @@ function buildProjectChapters(panel,key){
   groups.forEach((group,i)=>{
     const short=(CHAPTER_LABELS[key]||[])[i]||group.title;
     const button=document.createElement('button');
-    button.className='chapter-tab'; button.type='button'; button.textContent=short;
+    button.className='chapter-tab'; button.type='button'; button.setAttribute('role','tab'); button.textContent=short;
     button.setAttribute('aria-selected',i===0?'true':'false'); button.dataset.chapter=i;
     nav.appendChild(button);
-    const chapter=document.createElement('section'); chapter.className='project-chapter'+(i===0?' on':'');
+    const chapter=document.createElement('section'); chapter.className='project-chapter'+(i===0?' on':''); chapter.tabIndex=0;
     chapter.dataset.chapterPane=i; chapter.setAttribute('aria-label',group.title);
     group.nodes.forEach(n=>chapter.appendChild(n)); wrap.appendChild(chapter);
   });
@@ -1578,7 +1578,7 @@ window.addEventListener('hashchange',()=>setTimeout(fillAll,60));
   el.innerHTML=`<h4>Chokepoint and moat, layer by layer</h4>`+
     `<p class="cq">The correlation is the most useful heuristic in the analysis.</p>`+
     `<div class="dia-shell">`+
-      `<div class="dia-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the ten layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship')+`</div>`+
+      `<div class="dia-chart">`+CX.wrap(`0 0 ${W} ${H}`,g,'Scatter of the ten layers positioned by material chokepoint strength against moat durability, showing a strong positive relationship').replace('role="img"','role="group"')+`</div>`+
       `<aside class="dia-info" id="mx-info" aria-live="polite">${REST}</aside>`+
     `</div>`+
     `<figcaption class="cnote">Positions are the author’s assessment on both axes, not measured values. They encode the argument made in each layer rather than a dataset, and should be read as a ranking, not a measurement.</figcaption>`;

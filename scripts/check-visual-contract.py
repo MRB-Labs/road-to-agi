@@ -25,7 +25,7 @@ REQUIRED_INDEX = [
     'id="atlas"', 'id="loopsvg"', 'id="cx-matrix"',
 ]
 REQUIRED_ATLAS_JS = [
-    'href="assets/atlas/earth.png"', 'class="pw-earth"',
+    'href="assets/atlas/earth.webp"', 'class="pw-earth"',
 ]
 
 

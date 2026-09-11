@@ -5,7 +5,7 @@ name: Checks and deploy
 # published page — the previous deploy simply stays live.
 on:
   push:
-    branches: [main, preview]
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
@@ -73,8 +73,27 @@ jobs:
       - name: Public deploy surface excludes local tools
         run: python3 scripts/check-public-surface.py
 
+  # The pages in three real engines. Chromium alone is not enough: the white
+  # rectangle round the planet was a Safari-only focus ring that survived
+  # three rounds of review because nobody looked in WebKit.
+  browsers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Playwright with Chromium, Firefox and WebKit
+        run: |
+          pip install playwright==1.47.0 axe-playwright-python==0.1.4
+          python -m playwright install --with-deps chromium firefox webkit
+
+      - name: Pages load cleanly and accessibility does not regress
+        run: python3 scripts/check-browsers.py
+
   deploy:
-    needs: guards
+    needs: [guards, browsers]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:

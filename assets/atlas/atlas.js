@@ -79,8 +79,8 @@
       <button type="button" data-zoom="out"   aria-label="Zoom out">&minus;</button>
       <button type="button" data-zoom="reset" aria-label="Fit the whole map">&#9634;</button>
     </div>
-    <aside class="atlas-panel" id="atlas-panel" role="dialog" aria-modal="false"
-           aria-labelledby="atlas-panel-title" hidden></aside>`;
+    <div class="atlas-panel" id="atlas-panel" role="dialog" aria-modal="false" aria-label="Layer detail"
+           aria-labelledby="atlas-panel-title" hidden></div>`;
 
   const stage  = host.querySelector('#atlas-stage');
   host.classList.remove('is-loading');
@@ -155,7 +155,7 @@
     const imgY = Math.round(w.cy - imgSize / 2);
     return `<g class="pw-node" tabindex="0" role="button" data-node="world"
                aria-label="${esc(w.label)} — open it in the infrastructure">
-      <image class="pw-earth" href="assets/atlas/earth.png"
+      <image class="pw-earth" href="assets/atlas/earth.webp"
              x="${imgX}" y="${imgY}" width="${imgSize}" height="${imgSize}"
              preserveAspectRatio="xMidYMid meet"/>
       <circle class="pw-hit"  cx="${w.cx}" cy="${w.cy}" r="${w.r + 18}"/>
