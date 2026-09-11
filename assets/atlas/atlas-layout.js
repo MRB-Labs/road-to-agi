@@ -28,7 +28,7 @@ const ATLAS_REGIONS = [
   {key:'compute',       x:512,  y:112, w:232, h:676},
   {key:'intelligence',  x:760,  y:112, w:192, h:676},
   {key:'network',       x:984,  y:112, w:176, h:672},
-  {key:'embodied',      x:1188, y:112, w:208, h:680},
+  {key:'embodied',      x:1188, y:112, w:232, h:680},
 ];
 
 /* Not a region: the planet in the background photograph. These are its measured
@@ -68,13 +68,13 @@ const ATLAS_NODES = [
   {id:'l6',    layer:9,  region:'network',      x:1000, y:272, w:144, h:296, iy:-88, iz:120},
 
   /* the machine, and everything inside it */
-  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:584, encl:1, icon:'humanoid', ix:-6, iy:2, iz:140},
-  {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:160, h:76, sub:1},
-  {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:160, h:76, sub:1},
-  {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:160, h:76, sub:1},
-  {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:160, h:76, sub:1},
-  {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:160, h:76, sub:1},
-  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:160, h:76, sub:1, icon:'battery'},
+  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
+  {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:176, h:80, sub:1},
+  {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:176, h:80, sub:1},
+  {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:176, h:80, sub:1},
+  {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:176, h:80, sub:1},
+  {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:176, h:80, sub:1},
+  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:176, h:72, sub:1, icon:'battery'},
 ];
 
 /* Flow families. `dash` carries the meaning a second time, so a route never
@@ -179,6 +179,6 @@ const ATLAS_ROUTES = [
    via:[{x:8},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
-  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1424}]},
-  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1424}]},
+  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
+  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1432}]},
 ];

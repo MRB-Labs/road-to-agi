@@ -60,8 +60,6 @@
  "content.js/ATLAS_REGIONS_TEXT/network/fd76bbca02": "Internet · telecommunications",
  "content.js/ATLAS_REGIONS_TEXT/silicon/2814f13207": "Device manufacture",
  "content.js/ATLAS_REGIONS_TEXT/silicon/ba8ac97e12": "Silicon",
- "content.js/ATLAS_ROUTE_TEXT/_/082494881d": "actuators",
- "content.js/ATLAS_ROUTE_TEXT/_/285ab8199f": "sensors",
  "content.js/ATLAS_WORLD_TEXT/lede/5b6fb207eb": "Not a layer, but the ground the stack is drawn from: where energy is captured, where materials are extracted, and where embodied machines eventually do the work. It feeds the base pair and takes the fleet’s work back.",
  "content.js/ATLAS_WORLD_TEXT/reach/194bcb5a74": "Energy and raw materials out, into the foundations",
  "content.js/ATLAS_WORLD_TEXT/reach/3e9b086c49": "Sensors in, actuators out, through the machine at the edge",
