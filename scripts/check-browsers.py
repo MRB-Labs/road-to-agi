@@ -15,6 +15,12 @@ CI installs both; locally the check is optional.
 
 Why WebKit: the white rectangle round the planet was a Safari-only focus ring,
 and it survived three rounds of review because only Chromium was ever looked at.
+
+The accessibility baseline is CI's, not a Mac's. Contrast is judged on laid-out
+text, and Linux wraps some lines differently with its own fallback fonts: the
+Method page shows 27 contrast failures there against 25 on macOS. A local run
+that finds fewer is reported as an improvement and still passes; a baseline
+lowered from a Mac can make CI fail, so lower it only by CI's numbers.
 """
 import functools
 import http.server
