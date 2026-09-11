@@ -46,16 +46,16 @@ const ATLAS_WORLD = {cx:1592, cy:440, r:124};
    different guises — the plant indoors is layer 1, but drawn as a bolt. */
 const ATLAS_NODES = [
   {id:'l1',    layer:1,  region:'foundations',  x:64,   y:192, w:176, h:136},
-  {id:'l2',    layer:2,  region:'foundations',  x:64,   y:368, w:176, h:144},
+  {id:'l2',    layer:2,  region:'foundations',  x:64,   y:416, w:176, h:144},
 
   /* Silicon carries one card, so it gets the width its own name needs. */
-  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:200, w:176, h:192, iy:-32, iz:120},
+  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:192, w:176, h:216, iy:-32, iz:120},
 
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
   {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:544, encl:1, iy:-232},
-  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:336, w:176, h:160, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
+  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:352, w:176, h:144, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
   {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:192, sub:1, ix:-8, iy:-64, iz:150},
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
@@ -65,10 +65,10 @@ const ATLAS_NODES = [
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:200, w:144, h:168, iy:-32, iz:120},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:192, w:144, h:152, iy:-32, iz:120},
 
   /* the machine, and everything inside it */
-  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
+  {id:'l10',   layer:10, region:'embodied',     x:1200, y:192, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
   {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:176, h:80, sub:1},
   {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:176, h:80, sub:1},
   {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:176, h:80, sub:1},
@@ -115,7 +115,7 @@ const ATLAS_ROUTES = [
      extracted. They land on the group, not on a card, because that is what
      they feed. `ends` lights them from either layer inside it as well. */
   {from:'world', to:'#foundations', flow:'materials', side:['top','top'], dx:24, tx:36,
-   via:[{y:48}], ends:'l2', dash:'6 6', tone:'l2', core:true},
+   via:[{y:40}], ends:'l2', dash:'6 6', tone:'l2', core:true},
   {from:'world', to:'#foundations', flow:'energy',    side:['top','top'], dx:-24, tx:-36,
    via:[{y:80}], ends:'l1', dash:'6 6', tone:'l1', core:true},
 
@@ -151,8 +151,8 @@ const ATLAS_ROUTES = [
 
   /* Into the network on its left, out of it on its right, back in at the top
      and fed from below: four sides, so no side carries more than two. */
-  {from:'l8',  to:'l6',   flow:'intelligence', side:['right','left'], via:[{x:960}], core:true},
-  {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:968}]},
+  {from:'l8',  to:'l6',   flow:'intelligence', side:['right','left'], via:[{x:968}], core:true},
+  {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:976}]},
   {from:'l6',  to:'l7',   flow:'data',      side:['left','right'], via:[{x:968}]},
 
   /* the network and the machine */
@@ -175,8 +175,8 @@ const ATLAS_ROUTES = [
    via:[{x:40},{y:844}], trunk:'l1-west', ends:'l1b'},
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
    via:[{x:24},{y:864}], ends:'act'},
-  {from:'l3',  to:'l10',  flow:'compute',   side:['left','bottom'], tx:60,
-   via:[{x:8},{y:888}],  ends:'l4e'},
+  {from:'l3',  to:'l10',  flow:'compute',   side:['bottom','bottom'], tx:60,
+   via:[{x:496},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
   {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
