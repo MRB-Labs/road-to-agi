@@ -14,17 +14,18 @@
   const canvas = host.querySelector('.atlas-canvas');
   const grid = document.createElement('div');
   const svgNS = 'http://www.w3.org/2000/svg';
-  const changed = {nodes:new Set(), regions:new Set(), routes:new Set(), world:false};
+  const STUB = 18;
   let selected = null;
   let drag = null;
   let serverReady = false;
-  const STUB = 18;
+  let textDirty = false;
+  const dirtyRoutes = new Set();
 
   host.classList.add('is-editing');
   grid.className = 'atlas-editor-grid';
   world.appendChild(grid);
 
-  setStatus('Drag an item, then press Save layout.', 'ok');
+  setStatus('Drag an item, edit text, then press Save layout.', 'ok');
   pingServer();
 
   function setStatus(text, tone) {
@@ -52,8 +53,22 @@
     return ATLAS_REGIONS.find(r => r.key === key);
   }
 
-  function select(type, id, el) {
-    selected = {type, id, el};
+  function regionText(key) {
+    return (typeof ATLAS_REGIONS_TEXT !== 'undefined' && ATLAS_REGIONS_TEXT[key])
+      || {t:key, s:[]};
+  }
+
+  function cardText(id) {
+    return (typeof ATLAS_CARDS !== 'undefined' && ATLAS_CARDS[id])
+      || {t:id, s:[]};
+  }
+
+  function routeTextKey(r) {
+    return `${r.from}>${r.to}`;
+  }
+
+  function select(type, data, el) {
+    selected = Object.assign({type, el}, data);
     host.querySelectorAll('.ed-selected').forEach(x => x.classList.remove('ed-selected'));
     if (el) el.classList.add('ed-selected');
     renderFields();
@@ -62,9 +77,11 @@
   function selectedData() {
     if (!selected) return null;
     if (selected.type === 'node') return nodeById(selected.id);
-    if (selected.type === 'region') return regionByKey(selected.id);
+    if (selected.type === 'icon') return nodeById(selected.id);
+    if (selected.type === 'region') return regionByKey(selected.key);
+    if (selected.type === 'world') return ATLAS_WORLD;
     if (selected.type === 'route') return ATLAS_ROUTES[selected.routeIndex]?.via?.[selected.guideIndex];
-    return ATLAS_WORLD;
+    return null;
   }
 
   function renderFields() {
@@ -74,30 +91,20 @@
       fields.innerHTML = '<p class="ed-empty">Select something on the map.</p>';
       return;
     }
-    const label = selectedLabel();
-    const props = selected.type === 'world' ? ['cx', 'cy', 'r']
-      : selected.type === 'route' ? (data.x !== undefined ? ['x'] : ['y'])
-      : ['x', 'y', 'w', 'h'];
-    fields.innerHTML = `<p class="ed-empty"><b>${escapeHTML(label)}</b> selected</p>` +
-      props.map(p => `<div class="ed-field">
-        <label for="ed-${p}">${p}</label>
-        <input id="ed-${p}" data-ed-prop="${p}" type="number" step="1" value="${Math.round(data[p])}">
-      </div>`).join('');
-    fields.querySelectorAll('[data-ed-prop]').forEach(input => {
-      input.addEventListener('input', () => {
-        const value = Number(input.value);
-        if (!Number.isFinite(value)) return;
-        data[input.dataset.edProp] = value;
-        markDirty(selected);
-        applySelected(false);
-      });
-    });
+    fields.innerHTML = [
+      `<p class="ed-empty"><b>${escapeHTML(selectedLabel())}</b> selected</p>`,
+      geometryFields(data),
+      textFields(),
+    ].filter(Boolean).join('');
+    bindGeometryFields();
+    bindTextFields();
   }
 
   function selectedLabel() {
     if (!selected) return '';
     if (selected.type === 'node') return selected.id;
-    if (selected.type === 'region') return selected.id;
+    if (selected.type === 'icon') return `${selected.id} icon`;
+    if (selected.type === 'region') return selected.key;
     if (selected.type === 'route') {
       const r = ATLAS_ROUTES[selected.routeIndex];
       return `${r.from} -> ${r.to} bend ${selected.guideIndex + 1}`;
@@ -105,23 +112,173 @@
     return 'Earth';
   }
 
+  function geometryFields(data) {
+    const props = selected.type === 'world' ? ['cx', 'cy', 'r']
+      : selected.type === 'icon' ? ['ix', 'iy']
+      : selected.type === 'route' ? (data.x !== undefined ? ['x'] : ['y'])
+      : ['x', 'y', 'w', 'h'];
+    return props.map(p => `<div class="ed-field">
+      <label for="ed-${p}">${p}</label>
+      <input id="ed-${p}" data-ed-prop="${p}" type="number" step="1" value="${Math.round(data[p] || 0)}">
+    </div>`).join('');
+  }
+
+  function textFields() {
+    if (selected.type === 'node' || selected.type === 'icon') {
+      const c = cardText(selected.id);
+      return `<div class="ed-text-fields">
+        <label>Title <input data-ed-text="card-title" value="${attr(c.t || '')}"></label>
+        <label>Line 1 <input data-ed-text="card-line-0" value="${attr((c.s || [])[0] || '')}"></label>
+        <label>Line 2 <input data-ed-text="card-line-1" value="${attr((c.s || [])[1] || '')}"></label>
+      </div>`;
+    }
+    if (selected.type === 'region') {
+      const r = regionText(selected.key);
+      return `<div class="ed-text-fields">
+        <label>Title <input data-ed-text="region-title" value="${attr(r.t || '')}"></label>
+        <label>Subtitle <input data-ed-text="region-sub-0" value="${attr((r.s || [])[0] || '')}"></label>
+        <label>Subtitle 2 <input data-ed-text="region-sub-1" value="${attr((r.s || [])[1] || '')}"></label>
+      </div>`;
+    }
+    if (selected.type === 'world') {
+      const w = typeof ATLAS_WORLD_TEXT !== 'undefined' ? ATLAS_WORLD_TEXT : {t:'', s:''};
+      return `<div class="ed-text-fields">
+        <label>Title <input data-ed-text="world-title" value="${attr(w.t || '')}"></label>
+        <label>Caption <input data-ed-text="world-sub" value="${attr(w.s || '')}"></label>
+      </div>`;
+    }
+    if (selected.type === 'route') {
+      const r = ATLAS_ROUTES[selected.routeIndex];
+      const txt = (typeof ATLAS_ROUTE_TEXT !== 'undefined' && ATLAS_ROUTE_TEXT[routeTextKey(r)]) || '';
+      return `<div class="ed-text-fields">
+        <label>Route label <input data-ed-text="route-label" value="${attr(txt)}"></label>
+      </div>`;
+    }
+    return '';
+  }
+
+  function bindGeometryFields() {
+    fields.querySelectorAll('[data-ed-prop]').forEach(input => {
+      input.addEventListener('input', () => {
+        const data = selectedData();
+        const value = Number(input.value);
+        if (!data || !Number.isFinite(value)) return;
+        data[input.dataset.edProp] = value;
+        markDirty(selected);
+        applySelected(false);
+      });
+    });
+  }
+
+  function bindTextFields() {
+    fields.querySelectorAll('[data-ed-text]').forEach(input => {
+      input.addEventListener('input', () => {
+        updateText(input.dataset.edText, input.value);
+        textDirty = true;
+        markDirty(selected);
+        applyText(selected);
+        refreshRoutes();
+        setStatus('Unsaved changes. Press Save layout when it looks right.', 'ok');
+      });
+    });
+  }
+
+  function updateText(kind, value) {
+    if (kind.startsWith('card-')) {
+      const c = cardText(selected.id);
+      if (!ATLAS_CARDS[selected.id]) ATLAS_CARDS[selected.id] = c;
+      if (kind === 'card-title') c.t = value;
+      else {
+        const i = Number(kind.split('-').pop());
+        c.s = c.s || [];
+        c.s[i] = value;
+      }
+    } else if (kind.startsWith('region-')) {
+      const r = regionText(selected.key);
+      if (!ATLAS_REGIONS_TEXT[selected.key]) ATLAS_REGIONS_TEXT[selected.key] = r;
+      if (kind === 'region-title') r.t = value;
+      else {
+        const i = Number(kind.split('-').pop());
+        r.s = r.s || [];
+        r.s[i] = value;
+      }
+    } else if (kind === 'world-title') {
+      ATLAS_WORLD_TEXT.t = value;
+    } else if (kind === 'world-sub') {
+      ATLAS_WORLD_TEXT.s = value;
+    } else if (kind === 'route-label') {
+      const r = ATLAS_ROUTES[selected.routeIndex];
+      ATLAS_ROUTE_TEXT[routeTextKey(r)] = value;
+    }
+  }
+
   function markDirty(sel) {
-    if (!sel) return;
-    if (sel.type === 'node') changed.nodes.add(sel.id);
-    if (sel.type === 'region') changed.regions.add(sel.id);
-    if (sel.type === 'route') changed.routes.add(String(sel.routeIndex));
-    if (sel.type === 'world') changed.world = true;
-    if (sel.el) sel.el.classList.add('ed-dirty');
+    if (sel && sel.type === 'route') {
+      dirtyRoutes.add(sel.routeIndex);
+      ATLAS_ROUTES[sel.routeIndex]._editorVirtualVia = false;
+    }
+    if (sel && sel.el) sel.el.classList.add('ed-dirty');
   }
 
   function applySelected(updatePanel = true) {
     if (!selected) return;
     if (selected.type === 'node') applyNode(nodeById(selected.id));
-    if (selected.type === 'region') applyRegion(regionByKey(selected.id));
+    if (selected.type === 'icon') applyIcon(nodeById(selected.id));
+    if (selected.type === 'region') applyRegion(regionByKey(selected.key));
     if (selected.type === 'world') applyWorld();
     if (selected.type === 'route') applyRouteHandle(selected.routeIndex, selected.guideIndex);
     refreshRoutes();
     if (updatePanel) renderFields();
+  }
+
+  function applyText(sel) {
+    if (!sel) return;
+    if (sel.type === 'node' || sel.type === 'icon') updateCardText(sel.id);
+    if (sel.type === 'region') updateRegionText(sel.key);
+    if (sel.type === 'world') updateWorldText();
+  }
+
+  function updateCardText(id) {
+    const el = host.querySelector(`.nd[data-node="${cssEscape(id)}"]`);
+    const c = cardText(id);
+    if (!el) return;
+    const name = el.querySelector('.nd-name');
+    if (name) name.textContent = c.t || '';
+    const sub = el.querySelector('.nd-sub');
+    if (sub) {
+      sub.innerHTML = (c.s || []).filter(Boolean).map(s => `<span>${escapeHTML(s)}</span>`).join('');
+    }
+    el.setAttribute('aria-label', `${c.t || id} -- layer ${el.dataset.layer}, open its detail`);
+  }
+
+  function updateRegionText(key) {
+    const el = canvas.querySelector(`.rg[data-region="${cssEscape(key)}"]`);
+    const r = regionText(key);
+    if (!el) return;
+    const title = el.querySelector('.rg-title');
+    if (title) title.textContent = r.t || '';
+    const subs = el.querySelectorAll('.rg-sub');
+    (r.s || []).forEach((line, i) => {
+      if (subs[i]) subs[i].textContent = line;
+    });
+  }
+
+  function updateWorldText() {
+    const el = canvas.querySelector('.pw-node');
+    if (!el) return;
+    const w = ATLAS_WORLD_TEXT;
+    const label = el.querySelector('.pw-label');
+    const sub = el.querySelector('.pw-sub');
+    if (label) label.textContent = w.t || '';
+    if (sub) sub.innerHTML = worldSubLines(w.s || '').map((line, i) =>
+      `<tspan x="${ATLAS_WORLD.cx}" ${i ? 'dy="14"' : ''}>${escapeHTML(line)}</tspan>`).join('');
+  }
+
+  function worldSubLines(text) {
+    const parts = String(text || '').split(',').map(s => s.trim()).filter(Boolean);
+    return parts.length >= 4
+      ? [`${parts[0]}, ${parts[1]},`, `${parts[2]}, ${parts.slice(3).join(', ')}`]
+      : [text];
   }
 
   function applyNode(n) {
@@ -134,6 +291,14 @@
     el.style.height = `${n.h}px`;
   }
 
+  function applyIcon(n) {
+    if (!n) return;
+    const el = host.querySelector(`.nd[data-node="${cssEscape(n.id)}"]`);
+    if (!el) return;
+    el.style.setProperty('--nd-ix', `${n.ix || 0}px`);
+    el.style.setProperty('--nd-iy', `${n.iy || 0}px`);
+  }
+
   function applyRegion(r) {
     if (!r) return;
     const el = canvas.querySelector(`.rg[data-region="${cssEscape(r.key)}"]`);
@@ -144,11 +309,8 @@
       rect.setAttribute('width', r.w);
       rect.setAttribute('height', r.h);
     });
-    const title = el.querySelector('.rg-title');
-    if (title) {
-      title.setAttribute('x', r.x + 20);
-      title.setAttribute('y', r.y + 38);
-    }
+    el.querySelector('.rg-title')?.setAttribute('x', r.x + 20);
+    el.querySelector('.rg-title')?.setAttribute('y', r.y + 38);
     el.querySelectorAll('.rg-sub').forEach((sub, i) => {
       sub.setAttribute('x', r.x + 20);
       sub.setAttribute('y', r.y + 60 + i * 13);
@@ -211,19 +373,35 @@
       if (!a || !b) return;
       const opts = Object.assign({}, r, spread[i], {i, tone:routeTone(nodes, r)});
       const d = AtlasGeom.route(a, b, opts);
-      const group = host.querySelector(`.rt-g[data-from="${cssEscape(r.from)}"][data-to="${cssEscape(r.to)}"]`);
+      const group = routeGroup(r);
       if (!group) return;
       group.querySelectorAll('path').forEach(p => p.setAttribute('d', d));
-      const label = group.querySelector('.rt-label');
+      const txt = typeof ATLAS_ROUTE_TEXT !== 'undefined' ? ATLAS_ROUTE_TEXT[routeTextKey(r)] : '';
+      let label = group.querySelector('.rt-label');
+      if (txt && !label) {
+        label = document.createElementNS(svgNS, 'text');
+        label.classList.add('rt-label');
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('fill', 'currentColor');
+        group.insertBefore(label, group.querySelector('.rt'));
+      }
       if (label) {
-        const probe = document.createElementNS(svgNS, 'path');
-        probe.setAttribute('d', d);
-        const pt = probe.getPointAtLength(probe.getTotalLength() / 2);
-        label.setAttribute('x', pt.x.toFixed(0));
-        label.setAttribute('y', (pt.y - 9).toFixed(0));
+        if (!txt) { label.remove(); }
+        else {
+          const probe = document.createElementNS(svgNS, 'path');
+          probe.setAttribute('d', d);
+          const pt = probe.getPointAtLength(probe.getTotalLength() / 2);
+          label.setAttribute('x', pt.x.toFixed(0));
+          label.setAttribute('y', (pt.y - 9).toFixed(0));
+          label.textContent = txt;
+        }
       }
     });
     renderRouteHandles();
+  }
+
+  function routeGroup(r) {
+    return host.querySelector(`.rt-g[data-from="${cssEscape(r.from)}"][data-to="${cssEscape(r.to)}"]`);
   }
 
   function routeGuidePoint(nodes, r, spread, guideIndex) {
@@ -245,23 +423,39 @@
     const nodes = routeNodes();
     const spread = AtlasGeom.fan(nodes, ATLAS_ROUTES);
     ATLAS_ROUTES.forEach((r, routeIndex) => {
+      if (!r.via || !r.via.length) ensureRouteGuide(routeIndex, nodes, spread[routeIndex]);
       (r.via || []).forEach((guide, guideIndex) => {
         const p = routeGuidePoint(nodes, r, spread[routeIndex], guideIndex);
-        if (!p) return;
-        const g = document.createElementNS(svgNS, 'g');
-        g.classList.add('ed-route-handle');
-        if (selected && selected.type === 'route' &&
-            selected.routeIndex === routeIndex && selected.guideIndex === guideIndex) {
-          g.classList.add('ed-selected');
-        }
-        g.setAttribute('transform', `translate(${p.x} ${p.y})`);
-        g.dataset.routeIndex = String(routeIndex);
-        g.dataset.guideIndex = String(guideIndex);
-        g.innerHTML = '<circle r="9"/><path d="M-4 0H4M0 -4V4"/>';
-        g.addEventListener('pointerdown', e => startRouteDrag(e, routeIndex, guideIndex, g), true);
-        canvas.appendChild(g);
+        if (p) addRouteHandle(routeIndex, guideIndex, p);
       });
     });
+  }
+
+  function ensureRouteGuide(routeIndex, nodes, spread) {
+    const r = ATLAS_ROUTES[routeIndex], a = nodes[r.from], b = nodes[r.to];
+    if (!a || !b) return;
+    const opts = Object.assign({}, r, spread, {i:routeIndex, tone:routeTone(nodes, r)});
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', AtlasGeom.route(a, b, opts));
+    const pt = path.getPointAtLength(path.getTotalLength() / 2);
+    const side = r.side || ['right', 'left'];
+    r.via = (side[0] === 'left' || side[0] === 'right') ? [{x:Math.round(pt.x)}] : [{y:Math.round(pt.y)}];
+    r._editorVirtualVia = true;
+  }
+
+  function addRouteHandle(routeIndex, guideIndex, p) {
+    const g = document.createElementNS(svgNS, 'g');
+    g.classList.add('ed-route-handle');
+    if (selected && selected.type === 'route' &&
+        selected.routeIndex === routeIndex && selected.guideIndex === guideIndex) {
+      g.classList.add('ed-selected');
+    }
+    g.setAttribute('transform', `translate(${p.x} ${p.y})`);
+    g.dataset.routeIndex = String(routeIndex);
+    g.dataset.guideIndex = String(guideIndex);
+    g.innerHTML = '<circle r="9"/><path d="M-4 0H4M0 -4V4"/>';
+    g.addEventListener('pointerdown', e => startRouteDrag(e, routeIndex, guideIndex, g), true);
+    canvas.appendChild(g);
   }
 
   function applyRouteHandle(routeIndex, guideIndex) {
@@ -272,23 +466,24 @@
     if (p && el) el.setAttribute('transform', `translate(${p.x} ${p.y})`);
   }
 
-  function startDrag(e, type, id, el) {
+  function startDrag(e, type, data, el) {
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
-    select(type, id, el);
-    const data = selectedData();
-    if (!data) return;
+    select(type, data, el);
+    const d = selectedData();
+    if (!d) return;
     drag = {
       pointerId:e.pointerId,
       type,
-      id,
       sx:e.clientX,
       sy:e.clientY,
-      x:data.x,
-      y:data.y,
-      cx:data.cx,
-      cy:data.cy,
+      x:d.x || 0,
+      y:d.y || 0,
+      cx:d.cx || 0,
+      cy:d.cy || 0,
+      ix:d.ix || 0,
+      iy:d.iy || 0,
       moved:false
     };
     el.setPointerCapture?.(e.pointerId);
@@ -298,20 +493,15 @@
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
-    selected = {type:'route', routeIndex, guideIndex, el};
-    host.querySelectorAll('.ed-selected').forEach(x => x.classList.remove('ed-selected'));
-    el.classList.add('ed-selected');
-    renderFields();
-    const data = selectedData();
+    select('route', {routeIndex, guideIndex}, el);
+    const d = selectedData();
     drag = {
       pointerId:e.pointerId,
       type:'route',
-      routeIndex,
-      guideIndex,
       sx:e.clientX,
       sy:e.clientY,
-      x:data.x,
-      y:data.y,
+      x:d.x,
+      y:d.y,
       moved:false
     };
     el.setPointerCapture?.(e.pointerId);
@@ -333,6 +523,9 @@
     } else if (drag.type === 'world') {
       data.cx = snap(drag.cx + dx);
       data.cy = snap(drag.cy + dy);
+    } else if (drag.type === 'icon') {
+      data.ix = snap(drag.ix + dx);
+      data.iy = snap(drag.iy + dy);
     } else {
       data.x = snap(drag.x + dx);
       data.y = snap(drag.y + dy);
@@ -350,14 +543,19 @@
   }
 
   host.querySelectorAll('.nd[data-node]').forEach(el => {
-    el.addEventListener('pointerdown', e => startDrag(e, 'node', el.dataset.node, el), true);
+    el.addEventListener('pointerdown', e => startDrag(e, 'node', {id:el.dataset.node}, el), true);
+  });
+  host.querySelectorAll('.nd[data-node] .nd-icon').forEach(icon => {
+    icon.style.pointerEvents = 'auto';
+    const node = icon.closest('.nd');
+    icon.addEventListener('pointerdown', e => startDrag(e, 'icon', {id:node.dataset.node}, node), true);
   });
   host.querySelectorAll('.rg[data-region]').forEach(el => {
-    el.addEventListener('pointerdown', e => startDrag(e, 'region', el.dataset.region, el), true);
+    el.addEventListener('pointerdown', e => startDrag(e, 'region', {key:el.dataset.region}, el), true);
   });
   const worldNode = host.querySelector('.pw-node');
   if (worldNode) {
-    worldNode.addEventListener('pointerdown', e => startDrag(e, 'world', 'world', worldNode), true);
+    worldNode.addEventListener('pointerdown', e => startDrag(e, 'world', {}, worldNode), true);
   }
   host.addEventListener('click', e => {
     if (!e.target.closest('.nd, .rg, .pw-node, .ed-route-handle')) return;
@@ -382,6 +580,9 @@
     } else if (selected.type === 'world') {
       data.cx += d[0] * step;
       data.cy += d[1] * step;
+    } else if (selected.type === 'icon') {
+      data.ix = (data.ix || 0) + d[0] * step;
+      data.iy = (data.iy || 0) + d[1] * step;
     } else {
       data.x += d[0] * step;
       data.y += d[1] * step;
@@ -405,26 +606,25 @@
       setStatus('Save needs the editor server. Run python3 scripts/atlas-editor-server.py --port 8766.', 'bad');
       return;
     }
-    setStatus('Saving layout...', 'ok');
+    setStatus('Saving layout and text...', 'ok');
     try {
       const res = await fetch('/__atlas_editor/save', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
+        body:JSON.stringify(Object.assign({
           nodes:ATLAS_NODES.map(stripNode),
           regions:ATLAS_REGIONS.map(stripRegion),
           routes:ATLAS_ROUTES.map(stripRoute),
           world:{cx:Math.round(ATLAS_WORLD.cx), cy:Math.round(ATLAS_WORLD.cy), r:Math.round(ATLAS_WORLD.r)}
-        })
+        }, textDirty ? {text:stripText()} : {}))
       });
       const data = await res.json();
       if (!res.ok || !data.ok) throw new Error(data.error || 'Save failed');
-      changed.nodes.clear();
-      changed.regions.clear();
-      changed.routes.clear();
-      changed.world = false;
+      dirtyRoutes.clear();
+      textDirty = false;
       host.querySelectorAll('.ed-dirty').forEach(x => x.classList.remove('ed-dirty'));
-      setStatus(`Saved ${data.changed} value${data.changed === 1 ? '' : 's'} to assets/atlas/atlas-layout.js.`, 'ok');
+      const noun = data.changed === 1 ? 'change' : 'changes';
+      setStatus(data.changed ? `Saved ${data.changed} ${noun}.` : 'No changes to save.', 'ok');
     } catch (err) {
       setStatus(err.message || String(err), 'bad');
     }
@@ -434,7 +634,7 @@
     try {
       const res = await fetch('/__atlas_editor/ping', {cache:'no-store'});
       serverReady = res.ok;
-      if (serverReady) setStatus('Editor server connected. Drag items and save when ready.', 'ok');
+      if (serverReady) setStatus('Editor server connected. Drag items, edit text, and save when ready.', 'ok');
       else setStatus('Open through scripts/atlas-editor-server.py to enable saving.', 'bad');
     } catch (err) {
       serverReady = false;
@@ -443,7 +643,15 @@
   }
 
   function stripNode(n) {
-    return {id:n.id, x:Math.round(n.x), y:Math.round(n.y), w:Math.round(n.w), h:Math.round(n.h)};
+    return {
+      id:n.id,
+      x:Math.round(n.x),
+      y:Math.round(n.y),
+      w:Math.round(n.w),
+      h:Math.round(n.h),
+      ix:Math.round(n.ix || 0),
+      iy:Math.round(n.iy || 0)
+    };
   }
 
   function stripRegion(r) {
@@ -455,7 +663,22 @@
       index,
       from:r.from,
       to:r.to,
-      via:(r.via || []).map(g => g.x !== undefined ? {x:Math.round(g.x)} : {y:Math.round(g.y)})
+      via:(r._editorVirtualVia && !dirtyRoutes.has(index))
+        ? []
+        : (r.via || []).map(g => g.x !== undefined ? {x:Math.round(g.x)} : {y:Math.round(g.y)})
+    };
+  }
+
+  function stripText() {
+    return {
+      cards:Object.fromEntries(Object.entries(ATLAS_CARDS || {}).map(([id, c]) => [
+        id, {t:c.t || '', s:(c.s || []).filter(Boolean)}
+      ])),
+      regions:Object.fromEntries(Object.entries(ATLAS_REGIONS_TEXT || {}).map(([key, r]) => [
+        key, {t:r.t || '', s:(r.s || []).filter(Boolean)}
+      ])),
+      world:{t:ATLAS_WORLD_TEXT.t || '', s:ATLAS_WORLD_TEXT.s || ''},
+      routes:Object.assign({}, ATLAS_ROUTE_TEXT || {})
     };
   }
 
@@ -467,6 +690,10 @@
     return String(v == null ? '' : v).replace(/[&<>"']/g, ch => ({
       '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
     })[ch]);
+  }
+
+  function attr(v) {
+    return escapeHTML(v);
   }
 
   renderRouteHandles();

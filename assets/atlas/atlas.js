@@ -237,6 +237,7 @@
       return `<button type="button" class="nd${small ? ' is-small' : ''}${n.encl ? ' is-encl' : ''}"
         data-node="${n.id}" data-layer="${n.layer}"
         style="left:${n.x}px;top:${n.y}px;width:${n.w}px;height:${n.h}px;
+               --nd-ix:${n.ix || 0}px;--nd-iy:${n.iy || 0}px;
                color:var(--atlas-l${n.layer});--nd-c:var(--atlas-l${n.layer})"
         aria-label="${esc(c.title)} — layer ${n.layer}, open its detail">
         ${c.icon}

@@ -180,7 +180,7 @@
 .atlas .nd .licon.nd-icon{position:absolute; top:50%; right:12px;
   width:34px; height:34px; opacity:.86; stroke:currentColor; fill:none;
   stroke-width:1.85; stroke-linecap:round; stroke-linejoin:round;
-  transform:translateY(-50%); pointer-events:none;
+  transform:translate(var(--nd-ix,0px), calc(-50% + var(--nd-iy,0px))); pointer-events:none;
   filter:drop-shadow(0 0 7px color-mix(in srgb,currentColor 42%,transparent))}
 .atlas .nd.is-small .licon.nd-icon{right:8px; width:24px; height:24px}
 .atlas .nd.is-head .licon.nd-icon{width:36px; height:36px}
@@ -202,7 +202,8 @@
 .nd.is-encl::before{background:linear-gradient(180deg,
   color-mix(in srgb, currentColor 16%, transparent), transparent 22%)}
 .nd.is-encl .nd-name{font-size:15px}
-.nd.is-encl .nd-icon{top:29px; width:34px; height:34px; transform:none}
+.nd.is-encl .nd-icon{top:29px; width:34px; height:34px;
+  transform:translate(var(--nd-ix,0px), var(--nd-iy,0px))}
 
 /* ── the planet ──────────────────────────────────────────────────────────── */
 .pw-label{fill:var(--atlas-text); font:600 17px/1 var(--f,sans-serif);
