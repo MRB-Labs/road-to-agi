@@ -19,6 +19,7 @@ and it survived three rounds of review because only Chromium was ever looked at.
 import functools
 import http.server
 import json
+import os
 import pathlib
 import sys
 import threading
@@ -159,6 +160,10 @@ def main():
         print('%d problem(s):' % len(bad))
         for b in sorted(set(bad)):
             print('  ' + b)
+            # In CI, each problem also becomes an annotation on the run, which
+            # anyone can read without logging in — the raw log needs a token.
+            if os.environ.get('GITHUB_ACTIONS'):
+                print('::error title=check-browsers::%s' % b.replace('%', '%25'))
         return 1
     total = sum(sum(v.values()) for v in found.values())
     print('browsers OK: %d pages in %s, desktop and phone; axe %d known violations, none new'
