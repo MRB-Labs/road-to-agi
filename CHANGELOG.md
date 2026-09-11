@@ -38,6 +38,9 @@ step in `docs/RELEASE.md`.
 - Every page carries a summary of the ten layers that reads without JavaScript.
 - Each page loads only the data it uses.
 - A site icon, and complete descriptions and previews when a page is shared.
+- About, Disclaimer and Privacy pages, linked from the footer. The disclaimer
+  states that the author holds investments in companies named here and works
+  at one of them, and that AI tools help write the report.
 
 ## Revision 10 — 9 September 2026
 
