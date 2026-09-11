@@ -60,7 +60,7 @@ const ATLAS_NODES = [
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
   {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144, ix:8, iy:-48},
-  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160, ix:8, iy:-64},
+  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160, iy:-56},
 
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
@@ -153,7 +153,7 @@ const ATLAS_ROUTES = [
      and fed from below: four sides, so no side carries more than two. */
   {from:'l8',  to:'l6',   flow:'intelligence', side:['right','left'], via:[{x:960}], core:true},
   {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:976}]},
-  {from:'l6',  to:'l7',   flow:'data',      side:['left','right']},
+  {from:'l6',  to:'l7',   flow:'data',      side:['left','right'], via:[{x:968}]},
 
   /* the network and the machine */
   {from:'l6',  to:'l8e',  flow:'intelligence', side:['right','left'], via:[{x:1184}], core:true},
