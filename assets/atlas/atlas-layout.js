@@ -54,9 +54,9 @@ const ATLAS_NODES = [
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
-  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:536, encl:1, iy:-216},
+  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:536, encl:1, iy:-232},
   {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:160, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
-  {id:'l4',    layer:4,  region:'compute',      x:544,  y:544, w:176, h:184, sub:1, ix:-8, iy:-64, iz:150},
+  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:184, sub:1, ix:-8, iy:-64, iz:150},
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
   {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144, ix:8, iy:-48},
