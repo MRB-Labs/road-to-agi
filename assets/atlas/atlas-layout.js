@@ -179,6 +179,6 @@ const ATLAS_ROUTES = [
    via:[{x:8},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
-  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32},
-  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40},
+  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
+  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1432}]},
 ];
