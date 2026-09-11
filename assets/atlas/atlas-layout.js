@@ -74,7 +74,7 @@ const ATLAS_NODES = [
   {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:160, h:76, sub:1},
   {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:160, h:76, sub:1},
   {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:160, h:76, sub:1},
-  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:160, h:76, sub:1},
+  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:160, h:76, sub:1, icon:'battery'},
 ];
 
 /* Flow families. `dash` carries the meaning a second time, so a route never
