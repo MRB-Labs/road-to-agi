@@ -36,7 +36,7 @@ const ATLAS_REGIONS = [
    Nothing is drawn here; the picture supplies it. Its label and hit area are in
    ATLAS_WORLD_TEXT and the renderer. The label hangs *below* the planet, so the
    two dashed lines leaving the top of it never cross their own caption. */
-const ATLAS_WORLD = {cx:1591, cy:439, r:124};
+const ATLAS_WORLD = {cx:1592, cy:440, r:124};
 
 /* One entry per card. `layer` is the site layer it opens — several cards share
    one, which is the point: layer 1 is the grid, the plant in the hall and the
@@ -49,23 +49,23 @@ const ATLAS_NODES = [
   {id:'l2',    layer:2,  region:'foundations',  x:64,   y:384, w:176, h:144},
 
   /* Silicon carries one card, so it gets the width its own name needs. */
-  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:456, w:176, h:168},
+  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:456, w:176, h:168, iy:-32},
 
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
-  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:496, encl:1},
-  {id:'l1p',   layer:1,  region:'compute',      x:540,  y:284, w:176, h:160, sub:1, icon:'1p'},
-  {id:'l4',    layer:4,  region:'compute',      x:540,  y:492, w:176, h:184, sub:1},
+  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:496, encl:1, iy:-216},
+  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:160, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
+  {id:'l4',    layer:4,  region:'compute',      x:544,  y:544, w:176, h:184, sub:1, ix:-8, iy:-64, iz:150},
 
-  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152},
-  {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144},
-  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160},
+  {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
+  {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144, ix:8, iy:-48},
+  {id:'l9',    layer:8,  region:'intelligence', x:776,  y:572, w:160, h:160, ix:8, iy:-64},
 
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:272, w:144, h:296},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:272, w:144, h:296, iy:-88},
 
   /* the machine, and everything inside it */
   {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:584, encl:1},
@@ -157,8 +157,8 @@ const ATLAS_ROUTES = [
 
   /* the network and the machine */
   {from:'l6',  to:'l8e',  flow:'intelligence', side:['right','left'], via:[{x:1184}], core:true},
-  {from:'l6',  to:'l9e',  flow:'control',   side:['right','left']},
-  {from:'l9e', to:'l6',   flow:'data',      side:['left','right']},
+  {from:'l6',  to:'l9e',  flow:'control',   side:['right','left'], via:[{x:1176}]},
+  {from:'l9e', to:'l6',   flow:'data',      side:['left','right'], via:[{x:1168}]},
 
   /* The base feeds the network and the machine along the lanes under the map.
      Energy leaves the grid once and stays one line the whole way: down the
@@ -179,6 +179,6 @@ const ATLAS_ROUTES = [
    via:[{x:8},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
-  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
-  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1432}]},
+  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1424}]},
+  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1424}]},
 ];
