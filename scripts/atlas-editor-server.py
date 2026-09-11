@@ -11,6 +11,7 @@ import argparse
 import json
 import re
 import subprocess
+from datetime import datetime
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -19,6 +20,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 LAYOUT = ROOT / "assets" / "atlas" / "atlas-layout.js"
 CONTENT = ROOT / "assets" / "content.js"
+COMMIT_FILES = [
+    "assets/atlas/atlas-layout.js",
+    "assets/content.js",
+    "assets/content-index.js",
+]
 NUMBER = r"-?\d+(?:\.\d+)?"
 
 
@@ -244,6 +250,39 @@ def save_layout(payload: dict) -> int:
     return total
 
 
+def _git(args: list[str], check: bool = True) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if check and result.returncode:
+        message = result.stderr.strip() or result.stdout.strip() or "git command failed"
+        raise ValueError(message)
+    return result
+
+
+def commit_and_push() -> dict:
+    _git(["add", "--", *COMMIT_FILES])
+    staged = _git(["diff", "--cached", "--quiet", "--", *COMMIT_FILES], check=False)
+    if staged.returncode == 0:
+        return {"committed": False, "pushed": False, "message": "No Git changes to commit."}
+    if staged.returncode not in {0, 1}:
+        message = staged.stderr.strip() or staged.stdout.strip() or "Could not inspect staged changes"
+        raise ValueError(message)
+
+    stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+    _git(["commit", "-m", f"Update atlas layout from visual editor ({stamp})"])
+    push = _git(["push"], check=False)
+    if push.returncode:
+        message = push.stderr.strip() or push.stdout.strip() or "git push failed"
+        raise ValueError(f"Saved and committed locally, but push failed: {message}")
+    head = _git(["rev-parse", "--short", "HEAD"]).stdout.strip()
+    return {"committed": True, "pushed": True, "commit": head}
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
@@ -266,7 +305,8 @@ class Handler(SimpleHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", "0"))
             payload = json.loads(self.rfile.read(length).decode("utf-8"))
             changed = save_layout(payload) + save_content(payload.get("text") or {})
-            self._json({"ok": True, "changed": changed})
+            git = commit_and_push()
+            self._json({"ok": True, "changed": changed, "git": git})
         except Exception as exc:
             self._json({"ok": False, "error": str(exc)}, HTTPStatus.BAD_REQUEST)
 

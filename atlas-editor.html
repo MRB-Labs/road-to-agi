@@ -21,7 +21,7 @@
       <button type="button" class="ed-btn" data-ed-action="toggle-grid" aria-pressed="true">Grid</button>
       <label class="ed-toggle"><input type="checkbox" data-ed-snap checked> Snap</label>
       <button type="button" class="ed-btn" data-ed-action="reset-view">Fit</button>
-      <button type="button" class="ed-btn is-primary" data-ed-action="save">Save layout</button>
+      <button type="button" class="ed-btn is-primary" data-ed-action="save">Save + GitHub</button>
     </div>
   </header>
 
@@ -38,7 +38,7 @@
       <div class="ed-status" data-ed-status>Starting editor...</div>
       <details class="ed-notes">
         <summary>How saving works</summary>
-        <p>Run this page through <code>python3 scripts/atlas-editor-server.py --port 8766</code>. The Save button updates layout, text, route bends, and symbol sizes in the source files.</p>
+        <p>Run this page through <code>python3 scripts/atlas-editor-server.py --port 8766</code>. The Save button updates the source files, creates a commit, and pushes it to GitHub.</p>
       </details>
     </aside>
   </section>

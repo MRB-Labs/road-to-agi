@@ -68,7 +68,7 @@ const ATLAS_NODES = [
   {id:'l6',    layer:9,  region:'network',      x:1008, y:272, w:136, h:296},
 
   /* the machine, and everything inside it */
-  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:584, encl:1},
+  {id:'l10',   layer:10, region:'embodied',     x:1204, y:196, w:184, h:576, encl:1},
   {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:160, h:76, sub:1},
   {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:160, h:76, sub:1},
   {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:160, h:76, sub:1},

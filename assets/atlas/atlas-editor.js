@@ -25,7 +25,7 @@
   grid.className = 'atlas-editor-grid';
   world.appendChild(grid);
 
-  setStatus('Drag an item, edit text, then press Save layout.', 'ok');
+  setStatus('Drag an item, edit text, then press Save + GitHub.', 'ok');
   pingServer();
 
   function setStatus(text, tone) {
@@ -611,7 +611,7 @@
     if (!drag || e.pointerId !== drag.pointerId) return;
     const moved = drag.moved;
     drag = null;
-    if (moved) setStatus('Unsaved changes. Press Save layout when it looks right.', 'ok');
+    if (moved) setStatus('Unsaved changes. Press Save + GitHub when it looks right.', 'ok');
   }
 
   host.querySelectorAll('.nd[data-node]').forEach(el => {
@@ -669,7 +669,7 @@
     }
     markDirty(selected);
     applySelected();
-    setStatus('Unsaved changes. Press Save layout when it looks right.', 'ok');
+    setStatus('Unsaved changes. Press Save + GitHub when it looks right.', 'ok');
   });
 
   gridBtn?.addEventListener('click', () => {
@@ -683,10 +683,10 @@
 
   saveBtn?.addEventListener('click', async () => {
     if (!serverReady) {
-      setStatus('Save needs the editor server. Run python3 scripts/atlas-editor-server.py --port 8766.', 'bad');
+      setStatus('Save needs the editor server. Run python3 scripts/atlas-editor-server.py --port 8766, then open this page from http://127.0.0.1:8766/atlas-editor.html.', 'bad');
       return;
     }
-    setStatus('Saving layout and text...', 'ok');
+    setStatus('Saving, committing, and pushing to GitHub...', 'ok');
     try {
       const res = await fetch('/__atlas_editor/save', {
         method:'POST',
@@ -703,8 +703,13 @@
       dirtyRoutes.clear();
       textDirty = false;
       host.querySelectorAll('.ed-dirty').forEach(x => x.classList.remove('ed-dirty'));
+      const git = data.git || {};
       const noun = data.changed === 1 ? 'change' : 'changes';
-      setStatus(data.changed ? `Saved ${data.changed} ${noun}.` : 'No changes to save.', 'ok');
+      if (git.committed && git.pushed) {
+        setStatus(`Saved ${data.changed} ${noun}, committed ${git.commit}, and pushed to GitHub.`, 'ok');
+      } else {
+        setStatus(data.changed ? `Saved ${data.changed} ${noun}. ${git.message || 'No Git commit was needed.'}` : (git.message || 'No changes to save.'), 'ok');
+      }
     } catch (err) {
       setStatus(err.message || String(err), 'bad');
     }
@@ -714,7 +719,7 @@
     try {
       const res = await fetch('/__atlas_editor/ping', {cache:'no-store'});
       serverReady = res.ok;
-      if (serverReady) setStatus('Editor server connected. Drag items, edit text, and save when ready.', 'ok');
+      if (serverReady) setStatus('Editor server connected. Drag items, edit text, then Save + GitHub.', 'ok');
       else setStatus('Open through scripts/atlas-editor-server.py to enable saving.', 'bad');
     } catch (err) {
       serverReady = false;
