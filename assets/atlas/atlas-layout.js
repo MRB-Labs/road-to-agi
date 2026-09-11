@@ -28,7 +28,7 @@ const ATLAS_REGIONS = [
   {key:'compute',       x:512,  y:112, w:232, h:680},
   {key:'intelligence',  x:760,  y:112, w:192, h:680},
   {key:'network',       x:984,  y:112, w:176, h:680},
-  {key:'embodied',      x:1188, y:112, w:232, h:680},
+  {key:'embodied',      x:1192, y:112, w:232, h:680},
 ];
 
 /* Not a region: the planet in the background photograph. These are its measured
@@ -49,14 +49,14 @@ const ATLAS_NODES = [
   {id:'l2',    layer:2,  region:'foundations',  x:64,   y:464, w:176, h:144},
 
   /* Silicon carries one card, so it gets the width its own name needs. */
-  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:192, w:176, h:216, iy:-32, iz:120},
+  {id:'l3',    layer:3,  region:'silicon',      x:304,  y:464, w:176, h:216, iy:-56, iz:120},
 
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
-  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:544, encl:1, iy:-232},
-  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:352, w:176, h:144, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
-  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:192, sub:1, ix:-8, iy:-64, iz:150},
+  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:488, encl:1, iy:-232},
+  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:144, sub:1, icon:'1p', ix:-8, iy:-48, iz:145},
+  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:136, sub:1, ix:-8, iy:-40, iz:150},
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
   {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144, ix:8, iy:-48},
@@ -65,16 +65,16 @@ const ATLAS_NODES = [
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:192, w:144, h:152, iy:-16, iz:120},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:376, w:144, h:160, iy:-16, iz:120},
 
   /* the machine, and everything inside it */
-  {id:'l10',   layer:10, region:'embodied',     x:1200, y:192, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
-  {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:176, h:80, sub:1},
-  {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:176, h:80, sub:1},
-  {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:176, h:80, sub:1},
-  {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:176, h:80, sub:1},
-  {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:176, h:80, sub:1},
-  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:176, h:72, sub:1, icon:'battery'},
+  {id:'l10',   layer:10, region:'embodied',     x:1208, y:192, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
+  {id:'sens',  layer:10, region:'embodied',     x:1216, y:272, w:184, h:80, sub:1},
+  {id:'l4e',   layer:4,  region:'embodied',     x:1216, y:356, w:184, h:80, sub:1},
+  {id:'l8e',   layer:7,  region:'embodied',     x:1216, y:440, w:184, h:80, sub:1},
+  {id:'l9e',   layer:8,  region:'embodied',     x:1216, y:524, w:184, h:80, sub:1},
+  {id:'act',   layer:10, region:'embodied',     x:1216, y:608, w:184, h:80, sub:1},
+  {id:'l1b',   layer:1,  region:'embodied',     x:1216, y:692, w:184, h:72, sub:1, icon:'battery'},
 ];
 
 /* Flow families. `dash` carries the meaning a second time, so a route never
@@ -170,15 +170,15 @@ const ATLAS_ROUTES = [
      itself and its containment says the rest; `ends` keeps the block each one
      feeds able to light its own supply. */
   {from:'l1',  to:'l6',   flow:'energy',    side:['left','bottom'],
-   via:[{x:40},{y:844}], trunk:'l1-west'},
+   via:[{x:24},{y:844}], trunk:'l1-west'},
   {from:'l1',  to:'l10',  flow:'energy',    side:['left','bottom'], tx:-60,
-   via:[{x:40},{y:844}], trunk:'l1-west', ends:'l1b'},
+   via:[{x:24},{y:844}], trunk:'l1-west', ends:'l1b'},
   {from:'l2',  to:'l10',  flow:'materials', side:['left','bottom'],
-   via:[{x:24},{y:864}], ends:'act'},
+   via:[{x:40},{y:864}], ends:'act'},
   {from:'l3',  to:'l10',  flow:'compute',   side:['bottom','bottom'], tx:60,
-   via:[{x:8},{y:888}],  ends:'l4e'},
+   via:[{x:392},{y:888}],  ends:'l4e'},
 
   /* the machine and the world, threaded up the gap beside the planet */
-  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1432}]},
-  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1432}]},
+  {from:'act',   to:'world', flow:'control', side:['right','left'], dy:32, via:[{x:1440}]},
+  {from:'world', to:'sens',  flow:'data',    side:['left','right'], dx:-40, via:[{x:1440}]},
 ];
