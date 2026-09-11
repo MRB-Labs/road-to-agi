@@ -201,6 +201,9 @@ table.dat{min-width:520px}
 footer{padding:52px 0 70px; font-size:13px; color:var(--muted); line-height:1.7}
 footer h4{font-size:14px; color:var(--ink2); margin-bottom:10px}
 .fgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:34px}
+/* An <h2> that sits where the Method page uses <h4>, so the outline does not
+   skip a level: same size as the <h4> it replaces. */
+.fgrid .h4{font-size:1em}
 .disc{margin-top:34px; padding-top:22px; border-top:1px solid var(--line); max-width:84ch}
 
 /* ──────────────────────────────────────────────────────────────────────────
