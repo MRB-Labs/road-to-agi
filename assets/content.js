@@ -2886,7 +2886,7 @@ const ATLAS_REGIONS_TEXT={
  compute     :{t:'Compute',      s:['Land · building · operations']},
  intelligence:{t:'Intelligence', s:['Data, models and software']},
  network     :{t:'Network',      s:['Internet · telecommunications']},
- embodied    :{t:'Embodied AI',  s:['Deployed robots and smart devices']},
+ embodied    :{t:'Embodied AI',  s:['Deployed robots · smart devices']},
 };
 const ATLAS_WORLD_TEXT={t:'The physical world', s:'Energy, materials, cities, human infrastructure',
  lede:'Not a layer, but the ground the stack is drawn from: where energy is captured, where materials are extracted, and where embodied machines eventually do the work. It feeds the base pair and takes the fleet’s work back.',

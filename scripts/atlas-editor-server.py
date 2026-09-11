@@ -24,6 +24,7 @@ COMMIT_FILES = [
     "assets/atlas/atlas-layout.js",
     "assets/content.js",
     "assets/content-index.js",
+    "content/copy-snapshot.json",
     "atlas-editor.html",
     "index.html",
 ]
@@ -280,6 +281,7 @@ def _run_guard(args: list[str]) -> None:
 
 
 def commit_and_push() -> dict:
+    _run_guard(["python3", "check-content.py", "--accept"])
     result = subprocess.run(
         ["python3", "bump-assets.py"],
         cwd=ROOT,

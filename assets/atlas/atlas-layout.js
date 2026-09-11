@@ -23,11 +23,11 @@ const ATLAS_CANVAS = {w: 1760, h: 990};
      952..992   40   two arrivals into the network, kept 16 apart
      1160..1188 28   three runs between the network and the machine */
 const ATLAS_REGIONS = [
-  {key:'foundations',   x:48,   y:112, w:208, h:676},
-  {key:'silicon',       x:288,  y:112, w:208, h:676},
-  {key:'compute',       x:512,  y:112, w:232, h:676},
-  {key:'intelligence',  x:760,  y:112, w:192, h:676},
-  {key:'network',       x:984,  y:112, w:176, h:672},
+  {key:'foundations',   x:48,   y:112, w:208, h:680},
+  {key:'silicon',       x:288,  y:112, w:208, h:680},
+  {key:'compute',       x:512,  y:112, w:232, h:680},
+  {key:'intelligence',  x:760,  y:112, w:192, h:680},
+  {key:'network',       x:984,  y:112, w:176, h:680},
   {key:'embodied',      x:1188, y:112, w:232, h:680},
 ];
 
@@ -45,8 +45,8 @@ const ATLAS_WORLD = {cx:1592, cy:440, r:124};
    `icon` overrides which mark is drawn, for a layer that appears twice in two
    different guises — the plant indoors is layer 1, but drawn as a bolt. */
 const ATLAS_NODES = [
-  {id:'l1',    layer:1,  region:'foundations',  x:64,   y:208, w:176, h:136},
-  {id:'l2',    layer:2,  region:'foundations',  x:64,   y:384, w:176, h:144},
+  {id:'l1',    layer:1,  region:'foundations',  x:64,   y:192, w:176, h:136},
+  {id:'l2',    layer:2,  region:'foundations',  x:64,   y:368, w:176, h:144},
 
   /* Silicon carries one card, so it gets the width its own name needs. */
   {id:'l3',    layer:3,  region:'silicon',      x:304,  y:456, w:176, h:168, iy:-32, iz:120},
@@ -54,9 +54,9 @@ const ATLAS_NODES = [
   /* The data centre is an enclosure too, like the machine: the plant and the
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
-  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:536, encl:1, iy:-232},
+  {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:544, encl:1, iy:-232},
   {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:160, sub:1, icon:'1p', ix:-8, iy:-56, iz:145},
-  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:184, sub:1, ix:-8, iy:-64, iz:150},
+  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:192, sub:1, ix:-8, iy:-64, iz:150},
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:160, h:152, ix:8, iy:-56},
   {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:160, h:144, ix:8, iy:-48},
@@ -152,7 +152,7 @@ const ATLAS_ROUTES = [
   /* Into the network on its left, out of it on its right, back in at the top
      and fed from below: four sides, so no side carries more than two. */
   {from:'l8',  to:'l6',   flow:'intelligence', side:['right','left'], via:[{x:960}], core:true},
-  {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:976}]},
+  {from:'l9',  to:'l6',   flow:'control',   side:['right','left'], via:[{x:968}]},
   {from:'l6',  to:'l7',   flow:'data',      side:['left','right'], via:[{x:968}]},
 
   /* the network and the machine */
