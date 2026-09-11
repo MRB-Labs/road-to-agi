@@ -403,7 +403,7 @@
     const d = id === 'world' ? AtlasData.worldDetail()
                             : AtlasData.detail(N[id].layer);
     if (!d) { hidePanel(); paint(id); return; }
-    panel.innerHTML = panelHTML(d, N[id] ? N[id].region : 'world');
+    panel.innerHTML = panelHTML(d, N[id] || null);
     panel.hidden = false;
     /* A forced reflow, not requestAnimationFrame: rAF does not fire while the
        tab is hidden, and the panel would then never get its open state. */
@@ -449,7 +449,8 @@
     else if (searchSelection.length && !host.contains(e.target)) clearSearch();
   });
 
-  function panelHTML(d, region) {
+  function panelHTML(d, node) {
+    const tone = node ? `var(--atlas-l${node.layer})` : 'var(--r-world)';
     const sec = (title, body, wide) => body
       ? `<section class="pn-sec${wide ? ' is-wide' : ''}"><h5>${esc(title)}</h5>${body}</section>` : '';
     const chips = a => a && a.length
@@ -459,7 +460,7 @@
         ${d.metric.asOf ? `<em>As of ${esc(d.metric.asOf)}${d.metric.source ? ' &middot; ' + esc(d.metric.source) : ''}</em>` : ''}
       </div>` : '';
     return `
-      <header class="pn-head" style="color:var(--r-${region});--nd-c:var(--r-${region})">
+      <header class="pn-head" style="color:${tone};--nd-c:${tone}">
         ${d.n ? `<span class="pn-num">${d.n}</span>` : `<span class="pn-globe">${d.icon || ''}</span>`}
         <span class="pn-id">
           <h4 id="atlas-panel-title">${esc(d.title)}</h4>
