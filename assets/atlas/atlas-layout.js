@@ -55,8 +55,8 @@ const ATLAS_NODES = [
      racks are inside it, not beside it. The plant sits at the top, where the
      grid reaches it first. */
   {id:'l5',    layer:5,  region:'compute',      x:528,  y:192, w:200, h:488, encl:1, iy:-216},
-  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:176, h:144, sub:1, icon:'1p', ix:-8, iy:-48, iz:145},
-  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:176, h:136, sub:1, ix:-8, iy:-40, iz:150},
+  {id:'l1p',   layer:1,  region:'compute',      x:544,  y:328, w:168, h:144, sub:1, icon:'1p', ix:-8, iy:-48, iz:145},
+  {id:'l4',    layer:4,  region:'compute',      x:544,  y:528, w:168, h:136, sub:1, ix:-8, iy:-40, iz:150},
 
   {id:'l7',    layer:6,  region:'intelligence', x:776,  y:192, w:168, h:152, ix:8, iy:-56},
   {id:'l8',    layer:7,  region:'intelligence', x:776,  y:384, w:168, h:152, ix:8, iy:-48},
@@ -65,7 +65,7 @@ const ATLAS_NODES = [
   /* Connectivity is the only path between the two enclosures, so it carries
      more routes than any other card. It is tall for that reason alone: seven
      runs spread over four sides need the height to stay 40 apart. */
-  {id:'l6',    layer:9,  region:'network',      x:1000, y:376, w:144, h:160, iy:-16, iz:120},
+  {id:'l6',    layer:9,  region:'network',      x:1000, y:376, w:144, h:168, iy:-16, iz:120},
 
   /* the machine, and everything inside it */
   {id:'l10',   layer:10, region:'embodied',     x:1208, y:192, w:200, h:584, encl:1, icon:'humanoid', iy:-264},
