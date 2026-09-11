@@ -4,10 +4,11 @@
    only: not one word of prose lives here. Names, descriptions, metrics and
    companies all come from the project's own tables through atlas-data.js.
 
-   The canvas matches the background photograph's aspect exactly, so the planet
-   in the picture lands on the same spot at every size and the map is built
-   around it. Columns are 16 apart unless a run of routes needs the room, and
-   cards are inset 16 from their region.
+   The canvas keeps the old photograph's aspect because every route has been
+   tuned in this coordinate space. The background is now drawn by CSS, and the
+   Earth is an independent transparent asset at the coordinates below. Columns
+   are 16 apart unless a run of routes needs the room, and cards are inset 16
+   from their region.
    ══════════════════════════════════════════════════════════════════════════ */
 
 const ATLAS_CANVAS = {w: 1760, h: 990};
@@ -31,11 +32,10 @@ const ATLAS_REGIONS = [
   {key:'embodied',      x:1192, y:112, w:232, h:680},
 ];
 
-/* Not a region: the planet in the background photograph. These are its measured
-   centre and radius in canvas units — 0.9040, 0.4437 and 0.0831 of the image.
-   Nothing is drawn here; the picture supplies it. Its label and hit area are in
-   ATLAS_WORLD_TEXT and the renderer. The label hangs *below* the planet, so the
-   two dashed lines leaving the top of it never cross their own caption. */
+/* Not a region: the planet is drawn as an independent transparent image. Its
+   label and hit area are in ATLAS_WORLD_TEXT and the renderer. The label hangs
+   *below* the planet, so the two dashed lines leaving the top of it never cross
+   their own caption. */
 const ATLAS_WORLD = {cx:1592, cy:440, r:124};
 
 /* One entry per card. `layer` is the site layer it opens — several cards share

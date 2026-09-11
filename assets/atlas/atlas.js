@@ -133,9 +133,9 @@
     </defs>`;
   }
 
-  /* The planet is the one in the photograph — the canvas shares its aspect, so
-     it lands on these coordinates at every size. All that is drawn here is the
-     hit area, a rim that answers to hover, and the label.
+  /* The planet is its own transparent asset, not part of the stage background.
+     It still uses the same coordinates, so existing routes and editor handles
+     keep landing on the physical-world node.
 
      The label hangs below the planet, not above it: the two dashed lines that
      leave the top of the world for the foundations used to run straight
@@ -150,8 +150,14 @@
       : [w.sub];
     const subText = subLines.map((line, i) =>
       `<tspan x="${w.cx}" ${i ? 'dy="14"' : ''}>${esc(line)}</tspan>`).join('');
+    const imgSize = Math.round(w.r * 3.42);
+    const imgX = Math.round(w.cx - imgSize / 2);
+    const imgY = Math.round(w.cy - imgSize / 2);
     return `<g class="pw-node" tabindex="0" role="button" data-node="world"
                aria-label="${esc(w.label)} — open it in the infrastructure">
+      <image class="pw-earth" href="assets/atlas/earth.png"
+             x="${imgX}" y="${imgY}" width="${imgSize}" height="${imgSize}"
+             preserveAspectRatio="xMidYMid meet"/>
       <circle class="pw-hit"  cx="${w.cx}" cy="${w.cy}" r="${w.r + 18}"/>
       <circle class="pw-halo" cx="${w.cx}" cy="${w.cy}" r="${w.r + 26}"/>
       <circle class="pw-rim"  cx="${w.cx}" cy="${w.cy}" r="${w.r}"/>

@@ -74,19 +74,16 @@
 }
 
 /* ── background, in separately editable layers ───────────────────────────── */
-/* The photograph belongs to the canvas, not to the whole component: it has to
-   cover exactly the stage rectangle for its planet to land on the coordinates
-   in atlas-layout.js, and it rides the pan and zoom with everything else. */
+/* The atlas background is now drawn from theme-native layers. The Earth is a
+   separate transparent asset inside the SVG, so light mode never exposes a
+   rectangular photograph behind the map. */
 .atlas-bg{position:absolute; inset:0; pointer-events:none; z-index:0}
 .atlas-bg>*{position:absolute; inset:0}
-/* The photograph is the atmosphere: grid, dotted world, stars, orbital arcs
-   and the planet, all in one asset. The canvas shares its aspect exactly, so
-   the planet lands on the coordinates in atlas-layout.js at every size.
-   The tint above it keeps the cards legible over the brighter regions. */
-/* Behind the stage: the same photograph, blurred and dimmed, so the toolbar
-   band and the edges do not read as a hard cut. */
-.atlas-bg-photo{background:var(--atlas-bg) url("space-wash.jpg") center/cover no-repeat;
-  filter:blur(24px) saturate(.8); opacity:.5; transform:scale(1.08)}
+.atlas-bg-photo{background:
+  radial-gradient(circle at 84% 42%, rgba(58,167,255,.18), transparent 19%),
+  radial-gradient(circle at 48% 16%, rgba(92,133,255,.11), transparent 28%),
+  linear-gradient(135deg, var(--atlas-bg) 0%, var(--atlas-bg-2) 52%, #061421 100%);
+  opacity:1}
 .atlas-bg-tint{background:linear-gradient(180deg,
   rgba(4,11,22,.85) 0%, rgba(4,11,22,.35) 22%, rgba(4,11,22,.35) 78%, rgba(4,11,22,.85) 100%)}
 
@@ -95,14 +92,24 @@
   overflow:hidden; cursor:grab; touch-action:pan-y}
 .atlas-stage.is-panning{cursor:grabbing}
 .atlas-world{position:absolute; inset:0; transform-origin:0 0;
-  background:url("space.jpg") center/100% 100% no-repeat;
+  background:
+    radial-gradient(circle at 10% 22%, rgba(125,162,255,.18) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 46% 78%, rgba(234,246,255,.16) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 74% 18%, rgba(85,186,210,.2) 0 1.1px, transparent 1.9px),
+    linear-gradient(rgba(120,180,225,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,180,225,.04) 1px, transparent 1px),
+    radial-gradient(ellipse at 84% 42%, rgba(58,167,255,.16), transparent 23%),
+    radial-gradient(ellipse at 46% 50%, rgba(34,92,150,.18), transparent 52%);
+  background-size:211px 157px, 173px 191px, 239px 181px, 40px 40px, 40px 40px, 100% 100%, 100% 100%;
   transition:transform var(--atlas-motion-normal) var(--atlas-ease)}
 .atlas-world.is-dragging{transition:none}
 .atlas-canvas{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
-/* a wash over the picture on the left, where the cards sit */
 .atlas-world::before{content:''; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(90deg, rgba(4,11,22,.62) 0%, rgba(4,11,22,.34) 46%,
-  rgba(4,11,22,.08) 72%, rgba(4,11,22,0) 88%)}
+  background:
+    radial-gradient(ellipse at 78% 36%, transparent 0 28%, rgba(85,186,210,.08) 29%, transparent 30% 35%, rgba(125,162,255,.07) 36%, transparent 37%),
+    radial-gradient(ellipse at 42% 48%, transparent 0 45%, rgba(85,186,210,.06) 46%, transparent 47%),
+    linear-gradient(90deg, rgba(4,11,22,.62) 0%, rgba(4,11,22,.34) 46%,
+    rgba(4,11,22,.08) 72%, rgba(4,11,22,0) 88%)}
 
 /* ── macro-system regions ────────────────────────────────────────────────── */
 .rg-box{fill:rgba(10,26,44,.42); stroke:currentColor; stroke-width:1.2;
@@ -218,6 +225,7 @@
 .pw-node{cursor:pointer; outline:none}
 .pw-node:focus,.pw-node:focus .pw-rim{opacity:.75}
 .pw-node:focus .pw-halo{opacity:.3}
+.pw-earth{pointer-events:none; opacity:.96; filter:drop-shadow(0 0 18px rgba(58,167,255,.55))}
 /* fill:none is not hit-testable; a transparent fill is. This disc is the
    planet's whole hit area — the rings around it only ever draw. */
 .pw-hit{fill:transparent}
