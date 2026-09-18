@@ -20,10 +20,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F6F7F9">
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-<script>(function(){var t;try{t=localStorage.getItem("rtagi-theme")}catch(e){}
-if(!t){try{t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch(e){t="light"}}
-document.documentElement.setAttribute("data-theme",t);/* the app views are fixed overlays; without this class the CSS stands them down so the no-script summary is reachable */document.documentElement.classList.add("js");})();</script>
-<link rel="stylesheet" href="style.css?v=e1d253c6">
+<script>(function(){document.documentElement.setAttribute("data-theme","dark");/* light mode is kept in CSS but disabled publicly while it is reworked */document.documentElement.classList.add("js");})();</script>
+<link rel="stylesheet" href="style.css?v=b9323824">
 </head>
 <body class="doc">
 
@@ -63,9 +61,10 @@ document.documentElement.setAttribute("data-theme",t);/* the app views are fixed
         set up and will be listed here when it is live.</div>
       <div><h2 class="h4">What this site collects</h2>Nothing. There is no analytics, no advertising, no tracking
         pixel and no cookie set by this site. There is no account, form or newsletter.</div>
-      <div><h2 class="h4">One setting, on your device</h2>If you switch between light and dark mode, the choice is
-        saved in your browser&rsquo;s local storage, under the name <code>rtagi-theme</code>, so the site remembers
-        it. It never leaves your device, and clearing your browser&rsquo;s data for this site removes it.</div>
+      <div><h2 class="h4">One setting, on your device</h2>The site currently opens in dark mode while light mode is
+        being reworked. If the theme switch returns, that choice may be saved in your browser&rsquo;s local storage
+        under the name <code>rtagi-theme</code>. It never leaves your device, and clearing your browser&rsquo;s data
+        for this site removes it.</div>
       <div><h2 class="h4">Hosting</h2>The site is hosted on GitHub Pages. Like any web server, GitHub receives
         your IP address and browser details when a page loads, and may keep them in its logs for security. See the
         <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub privacy statement</a>.</div>

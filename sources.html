@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,7 @@
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 <style>
 :root{
-  color-scheme: light;
+  color-scheme: dark;
   --bg:#f6f7f9; --surface-1:#ffffff; --surface-2:#eef1f4; --surface-3:#e4e8ed;
   --ink:#17202a; --ink-muted:#5b6673; --ink-faint:#7f8a98;
   --line:#d8dde4; --line-strong:#bcc5cf;
@@ -192,7 +192,7 @@ footer p{max-width:88ch;margin:0 0 12px}
     <a href="#gaps">Known gaps</a>
   </nav>
 
-  <button class="tgl" id="themeBtn" type="button">Dark</button>
+  <button class="tgl" id="themeBtn" type="button" hidden>Dark</button>
 </div></div>
 
 <main id="main" tabindex="-1">
@@ -510,13 +510,10 @@ footer p{max-width:88ch;margin:0 0 12px}
   var root=document.documentElement, btn=document.getElementById('themeBtn');
   var saved=null;
   try{saved=localStorage.getItem('rta-theme')}catch(e){}
-  var initial = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light');
+  var initial = 'dark';
   set(initial);
   function set(t){root.setAttribute('data-theme',t); btn.textContent = (t==='dark'?'Light':'Dark');}
-  btn.addEventListener('click',function(){
-    var t = root.getAttribute('data-theme')==='dark'?'light':'dark';
-    set(t); try{localStorage.setItem('rta-theme',t)}catch(e){}
-  });
+  if(btn) btn.style.display='none';
 
   var links=[].slice.call(document.querySelectorAll('#nav a'));
   var targets=links.map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);

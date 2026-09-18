@@ -500,6 +500,7 @@ dialog{max-width:min(980px,94vw)}
   border:1px solid var(--line); background:var(--surface); color:var(--ink2); border-radius:8px;
   padding:6px 10px; font:500 11.5px var(--f); transition:.18s ease; white-space:nowrap}
 .theme-toggle:hover{border-color:var(--accent); color:var(--accent-d)}
+.theme-toggle{display:none}
 .theme-toggle svg{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.6;
   stroke-linecap:round; stroke-linejoin:round}
 .theme-toggle .tt-moon{display:none}
