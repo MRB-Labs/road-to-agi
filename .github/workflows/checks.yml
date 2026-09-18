@@ -93,7 +93,10 @@ jobs:
         run: python3 scripts/check-browsers.py
 
   deploy:
-    needs: [guards]
+    # The browser job gates the deploy: a page that breaks in only one engine
+    # must not reach readers. It adds about two minutes, and it passed on every
+    # one of the fifteen runs before it was taken out, so it blocks nothing real.
+    needs: [guards, browsers]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
