@@ -1,4 +1,4 @@
-# Road to AGI
+# Stack to AGI
 
 An infrastructure investment thesis: what artificial intelligence is physically
 built on, layer by layer, and where in each value chain an investor can capture

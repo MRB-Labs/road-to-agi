@@ -30,7 +30,7 @@ SOURCES = sorted(p for p in ROOT.glob('*.html') if not p.name.startswith('atlas-
 URL = re.compile(r'https?://[^\s"\'<>`)\]\\]+')
 SKIP = re.compile(r'^https?://(localhost|127\.|www\.w3\.org|schema\.org|mrb-labs\.github\.io|'
                   r's3\.tradingview\.com|fonts\.)')
-UA = 'Mozilla/5.0 (compatible; RoadToAGI-linkcheck; +https://github.com/MRB-Labs/road-to-agi)'
+UA = 'Mozilla/5.0 (compatible; StackToAGI-linkcheck; +https://stacktoagi.com/)'
 DEAD = {404, 410}
 BLOCKED = {401, 403, 429, 999}
 

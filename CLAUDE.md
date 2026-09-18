@@ -1,4 +1,4 @@
-# Road to AGI — working rules
+# Stack to AGI — working rules
 
 A ten-layer infrastructure investment thesis, published with GitHub Pages from
 `main`. Static site, no build step for the pages themselves — generators and

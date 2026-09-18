@@ -37,7 +37,7 @@ CONTENT = [
 
 
 def get(url, timeout=30):
-    req = urllib.request.Request(url, headers={'User-Agent': 'road-to-agi-canary'})
+    req = urllib.request.Request(url, headers={'User-Agent': 'stack-to-agi-canary'})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.status, r.read()
 

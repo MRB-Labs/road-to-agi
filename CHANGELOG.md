@@ -1,6 +1,6 @@
 # Changelog
 
-What changed in each public revision of Road to AGI, written for readers rather
+What changed in each public revision of Stack to AGI, written for readers rather
 than developers. Commit-by-commit detail is in the git history.
 
 A revision gets its number when it is published. Everything under

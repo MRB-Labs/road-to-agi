@@ -52,7 +52,7 @@ def get(path, key, budget, params=None):
     url = f'{BASE}/{path}?{urllib.parse.urlencode(q)}'
     for attempt in range(2):
         try:
-            req = urllib.request.Request(url, headers={'User-Agent': 'road-to-agi-fundamentals'})
+            req = urllib.request.Request(url, headers={'User-Agent': 'stack-to-agi-fundamentals'})
             with urllib.request.urlopen(req, timeout=20) as r:
                 budget.rate_limited = 0
                 return json.loads(r.read().decode('utf-8'))

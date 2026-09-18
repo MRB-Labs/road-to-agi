@@ -1,4 +1,4 @@
-# Road to AGI — a public report; everything here is meant to be read.
+# Stack to AGI — a public report; everything here is meant to be read.
 User-agent: *
 Allow: /
 

@@ -36,7 +36,7 @@ def font(name, size):
 img = Image.new('RGB', (W, H), BG)
 d   = ImageDraw.Draw(img)
 
-d.text((PAD, PAD), 'ROAD TO AGI', font=font('Arial Bold.ttf', 26), fill=ACCENT)
+d.text((PAD, PAD), 'STACK TO AGI', font=font('Arial Bold.ttf', 26), fill=ACCENT)
 
 y = 176
 for line in ['The physical infrastructure', 'behind AI']:
