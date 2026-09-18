@@ -36,24 +36,21 @@ def font(name, size):
 img = Image.new('RGB', (W, H), BG)
 d   = ImageDraw.Draw(img)
 
-d.text((PAD, PAD), 'STACK TO AGI', font=font('Arial Bold.ttf', 26), fill=ACCENT)
+# A compact, high-contrast card: Messages often crops this to a tiny square.
+d.rounded_rectangle([42, 42, W - 42, H - 42], radius=34, outline=ACCENT, width=3)
+d.text((PAD, 86), 'STACK TO AGI', font=font('Arial Bold.ttf', 68), fill=INK)
+d.text((PAD + 4, 174), 'Following AI from atoms', font=font('Arial Bold.ttf', 54), fill=ACCENT)
+d.text((PAD + 4, 238), 'to intelligence', font=font('Arial Bold.ttf', 54), fill=ACCENT)
+d.text((PAD + 4, 334), 'A ten-layer map of the physical stack behind AI.',
+       font=font('Arial.ttf', 34), fill=MUTED)
 
-y = 176
-for line in ['The physical infrastructure', 'behind AI']:
-    d.text((PAD, y), line, font=font('Arial Bold.ttf', 76), fill=INK)
-    y += 92
-
-d.text((PAD, 392), 'Ten layers, the companies inside each, and where the',
-       font=font('Arial.ttf', 30), fill=MUTED)
-d.text((PAD, 434), 'binding constraints actually sit.',
-       font=font('Arial.ttf', 30), fill=MUTED)
-
-# the ten layers, in order, in their own colours
+labels = ['energy', 'materials', 'silicon', 'compute', 'data', 'models', 'network', 'agents', 'connectivity', 'embodied']
 sw_w, gap = 92, 12
 x = PAD
 for i, c in enumerate(LAYERS):
-    d.rounded_rectangle([x, 520, x + sw_w, 534], radius=7, fill=c)
-    d.text((x, 552), str(i + 1), font=font('Arial Bold.ttf', 22), fill=c)
+    d.rounded_rectangle([x, 472, x + sw_w, 492], radius=10, fill=c)
+    d.text((x, 516), str(i + 1), font=font('Arial Bold.ttf', 26), fill=c)
+    d.text((x + 34, 520), labels[i], font=font('Arial.ttf', 18), fill=MUTED)
     x += sw_w + gap
 
 out = ROOT / 'assets' / 'images' / 'social-card.png'
