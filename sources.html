@@ -505,28 +505,6 @@ footer p{max-width:88ch;margin:0 0 12px}
 </main>
 <footer><div class="wrap"><a href="about.html">About</a> · <a href="disclaimer.html">Disclaimer</a> · <a href="privacy.html">Privacy</a><br>Stack to AGI — revision 10, last updated 10 September 2026. Figures are current as of that date and change rapidly; where a claim is time-sensitive its own date and source are given beside it. All diagrams and charts are drawn from the underlying data as inline vector graphics. The only imported images are company logos, vendored to identify the businesses named — each remains the trademark of its owner and appears for identification, not endorsement — and element photographs, credited on the Method page. Nothing here is investment advice.</div></footer>
 
-<script>
-(function(){
-  var root=document.documentElement, btn=document.getElementById('themeBtn');
-  var saved=null;
-  try{saved=localStorage.getItem('rta-theme')}catch(e){}
-  var initial = 'dark';
-  set(initial);
-  function set(t){root.setAttribute('data-theme',t); btn.textContent = (t==='dark'?'Light':'Dark');}
-  if(btn) btn.style.display='none';
-
-  var links=[].slice.call(document.querySelectorAll('#nav a'));
-  var targets=links.map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(!en.isIntersecting) return;
-        links.forEach(function(a){a.classList.toggle('on', a.getAttribute('href')==='#'+en.target.id)});
-      });
-    },{rootMargin:'-70px 0px -70% 0px'});
-    targets.forEach(function(t){io.observe(t)});
-  }
-})();
-</script>
+<script src="assets/sources.js?v=7befaff5"></script>
 </body>
 </html>

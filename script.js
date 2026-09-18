@@ -745,8 +745,7 @@ function elementsPane(n,col){
 
   const cards=d.els.map(([sym,why,code,keep])=>{
     const shot=EL_HAVE.has(sym)
-      ? `<img src="assets/elements/${sym}.jpg" alt="Specimen of ${sym}" loading="lazy" decoding="async"`+
-        ` onerror="this.remove()">`
+      ? `<img src="assets/elements/${sym}.jpg" alt="Specimen of ${sym}" loading="lazy" decoding="async">`
       : '';
     const also=(EL_LAYERS[sym]||[]).filter(x=>x!==n);
     return `<li class="elc" data-code="${code}" style="--stage:${col}">
@@ -2192,3 +2191,9 @@ function fundamentalsBlock(name){
   M('env-open', ENVIRO.open.map(([t,w])=>
     `<li><b>${e(t)}</b><span>${e(w)}</span></li>`).join(''));
 })();
+
+/* A specimen photograph that fails to load removes itself. This was an onerror
+   attribute, which the Content Security Policy blocks; a listener does the same
+   job and is allowed. `error` does not bubble, so it is caught on the way down. */
+document.addEventListener('error',e=>{const t=e.target;
+  if(t&&t.tagName==='IMG'&&t.closest('.elc')) t.remove();},true);

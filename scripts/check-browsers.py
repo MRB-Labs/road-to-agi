@@ -39,6 +39,9 @@ PAGES = ['index.html', 'stack.html', 'markets.html', 'environment.html',
 BASELINE = ROOT / 'content' / 'a11y-baseline.json'
 DESKTOP = {'width': 1440, 'height': 950}
 PHONE = {'width': 390, 'height': 844}
+CSP = (ROOT / 'content' / 'csp.txt').read_text().strip()
+REPORT = ("document.addEventListener('securitypolicyviolation', e => console.error("
+          "'CSP blocked ' + e.violatedDirective + ' — ' + (e.blockedURI || 'inline')));")
 
 
 def serve():
@@ -46,6 +49,13 @@ def serve():
     class Quiet(http.server.SimpleHTTPRequestHandler):
         def log_message(self, *a):
             pass
+
+        # Serve the real Content Security Policy, so every engine runs every
+        # page under what readers get. A blocked script or frame surfaces as a
+        # console error through REPORT below, and fails the check.
+        def end_headers(self):
+            self.send_header('Content-Security-Policy', CSP)
+            super().end_headers()
     handler = functools.partial(Quiet, directory=str(ROOT))
     srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler)
     threading.Thread(target=srv.serve_forever, daemon=True).start()
@@ -56,6 +66,7 @@ def visit(browser, base, page_name, viewport, bad, tag):
     """Load one page and record everything wrong with it into `bad`."""
     ctx = browser.new_context(viewport=viewport)
     page = ctx.new_page()
+    page.add_init_script(REPORT)
     say = lambda msg: bad.append('%s %s: %s' % (tag, page_name, msg))
     page.on('pageerror', lambda e: say('script error — %s' % str(e).splitlines()[0][:160]))
     page.on('console', lambda m: m.type == 'error' and say('console error — %s' % m.text[:160]))

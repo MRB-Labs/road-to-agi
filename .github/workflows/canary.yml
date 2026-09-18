@@ -19,3 +19,8 @@ jobs:
 
       - name: The published site is up and says what it should
         run: python3 scripts/check-live.py
+
+
+      - name: Live Content Security Policy matches the repository
+
+        run: python3 scripts/check-csp.py --live https://stacktoagi.com/

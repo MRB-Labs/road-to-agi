@@ -49,7 +49,8 @@ def updated_date():
     return 'an undated working copy'
 
 ver = {'style.css': h('style.css'), 'script.js': h('script.js'),
-       'assets/taxonomy.js': h('assets/taxonomy.js')}
+       'assets/taxonomy.js': h('assets/taxonomy.js'),
+       'assets/boot.js': h('assets/boot.js'), 'assets/sources.js': h('assets/sources.js')}
 # Each page loads its own slice of the content, so stamp them all; the source
 # file is not loaded by anything and needs no hash.
 for f in sorted(glob.glob('assets/content-*.js')):

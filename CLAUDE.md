@@ -58,6 +58,7 @@ python3 brand/build-companies.py --check  # the company map matches its database
 python3 check-content.py                  # wording matches the approved baseline
 python3 scripts/check-figures.py          # no new figure lacks a date
 python3 scripts/check-offline.py          # no page fetches from another server
+python3 scripts/check-csp.py              # no inline script or handler; script hosts allowed
 python3 scripts/check-site-links.py       # local links, anchors and assets resolve
 python3 scripts/check-metadata.py         # metadata, social card and favicon are present
 python3 scripts/check-a11y.py             # basic accessibility shell is sound
@@ -186,9 +187,13 @@ Cloudflare in front as a proxy (set up 2026-09-18). Some configuration lives in
 Cloudflare, not in this repository: encryption mode **Full (strict)**, **Always
 Use HTTPS**, and a Response Header Transform Rule named "Security headers" that
 sets `X-Content-Type-Options`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy`
-and `Permissions-Policy`. HSTS comes from GitHub. There is no Content Security
-Policy yet: TradingView and the inline theme scripts need one written and tested
-first. If GitHub ever fails to renew its certificate behind the proxy, switch
+and `Permissions-Policy`. HSTS comes from GitHub. The Content Security
+Policy is `content/csp.txt`, and Cloudflare must carry it verbatim as a fifth
+header in the same rule. It allows no inline script at all, so the theme starter
+is `assets/boot.js` and the Sources page's script is `assets/sources.js`; never put
+a `<script>` body or an `onclick=` back into a page or into generated HTML.
+`check-csp.py` fails if one appears, `check-browsers.py` serves every page under
+the policy, and the canary compares the live header with the file. If GitHub ever fails to renew its certificate behind the proxy, switch
 the encryption mode to plain **Full**.
 
 The guards and the deploy are one workflow: the site is published only if every
