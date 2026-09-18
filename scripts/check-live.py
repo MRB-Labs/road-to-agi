@@ -13,7 +13,7 @@ Standard library only, so it needs nothing installed in CI.
 import argparse, json, re, sys, urllib.request, urllib.error
 from datetime import datetime, timezone
 
-BASE = 'https://mrb-labs.github.io/road-to-agi/'
+BASE = 'https://stacktoagi.com/'
 STALE_DAYS = 4          # the fundamentals workflow runs daily; four days is a fault
 
 PAGES = ['', 'stack.html', 'investor.html', 'markets.html',

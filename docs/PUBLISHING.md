@@ -36,7 +36,7 @@ core assets, sitemap and fundamentals data are reachable after deployment.
 
 ## Domain migration later
 
-When a custom domain is chosen, update:
+The production domain is `stacktoagi.com`. If it changes again, update:
 
 - Canonical URLs in every page.
 - Open Graph URLs and image URLs.
@@ -46,4 +46,3 @@ When a custom domain is chosen, update:
 - Any deployment settings in GitHub Pages.
 
 Then run the full release checklist.
-

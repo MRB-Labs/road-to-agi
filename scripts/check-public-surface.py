@@ -31,7 +31,7 @@ def main():
             bad.append('deploy staging is missing %s' % token)
 
     robots = (ROOT / 'robots.txt').read_text(encoding='utf-8')
-    if 'Sitemap: https://mrb-labs.github.io/road-to-agi/sitemap.xml' not in robots:
+    if 'Sitemap: https://stacktoagi.com/sitemap.xml' not in robots:
         bad.append('robots.txt must point to the public sitemap')
 
     if bad:

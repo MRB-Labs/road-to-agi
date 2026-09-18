@@ -15,7 +15,7 @@ PUBLIC = [
     'index.html', 'stack.html', 'markets.html', 'environment.html',
     'investor.html', 'projects.html', 'method.html', 'sources.html',
     'about.html', 'disclaimer.html', 'privacy.html']
-BASE = 'https://mrb-labs.github.io/road-to-agi/'
+BASE = 'https://stacktoagi.com/'
 SOCIAL = ROOT / 'assets' / 'images' / 'social-card.png'
 FAVICON = ROOT / 'assets' / 'images' / 'favicon.svg'
 

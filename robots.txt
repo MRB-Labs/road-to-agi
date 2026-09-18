@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mrb-labs.github.io/road-to-agi/sitemap.xml
+Sitemap: https://stacktoagi.com/sitemap.xml
