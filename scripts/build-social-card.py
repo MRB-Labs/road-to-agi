@@ -39,7 +39,7 @@ d   = ImageDraw.Draw(img)
 # A compact, high-contrast card: Messages often crops this to a tiny square.
 d.rounded_rectangle([42, 42, W - 42, H - 42], radius=34, outline=ACCENT, width=3)
 d.text((PAD, 86), 'STACK TO AGI', font=font('Arial Bold.ttf', 68), fill=INK)
-d.text((PAD + 4, 174), 'Following AI from atoms', font=font('Arial Bold.ttf', 54), fill=ACCENT)
+d.text((PAD + 4, 174), 'Following AI from energy', font=font('Arial Bold.ttf', 54), fill=ACCENT)
 d.text((PAD + 4, 238), 'to intelligence', font=font('Arial Bold.ttf', 54), fill=ACCENT)
 d.text((PAD + 4, 334), 'A ten-layer map of the physical stack behind AI.',
        font=font('Arial.ttf', 34), fill=MUTED)
