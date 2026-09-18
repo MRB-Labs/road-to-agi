@@ -46,3 +46,15 @@ The production domain is `stacktoagi.com`. If it changes again, update:
 - Any deployment settings in GitHub Pages.
 
 Then run the full release checklist.
+
+## Hosting and headers
+
+`stacktoagi.com` is served by GitHub Pages behind a Cloudflare proxy. Cloudflare
+holds settings the repository does not: SSL/TLS mode Full (strict), Always Use
+HTTPS, and the "Security headers" response transform rule (`nosniff`,
+`SAMEORIGIN`, `strict-origin-when-cross-origin`, and a `Permissions-Policy`
+denying camera, microphone and geolocation). Check them with:
+
+```bash
+curl -sI https://stacktoagi.com/ | grep -iE "server|x-content|x-frame|referrer|permissions|strict-transport"
+```

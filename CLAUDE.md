@@ -181,6 +181,16 @@ it: date the figure or leave the prose alone.
 
 ## Publishing
 
+**Hosting.** The site is served by GitHub Pages at `stacktoagi.com`, with
+Cloudflare in front as a proxy (set up 2026-09-18). Some configuration lives in
+Cloudflare, not in this repository: encryption mode **Full (strict)**, **Always
+Use HTTPS**, and a Response Header Transform Rule named "Security headers" that
+sets `X-Content-Type-Options`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy`
+and `Permissions-Policy`. HSTS comes from GitHub. There is no Content Security
+Policy yet: TradingView and the inline theme scripts need one written and tested
+first. If GitHub ever fails to renew its certificate behind the proxy, switch
+the encryption mode to plain **Full**.
+
 The guards and the deploy are one workflow: the site is published only if every
 guard passes, so a broken commit leaves the previous version live.
 The browser job (`check-browsers.py`) gates the deploy too: every page in
