@@ -40,6 +40,17 @@ BASELINE = ROOT / 'content' / 'a11y-baseline.json'
 DESKTOP = {'width': 1440, 'height': 950}
 PHONE = {'width': 390, 'height': 844}
 CSP = (ROOT / 'content' / 'csp.txt').read_text().strip()
+PHONE_CHECK = """() => {
+  const cut = [...document.querySelectorAll('body *')].filter(e => {
+    const r = e.getBoundingClientRect();
+    if (!(r.width > 0 && r.height > 0 && r.right > innerWidth + 1)) return false;
+    if (getComputedStyle(e).position === 'fixed') return false;
+    for (let a = e.parentElement; a; a = a.parentElement)
+      if (/auto|scroll/.test(getComputedStyle(a).overflowX)) return false;
+    return true;
+  }).map(e => (e.className && e.className.baseVal !== undefined ? e.tagName : (e.className || e.tagName)).toString().split(' ')[0]);
+  return [document.documentElement.scrollHeight, cut];
+}"""
 REPORT = ("document.addEventListener('securitypolicyviolation', e => console.error("
           "'CSP blocked ' + e.violatedDirective + ' — ' + (e.blockedURI || 'inline')));")
 
@@ -86,6 +97,16 @@ def visit(browser, base, page_name, viewport, bad, tag):
     wide = page.evaluate('document.documentElement.scrollWidth - innerWidth')
     if wide > 1:
         say('%dpx wider than the %dpx viewport' % (wide, viewport['width']))
+
+    # On a phone: a page whose content collapses (Projects went blank on
+    # 2026-09-19) is barely taller than the screen, and anything past the right
+    # edge is silently cut off by the phone stylesheet's overflow-x:hidden.
+    if viewport is PHONE:
+        tall, cut = page.evaluate(PHONE_CHECK)
+        if tall <= viewport['height'] + 200:
+            say('content collapsed on a phone — the page is only %dpx tall' % tall)
+        if cut:
+            say('%d element(s) cut off at the right edge on a phone: %s' % (len(cut), ', '.join(cut[:3])))
 
     if page_name == 'index.html':
         drawn, expected = page.evaluate(

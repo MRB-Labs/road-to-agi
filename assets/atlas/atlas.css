@@ -473,3 +473,18 @@
 .atlas-fallback{margin:0; padding:28px; color:var(--atlas-text-muted,#8faac1);
   font:400 14px var(--f,sans-serif); text-align:center}
 .atlas:not(.is-loading) .atlas-fallback{display:none}
+
+/* ── PHONE FIXES 2026-09-19 ─────────────────────────────────────────────────── */
+@media (max-width:760px){
+  .nd-sub{font-size:12px; line-height:1.45}
+  .nd.is-small .nd-sub{font-size:11.5px}
+  .fl-btn{min-height:40px}
+  /* The layer marks. Two things broke them on a phone: the offsets set in the
+     visual editor (--nd-ix/--nd-iy/--nd-is) are for the desktop canvas and
+     pushed three marks above their card, and a page rule for the overview's
+     SVGs gave every mark a 520px minimum height. On a phone the mark sits in
+     the corner at a fixed size. The #atlas id is what outranks that rule. */
+  #atlas .nd .licon.nd-icon,#atlas .nd.is-encl .nd-icon{position:absolute; top:11px; right:12px;
+    left:auto; bottom:auto; width:24px !important; height:24px !important;
+    min-height:0 !important; max-height:24px !important; transform:none !important; margin:0}
+}

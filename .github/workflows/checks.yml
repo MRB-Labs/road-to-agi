@@ -20,8 +20,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Runners are pinned to ubuntu-24.04 (pinned on 2026-09-19): ubuntu-latest
+  # moves to Ubuntu 26 on 2026-10-19, and the browser job's Playwright 1.47 may
+  # not install there — and that job gates the deploy. Move deliberately.
   guards:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -80,7 +83,7 @@ jobs:
   # rectangle round the planet was a Safari-only focus ring that survived
   # three rounds of review because nobody looked in WebKit.
   browsers:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -101,7 +104,7 @@ jobs:
     # one of the fifteen runs before it was taken out, so it blocks nothing real.
     needs: [guards, browsers]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
