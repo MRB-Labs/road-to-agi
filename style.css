@@ -2474,7 +2474,7 @@ footer{
 @media(max-width:760px){
   :root{--nav-h:0px}
   html,body{overflow-x:hidden}
-  body{font-size:15px; line-height:1.58}
+  body{font-size:15px; line-height:1.58; padding-bottom:calc(78px + env(safe-area-inset-bottom))}
   .wrap{padding:0 14px}
 
   nav{
@@ -2482,22 +2482,33 @@ footer{
     border-bottom-color:var(--chrome-line);
   }
   .nav-in{
-    padding:9px 12px 10px; gap:9px; align-items:center;
-    flex-wrap:wrap;
+    padding:9px 12px; gap:9px; align-items:center;
+    flex-wrap:nowrap; justify-content:center;
   }
   .brand{
-    height:34px; max-width:100%; padding:0 11px 0 9px;
-    font-size:11px; letter-spacing:.07em;
+    height:36px; max-width:100%; padding:0 13px 0 10px;
+    font-size:11px; letter-spacing:.09em;
   }
   .navlinks{
-    order:3; flex:0 0 100%; justify-content:flex-start;
-    gap:4px; padding:4px; border-radius:14px;
-    overflow-x:auto; -webkit-overflow-scrolling:touch;
-    scroll-snap-type:x proximity;
+    position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom));
+    z-index:80; display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:4px; padding:5px; border-radius:20px;
+    overflow:visible; -webkit-overflow-scrolling:auto;
+    scroll-snap-type:none;
+    background:linear-gradient(180deg,var(--glass-strong),color-mix(in srgb,var(--chrome) 92%,transparent));
+    border:1px solid var(--chrome-line);
+    box-shadow:0 16px 48px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.06);
   }
   .navlinks a,.navlinks button{
-    flex:0 0 auto; scroll-snap-align:start;
-    font-size:11px; padding:7px 10px;
+    min-width:0; min-height:48px; display:flex; align-items:center; justify-content:center;
+    text-align:center; white-space:normal; line-height:1.12;
+    flex:initial; scroll-snap-align:none;
+    font-size:10.5px; padding:6px 5px;
+  }
+  .navlinks a:nth-child(4),
+  .navlinks a:nth-child(7),
+  .navlinks a:nth-child(8){
+    display:none;
   }
   .nav-right{display:none}
 
@@ -2534,6 +2545,9 @@ footer{
   #overview .dia .d-cap{
     font-size:12.8px; line-height:1.55; padding:11px 12px;
     margin-top:10px;
+  }
+  #overview .dia:first-child .d-cap{
+    display:none;
   }
 
   #overview #cx-matrix{padding:14px}
@@ -2595,4 +2609,6 @@ footer{
   .landing-rail h1{font-size:30px}
   .facts,.material-stats{grid-template-columns:1fr}
   table.co,table.dat{min-width:620px}
+  .navlinks{left:8px; right:8px; bottom:calc(8px + env(safe-area-inset-bottom))}
+  .navlinks a,.navlinks button{font-size:10px; min-height:46px}
 }
