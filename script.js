@@ -876,28 +876,52 @@ const MODES=((rail&&rail.dataset.modes)||'how chain materials thesis companies r
 const MODE_LABEL={how:'Layer description',chain:'Value chain',materials:'Layer materials',
                   thesis:'Layer thesis',companies:'Top companies',risks:'Risks + signals'};
 const WORLD={t:'The physical world',n:0};
-function mobileSelect(label,aria,cls,options){
-  const wrap=document.createElement('label');
-  wrap.className='mobile-select '+cls;
-  const select=document.createElement('select');
-  select.setAttribute('aria-label',aria);
+function mobilePicker(label,aria,cls,options){
+  const wrap=document.createElement('details');
+  wrap.className='mobile-picker '+cls;
+  const summary=document.createElement('summary');
+  summary.innerHTML=`<span class="mp-kicker">${label}</span><span class="mp-current"></span><span class="mp-caret" aria-hidden="true"></span>`;
+  const list=document.createElement('div');
+  list.className='mp-list';
+  list.setAttribute('role','listbox');
+  list.setAttribute('aria-label',aria);
   options.forEach(opt=>{
-    const o=document.createElement('option');
-    o.value=opt.value;
-    o.textContent=opt.label;
-    select.appendChild(o);
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='mp-option';
+    button.dataset.value=opt.value;
+    button.style.setProperty('--pick',opt.color||'var(--accent)');
+    button.setAttribute('role','option');
+    button.innerHTML=`<span class="mp-icon">${opt.icon||''}</span><span class="mp-copy"><b>${opt.label}</b>${opt.sub?`<small>${opt.sub}</small>`:''}</span>`;
+    list.appendChild(button);
   });
-  wrap.appendChild(Object.assign(document.createElement('span'),{textContent:label}));
-  wrap.appendChild(select);
+  wrap.appendChild(summary);
+  wrap.appendChild(list);
   return wrap;
 }
 function syncMobileLayerSelect(i){
-  const select=document.querySelector('.mobile-layer-select select');
-  if(select) select.value=String(i);
+  const picker=document.querySelector('.mobile-layer-select');
+  if(!picker) return;
+  picker.querySelectorAll('.mp-option').forEach(button=>{
+    const on=button.dataset.value===String(i);
+    button.setAttribute('aria-selected',on?'true':'false');
+    if(on){
+      picker.style.setProperty('--pick',button.style.getPropertyValue('--pick'));
+      picker.querySelector('.mp-current').innerHTML=button.innerHTML;
+    }
+  });
 }
 function syncMobileModeSelect(panel,mode){
-  const select=panel&&panel.querySelector('.mobile-mode-select select');
-  if(select) select.value=mode;
+  const picker=panel&&panel.querySelector('.mobile-mode-select');
+  if(!picker) return;
+  picker.querySelectorAll('.mp-option').forEach(button=>{
+    const on=button.dataset.value===mode;
+    button.setAttribute('aria-selected',on?'true':'false');
+    if(on){
+      picker.style.setProperty('--pick',button.style.getPropertyValue('--pick'));
+      picker.querySelector('.mp-current').innerHTML=button.innerHTML;
+    }
+  });
 }
 function addMobileLayerSelect(rail){
   const tabs=[...rail.querySelectorAll('.tab')];
@@ -905,13 +929,15 @@ function addMobileLayerSelect(rail){
   const options=tabs.map((tab,i)=>({
     value:String(i),
     label:(tab.textContent||'').trim().replace(/\s+/g,' '),
+    color:i>0&&LAYERS[i-1]?C[LAYERS[i-1].n]:'var(--accent)',
+    icon:i>0&&LAYERS[i-1]?layerIcon(LAYERS[i-1].n,'mp-svg'):layerIcon(0,'mp-svg'),
   }));
-  const picker=mobileSelect('Choose layer','Choose layer','mobile-layer-select',options);
-  const select=picker.querySelector('select');
-  select.onchange=()=>{
-    const tab=tabs[Number(select.value)];
+  const picker=mobilePicker('Choose layer','Choose layer','mobile-layer-select',options);
+  picker.querySelectorAll('.mp-option').forEach(button=>button.onclick=()=>{
+    const tab=tabs[Number(button.dataset.value)];
     if(tab) tab.click();
-  };
+    picker.open=false;
+  });
   rail.parentNode.insertBefore(picker,rail);
 }
 /* Slot 0 in the rail is a preamble rather than a layer. On the infrastructure
@@ -984,13 +1010,13 @@ LAYERS.forEach((L,i0)=>{
   </div>`;
   panels.appendChild(p);
   const modes=[...p.querySelectorAll('.layer-mode')];
-  const modePicker=mobileSelect('Choose view',`${L.t} view`,'mobile-mode-select',
-    MODES.map(m=>({value:m,label:MODE_LABEL[m]})));
-  const modeSelect=modePicker.querySelector('select');
-  modeSelect.onchange=()=>{
-    const button=modes.find(btn=>btn.dataset.mode===modeSelect.value);
+  const modePicker=mobilePicker('Choose view',`${L.t} view`,'mobile-mode-select',
+    MODES.map(m=>({value:m,label:MODE_LABEL[m],color:col,icon:layerIcon(L.n,'mp-svg')})));
+  modePicker.querySelectorAll('.mp-option').forEach(option=>option.onclick=()=>{
+    const button=modes.find(btn=>btn.dataset.mode===option.dataset.value);
     if(button) button.click();
-  };
+    modePicker.open=false;
+  });
   p.querySelector('.layer-modes').insertBefore(modePicker,p.querySelector('.layer-modes').firstChild);
   modes.forEach((mode,j)=>{
     mode.onclick=()=>selectLayerMode(p,mode.dataset.mode);

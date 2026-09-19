@@ -2381,22 +2381,60 @@ nav{
 }
 .layer-mode{padding:11px 13px 12px; border-bottom-width:3px; font-size:13px}
 .layer-pane{padding:22px 26px 30px}
-.mobile-select{display:none}
-.mobile-select span{
-  display:block; margin:0 0 6px; color:var(--muted);
+.mobile-picker{display:none}
+.mobile-picker summary{
+  list-style:none; cursor:pointer; min-height:58px; padding:9px 42px 9px 12px;
+  border:1px solid color-mix(in srgb,var(--pick,var(--accent)) 52%,var(--chrome-line));
+  border-left:5px solid var(--pick,var(--accent)); border-radius:16px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--pick,var(--accent)) 14%,var(--surface)),
+    var(--surface2));
+  box-shadow:var(--shadow-sm); position:relative;
+}
+.mobile-picker summary::-webkit-details-marker{display:none}
+.mp-kicker{
+  display:block; margin:0 0 5px; color:var(--muted);
   font-size:10px; font-weight:800; letter-spacing:.09em; text-transform:uppercase;
 }
-.mobile-select select{
-  appearance:none; width:100%; min-height:46px; padding:0 42px 0 14px;
-  border:1px solid var(--chrome-line); border-radius:14px;
-  color:var(--ink); background:
-    linear-gradient(45deg,transparent 50%,var(--ink2) 50%) right 18px center/7px 7px no-repeat,
-    linear-gradient(135deg,var(--surface),var(--surface2));
-  box-shadow:var(--shadow-sm);
-  font:700 14px var(--f);
+.mp-current,.mp-option{
+  display:flex; align-items:center; gap:10px; min-width:0;
 }
-.mobile-select select:focus-visible{
-  outline:2px solid color-mix(in srgb,var(--accent) 70%,white);
+.mp-current .mp-copy,.mp-option .mp-copy{display:grid; gap:1px; min-width:0}
+.mp-current b,.mp-option b{
+  display:block; color:var(--ink); font-size:14px; line-height:1.22;
+  overflow-wrap:anywhere;
+}
+.mp-current small,.mp-option small{color:var(--muted); font-size:11px; line-height:1.25}
+.mp-icon{
+  width:30px; height:30px; border-radius:10px; display:grid; place-items:center;
+  flex:0 0 auto; color:var(--pick,var(--accent));
+  background:color-mix(in srgb,var(--pick,var(--accent)) 16%,transparent);
+  border:1px solid color-mix(in srgb,var(--pick,var(--accent)) 36%,transparent);
+}
+.mp-svg{width:20px; height:20px}
+.mp-caret{
+  position:absolute; right:15px; top:50%; width:9px; height:9px;
+  border-right:2px solid var(--ink2); border-bottom:2px solid var(--ink2);
+  transform:translateY(-62%) rotate(45deg); opacity:.78;
+}
+.mobile-picker[open] .mp-caret{transform:translateY(-35%) rotate(225deg)}
+.mp-list{
+  margin-top:8px; padding:8px; border:1px solid var(--chrome-line); border-radius:16px;
+  background:linear-gradient(180deg,var(--glass-strong),var(--glass));
+  box-shadow:var(--shadow-lg); display:grid; gap:7px;
+}
+.mp-option{
+  appearance:none; width:100%; min-height:52px; border:1px solid transparent;
+  border-left:4px solid var(--pick,var(--accent)); border-radius:13px;
+  padding:9px 10px; text-align:left; background:color-mix(in srgb,var(--surface2) 58%,transparent);
+  font:inherit; color:var(--ink); cursor:pointer;
+}
+.mp-option[aria-selected="true"]{
+  border-color:color-mix(in srgb,var(--pick,var(--accent)) 55%,var(--chrome-line));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--pick,var(--accent)) 18%,var(--surface)),
+    var(--surface2));
+}
+.mp-option:focus-visible,.mobile-picker summary:focus-visible{
+  outline:2px solid color-mix(in srgb,var(--pick,var(--accent)) 70%,white);
   outline-offset:2px;
 }
 .overview-lede{gap:22px}
@@ -2496,7 +2534,7 @@ footer{
     overflow-x:hidden !important; overflow-y:auto !important;
     position:static !important;
   }
-  body{font-size:15px; line-height:1.58; padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+  body{font-size:15px; line-height:1.58; padding-bottom:calc(122px + env(safe-area-inset-bottom))}
   *{max-width:100%}
   .wrap{padding:0 14px}
 
@@ -2514,7 +2552,7 @@ footer{
   }
   .navlinks{
     position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom));
-    z-index:80; display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
+    z-index:80; display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
     gap:4px; padding:5px; border-radius:20px;
     overflow:visible; -webkit-overflow-scrolling:auto;
     scroll-snap-type:none;
@@ -2523,15 +2561,10 @@ footer{
     box-shadow:0 16px 48px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.06);
   }
   .navlinks a,.navlinks button{
-    min-width:0; min-height:48px; display:flex; align-items:center; justify-content:center;
+    min-width:0; min-height:42px; display:flex; align-items:center; justify-content:center;
     text-align:center; white-space:normal; line-height:1.12;
     flex:initial; scroll-snap-align:none;
     font-size:10.5px; padding:6px 5px;
-  }
-  .navlinks a:nth-child(4),
-  .navlinks a:nth-child(7),
-  .navlinks a:nth-child(8){
-    display:none;
   }
   .nav-right{display:none}
 
@@ -2586,14 +2619,19 @@ footer{
   #projects>.wrap>.sec-head h1,#projects>.wrap>.sec-head h2,
   body.doc .sec-head h1{
     font-size:clamp(27px,9vw,38px); line-height:1.05;
+    overflow-wrap:anywhere;
   }
   #stack .sec-head p,#projects>.wrap>.sec-head p,body.doc .sec-head p{
     font-size:14px; line-height:1.5;
   }
   #stack .stack{display:block}
-  .mobile-select{display:block}
+  .mobile-picker{display:block}
   .mobile-layer-select{margin:0 0 14px}
   #stack .rail{display:none}
+  #stack #panels,#stack .panel,#stack .card{
+    height:auto; min-height:0; overflow:visible;
+  }
+  #stack .card{display:block}
   #stack .tab{
     width:100%; flex:initial; scroll-snap-align:none;
     min-height:48px; padding:10px 12px; border-left:4px solid transparent;
@@ -2606,7 +2644,12 @@ footer{
     background:transparent; border-bottom:1px solid var(--chrome-line);
   }
   .layer-mode{display:none}
-  .layer-pane{padding:16px}
+  .layer-body{position:static; min-height:0}
+  .layer-pane{
+    position:static; inset:auto; overflow:visible; padding:16px;
+  }
+  .layer-pane:not(.on){display:none}
+  .layer-pane.on{display:block}
   .overview-lede,.mtr-grid,.env-grid,.project-grid{grid-template-columns:1fr}
 
   .facts,.material-stats{grid-template-columns:1fr 1fr}
@@ -2657,5 +2700,5 @@ footer{
   .facts,.material-stats{grid-template-columns:1fr}
   td{grid-template-columns:1fr; gap:4px}
   .navlinks{left:8px; right:8px; bottom:calc(8px + env(safe-area-inset-bottom))}
-  .navlinks a,.navlinks button{font-size:10px; min-height:46px}
+  .navlinks a,.navlinks button{font-size:9.5px; min-height:42px}
 }
