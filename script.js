@@ -876,6 +876,44 @@ const MODES=((rail&&rail.dataset.modes)||'how chain materials thesis companies r
 const MODE_LABEL={how:'Layer description',chain:'Value chain',materials:'Layer materials',
                   thesis:'Layer thesis',companies:'Top companies',risks:'Risks + signals'};
 const WORLD={t:'The physical world',n:0};
+function mobileSelect(label,aria,cls,options){
+  const wrap=document.createElement('label');
+  wrap.className='mobile-select '+cls;
+  const select=document.createElement('select');
+  select.setAttribute('aria-label',aria);
+  options.forEach(opt=>{
+    const o=document.createElement('option');
+    o.value=opt.value;
+    o.textContent=opt.label;
+    select.appendChild(o);
+  });
+  wrap.appendChild(Object.assign(document.createElement('span'),{textContent:label}));
+  wrap.appendChild(select);
+  return wrap;
+}
+function syncMobileLayerSelect(i){
+  const select=document.querySelector('.mobile-layer-select select');
+  if(select) select.value=String(i);
+}
+function syncMobileModeSelect(panel,mode){
+  const select=panel&&panel.querySelector('.mobile-mode-select select');
+  if(select) select.value=mode;
+}
+function addMobileLayerSelect(rail){
+  const tabs=[...rail.querySelectorAll('.tab')];
+  if(!tabs.length||rail.parentElement.querySelector('.mobile-layer-select')) return;
+  const options=tabs.map((tab,i)=>({
+    value:String(i),
+    label:(tab.textContent||'').trim().replace(/\s+/g,' '),
+  }));
+  const picker=mobileSelect('Choose layer','Choose layer','mobile-layer-select',options);
+  const select=picker.querySelector('select');
+  select.onchange=()=>{
+    const tab=tabs[Number(select.value)];
+    if(tab) tab.click();
+  };
+  rail.parentNode.insertBefore(picker,rail);
+}
 /* Slot 0 in the rail is a preamble rather than a layer. On the infrastructure
    page it is the physical world; on the investor page it is how the thesis
    breaks, which is the thing to read before any of the layer cases. Both pages
@@ -946,6 +984,14 @@ LAYERS.forEach((L,i0)=>{
   </div>`;
   panels.appendChild(p);
   const modes=[...p.querySelectorAll('.layer-mode')];
+  const modePicker=mobileSelect('Choose view',`${L.t} view`,'mobile-mode-select',
+    MODES.map(m=>({value:m,label:MODE_LABEL[m]})));
+  const modeSelect=modePicker.querySelector('select');
+  modeSelect.onchange=()=>{
+    const button=modes.find(btn=>btn.dataset.mode===modeSelect.value);
+    if(button) button.click();
+  };
+  p.querySelector('.layer-modes').insertBefore(modePicker,p.querySelector('.layer-modes').firstChild);
   modes.forEach((mode,j)=>{
     mode.onclick=()=>selectLayerMode(p,mode.dataset.mode);
     mode.onkeydown=e=>{
@@ -954,6 +1000,7 @@ LAYERS.forEach((L,i0)=>{
     };
   });
 });
+addMobileLayerSelect(rail);
 
 /* The tab a reader is on carries across layers: switching from Energy to
    Compute silicon while reading Layer thesis keeps you on Layer thesis, so the
@@ -965,6 +1012,7 @@ function selectLayerMode(panel,mode,remember=true){
   if(remember) CURRENT_MODE=mode;
   panel.querySelectorAll('.layer-mode').forEach(b=>b.setAttribute('aria-selected',b.dataset.mode===mode?'true':'false'));
   panel.querySelectorAll('[data-mode-pane]').forEach(v=>v.classList.toggle('on',v.dataset.modePane===mode));
+  syncMobileModeSelect(panel,mode);
   const pane=panel.querySelector('[data-mode-pane].on');
   if(pane) pane.scrollTop=0;
   fill();
@@ -1019,6 +1067,7 @@ function sel(i,focus){
   const shown=document.querySelectorAll('#panels .panel')[i];
   if(shown&&shown.querySelector(`.layer-mode[data-mode="${CURRENT_MODE}"]`)) selectLayerMode(shown,CURRENT_MODE,false);
   if(focus) document.getElementById('tb'+i).focus();
+  syncMobileLayerSelect(i);
   fill();
 }
 
