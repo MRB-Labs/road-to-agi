@@ -619,6 +619,11 @@ function layerIcon(n,cls,tone){
   return `<svg class="licon ${cls||''}" viewBox="0 0 44 44" aria-hidden="true" style="stroke:var(--l${tone==null?n:tone})">`+
     `<defs><clipPath id="${id}"><circle cx="22" cy="22" r="13.6"/></clipPath></defs>${body}</svg>`;
 }
+function pickerLayerIcon(n){
+  return layerIcon(n,'mp-svg')
+    .replace(/<defs>[\s\S]*?<\/defs>/,'')
+    .replace(/\sclip-path="url\([^"]+\)"/g,'');
+}
 
 
 /* If these disagree, one of the two was edited alone. */
@@ -928,7 +933,7 @@ function addMobileLayerSelect(rail){
     value:String(i),
     label:(tab.textContent||'').trim().replace(/\s+/g,' '),
     color:i>0&&LAYERS[i-1]?C[LAYERS[i-1].n]:'var(--accent)',
-    icon:i>0&&LAYERS[i-1]?layerIcon(LAYERS[i-1].n,'mp-svg'):layerIcon(0,'mp-svg'),
+    icon:i>0&&LAYERS[i-1]?pickerLayerIcon(LAYERS[i-1].n):pickerLayerIcon(0),
   }));
   const picker=mobilePicker('Choose layer','Choose layer','mobile-layer-select',options);
   picker.querySelectorAll('.mp-option').forEach(button=>button.onclick=()=>{
@@ -1009,7 +1014,7 @@ LAYERS.forEach((L,i0)=>{
   panels.appendChild(p);
   const modes=[...p.querySelectorAll('.layer-mode')];
   const modePicker=mobilePicker('Choose view',`${L.t} view`,'mobile-mode-select',
-    MODES.map(m=>({value:m,label:MODE_LABEL[m],color:col,icon:layerIcon(L.n,'mp-svg')})));
+    MODES.map(m=>({value:m,label:MODE_LABEL[m],color:col,icon:pickerLayerIcon(L.n)})));
   modePicker.querySelectorAll('.mp-option').forEach(option=>option.onclick=()=>{
     const button=modes.find(btn=>btn.dataset.mode===option.dataset.value);
     if(button) button.click();
