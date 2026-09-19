@@ -2291,3 +2291,18 @@ function labelMobileTables(root=document){
   });
 }
 labelMobileTables();
+
+/* A phone dropdown closes when you tap anywhere else or press Escape, and
+   opening one closes any other. `toggle` does not bubble, so it is caught on
+   the way down. */
+document.addEventListener('click',e=>{
+  document.querySelectorAll('.mobile-picker[open]').forEach(d=>{ if(!d.contains(e.target)) d.open=false; });
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.mobile-picker[open]').forEach(d=>d.open=false);
+});
+document.addEventListener('toggle',e=>{
+  const t=e.target;
+  if(t&&t.matches&&t.matches('.mobile-picker')&&t.open)
+    document.querySelectorAll('.mobile-picker[open]').forEach(d=>{ if(d!==t) d.open=false; });
+},true);

@@ -2738,3 +2738,46 @@ footer{
 @media(max-width:420px){
   .navlinks a,.navlinks button{font-size:10.5px; letter-spacing:0; min-height:44px}
 }
+
+/* ── PHONE FIXES 2 (2026-09-19) ───────────────────────────────────────────────
+   check-browsers.py fails a phone page whose menu is off screen or whose closed
+   dropdown shows its options. */
+@media(max-width:760px){
+  /* The top bar carries no blur on a phone. A backdrop-filter makes an element
+     the containing block for position:fixed descendants, so the bottom menu,
+     which lives inside the bar, was anchored to the bar and drawn above the
+     top of the screen — on Android since the redesign, and on iPhones once
+     Safari started applying the unprefixed property. The menu blurs itself. */
+  nav{-webkit-backdrop-filter:none !important; backdrop-filter:none !important}
+  /* and the menu is solid enough that the page does not read through it */
+  .navlinks{background:color-mix(in srgb,var(--bg) 96%,transparent); background-image:none}
+
+  /* A dropdown's options show only while it is open. Browsers hide a closed
+     <details> themselves, but not every version does, so it is said here. */
+  .mobile-picker:not([open]) .mp-list{display:none}
+
+  /* Value chain: a company is a compact row, not a card. Name, ticker and
+     market cap on the first line; the country under the market cap; two lines
+     of description; the share across the full width. The "market cap · live"
+     tag and the "no share stated" placeholder stay on desktop only. #main is
+     what outranks the older breakpoint rules. */
+  #main .vrow{display:grid; grid-template-columns:30px minmax(0,1fr) auto;
+    column-gap:10px; row-gap:2px; align-items:start; padding:9px 10px}
+  #main .vrow .vr-logo{grid-column:1; grid-row:1 / span 3; width:30px; height:30px; border-radius:6px}
+  #main .vrow .vr-main{grid-column:2; grid-row:1 / span 2; min-width:0}
+  #main .vrow .vr-top{gap:6px; row-gap:2px}
+  #main .vrow .vr-name{font-size:14px}
+  #main .vrow .vr-tick{font-size:10px}
+  #main .vrow .vr-desc{font-size:12.5px; line-height:1.4; margin-top:2px;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+  #main .vrow .vr-cap{grid-column:3; grid-row:1; text-align:right; padding:0; border:0}
+  #main .vrow .vr-cap b{font-size:13px}
+  #main .vrow .vr-lbl{display:none}
+  #main .vrow .vr-geo{grid-column:3; grid-row:2; justify-self:end; justify-content:flex-end;
+    flex-wrap:wrap; gap:3px 5px; max-width:130px; text-align:right; line-height:1.25;
+    padding:0; border:0; margin:0; font-size:11.5px}
+  #main .vrow .vr-flag{font-size:12px}
+  #main .vrow .vr-note{grid-column:2 / -1; grid-row:3; padding:3px 0 0; border:0; font-size:12px; line-height:1.4}
+  #main .vrow .vr-note:has(> .vr-none){display:none}
+  #main :is(ul,ol):has(> li.vrow){gap:6px}
+}

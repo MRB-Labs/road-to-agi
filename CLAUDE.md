@@ -167,6 +167,17 @@ Written down because each cost real time.
   9, `l7` is layer 6, `l8e` is 7 and `l9e` is 8. Go by a card's `layer:`, never
   by its id. Charts in `script.js` that pick a colour with `LC(n)` now draw the
   new layer's colour.
+- **A `backdrop-filter` (or `filter`, `transform`) makes an element the
+  containing block for its `position:fixed` descendants.** The phone menu is
+  fixed to the bottom of the screen but lives inside the top bar; once the bar
+  carried a blur, the menu was anchored to the bar and drawn above the top of
+  the screen — on Android from the start of the phone redesign, on iPhones once
+  the Safari-prefixed blur was added. The top bar carries no blur on a phone,
+  and `check-browsers.py` fails a phone page whose menu is off screen.
+- **Two heredocs on one shell command line are read in the order their `<<`
+  operators appear, not the order of their bodies.** Mixing them put a test
+  script into commit eacf9f0's message. One heredoc per command line; write a
+  commit message to a file and use `git commit -F`.
 - **zsh does not word-split an unquoted `$c`** — a loop running guard commands
   reported five false failures until each was `eval`'d.
 

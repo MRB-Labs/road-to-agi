@@ -49,7 +49,11 @@ PHONE_CHECK = """() => {
       if (/auto|scroll/.test(getComputedStyle(a).overflowX)) return false;
     return true;
   }).map(e => (e.className && e.className.baseVal !== undefined ? e.tagName : (e.className || e.tagName)).toString().split(' ')[0]);
-  return [document.documentElement.scrollHeight, cut];
+  const n = document.querySelector('.navlinks'), r = n && n.getBoundingClientRect();
+  const menu = !n || (r.height > 0 && r.top >= 0 && r.bottom <= innerHeight + 1);
+  const leaked = [...document.querySelectorAll('.mobile-picker:not([open]) .mp-list')]
+    .filter(l => l.getBoundingClientRect().height > 0).length;
+  return [document.documentElement.scrollHeight, cut, menu, leaked];
 }"""
 REPORT = ("document.addEventListener('securitypolicyviolation', e => console.error("
           "'CSP blocked ' + e.violatedDirective + ' — ' + (e.blockedURI || 'inline')));")
@@ -102,7 +106,11 @@ def visit(browser, base, page_name, viewport, bad, tag):
     # 2026-09-19) is barely taller than the screen, and anything past the right
     # edge is silently cut off by the phone stylesheet's overflow-x:hidden.
     if viewport is PHONE:
-        tall, cut = page.evaluate(PHONE_CHECK)
+        tall, cut, menu, leaked = page.evaluate(PHONE_CHECK)
+        if not menu:
+            say('the menu bar is off screen on a phone')
+        if leaked:
+            say('%d closed dropdown(s) show their options on a phone' % leaked)
         if tall <= viewport['height'] + 200:
             say('content collapsed on a phone — the page is only %dpx tall' % tall)
         if cut:
