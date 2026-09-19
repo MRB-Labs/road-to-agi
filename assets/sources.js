@@ -9,6 +9,16 @@
   function set(t){root.setAttribute('data-theme',t); btn.textContent = (t==='dark'?'Light':'Dark');}
   if(btn) btn.style.display='none';
 
+  document.querySelectorAll('.tbl-wrap table').forEach(function(table){
+    var labels=[].slice.call(table.querySelectorAll('thead th')).map(function(th){return th.textContent.trim()});
+    if(!labels.length) return;
+    table.querySelectorAll('tbody tr').forEach(function(row){
+      [].slice.call(row.children).forEach(function(cell,i){
+        if(!cell.hasAttribute('data-label')) cell.setAttribute('data-label', labels[i] || '');
+      });
+    });
+  });
+
   var links=[].slice.call(document.querySelectorAll('#nav a'));
   var targets=links.map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
   if('IntersectionObserver' in window){

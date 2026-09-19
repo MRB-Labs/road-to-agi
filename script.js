@@ -2197,3 +2197,19 @@ function fundamentalsBlock(name){
    job and is allowed. `error` does not bubble, so it is caught on the way down. */
 document.addEventListener('error',e=>{const t=e.target;
   if(t&&t.tagName==='IMG'&&t.closest('.elc')) t.remove();},true);
+
+/* Mobile tables read as cards, so each cell needs its column label. Desktop
+   tables keep their normal table layout; the labels only surface in CSS below
+   the phone breakpoint. */
+function labelMobileTables(root=document){
+  root.querySelectorAll('.tw table').forEach(table=>{
+    const labels=[...table.querySelectorAll('thead th')].map(th=>th.textContent.trim());
+    if(!labels.length) return;
+    table.querySelectorAll('tbody tr').forEach(row=>{
+      [...row.children].forEach((cell,i)=>{
+        if(!cell.hasAttribute('data-label')) cell.setAttribute('data-label', labels[i] || '');
+      });
+    });
+  });
+}
+labelMobileTables();

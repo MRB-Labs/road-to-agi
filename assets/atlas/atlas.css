@@ -432,13 +432,15 @@
   }
   .atlas-results{left:0; right:0; max-height:48vh}
   .atlas-filters{
-    gap:7px; padding:9px 12px 12px; overflow-x:auto;
-    flex-wrap:nowrap; -webkit-overflow-scrolling:touch;
+    display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px; padding:9px 12px 12px; overflow:visible;
+    flex-wrap:initial; -webkit-overflow-scrolling:auto;
   }
   .fl-btn{
-    flex:0 0 auto; min-height:34px; padding:7px 12px;
+    width:100%; min-width:0; min-height:34px; padding:7px 8px;
     gap:8px; font-size:11px; letter-spacing:.12em;
   }
+  .fl-btn.fl-all{grid-column:1 / -1}
   .atlas-nodes{
     grid-template-columns:1fr; gap:9px; padding:4px 12px 14px;
   }
