@@ -883,7 +883,6 @@ function mobilePicker(label,aria,cls,options){
   summary.innerHTML=`<span class="mp-kicker">${label}</span><span class="mp-current"></span><span class="mp-caret" aria-hidden="true"></span>`;
   const list=document.createElement('div');
   list.className='mp-list';
-  list.setAttribute('role','listbox');
   list.setAttribute('aria-label',aria);
   options.forEach(opt=>{
     const button=document.createElement('button');
@@ -891,7 +890,6 @@ function mobilePicker(label,aria,cls,options){
     button.className='mp-option';
     button.dataset.value=opt.value;
     button.style.setProperty('--pick',opt.color||'var(--accent)');
-    button.setAttribute('role','option');
     button.innerHTML=`<span class="mp-icon">${opt.icon||''}</span><span class="mp-copy"><b>${opt.label}</b>${opt.sub?`<small>${opt.sub}</small>`:''}</span>`;
     list.appendChild(button);
   });
@@ -904,7 +902,7 @@ function syncMobileLayerSelect(i){
   if(!picker) return;
   picker.querySelectorAll('.mp-option').forEach(button=>{
     const on=button.dataset.value===String(i);
-    button.setAttribute('aria-selected',on?'true':'false');
+    button.classList.toggle('is-selected',on);
     if(on){
       picker.style.setProperty('--pick',button.style.getPropertyValue('--pick'));
       picker.querySelector('.mp-current').innerHTML=button.innerHTML;
@@ -916,7 +914,7 @@ function syncMobileModeSelect(panel,mode){
   if(!picker) return;
   picker.querySelectorAll('.mp-option').forEach(button=>{
     const on=button.dataset.value===mode;
-    button.setAttribute('aria-selected',on?'true':'false');
+    button.classList.toggle('is-selected',on);
     if(on){
       picker.style.setProperty('--pick',button.style.getPropertyValue('--pick'));
       picker.querySelector('.mp-current').innerHTML=button.innerHTML;

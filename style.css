@@ -2428,7 +2428,7 @@ nav{
   padding:9px 10px; text-align:left; background:color-mix(in srgb,var(--surface2) 58%,transparent);
   font:inherit; color:var(--ink); cursor:pointer;
 }
-.mp-option[aria-selected="true"]{
+.mp-option.is-selected{
   border-color:color-mix(in srgb,var(--pick,var(--accent)) 55%,var(--chrome-line));
   background:linear-gradient(135deg,color-mix(in srgb,var(--pick,var(--accent)) 18%,var(--surface)),
     var(--surface2));
