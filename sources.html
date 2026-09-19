@@ -174,7 +174,21 @@ footer p{max-width:88ch;margin:0 0 12px}
   body{background:#fff} .tbl-wrap{overflow:visible}
 }
 @media (max-width:720px){
-  .topnav{display:none} .layer-moat{margin-left:0;width:100%}
+  html{scroll-padding-top:72px}
+  .wrap{padding:0 14px}
+  .topbar-in{height:auto; min-height:54px; padding-top:9px; padding-bottom:9px}
+  .brand{white-space:normal; line-height:1.25}
+  .topnav{display:none}
+  .hero{padding:36px 0 28px}
+  h1{font-size:clamp(2rem,12vw,3rem)}
+  .lede{font-size:var(--text-base)}
+  .meta{gap:14px 22px}
+  section{padding:40px 0}
+  .layer-moat{margin-left:0;width:100%}
+  table{min-width:660px}
+  thead th,tbody td{padding:10px 12px}
+  .cal{grid-template-columns:1fr}
+  footer{padding:36px 0 58px}
 }
 </style>
 </head>

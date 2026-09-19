@@ -2468,3 +2468,131 @@ footer{
   #overview .dia .d-cap{font-size:13px}
   .facts div,.material-stats div{padding:13px 14px}
 }
+
+/* Phone layout: the desktop report behaves like an app, but a phone needs a
+   normal scrolling document. Keep the same content; change the shell. */
+@media(max-width:760px){
+  :root{--nav-h:0px}
+  html,body{overflow-x:hidden}
+  body{font-size:15px; line-height:1.58}
+  .wrap{padding:0 14px}
+
+  nav{
+    position:sticky; top:0; height:auto; min-height:0;
+    border-bottom-color:var(--chrome-line);
+  }
+  .nav-in{
+    padding:9px 12px 10px; gap:9px; align-items:center;
+    flex-wrap:wrap;
+  }
+  .brand{
+    height:34px; max-width:100%; padding:0 11px 0 9px;
+    font-size:11px; letter-spacing:.07em;
+  }
+  .navlinks{
+    order:3; flex:0 0 100%; justify-content:flex-start;
+    gap:4px; padding:4px; border-radius:14px;
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  .navlinks a,.navlinks button{
+    flex:0 0 auto; scroll-snap-align:start;
+    font-size:11px; padding:7px 10px;
+  }
+  .nav-right{display:none}
+
+  .main-view{
+    position:static; inset:auto; overflow:visible;
+    min-height:0; padding:16px 0 38px;
+  }
+  .main-view>.wrap{height:auto; min-height:0; padding:0 14px}
+  header{padding:18px 0 38px}
+  section{padding:38px 0}
+
+  .landing-rail{
+    margin-bottom:14px; padding:18px 16px;
+    border-radius:16px;
+  }
+  .landing-rail h1{
+    font-size:clamp(30px,11vw,46px);
+    line-height:1.02; letter-spacing:-.035em;
+  }
+  .landing-rail .lede{font-size:15px; line-height:1.45; margin-top:8px}
+
+  #overview .dia-grid{
+    display:flex; flex-direction:column; height:auto;
+    gap:14px; margin:0; padding:0; border:0;
+  }
+  #overview .dia,#overview #cx-matrix,.card,.project-chapters,#stack .rail,
+  .tw,.cw,.figwrap,.block,.verdict,.material-hero,.risk-scorecard,.env-bd,
+  .env-fc,.env-layer,.mkt,.mtr-primary,.mtr-worked,.mfr{
+    border-radius:14px;
+  }
+  #overview .dia:first-child,#overview .dia{padding:14px}
+  #overview .dia h3,#overview #cx-matrix h4{font-size:19px}
+  #overview .dia .d-sub{font-size:13.5px}
+  #overview .dia .d-cap{
+    font-size:12.8px; line-height:1.55; padding:11px 12px;
+    margin-top:10px;
+  }
+
+  #overview #cx-matrix{padding:14px}
+  #overview #cx-matrix .dia-shell{grid-template-columns:1fr; gap:12px}
+  #overview #cx-matrix .dia-chart{padding:10px; overflow-x:auto}
+
+  #stack>.wrap,#projects>.wrap{display:block}
+  #stack .sec-head,#projects>.wrap>.sec-head,body.doc .sec-head{
+    padding:16px; border-radius:16px; margin-bottom:16px;
+    display:block;
+  }
+  #stack .sec-head h1,#stack .sec-head h2,
+  #projects>.wrap>.sec-head h1,#projects>.wrap>.sec-head h2,
+  body.doc .sec-head h1{
+    font-size:clamp(27px,9vw,38px); line-height:1.05;
+  }
+  #stack .sec-head p,#projects>.wrap>.sec-head p,body.doc .sec-head p{
+    font-size:14px; line-height:1.5;
+  }
+  #stack .stack{display:block}
+  #stack .rail{
+    flex-direction:row; overflow-x:auto; gap:8px; padding:8px;
+    margin-bottom:14px; -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  #stack .tab{
+    flex:0 0 210px; scroll-snap-align:start;
+    min-height:50px; padding:10px; border-left:0; border-bottom:3px solid transparent;
+  }
+  .layer-head{display:block; padding:18px 16px 14px}
+  .layer-score{display:inline-flex; margin-top:12px}
+  .layer-modes{
+    padding:0 10px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  }
+  .layer-mode{flex:0 0 auto; font-size:12px; padding:10px 11px}
+  .layer-pane{padding:16px}
+  .overview-lede,.mtr-grid,.env-grid,.project-grid{grid-template-columns:1fr}
+
+  .facts,.material-stats{grid-template-columns:1fr 1fr}
+  .facts b,.material-stats b{font-size:19px}
+  .tw{
+    max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    border-radius:12px;
+  }
+  table{font-size:12.5px}
+  th,td{padding:10px 11px}
+  table.co,table.dat{min-width:680px}
+
+  dialog.co-dialog{
+    width:100vw; max-width:100vw; height:100dvh; max-height:100dvh;
+    margin:0; border-radius:0;
+  }
+  .cod-body{height:100%; overflow:auto; border-radius:0}
+}
+
+@media(max-width:420px){
+  .wrap,.main-view>.wrap{padding:0 10px}
+  .nav-in{padding-inline:10px}
+  .landing-rail h1{font-size:30px}
+  .facts,.material-stats{grid-template-columns:1fr}
+  table.co,table.dat{min-width:620px}
+}

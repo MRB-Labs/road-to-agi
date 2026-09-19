@@ -417,6 +417,55 @@
   .atlas-top{padding:14px 14px 4px}
 }
 
+@media (max-width:760px){
+  .atlas{border-radius:14px; overflow:visible}
+  .atlas-top{
+    display:grid; grid-template-columns:1fr; gap:10px;
+    padding:13px 12px 2px;
+  }
+  .atlas-title{display:block; margin:0}
+  .atlas-title h3{font-size:15px; letter-spacing:.08em}
+  .atlas-live{margin-top:5px; font-size:9.5px}
+  .atlas-search{width:100%}
+  .atlas-search input{
+    min-height:38px; font-size:13px; border-radius:12px;
+  }
+  .atlas-results{left:0; right:0; max-height:48vh}
+  .atlas-filters{
+    gap:7px; padding:9px 12px 12px; overflow-x:auto;
+    flex-wrap:nowrap; -webkit-overflow-scrolling:touch;
+  }
+  .fl-btn{
+    flex:0 0 auto; min-height:34px; padding:7px 12px;
+    gap:8px; font-size:11px; letter-spacing:.12em;
+  }
+  .atlas-nodes{
+    grid-template-columns:1fr; gap:9px; padding:4px 12px 14px;
+  }
+  .nd-region{
+    margin:12px 2px 1px; font-size:10px; letter-spacing:.13em;
+  }
+  .nd{
+    border-radius:12px; padding:11px 12px;
+    min-height:74px;
+  }
+  .nd.is-small{min-height:64px; padding:9px 12px}
+  .nd.is-encl{min-height:92px}
+  .nd-name{font-size:13px}
+  .nd.is-small .nd-name{font-size:12.5px}
+  .nd-sub{font-size:9.7px; line-height:1.42}
+  .atlas .nd .licon.nd-icon{right:10px; width:30px; height:30px}
+  .atlas .nd.is-small .licon.nd-icon{width:23px; height:23px}
+  .atlas-panel{
+    max-height:82dvh; padding:15px;
+    border-radius:18px 18px 0 0;
+  }
+  .pn-head{gap:10px}
+  .pn-id h4{font-size:16px}
+  .pn-body{gap:10px}
+  .pn-sec{padding:11px}
+}
+
 /* Before the script runs, and if it never does. */
 .atlas.is-loading{min-height:120px; display:grid; place-items:center}
 .atlas-fallback{margin:0; padding:28px; color:var(--atlas-text-muted,#8faac1);
