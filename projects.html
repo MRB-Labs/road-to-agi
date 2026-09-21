@@ -21,7 +21,7 @@
 <meta name="theme-color" content="#F6F7F9">
 <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 <script src="assets/boot.js?v=1afb5e4f"></script>
-<link rel="stylesheet" href="style.css?v=26be9339">
+<link rel="stylesheet" href="style.css?v=424a449b">
 </head>
 <body>
 
@@ -59,6 +59,7 @@
     </div>
     <div class="ptabs" role="tablist" aria-label="Projects">
       <button class="ptab" role="tab" id="pt-gw" aria-controls="pj-gw" aria-selected="true">One gigawatt data centre</button>
+      <button class="ptab" role="tab" id="pt-space" aria-controls="pj-space" aria-selected="false">1 GW space data centre</button>
       <button class="ptab" role="tab" id="pt-hu" aria-controls="pj-hu" aria-selected="false">Ten million humanoids</button>
     </div>
 
@@ -179,6 +180,91 @@
     <div class="deep" id="gw-deep"></div>
     <h3 class="blockhead">Sources</h3>
     <div id="gw-src"></div>
+    </div>
+
+    <div class="ppanel" id="pj-space" role="tabpanel" aria-labelledby="pt-space">
+    <div class="sec-head" style="margin-bottom:26px">
+      <h3 style="font-size:26px">1 GW space data centre</h3>
+      <p style="font-size:15.5px">The same 1 GW IT target moved into orbit: abundant solar flux, no terrestrial water use, and a radically harder stack for heat rejection, launch cadence, radiation, servicing and downlink.</p>
+    </div>
+    <div class="facts" id="space-facts"></div>
+    <div class="project-visual-grid">
+      <div class="block">
+        <h4>The simple pitch</h4>
+        <p style="font-size:14.5px;color:var(--ink2);margin-top:0">Space data centres sound attractive because sunlight is continuous in the right orbit, land is not scarce, and cooling can radiate to deep space. SpaceX's Starlink architecture, inter-satellite lasers and Starship-class launch capacity make the idea newly discussable; NVIDIA and Starcloud have made orbital AI compute visible as a category.</p>
+        <p class="cap">The hard truth: a data centre is mostly a machine for moving electricity into chips and heat out of chips. In orbit, every watt of compute becomes a watt that must be rejected by radiators, while every kilogram of radiator, battery, shield and server must be launched, assembled and replaced.</p>
+      </div>
+      <div class="block">
+        <h4>Why SpaceX and Grok matter</h4>
+        <p style="font-size:14.5px;color:var(--ink2);margin-top:0">xAI's Colossus is already one of the clearest examples of AI capability being constrained by physical infrastructure: power, turbines, water, land, chips and networking. Grok sits on top of that stack. SpaceX adds the missing orbital pieces: reusable launch, Starlink laser networking, satellite manufacturing and a plausible path to dedicated AI compute satellites.</p>
+        <p class="cap">This project therefore compares two futures: AI compute as terrestrial industrial infrastructure, and AI compute as a space-manufactured, laser-networked orbital utility.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">Where the orbital capital goes</h3>
+    <p class="blocksub">The illustrative model is deliberately conservative about claims and aggressive about constraints. It treats the orbital system as a power plant, a thermal plant, a communications network and a server fleet launched together.</p>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="space-capex"></div></div>
+      <div class="block"><h4>Orbital capex decomposition</h4><div class="tw"><table class="dat" id="space-fac"></table></div>
+        <p class="cap">Launch is not the only cost. The largest categories are still compute modules, power conversion and thermal hardware. The difference is that the building shell becomes spacecraft structure.</p></div>
+    </div>
+
+    <h3 class="blockhead">The critical path is flight cadence and thermal qualification</h3>
+    <p class="blocksub">A terrestrial gigawatt campus waits for transformers and turbines. A space gigawatt campus waits for reusable launch cadence, qualified radiator panels, orbital assembly robotics, radiation-screened compute modules and laser downlink approvals.</p>
+    <div class="split">
+      <div class="block"><div class="chartbox" id="space-lead"></div></div>
+      <div class="block"><h4>Programme sequence</h4><div class="phase" id="space-phase"></div>
+        <p class="cap">The most useful early project is not 1 GW. It is a small orbital inference node that proves thermal stability, bit-error handling, autonomous reboot, downlink economics and replacement logistics.</p></div>
+    </div>
+
+    <h3 class="blockhead">Bill of materials</h3>
+    <div class="split">
+      <div class="block"><h4>Compute and spacecraft systems</h4><div class="tw"><table class="dat" id="space-bom1"></table></div></div>
+      <div class="block"><h4>Materials and orbital infrastructure</h4><div class="tw"><table class="dat" id="space-bom2"></table></div>
+        <p class="cap">Compared with Earth, copper and concrete become less important; power electronics, radiation shielding, deployable structures, thermal loops, batteries and optical terminals become the stack.</p></div>
+    </div>
+
+    <h3 class="blockhead">Four ways to power it</h3>
+    <p class="blocksub">Solar power is abundant in orbit, but useful compute is continuous. Eclipse periods, battery cycling, array degradation, pointing, radiation and heat rejection decide whether the electron reaches the chip at the right time.</p>
+    <div class="tw"><table class="dat" id="space-energy" style="min-width:760px"></table></div>
+    <div class="split" style="margin-top:28px">
+      <div class="block"><div class="chartbox" id="space-land"></div></div>
+      <div class="block">
+        <h4>The strategic conclusion</h4>
+        <p style="font-size:14.5px; color:var(--ink2); margin-top:0">The space case is not won by free sunlight. It is won only if launch cost, satellite manufacturing, radiators, optical networking and autonomous servicing fall together. If any one of those remains expensive, terrestrial data centres keep the advantage.</p>
+        <p class="cap">The first viable market is probably orbital or latency-tolerant inference for space-generated data, not full-scale frontier training in orbit.</p>
+      </div>
+    </div>
+
+    <h3 class="blockhead">Does it pay?</h3>
+    <p class="blocksub">The economics are dominated by mission life and replacement cadence. A failed server rack on Earth is repaired by a technician. A failed orbital module becomes logistics.</p>
+    <div class="split">
+      <div class="block"><h4>Break-even price per GPU-hour</h4><div class="tw"><table class="dat" id="space-be"></table></div>
+        <p class="cap">The point is not that these prices are precise. The point is that orbital compute needs either much longer life, much cheaper launch, or a workload that pays a premium for being in orbit.</p></div>
+      <div class="block"><h4>Break-even by utilisation rate</h4><div class="tw"><table class="dat" id="space-util"></table></div>
+        <p class="cap">Utilisation is harder in orbit because maintenance windows, thermal constraints and communications passes can remove capacity even when demand exists.</p></div>
+    </div>
+
+    <h3 class="blockhead">Labour, capital structure and who is actually building</h3>
+    <div class="split">
+      <div class="block"><h4>Workforce</h4><div class="tw"><table class="dat" id="space-lab"></table></div>
+        <p class="cap">The permanent workforce shifts from facility technicians to flight software, satellite operations, optical network operations and robotic servicing.</p></div>
+      <div class="block"><h4>Capital structure, likely shape</h4><div class="tw"><table class="dat" id="space-cap"></table></div>
+        <p class="cap">A credible project would look less like a real-estate financing and more like a telecom constellation with GPU depreciation layered on top.</p></div>
+    </div>
+    <h4 style="margin:30px 0 14px; font-size:15px">Space AI compute signals to watch</h4>
+    <div class="tw"><table class="dat" id="space-proj" style="min-width:820px"></table></div>
+
+    <h3 class="blockhead">Risk register and decision gates</h3>
+    <div class="split">
+      <div class="block"><h4>Risk register</h4><div class="tw"><table class="dat" id="space-risk" style="min-width:620px"></table></div></div>
+      <div class="block"><h4>Go / no-go gates</h4><div class="tw"><table class="dat" id="space-gate" style="min-width:560px"></table></div>
+        <p class="cap">The gates must be proven at megawatt scale before a gigawatt project is credible. Skipping the demo stage would turn a systems problem into a capital incinerator.</p></div>
+    </div>
+    <h3 class="blockhead">What this exercise reveals about the thesis</h3>
+    <div class="deep" id="space-deep"></div>
+    <h3 class="blockhead">Sources</h3>
+    <div id="space-src"></div>
     </div>
 
     <div class="ppanel" id="pj-hu" role="tabpanel" aria-labelledby="pt-hu">
@@ -307,7 +393,7 @@
 <!-- END no-script-summary -->
 </main>
 <script src="assets/taxonomy.js?v=2e052f10"></script>
-<script src="assets/content-projects.js?v=873704c0"></script>
-<script src="script.js?v=3de39439"></script>
+<script src="assets/content-projects.js?v=6444c249"></script>
+<script src="script.js?v=75bc2be1"></script>
 </body>
 </html>

@@ -2381,6 +2381,62 @@ nav{
 }
 .layer-mode{padding:11px 13px 12px; border-bottom-width:3px; font-size:13px}
 .layer-pane{padding:22px 26px 30px}
+
+@media(min-width:761px){
+  html:has(#stack.main-view.on),
+  body:has(#stack.main-view.on){
+    height:auto;
+    min-height:100%;
+    overflow-y:auto;
+    overflow-x:hidden;
+  }
+  #stack.main-view{
+    position:relative;
+    inset:auto;
+    overflow:visible;
+    min-height:calc(100vh - var(--nav-h));
+    padding:calc(var(--nav-h) + 24px) 0 44px;
+  }
+  #stack.main-view>.wrap{
+    height:auto;
+    min-height:0;
+  }
+  #stack .stack{
+    height:auto;
+    min-height:0;
+    align-items:start;
+  }
+  #stack .rail{
+    position:sticky;
+    top:calc(var(--nav-h) + 18px);
+    max-height:calc(100vh - var(--nav-h) - 36px);
+  }
+  #stack #panels,
+  #stack .panel,
+  #stack .card{
+    height:auto;
+    min-height:0;
+    overflow:visible;
+  }
+  #stack .card{
+    display:block;
+  }
+  #stack .layer-body{
+    position:static;
+    min-height:0;
+  }
+  #stack .layer-pane{
+    position:static;
+    inset:auto;
+    overflow:visible;
+  }
+  #stack .layer-pane:not(.on){
+    display:none;
+  }
+  #stack .layer-pane.on{
+    display:block;
+  }
+}
 .mobile-picker{display:none}
 .mobile-picker summary{
   list-style:none; cursor:pointer; min-height:58px; padding:9px 42px 9px 12px;

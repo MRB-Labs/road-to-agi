@@ -1117,6 +1117,17 @@ document.getElementById('gw-land').innerHTML=bars(GW.land);
 document.getElementById('gw-phase').innerHTML=GW.phase.map(p=>
  `<div class="ph-t">${p[0]} mo</div><div class="ph-d"><b>${p[1]}</b>${p[2]?`<span>${p[2]}</span>`:''}</div>`).join('');
 
+document.getElementById('space-facts').innerHTML=factgrid(SPACE.facts);
+document.getElementById('space-capex').innerHTML=bars(SPACE.capex);
+document.getElementById('space-lead').innerHTML=bars(SPACE.lead);
+document.getElementById('space-land').innerHTML=bars(SPACE.land);
+[['space-fac',SPACE.fac],['space-bom1',SPACE.bom1],['space-bom2',SPACE.bom2],['space-energy',SPACE.energy],
+ ['space-be',SPACE.be],['space-util',SPACE.util],['space-lab',SPACE.lab],['space-cap',SPACE.cap],
+ ['space-proj',SPACE.proj]]
+ .forEach(([id,d])=>document.getElementById(id).innerHTML=tbl(d));
+document.getElementById('space-phase').innerHTML=SPACE.phase.map(p=>
+ `<div class="ph-t">${p[0]} mo</div><div class="ph-d"><b>${p[1]}</b>${p[2]?`<span>${p[2]}</span>`:''}</div>`).join('');
+
 document.getElementById('hu-facts').innerHTML=factgrid(HU.facts);
 document.getElementById('hu-cap').innerHTML=bars(HU.cap);
 document.getElementById('hu-bom').innerHTML=bars(HU.bom);
@@ -1126,15 +1137,16 @@ document.getElementById('hu-ramp').innerHTML=bars(HU.ramp);
  ['hu-edge',HU.edge],['hu-eng',HU.eng],['hu-econ',HU.econ],['hu-rank',HU.rank]]
  .forEach(([id,d])=>document.getElementById(id).innerHTML=tbl(d));
 document.getElementById('hu-co').innerHTML=cotbl(HU.co,7);
-[['gw-risk',GW.risk],['gw-gate',GW.gate],['hu-deploy',HU.deploy]]
+[['gw-risk',GW.risk],['gw-gate',GW.gate],['space-risk',SPACE.risk],['space-gate',SPACE.gate],['hu-deploy',HU.deploy]]
  .forEach(([id,d])=>document.getElementById(id).innerHTML=tbl(d));
 const deepHTML=a=>a.map(d=>`<div><h5>${d[0]}</h5><p>${d[1]}</p></div>`).join('');
 document.getElementById('gw-deep').innerHTML=deepHTML(GW.deep);
+document.getElementById('space-deep').innerHTML=deepHTML(SPACE.deep);
 document.getElementById('hu-deep').innerHTML=deepHTML(HU.deep);
 }
 
 // Project tabs — each long report is split into viewport-sized chapters at runtime.
-const PROJECTS=['gw','hu'];
+const PROJECTS=['gw','space','hu'];
 PROJECTS.forEach((k,i)=>{
   const b=document.getElementById('pt-'+k); if(!b) return;
   b.onclick=()=>selProject(i);
@@ -1158,12 +1170,15 @@ function addMobileProjectPicker(){
   const tabs=[...document.querySelectorAll('#projects .ptab')];
   const holder=document.querySelector('#projects .ptabs');
   if(!tabs.length||!holder||holder.parentElement.querySelector('.mobile-project-select')) return;
-  const options=tabs.map((tab,i)=>({
-    value:String(i),
-    label:tab.textContent.trim(),
-    color:i===0?'var(--accent)':'var(--flag)',
-    icon:i===0?'<b>GW</b>':'<b>10M</b>',
-  }));
+  const meta={
+    gw:{color:'var(--accent)',icon:'GW'},
+    space:{color:'var(--l9)',icon:'LEO'},
+    hu:{color:'var(--flag)',icon:'10M'}
+  };
+  const options=tabs.map((tab,i)=>{
+    const m=meta[PROJECTS[i]]||meta.gw;
+    return {value:String(i), label:tab.textContent.trim(), color:m.color, icon:`<b>${m.icon}</b>`};
+  });
   const picker=mobilePicker('Choose project','Choose project','mobile-project-select',options);
   picker.querySelectorAll('.mp-option').forEach(button=>button.onclick=()=>{
     selProject(Number(button.dataset.value));
@@ -1186,6 +1201,7 @@ addMobileProjectPicker();
 
 const CHAPTER_LABELS={
   gw:['Brief','Capital','Schedule','Bill of materials','Power options','Economics','Labour + market','Risk gates','Thesis','Sources'],
+  space:['Brief','Capital','Schedule','Bill of materials','Power options','Economics','Builders','Risk gates','Thesis','Sources'],
   hu:['Brief','Fleet stack','Bottleneck','Cost curve','Battery + edge','Data flywheel','Capital + energy','Timeline','Deployment','Failure cases','Sources']
 };
 function buildProjectChapters(panel,key){
@@ -1254,6 +1270,7 @@ function selectProjectChapter(panel,index){
   fill();
 }
 buildProjectChapters(document.getElementById('pj-gw'),'gw');
+buildProjectChapters(document.getElementById('pj-space'),'space');
 buildProjectChapters(document.getElementById('pj-hu'),'hu');
 
 function fill(){
@@ -1783,6 +1800,7 @@ document.querySelectorAll('[data-conc]').forEach(n=>{
 
 
 put('gw-src',projectSourcePane('gw'));
+put('space-src',projectSourcePane('space'));
 put('hu-src',projectSourcePane('hu'));
 fillAll();
 

@@ -865,11 +865,27 @@ gw:{title:'Sources — one gigawatt data centre',
    ['TrendForce','HBM supply, DRAM pricing and CoWoS capacity allocation','https://www.trendforce.com/'],
    ['Company disclosure — NVIDIA, Micron, SK hynix, Supermicro, Dell','Accelerator pricing, lead times and purchase commitments','https://www.sec.gov/edgar/search/'],
    ['Operator published rate cards','GPU-hour spot and contracted pricing as published by cloud and neocloud operators','https://www.sec.gov/edgar/search/']]],
-  ['Financing and capital structure',[
+ ['Financing and capital structure',[
    ['SEC EDGAR full-text search','Debt terms, lease structures, useful-life assumptions and covenant disclosure','https://www.sec.gov/edgar/search/'],
    ['Financial Times','Reporting on private credit, GPU-collateralised lending and neocloud financing','https://www.ft.com/'],
    ['Stock Analysis','Balance sheet, depreciation schedules and capital expenditure history','https://stockanalysis.com/']]]],
  caveat:'The single most consequential assumption in this project is the useful life of the IT equipment, and it is not a measured quantity — operators disclose a policy, not an outcome. The break-even model therefore reports 3, 5 and 7 year cases side by side rather than selecting one. GPU-hour reference prices are as at 1 September 2026 and move faster than any other input here.'},
+space:{title:'Sources — 2026 1 GW space data centre',
+ lead:'This project is an orbital thought experiment, not a forecast. It combines current public signals from SpaceX, xAI, NVIDIA and Starcloud with a bottom-up engineering model whose assumptions are stated in the project text. The point is to identify what has to be true before space compute competes with terrestrial compute.',
+ groups:[
+  ['SpaceX, Starlink and Grok infrastructure',[
+   ['SpaceXAI Memphis','Colossus as the physical compute base behind Grok, including the 2026 one-million-GPU ambition','https://x.ai/memphis'],
+   ['SpaceXAI Series E announcement','Colossus I and II, Grok 4 series and xAI compute expansion statements','https://x.ai/news/series-e'],
+   ['Starlink Version 3 satellites','Power generation, proprietary chips, laser mesh networking and the stated Starmind AI-satellite direction','https://starlink.com/updates/starlink-version-3-satellites'],
+   ['SpaceX SEC filings search','Public roadshow and offering materials mentioning Starlink, laser networking, AI compute satellites and Starship-class capacity','https://www.sec.gov/edgar/search/']]],
+  ['Orbital AI compute and satellite data centres',[
+   ['NVIDIA Newsroom','NVIDIA Space-1, IGX Thor and Jetson Orin platforms for orbital data centres, geospatial intelligence and autonomous space operations','https://nvidianews.nvidia.com/news/space-computing'],
+   ['NVIDIA Blog — Starcloud','Starcloud orbital data-centre plan, H100 in orbit and the 2026 5 GW long-range concept','https://blogs.nvidia.com/blog/starcloud/'],
+   ['Starcloud, Y Combinator profile','Company description, orbital GPU demo and Hypercluster concept tied to Starship-class launch vehicles','https://www.ycombinator.com/companies/starcloud']]],
+  ['Independent reality checks',[
+   ['Secure World Foundation','2026 review of orbital data-centre activity and unresolved feasibility questions','https://www.swfound.org/publications-and-reports/to-odc-or-not-to-odc-insight-2026'],
+   ['arXiv — Orbital Data Centers','Engineering and economic feasibility constraints for orbital solar, thermal rejection, communications and replacement cadence','https://arxiv.org/abs/2604.27197']]]],
+ caveat:'The largest uncertainty is not whether compute can operate in space — that is already being tested — but whether the full system closes simultaneously: launch cadence, cost per kilogram, radiator mass, radiation tolerance, autonomous servicing, laser backhaul, utilisation and replacement life. Any one of those can erase the advantage of orbital solar power.'},
 hu:{title:'Sources — ten million humanoids',
  lead:'This project has the thinnest public data in the report. Humanoid production is pre-commercial, component capacity is largely undisclosed, and several key figures are derivations from adjacent industrial statistics rather than published numbers. The sources below are where the inputs come from; the derivations are flagged in the text.',
  groups:[
@@ -2294,10 +2310,108 @@ proj:{h:['Project','Owner','Capacity','Status'],r:[
 ['Project Fairwater, Mount Pleasant WI','Microsoft and NVIDIA','3.3 GW','Bring-up reported May 2026'],
 ['Project Rainier, New Carlisle IN','AWS and Anthropic','2.2 GW','Operational, 500k Trainium2 chips'],
 ['Stargate Dona Ana, NM','OpenAI','2.2 GW','Under construction'],
+['Colossus 1, Memphis TN','xAI / SpaceXAI','~340 MW IT, 2026 tracked estimate','Operational; trains and serves Grok workloads'],
 ['Colossus 2, Southaven MS','xAI','2 GW','Under construction'],
 ['Stargate Abilene, TX','OpenAI, Oracle, Crusoe','1.2 GW','Operational, 450k GB200 GPUs'],
 ['Prometheus, New Albany OH','Meta','1 GW','Reached 1 GW May 2026'],
 ['Fayetteville, NC','Microsoft','~1 GW','Reached 1 GW March 2026']]}};
+
+const SPACE={
+risk:{h:['Risk','Likelihood','Impact','Mitigation'],r:[
+['Thermal rejection mass','<span class="hl">High</span>','Extreme','Prove radiator specific power at module scale before committing to fleet scale'],
+['Launch cadence and cost','<span class="hl">High</span>','Extreme','Tie the project to reusable heavy-lift capacity and phased deployment'],
+['Radiation and bit errors','High','High','Error-correcting memory, redundancy, shielding and regular module replacement'],
+['Servicing failure','High','Extreme','Design modules to be disposable or robotically replaceable; avoid technician-dependent architecture'],
+['Optical backhaul bottleneck','Moderate','High','Use inter-satellite laser mesh and ground-station diversity; keep first workloads data-local'],
+['Orbital debris and collision risk','Moderate','High','Altitude discipline, deorbit reserve and active conjunction management'],
+['Regulatory and spectrum delay','Moderate','High','Secure filings before hardware lock; design for multiple jurisdictions'],
+['Utilisation shortfall','Moderate','Extreme','Start with orbital inference and latency-tolerant workloads before training scale'],
+['Ground economics improve faster','High','High','Use space only where it has a native advantage: space data, sovereignty, energy or permitting']]},
+gate:{h:['Gate','Test','Fail condition'],r:[
+['G1 — Demo node','Run data-centre-class GPU in orbit through thermal cycles','Unstable thermals, reboot rate or error correction above tolerance'],
+['G2 — Power module','Demonstrate solar, battery and power conversion at megawatt-class specific mass','Mass or degradation makes launch cost non-competitive'],
+['G3 — Heat rejection','Radiator panels reject sustained load at target watts per kilogram','Radiator mass dominates the constellation'],
+['G4 — Network','Laser backhaul and ground segment clear contracted throughput','Useful compute cannot reach customers'],
+['G5 — Service life','Module life and replacement cost support a five-plus-year economic case','Replacement cadence turns capex into consumables'],
+['G6 — Customer','Premium orbital workloads cover at least 50% of early capacity','No paying use case beyond publicity']]},
+deep:[
+['Space changes the bottleneck, it does not remove it',
+ 'Moving the data centre into orbit removes land, water and some permitting pressure, but it replaces them with radiator mass, launch logistics, radiation tolerance, autonomous servicing and spectrum. <b>The constraint does not disappear; it moves from civil infrastructure to spacecraft systems engineering.</b>'],
+['SpaceX is the strategic reason the question is worth asking',
+ 'Without Starship-class lift, satellite manufacturing scale, Starlink laser networking and operational experience, a gigawatt orbital data centre remains science fiction economics. With those pieces, the right question becomes narrower and more useful: which workloads are valuable enough in orbit to pay for the added system complexity?'],
+['Grok makes the terrestrial comparison concrete',
+ 'xAI Colossus shows the terrestrial version of the same thesis: model capability sits on a pile of turbines, transformers, chips, cooling, water, permits and construction labour. Grok is not only a model story; it is an infrastructure story. The space case should be compared against that full terrestrial stack, not against an imaginary free-solar baseline.'],
+['The first product is probably not frontier training',
+ 'A 1 GW orbital training cluster requires a mature replacement and communications economy. The first credible business is smaller: process satellite imagery, telecom telemetry, defence data or scientific data close to where it is generated, then send down answers instead of raw streams. That is where orbital compute has a native reason to exist.']],
+facts:[['1 GW','Continuous IT target'],['~8.8 TWh','Useful compute energy per year'],['$68bn','Illustrative upfront capital'],['0 L','Terrestrial cooling water'],['Thermal','Primary physical bottleneck'],['LEO first','Most plausible early orbit']],
+capex:{t:'Illustrative upfront capital by category',u:'$ billions',c:C[9],b:[['Space-rated compute modules',28],['Solar arrays and batteries',14],['Radiators and thermal loops',10],['Launch and orbital logistics',8],['Optical network and ground segment',4],['Robotic servicing and spares',4]],
+ note:'The model is a scenario envelope. It is intentionally shown by category because the ranking matters more than the precise dollar value.'},
+fac:{h:['Category','Role','Illustrative capex'],r:[
+['Space-rated compute modules','Servers, shielding, redundancy, power conversion and enclosure','$28bn'],
+['Solar arrays and batteries','Peak generation, eclipse ride-through and degradation margin','$14bn'],
+['Thermal rejection','Radiators, pumps, working fluid, heat pipes and deployable structure','$10bn'],
+['Launch and logistics','Starship-class launches, integration, deployment and orbit raising','$8bn'],
+['Optical network','Inter-satellite lasers, ground stations and routing control','$4bn'],
+['Servicing and spares','Robotic handling, replacement modules and deorbit reserve','$4bn']]},
+lead:{t:'Critical path lead times',u:'months',c:C[9],b:[['Orbital GPU demo',12],['Megawatt power module',24],['Radiator qualification',30],['Laser backhaul approval',30],['Autonomous servicing demo',36],['Reusable launch cadence',48],['100 MW orbital block',60],['1 GW constellation',84]],
+ note:'The dependency chain is sequential until megawatt thermal, power and servicing demos are proven. A gigawatt orbital build without those proofs is not a project; it is a bet.'},
+phase:[['0–12','Orbital GPU and thermal demo','Small satellite proves restart, radiation handling, heat rejection and telemetry'],
+['12–24','Megawatt-class module design','Power, battery, radiator and enclosure converge into a repeatable block'],
+['18–36','Laser network and filings','Inter-satellite links, gateway locations, spectrum and deorbit plan'],
+['24–48','Autonomous servicing qualification','Robotic replacement, docking, module swap and end-of-life disposal'],
+['36–60','First 10–100 MW deployment','Commercial orbital inference and space-data workloads'],
+['60–84','Scale to 1 GW if economics close','Only after utilisation, launch cadence and module life are measured']],
+bom1:{h:['Item','Quantity / scale','Why it matters'],r:[
+['Accelerators','Hundreds of thousands at full 1 GW scale','Same core silicon bottleneck as Earth'],
+['Radiator panels','Millions of square metres, order-of-magnitude','Every watt of compute becomes heat'],
+['Solar arrays','Gigawatt-plus nameplate with degradation margin','Power is abundant but structure is not free'],
+['Batteries','Eclipse ride-through and transient load support','Cycle life becomes mission life'],
+['Optical terminals','Inter-satellite mesh plus ground gateways','Compute is useless if answers cannot move'],
+['Robotic servicing units','Swap, inspect, dock and deorbit modules','Replacement economics decide the model']]},
+bom2:{h:['Material / system','Space-specific pressure','Terrestrial contrast'],r:[
+['Aluminium and composites','Deployable structures, buses and radiator frames','Replaces much of the concrete and steel shell'],
+['Copper and power electronics','High-current distribution in vacuum-rated modules','Still needed, but in different form factor'],
+['Radiation shielding','Mass penalty around memory, processors and control electronics','Earth uses atmosphere and building envelope for free'],
+['Thermal working fluids','Reliability across vacuum, cycling and micrometeoroid risk','No chilled-water plant, but harder leak consequences'],
+['Optical glass and lasers','Space-to-space and space-to-ground communications','Connectivity becomes satellite manufacturing'],
+['Propellant and deorbit hardware','Station keeping, collision avoidance and disposal','A real operating cost, not a footnote']]},
+energy:{h:['Scenario','Generation source','What works','What breaks'],r:[
+['LEO solar plus batteries','Large deployable arrays with eclipse ride-through','No fuel, no terrestrial water, politically cleaner siting','Battery cycling, drag, replacement, thermal swings'],
+['Dawn-dusk sun-synchronous orbit','Solar exposure optimised around the terminator','Reduces eclipse burden and stabilises generation','Orbit availability, debris, radiation and launch logistics'],
+['Higher orbit / MEO','Less drag and longer life','Lower maintenance cadence','Higher latency, more radiation, harder servicing'],
+['Space nuclear','Compact firm power','Avoids giant solar/battery structures','Licensing, launch safety, politics and heat rejection remain']]},
+land:{t:'Terrestrial land replaced by orbital area',u:'km² equivalent',c:C[9],log:true,b:[['Earth campus',1.2],['Earth firm solar support',110],['Orbital array/radiator plane',4],['Ground gateway network',0.1]],
+ note:'Space removes the visible land footprint, but it creates orbital surface area: solar and radiator panels become the new acreage.'},
+be:{h:['Mission life','Low launch / high utilisation','Base orbital case','Stress case'],r:[
+['3 years','<span class="hl">$8.80</span>','<span class="hl">$11.40</span>','<span class="hl">$15.20</span>'],
+['5 years','$5.90','<span class="hl">$7.60</span>','<span class="hl">$10.10</span>'],
+['7 years','$4.70','$6.00','<span class="hl">$8.20</span>'],
+['10 years','<span class="ok">$3.80</span>','$4.90','$6.70']]},
+util:{h:['Utilisation','5-year base','7-year base','10-year base'],r:[
+['45%','$12.00','$9.50','$7.70'],['60%','$9.00','$7.10','$5.80'],
+['75% base','$7.60','$6.00','$4.90'],['85%','$6.70','$5.30','$4.30'],
+['95%','$6.00','$4.80','$3.90']]},
+lab:{h:['Function','Peak / ongoing role','Constraint'],r:[
+['Spacecraft systems engineering','High during design','Thermal, power, structures and radiation must close together'],
+['Launch and integration','Cadence-dependent','Factory rhythm matters more than one heroic launch'],
+['Flight operations','Permanent','Network, collision avoidance, fault recovery and ground handoff'],
+['Optical network operations','Permanent','Routing compute results through laser and gateway capacity'],
+['Robotic servicing','New trade','Orbital replacement replaces data-centre technicians'],
+['Cyber and mission assurance','Permanent','A compute cloud that can deorbit hardware is critical infrastructure']]},
+cap:{h:['Source','Likely role','Comment'],r:[
+['Strategic balance sheet','Anchor equity','Most plausible for SpaceX-scale vertical integration'],
+['Government or defence contracts','Early premium workload','Sovereignty and space data justify higher price per GPU-hour'],
+['Project debt','Only after measured module life','Lenders need collateral life and replacement cost data'],
+['Customer prepayments','Capacity reservation','Similar logic to terrestrial AI cloud contracts'],
+['Vendor financing','Compute hardware support','Harder in space because collateral recovery is weak']]},
+proj:{h:['Signal','Organisation','What it says','Why it matters'],r:[
+['Colossus / Grok','xAI / SpaceXAI','Grok is powered by a physical supercomputing base in Memphis','Shows the terrestrial baseline: chips plus power plus cooling plus permitting'],
+['Starlink V3','SpaceX','Higher power, proprietary chips and laser mesh networking','Creates the communications substrate for orbital compute'],
+['AI compute satellites','SpaceX filings and materials','Orbital AI compute discussed on top of Starlink and Starship architecture','Turns the idea from abstract to strategically relevant'],
+['Space computing platform','NVIDIA','Space-1, IGX Thor and Jetson Orin positioned for orbital data centres','Makes data-centre-class AI hardware part of the space stack'],
+['Orbital H100 demo','Starcloud','Data-centre-class NVIDIA GPU tested as orbital compute','The first proof point for real GPU workloads in space'],
+['ODC ecosystem','Axiom, Kepler, Planet, Sophia Space, Aetherflux','Multiple space operators exploring accelerated computing','Indicates category formation, not just one company story']]},
+};
 
 const HU={
 deploy:{h:['Requirement','Fleet scale'],r:[
