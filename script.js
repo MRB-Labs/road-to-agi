@@ -1142,6 +1142,36 @@ PROJECTS.forEach((k,i)=>{
     if(['ArrowRight','ArrowDown'].includes(e.key)){e.preventDefault();selProject((i+1)%PROJECTS.length,1)}
     if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();selProject((i-1+PROJECTS.length)%PROJECTS.length,1)}};
 });
+function syncMobileProjectSelect(i){
+  const picker=document.querySelector('.mobile-project-select');
+  if(!picker) return;
+  picker.querySelectorAll('.mp-option').forEach(button=>{
+    const on=button.dataset.value===String(i);
+    button.classList.toggle('is-selected',on);
+    if(on){
+      picker.style.setProperty('--pick',button.style.getPropertyValue('--pick'));
+      picker.querySelector('.mp-current').innerHTML=button.innerHTML;
+    }
+  });
+}
+function addMobileProjectPicker(){
+  const tabs=[...document.querySelectorAll('#projects .ptab')];
+  const holder=document.querySelector('#projects .ptabs');
+  if(!tabs.length||!holder||holder.parentElement.querySelector('.mobile-project-select')) return;
+  const options=tabs.map((tab,i)=>({
+    value:String(i),
+    label:tab.textContent.trim(),
+    color:i===0?'var(--accent)':'var(--flag)',
+    icon:i===0?'<b>GW</b>':'<b>10M</b>',
+  }));
+  const picker=mobilePicker('Choose project','Choose project','mobile-project-select',options);
+  picker.querySelectorAll('.mp-option').forEach(button=>button.onclick=()=>{
+    selProject(Number(button.dataset.value));
+    picker.open=false;
+  });
+  holder.parentNode.insertBefore(picker,holder);
+  syncMobileProjectSelect(0);
+}
 function selProject(i,focus){
   PROJECTS.forEach((k,j)=>{
     const t=document.getElementById('pt-'+k); if(t) t.setAttribute('aria-selected', i===j?'true':'false');
@@ -1149,8 +1179,10 @@ function selProject(i,focus){
     if(p){ p.classList.toggle('on', i===j); p.hidden=i!==j; }
   });
   const f=focus&&document.getElementById('pt-'+PROJECTS[i]); if(f) f.focus();
+  syncMobileProjectSelect(i);
   fill();
 }
+addMobileProjectPicker();
 
 const CHAPTER_LABELS={
   gw:['Brief','Capital','Schedule','Bill of materials','Power options','Economics','Labour + market','Risk gates','Thesis','Sources'],
@@ -1182,6 +1214,18 @@ function buildProjectChapters(panel,key){
   });
   panel.replaceChildren(nav,wrap);
   const tabs=[...nav.querySelectorAll('.chapter-tab')];
+  const chapterPicker=mobilePicker('Choose chapter','Choose project chapter','mobile-chapter-select',
+    tabs.map((tab,i)=>({
+      value:String(i),
+      label:tab.textContent.trim(),
+      color:key==='gw'?'var(--accent)':'var(--flag)',
+      icon:`<b>${i+1}</b>`,
+    })));
+  chapterPicker.querySelectorAll('.mp-option').forEach(option=>option.onclick=()=>{
+    selectProjectChapter(panel,Number(option.dataset.value));
+    chapterPicker.open=false;
+  });
+  panel.insertBefore(chapterPicker,nav);
   tabs.forEach((tab,i)=>{
     tab.onclick=()=>selectProjectChapter(panel,i);
     tab.onkeydown=e=>{
@@ -1189,10 +1233,24 @@ function buildProjectChapters(panel,key){
       if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();const n=(i-1+tabs.length)%tabs.length;selectProjectChapter(panel,n);tabs[n].focus()}
     };
   });
+  syncMobileChapterSelect(panel,0);
+}
+function syncMobileChapterSelect(panel,index){
+  const picker=panel&&panel.querySelector('.mobile-chapter-select');
+  if(!picker) return;
+  picker.querySelectorAll('.mp-option').forEach(button=>{
+    const on=button.dataset.value===String(index);
+    button.classList.toggle('is-selected',on);
+    if(on){
+      picker.style.setProperty('--pick',button.style.getPropertyValue('--pick'));
+      picker.querySelector('.mp-current').innerHTML=button.innerHTML;
+    }
+  });
 }
 function selectProjectChapter(panel,index){
   panel.querySelectorAll('.chapter-tab').forEach((b,i)=>b.setAttribute('aria-selected',i===index?'true':'false'));
   panel.querySelectorAll('.project-chapter').forEach((c,i)=>{c.classList.toggle('on',i===index); if(i===index)c.scrollTop=0});
+  syncMobileChapterSelect(panel,index);
   fill();
 }
 buildProjectChapters(document.getElementById('pj-gw'),'gw');

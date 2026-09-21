@@ -2716,11 +2716,12 @@ footer{
   #projects .ppanel.on{display:block}
   .project-chapters{height:auto; min-height:0}
   .project-chapter{position:static; inset:auto; overflow:visible; padding:16px 14px 20px}
-  /* Ten chapter tabs in a strip that scrolled sideways with no sign that it
-     did, 25px tall. They wrap onto rows instead, big enough for a thumb. */
-  .project-chapter-nav{flex-wrap:wrap; overflow:visible; gap:6px; padding:0 0 10px}
-  .chapter-tab{min-height:40px; padding:9px 12px; font-size:13px; border:1px solid var(--chrome-line)}
-  #projects .ptab{min-height:44px}
+  /* Project and chapter navigation becomes a picker on phones; the desktop
+     tab strips stay in the DOM for larger screens and keyboard parity. */
+  #projects .ptabs,.project-chapter-nav{display:none}
+  .mobile-project-select,.mobile-chapter-select{margin:0 0 12px}
+  .mobile-chapter-select{padding:0 0 2px}
+  #projects .mp-icon b{font-size:11px; letter-spacing:.02em}
 
   /* Environmental impact: the rating labels ran up to 90px past the screen
      edge, where the page's overflow-x:hidden simply cut them off. */
